@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class agent3Behavior : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class agent3Behavior : MonoBehaviour
     [SerializeField] float minBuildDelay;
     [SerializeField] float maxBuildDelay;
     [SerializeField] int maxBuildings;
+    [SerializeField] GameObject spawnAgent;
 
     string[] radiusTags =
      {
@@ -27,11 +29,12 @@ public class agent3Behavior : MonoBehaviour
 
 
     public Grid grid;
-
     public Camera cam;
     public NavMeshAgent agent;
 
     bool canBuild = false;
+    public bool isActive = false;
+    bool canSpawn = false;
 
     Vector3 agentMoveLocation;
 
@@ -40,17 +43,15 @@ public class agent3Behavior : MonoBehaviour
     public float pointRadius;
 
 
-
-
     GameObject spawnController;
     private SpawnSettings spawnerScript;
 
-    private Grid gridScript;
 
     List<GridList> gridList;
 
     void Start()
     {
+        cam = Camera.main;
 
         ground = GameObject.FindGameObjectWithTag("ground");
 
@@ -77,9 +78,9 @@ public class agent3Behavior : MonoBehaviour
             mainPoint.Add(tagPoint[i]);
         }
 
-     
-        
 
+
+       
         StartCoroutine(MoveTimer());
 
 
@@ -91,10 +92,17 @@ public class agent3Behavior : MonoBehaviour
     {
         grid = spawnerScript.grid;
 
+        if (isActive == true)
+        {
+            BuildFoundation();
+        }
+        
 
-        BuildFoundation();
+        if (isActive == false)
+        {
+            SpawnActiveAgent();
 
-
+        }
     }
 
 
@@ -114,35 +122,39 @@ public class agent3Behavior : MonoBehaviour
         }
         */
 
-        tagStructure = GameObject.FindGameObjectsWithTag("structure");
-        tagPoint = GameObject.FindGameObjectsWithTag("point");
-
-        mainPoint = new List<GameObject>();
-        for (int i = 0; i <= tagStructure.Length-1; i++)
+        if (isActive == true)
         {
-            mainPoint.Add(tagStructure[i]);
+            tagStructure = GameObject.FindGameObjectsWithTag("structure");
+            tagPoint = GameObject.FindGameObjectsWithTag("point");
+
+            mainPoint = new List<GameObject>();
+            for (int i = 0; i <= tagStructure.Length - 1; i++)
+            {
+                mainPoint.Add(tagStructure[i]);
+            }
+            for (int i = 0; i <= tagPoint.Length - 1; i++)
+            {
+                mainPoint.Add(tagPoint[i]);
+            }
+
+
+            GameObject closestMainPoint = GetClosestTarget(mainPoint);
+
+            pointScript = closestMainPoint.GetComponent<mainPoint>();
+
+
+
+            agentMoveLocation = new Vector3(closestMainPoint.transform.position.x + Random.Range(-pointRadius, pointRadius), transform.position.y, closestMainPoint.transform.position.z + Random.Range(-pointRadius, pointRadius));
+
+
+            canBuild = true;
+
+            agent.SetDestination(agentMoveLocation);
+
+            StartCoroutine(MoveTimer());
         }
-        for (int i = 0; i <= tagPoint.Length-1; i++)
-        {
-            mainPoint.Add(tagPoint[i]);
-        }
-
-
-        GameObject closestMainPoint = GetClosestTarget(mainPoint);
-
-        pointScript = closestMainPoint.GetComponent<mainPoint>();
 
         
-
-        agentMoveLocation = new Vector3(closestMainPoint.transform.position.x + Random.Range(-pointRadius, pointRadius), transform.position.y, closestMainPoint.transform.position.z + Random.Range(-pointRadius, pointRadius));
-
-
-        canBuild = true;
-
-
-        agent.SetDestination(agentMoveLocation);
-
-        StartCoroutine(MoveTimer());
 
     }
 
@@ -195,4 +207,69 @@ public class agent3Behavior : MonoBehaviour
 
         }
     }
+
+    private bool isOverUi()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
+    }
+
+    private void SpawnActiveAgent()
+    {
+
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = 20.0f;
+        mousePos.y += 50.0f;
+
+        Vector3 objectPos = cam.ScreenToWorldPoint(mousePos);
+        transform.position = objectPos;
+
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Destroy(this.gameObject);
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            canSpawn = true;
+        }
+
+        if (Input.GetMouseButton(0) == true && canSpawn == true && !isOverUi())
+        {
+
+
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            int layer_mask = LayerMask.GetMask("Ground");
+
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer_mask))
+            {
+                Vector3 hitGrid = new Vector3(Mathf.Round(hit.point.x / gridSize) * gridSize, Mathf.Round(hit.point.y / gridSize) * gridSize, Mathf.Round(hit.point.z / gridSize) * gridSize);
+
+
+
+                for (int i = 0; i < gridList.Count; i++)
+                {
+                    if (gridList[i].x == hitGrid.x && gridList[i].z == hitGrid.z && gridList[i].structureAmount <= 0  && gridList[i].pointAmount <= 0 && gridList[i].foundationAmount <= 0)
+                    {
+
+                        Vector3 spawnLocation = new Vector3(Mathf.Round(hit.point.x / gridSize) * gridSize, structure.transform.localScale.y / 2, Mathf.Round(hit.point.z / gridSize) * gridSize);
+
+            
+
+                        GameObject newAgent = Instantiate(spawnAgent, spawnLocation, Quaternion.identity);
+                        newAgent.GetComponent<agent3Behavior>().isActive = true;
+                        Instantiate(structure, spawnLocation, Quaternion.identity);
+
+
+                        gridList[i].foundationAmount = gridList[i].foundationAmount + 1;
+
+                    }
+                }
+            }
+        }
+    }
+
 }

@@ -57,6 +57,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -113,8 +114,10 @@ MonoBehaviour:
   minBuildDelay: 0.1
   maxBuildDelay: 0.6
   maxBuildings: 10
+  spawnAgent: {fileID: 7533515863616998575}
   cam: {fileID: 0}
   agent: {fileID: 7533515863616998574}
+  isActive: 0
   pointRadius: 4
 --- !u!195 &7533515863616998574
 NavMeshAgent:
