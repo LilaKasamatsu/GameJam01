@@ -27,6 +27,7 @@ public class agent3Behavior : MonoBehaviour
     private GameObject[] tagStructure;
     private GameObject[] tagPoint;
 
+    private List<float> pointPositions;
 
     public Grid grid;
     public Camera cam;
@@ -48,6 +49,8 @@ public class agent3Behavior : MonoBehaviour
 
 
     List<GridList> gridList;
+    List<OrientPositions> orientPositions = new List<OrientPositions>();
+    List<Vector3> buildPoints;
 
     void Start()
     {
@@ -63,24 +66,21 @@ public class agent3Behavior : MonoBehaviour
         gridList = spawnerScript.gridList;
         gridSize = spawnerScript.gridSize;
 
+
+
+        // DIESER CODE IST DER NEUE
+
+        //Create orientPosition List based on the grid
+        //Adds all existing build-orientation points currently on the scene to the list
+        // "state == true" means, that that location has a structure to orient on.
+        for (int i = 0; i < gridList.Count; i++)
+        {
+            orientPositions.Add(new OrientPositions( gridList[i].x, gridList[i].z, false ));
+
+        }
         
+        //
 
-        tagStructure = GameObject.FindGameObjectsWithTag("structure");
-        tagPoint = GameObject.FindGameObjectsWithTag("point");
-
-        mainPoint = new List<GameObject>();
-        for (int i = 0; i <= tagStructure.Length-1; i++)
-        {
-            mainPoint.Add(tagStructure[i ]);
-        }
-        for (int i = 0; i <= tagPoint.Length-1; i++)
-        {
-            mainPoint.Add(tagPoint[i]);
-        }
-
-
-
-       
         StartCoroutine(MoveTimer());
 
 
@@ -92,10 +92,7 @@ public class agent3Behavior : MonoBehaviour
     {
         grid = spawnerScript.grid;
 
-        if (isActive == true)
-        {
-            BuildFoundation();
-        }
+      
         
 
         if (isActive == false)
@@ -108,44 +105,52 @@ public class agent3Behavior : MonoBehaviour
 
     IEnumerator MoveTimer()
     {
-        yield return new WaitForSeconds(Random.Range(minBuildDelay, maxBuildDelay));
-
-
-        //mainPoint = GameObject.FindGameObjectsWithTag("point");
-
-        /*
-        foreach (string tag in radiusTags)
-        {
-            mainPoint = GameObject.FindGameObjectsWithTag(tag);
-
-
-        }
-        */
 
         if (isActive == true)
         {
-            tagStructure = GameObject.FindGameObjectsWithTag("structure");
-            tagPoint = GameObject.FindGameObjectsWithTag("point");
+            BuildFoundation();
+        }
 
-            mainPoint = new List<GameObject>();
-            for (int i = 0; i <= tagStructure.Length - 1; i++)
+        yield return new WaitForSeconds(Random.Range(minBuildDelay, maxBuildDelay));
+
+
+      
+
+        if (isActive == true)
+        {
+
+            //DIESER CODE IST DER NEUE
+           
+            //Search Grid for structures/main points
+            for (int i = 0; i < gridList.Count; i++)
             {
-                mainPoint.Add(tagStructure[i]);
+
+                if (gridList[i].pointAmount > 0 || gridList[i].foundationAmount > 0)
+                {
+
+                    //return that this position has a strucutre to orient on.
+                    orientPositions[i].state = true;
+
+                }
             }
-            for (int i = 0; i <= tagPoint.Length - 1; i++)
+
+            //The list buildPoints saves the Vector3 of all structures, that the agent has to orient on
+            //"GetClosestTarget" then compares all of those Vector3 and finds the closest
+            List<Vector3> buildPoints = new List<Vector3>();
+            for (int i = 0; i < orientPositions.Count; i++)
             {
-                mainPoint.Add(tagPoint[i]);
+                if(orientPositions[i].state == true)
+                {
+                    buildPoints.Add(new Vector3(orientPositions[i].x, transform.position.y ,orientPositions[i].z));
+                }
             }
 
+            Vector3 closestMainPoint = GetClosestTarget(buildPoints);
+            agentMoveLocation = new Vector3(closestMainPoint.x + Random.Range(-pointRadius, pointRadius), transform.position.y, closestMainPoint.z + Random.Range(-pointRadius, pointRadius));
 
-            GameObject closestMainPoint = GetClosestTarget(mainPoint);
+            //
 
-            pointScript = closestMainPoint.GetComponent<mainPoint>();
-
-
-
-            agentMoveLocation = new Vector3(closestMainPoint.transform.position.x + Random.Range(-pointRadius, pointRadius), transform.position.y, closestMainPoint.transform.position.z + Random.Range(-pointRadius, pointRadius));
-
+            //agentMoveLocation = new Vector3(transform.position.x + Random.Range(-pointRadius, pointRadius), transform.position.y, transform.position.z + Random.Range(-pointRadius, pointRadius));
 
             canBuild = true;
 
@@ -158,14 +163,15 @@ public class agent3Behavior : MonoBehaviour
 
     }
 
-    GameObject GetClosestTarget(List<GameObject> target)
+    Vector3 GetClosestTarget(List<Vector3> target)
     {
-        GameObject tMin = null;
-        float minDist = Mathf.Infinity;
+        Vector3 tMin = transform.position;
         Vector3 currentPos = transform.position;
-        foreach (GameObject t in target)
+        float minDist = 10f;
+ 
+        foreach (Vector3 t in target)
         {
-            float dist = Vector3.Distance(t.transform.position, currentPos);
+            float dist = Vector3.Distance(t, currentPos);
             if (dist < minDist)
             {
                 tMin = t;
@@ -175,6 +181,8 @@ public class agent3Behavior : MonoBehaviour
         return tMin;
     }
 
+
+
     private void BuildFoundation()
     {
 
@@ -183,8 +191,6 @@ public class agent3Behavior : MonoBehaviour
             Vector3 buildLocation = new Vector3(Mathf.Round(transform.position.x / gridSize) * gridSize, structure.transform.localScale.y / 2, Mathf.Round(transform.position.z / gridSize) * gridSize);
             canBuild = false;
 
-
-            //GridList gridValue = grid.GetValue(buildLocation);
 
 
             for (int i = 0; i < gridList.Count; i++)
@@ -200,11 +206,6 @@ public class agent3Behavior : MonoBehaviour
                     }
                 }
             }
-
-
-
-
-
         }
     }
 
@@ -256,8 +257,6 @@ public class agent3Behavior : MonoBehaviour
                     {
 
                         Vector3 spawnLocation = new Vector3(Mathf.Round(hit.point.x / gridSize) * gridSize, structure.transform.localScale.y / 2, Mathf.Round(hit.point.z / gridSize) * gridSize);
-
-            
 
                         GameObject newAgent = Instantiate(spawnAgent, spawnLocation, Quaternion.identity);
                         newAgent.GetComponent<agent3Behavior>().isActive = true;

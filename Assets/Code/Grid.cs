@@ -51,12 +51,6 @@ public class Grid
                 // #Debug every grid width and height
                 //Debug.Log(x + " , " + i);
                 spawnerScript.CreateGridObject(x, i);
-
-                //gridList.Add(new GridList (x, i, 0, 0));
-
-                //spawnerScript.gridList.Add(new GridList(x, i, 0, 0, 0));
-
-                //SetValue
             }
         }
     }
