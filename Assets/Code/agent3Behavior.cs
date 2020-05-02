@@ -105,23 +105,20 @@ public class agent3Behavior : MonoBehaviour
 
     IEnumerator MoveTimer()
     {
-
-        if (isActive == true)
+        //while loop is a bit more elegant in an coroutine then stopping and starting it over and over again-Philip
+        while (isActive == true)
         {
             BuildFoundation();
-        }
-
-        yield return new WaitForSeconds(Random.Range(minBuildDelay, maxBuildDelay));
 
 
-      
-
-        if (isActive == true)
-        {
+            yield return new WaitForSeconds(Random.Range(minBuildDelay, maxBuildDelay));
 
             //DIESER CODE IST DER NEUE
-           
+            // instead of workingthrew the same list twice, once to change the bool and then a second time to cope the true once you could just skipp the first steps-Philip
+
             //Search Grid for structures/main points
+            //The list buildPoints saves the Vector3 of all structures, that the agent has to orient on
+            List<Vector3> buildPoints = new List<Vector3>();
             for (int i = 0; i < gridList.Count; i++)
             {
 
@@ -129,22 +126,14 @@ public class agent3Behavior : MonoBehaviour
                 {
 
                     //return that this position has a strucutre to orient on.
-                    orientPositions[i].state = true;
+                    //orientPositions[i].state = true;
+                    buildPoints.Add(new Vector3(gridList[i].x, transform.position.y, gridList[i].z));
 
                 }
             }
 
-            //The list buildPoints saves the Vector3 of all structures, that the agent has to orient on
             //"GetClosestTarget" then compares all of those Vector3 and finds the closest
-            List<Vector3> buildPoints = new List<Vector3>();
-            for (int i = 0; i < orientPositions.Count; i++)
-            {
-                if(orientPositions[i].state == true)
-                {
-                    buildPoints.Add(new Vector3(orientPositions[i].x, transform.position.y ,orientPositions[i].z));
-                }
-            }
-
+            
             Vector3 closestMainPoint = GetClosestTarget(buildPoints);
             agentMoveLocation = new Vector3(closestMainPoint.x + Random.Range(-pointRadius, pointRadius), transform.position.y, closestMainPoint.z + Random.Range(-pointRadius, pointRadius));
 
@@ -156,7 +145,6 @@ public class agent3Behavior : MonoBehaviour
 
             agent.SetDestination(agentMoveLocation);
 
-            StartCoroutine(MoveTimer());
         }
 
         
