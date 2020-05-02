@@ -56,11 +56,26 @@ public class SpawnSettings : MonoBehaviour
 
 
 
+
+    public void SpawnAgent(GameObject spawnAgent, Vector3 position)
+    {
+        
+
+        //Instantiate(spawnAgent, spwnLocation, cam.transform.rotation);
+
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = 10.0f;       // we want 2m away from the camera position
+        mousePos.y = 125.0f;      
+
+        Vector3 objectPos = cam.ScreenToWorldPoint(mousePos);
+        Instantiate(spawnAgent, objectPos, cam.transform.rotation);
+    }
+
     void Update()
     {
 
         //Mouse Left
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKey(KeyCode.Alpha2))
         {
 
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -95,7 +110,7 @@ public class SpawnSettings : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKey(KeyCode.Alpha3))
         {
 
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -135,7 +150,7 @@ public class SpawnSettings : MonoBehaviour
 
 
         //Main Point Spawner
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKey(KeyCode.Alpha1))
         {
 
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -176,6 +191,8 @@ public class SpawnSettings : MonoBehaviour
         //Mouse Right
         if (Input.GetMouseButtonDown(1))
         {
+           
+
             rightPressed += 1;
 
             //Debug.Log("click: " + rightPressed);
