@@ -159,13 +159,16 @@ public class agent3Behavior : MonoBehaviour
 
             int arrayPosX = Mathf.RoundToInt(buildLocation.x) / gridSize;
             int arrayPosZ = Mathf.RoundToInt(buildLocation.z) / gridSize;
-
-            if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount <= 0)
+            //To get rid off some outside of bounds errors -Philip
+            if (arrayPosX >= 0 && arrayPosX < Mathf.Sqrt(gridArray.Length) && arrayPosZ >= 0 && arrayPosZ < Mathf.Sqrt(gridArray.Length))
             {
+                if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount <= 0)
+                {
 
-                Instantiate(structure, buildLocation, Quaternion.identity);
-                gridArray[arrayPosX, arrayPosZ].foundationAmount += 1;
+                    Instantiate(structure, buildLocation, Quaternion.identity);
+                    gridArray[arrayPosX, arrayPosZ].foundationAmount += 1;
 
+                }
             }
         }
     }
@@ -212,20 +215,23 @@ public class agent3Behavior : MonoBehaviour
 
                 int arrayPosX = Mathf.RoundToInt(hitGrid.x) / gridSize;
                 int arrayPosZ = Mathf.RoundToInt(hitGrid.z) / gridSize;
-
-                if (gridArray[arrayPosX , arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount <= 0)
+                //To get rid off some outside of bounds errors -Philip
+                if (arrayPosX >= 0 && arrayPosX < Mathf.Sqrt(gridArray.Length) && arrayPosZ >= 0 && arrayPosZ < Mathf.Sqrt(gridArray.Length))
                 {
+                    if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount <= 0)
+                    {
 
-                    Vector3 spawnLocation = hitGrid;
-                    spawnLocation.y = structure.transform.localScale.y / 2;
+                        Vector3 spawnLocation = hitGrid;
+                        spawnLocation.y = structure.transform.localScale.y / 2;
 
-                    GameObject newAgent = Instantiate(spawnAgent, spawnLocation + new Vector3(0, spawnAgent.transform.localScale.y / 2), Quaternion.identity);
-                    newAgent.GetComponent<agent3Behavior>().isActive = true;
+                        GameObject newAgent = Instantiate(spawnAgent, spawnLocation + new Vector3(0, spawnAgent.transform.localScale.y / 2), Quaternion.identity);
+                        newAgent.GetComponent<agent3Behavior>().isActive = true;
 
 
-                    Instantiate(structure, spawnLocation, Quaternion.identity);
-                    gridArray[arrayPosX, arrayPosZ].foundationAmount += 1;
+                        Instantiate(structure, spawnLocation, Quaternion.identity);
+                        gridArray[arrayPosX, arrayPosZ].foundationAmount += 1;
 
+                    }
                 }
             }
         }
