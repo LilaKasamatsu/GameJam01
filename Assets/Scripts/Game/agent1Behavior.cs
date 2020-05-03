@@ -64,7 +64,7 @@ public class agent1Behavior : MonoBehaviour
         spawnerScript = spawnController.GetComponent<SpawnSettings>();
 
         gridList = spawnerScript.gridList; 
-        gridSize = spawnerScript.gridSize;
+        gridSize = spawnerScript.cellSize;
 
         //mainPoint = GameObject.FindGameObjectsWithTag("structure");
 

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7533515863616998581}
   - component: {fileID: 7533515863616998578}
+  - component: {fileID: 8843533387062829987}
   - component: {fileID: 7533515863616998579}
   - component: {fileID: 7533515863616998576}
-  - component: {fileID: 5339273299103970699}
   - component: {fileID: 7533515863616998574}
   m_Layer: 8
   m_Name: agent3_obj
@@ -43,6 +43,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7533515863616998575}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &8843533387062829987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7533515863616998575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d123b0e6949bad6419f50e471b1e8349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foundation: {fileID: 7836647536578920252, guid: dfd15eeceb8f8e3439f4fca9d45da027,
+    type: 3}
+  minBuildDelay: 0.3
+  maxBuildDelay: 1
+  maxBuildings: 0
+  spawnAgent: {fileID: 7533515863616998575}
+  agent: {fileID: 7533515863616998574}
+  isActive: 0
+  pointRadius: 4
+  maxDestinationDistance: 6
 --- !u!23 &7533515863616998579
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -96,29 +118,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5339273299103970699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7533515863616998575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 432b0123f87e8e149b5fcf73ef2d1d32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  structure: {fileID: 7836647536578920252, guid: dfd15eeceb8f8e3439f4fca9d45da027,
-    type: 3}
-  minBuildDelay: 0.1
-  maxBuildDelay: 0.6
-  maxBuildings: 10
-  spawnAgent: {fileID: 7533515863616998575}
-  cam: {fileID: 0}
-  agent: {fileID: 7533515863616998574}
-  isActive: 0
-  pointRadius: 3
-  maxDestinationDistance: 5
 --- !u!195 &7533515863616998574
 NavMeshAgent:
   m_ObjectHideFlags: 0
