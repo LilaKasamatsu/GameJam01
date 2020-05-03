@@ -7,16 +7,5 @@ public class mainPoint : MonoBehaviour
     public float radius;
 
     public float id;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+     
 }
