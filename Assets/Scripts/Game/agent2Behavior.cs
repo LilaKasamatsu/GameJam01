@@ -38,7 +38,7 @@ public class agent2Behavior : MonoBehaviour
         spawnerScript = spawnController.GetComponent<SpawnSettings>();
 
         gridList = spawnerScript.gridList;
-        gridSize = spawnerScript.gridSize;
+        gridSize = spawnerScript.cellSize;
 
         originPoint = transform.position;
         StartCoroutine(MoveTimer());

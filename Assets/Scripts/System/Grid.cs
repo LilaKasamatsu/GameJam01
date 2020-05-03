@@ -12,49 +12,31 @@ public class Grid
     private float cellSize;
     private int[,] gridArray;
 
-
-    SpawnSettings spawnerScript;
-    GameObject spawnController;
-
-    List<GridList> gridList;
-
-    //public List<GridList> gridList = new List<GridList>();
-
-
-
+    
+    /*
     public Grid(int width, int height, float cellSize)
     {
         this.width = width;
         this.height = height;
         this.cellSize = cellSize;
 
-
-        spawnController = GameObject.Find("spawnController");
-        spawnerScript = spawnController.GetComponent<SpawnSettings>();
-
         gridArray = new int[width, height];
 
-        // #Debug Grid width + height
         //Debug.Log(width + " " + height);
-
         for (int x = 0; x < gridArray.GetLength(0); x++)
-        {
+        {          
             
-            
-
             for (int i = 0; i < gridArray.GetLength(1); i++)
             {
-                // #Debug every grid width and height
                 //Debug.Log(x + " , " + i);
-
-                spawnerScript.CreateGridObject(x, i);
+                SpawnSettings.Instance.CreateGridObject(x, i);
             }
         }
     }
-
-
-
-
+    */
+    
+    //Old Get and Set Values
+    /*
     private Vector3 GetWorldPosition(int x, int z)
     {
         return new Vector3(x, z) * cellSize;
@@ -70,11 +52,11 @@ public class Grid
     {
         if (x >= 0 && z >= 0 && x < width && z < height)
         {
-            for (int i = 0; i < spawnerScript.gridList.Count; i++)
+            for (int i = 0; i < SpawnSettings.Instance.gridList.Count; i++)
             {
-                if (spawnerScript.gridList[i].x == x && spawnerScript.gridList[i].z == z)
+                if (SpawnSettings.Instance.gridList[i].x == x && SpawnSettings.Instance.gridList[i].z == z)
                 {
-                    spawnerScript.gridList[i] = new GridList(x, z, valueStructure, valuePoint, valueFoundation);
+                    SpawnSettings.Instance.gridList[i] = new GridList(x, z, valueStructure, valuePoint, valueFoundation);
                  }
             }
         }
@@ -94,11 +76,11 @@ public class Grid
 
 
 
-            for (int i = 0; i < spawnerScript.gridList.Count; i++)
+            for (int i = 0; i < SpawnSettings.Instance.gridList.Count; i++)
             {
-                if (spawnerScript.gridList[i].x == x && spawnerScript.gridList[i].z == z)
+                if (SpawnSettings.Instance.gridList[i].x == x && SpawnSettings.Instance.gridList[i].z == z)
                 {
-                    return spawnerScript.gridList[i];
+                    return SpawnSettings.Instance.gridList[i];
                 }
             }
 
@@ -120,5 +102,6 @@ public class Grid
         
         return GetValue(x, z);
     }
+    */
     
 }

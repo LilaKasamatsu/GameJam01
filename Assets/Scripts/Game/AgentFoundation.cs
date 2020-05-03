@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
-public class agent3Behavior : MonoBehaviour
+public class AgentFoundation : MonoBehaviour
 {
-    [SerializeField] GameObject structure;
+    [SerializeField] GameObject foundation;
     [SerializeField] float minBuildDelay;
     [SerializeField] float maxBuildDelay;
     [SerializeField] int maxBuildings;
@@ -17,13 +17,13 @@ public class agent3Behavior : MonoBehaviour
     private GameObject ground;
 
     public Grid grid;
-    public Camera cam;
+    Camera cam;
     public NavMeshAgent agent;
 
     public bool isActive = false;
     bool canBuild = false;
     bool canSpawn = false;
-    private int gridSize;
+    private int cellSize;
 
 
 
@@ -40,7 +40,7 @@ public class agent3Behavior : MonoBehaviour
         cam = Camera.main;
         ground = GameObject.FindGameObjectWithTag("ground");
         
-        gridSize = SpawnSettings.Instance.gridSize;
+        cellSize = GridArray.Instance.cellSize;
         gridArray = GridArray.Instance.gridArray;
         // DIESER CODE IST DER NEUE
 
@@ -75,30 +75,22 @@ public class agent3Behavior : MonoBehaviour
 
     IEnumerator MoveTimer()
     {
-        //while loop is a bit more elegant in an coroutine than stopping and starting it over and over again-Philip
+        //Looping and delaying their walk cycle 
         while (isActive == true)
         {
             BuildFoundation();
-
-
+            
             yield return new WaitForSeconds(Random.Range(minBuildDelay, maxBuildDelay));
 
-            //DIESER CODE IST DER NEUE
-            // instead of working throw the same list twice, once to change the bool and then a second time to cope the true once you could just skipp the first steps-Philip
+
+            int minX = Mathf.RoundToInt( (transform.position.x ) / cellSize - maxDestinationDistance) ;
+            int maxX = Mathf.RoundToInt( (transform.position.x ) / cellSize + maxDestinationDistance)  ;
+
+            int minZ = Mathf.RoundToInt( (transform.position.z ) / cellSize - maxDestinationDistance) ;
+            int maxZ = Mathf.RoundToInt( (transform.position.z ) / cellSize + maxDestinationDistance) ;
 
             //Search Grid for structures/main points
             //The list orientPositions saves the Vector3 of all structures, that the agent has to orient on
-
-
-            orientPositions = new List<Vector3>();
-
-            int minX = Mathf.RoundToInt( (transform.position.x ) / gridSize - maxDestinationDistance) ;
-            int maxX = Mathf.RoundToInt( (transform.position.x ) / gridSize + maxDestinationDistance)  ;
-
-            int minZ = Mathf.RoundToInt( (transform.position.z ) / gridSize - maxDestinationDistance) ;
-            int maxZ = Mathf.RoundToInt( (transform.position.z ) / gridSize + maxDestinationDistance) ;
-
-
             orientPositions = new List<Vector3>();
             for (int x = minX; x >= minX  && x <= maxX && x < GridArray.Instance.arrayX && x > 0; x++)
             {
@@ -109,14 +101,14 @@ public class agent3Behavior : MonoBehaviour
                     {
 
                         //return that this position has a strucutre to orient on.
-                        orientPositions.Add(new Vector3(x * gridSize, transform.position.y, z * gridSize));
+                        orientPositions.Add(new Vector3(x * cellSize, transform.position.y, z * cellSize));
 
                     }
                 }
             }
 
-            //"GetClosestTarget" then compares all of those Vector3 and finds the closest
-            Vector3 closestMainPoint = GetClosestTarget(orientPositions);
+            //"GetClosestTarget" then compares all of those Vector3 inside the maximum range "maxDestinationDistance" and finds the closest
+            Vector3 closestMainPoint = GridArray.Instance.GetClosestTarget(orientPositions, transform.position);
 
             agentMoveLocation = new Vector3(closestMainPoint.x + Random.Range(-pointRadius, pointRadius), transform.position.y, closestMainPoint.z + Random.Range(-pointRadius, pointRadius));
                   
@@ -129,41 +121,22 @@ public class agent3Behavior : MonoBehaviour
 
     }
 
-    Vector3 GetClosestTarget(List<Vector3> target)
-    {
-        Vector3 tMin = transform.position;
-        Vector3 currentPos = transform.position;
-        float minDist = 30f;
- 
-        foreach (Vector3 t in target)
-        {
-            float dist = Vector3.Distance(t, currentPos);
-            if (dist < minDist)
-            {
-                tMin = t;
-                minDist = dist;
-            }
-        }
-        return tMin;
-    }
-
-
 
     private void BuildFoundation()
     {
         gridArray = GridArray.Instance.gridArray;
         if (!agent.hasPath && canBuild == true)
         {
-            Vector3 buildLocation = new Vector3(Mathf.Round(transform.position.x / gridSize) * gridSize, structure.transform.localScale.y / 2, Mathf.Round(transform.position.z / gridSize) * gridSize);
+            Vector3 buildLocation = new Vector3(Mathf.Round(transform.position.x / cellSize) * cellSize, foundation.transform.localScale.y / 2, Mathf.Round(transform.position.z / cellSize) * cellSize);
             canBuild = false;
 
-            int arrayPosX = Mathf.RoundToInt(buildLocation.x) / gridSize;
-            int arrayPosZ = Mathf.RoundToInt(buildLocation.z) / gridSize;
+            int arrayPosX = Mathf.RoundToInt(buildLocation.x) / cellSize;
+            int arrayPosZ = Mathf.RoundToInt(buildLocation.z) / cellSize;
 
             if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount <= 0)
             {
 
-                Instantiate(structure, buildLocation, Quaternion.identity);
+                Instantiate(foundation, buildLocation, Quaternion.identity);
                 gridArray[arrayPosX, arrayPosZ].foundationAmount += 1;
 
             }
@@ -199,35 +172,7 @@ public class agent3Behavior : MonoBehaviour
         if (Input.GetMouseButton(0) == true && canSpawn == true && !IsOverUi())
         {
 
-
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            int layer_mask = LayerMask.GetMask("Ground");
-
-            gridArray = GridArray.Instance.gridArray;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer_mask))
-            {
-                Vector3 hitGrid = new Vector3(Mathf.Round(hit.point.x / gridSize) * gridSize, Mathf.Round(hit.point.y / gridSize) * gridSize, Mathf.Round(hit.point.z / gridSize) * gridSize);
-
-                int arrayPosX = Mathf.RoundToInt(hitGrid.x) / gridSize;
-                int arrayPosZ = Mathf.RoundToInt(hitGrid.z) / gridSize;
-
-                if (gridArray[arrayPosX , arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount <= 0)
-                {
-
-                    Vector3 spawnLocation = hitGrid;
-                    spawnLocation.y = structure.transform.localScale.y / 2;
-
-                    GameObject newAgent = Instantiate(spawnAgent, spawnLocation + new Vector3(0, spawnAgent.transform.localScale.y / 2), Quaternion.identity);
-                    newAgent.GetComponent<agent3Behavior>().isActive = true;
-
-
-                    Instantiate(structure, spawnLocation, Quaternion.identity);
-                    gridArray[arrayPosX, arrayPosZ].foundationAmount += 1;
-
-                }
-            }
+            SpawnSettings.Instance.PlaceAgent(spawnAgent); 
         }
     }
 
