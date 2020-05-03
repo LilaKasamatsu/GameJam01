@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 
-public class GridList : IComparable<GridList>
+public class GridList
 {
 
     public int x;
@@ -25,14 +25,5 @@ public class GridList : IComparable<GridList>
     }
 
 
-    // Sorting Stuff
-    public int CompareTo(GridList other)
-    {
-        if (other == null)
-        {
-            return 1;
-        }
-
-        return structureAmount - other.structureAmount;
-    }
+ 
 }

@@ -16,7 +16,6 @@ public class agent1Behavior : MonoBehaviour
     string[] radiusTags =
          {
                  "structure",
-                 "point",
           
          };
 
@@ -39,7 +38,7 @@ public class agent1Behavior : MonoBehaviour
 
 
     private mainPoint pointScript;
-    float pointRadius;
+    public float pointRadius;
 
    
 
@@ -123,9 +122,9 @@ public class agent1Behavior : MonoBehaviour
 
         GameObject closestMainPoint = GetClosestTarget(mainPoint);
 
-        pointScript = closestMainPoint.GetComponent<mainPoint>();
+        //pointScript = closestMainPoint.GetComponent<mainPoint>();
 
-        pointRadius = pointScript.radius;
+        //pointRadius = pointScript.radius;
 
         agentMoveLocation = new Vector3(closestMainPoint.transform.position.x + Random.Range(-pointRadius, pointRadius), transform.position.y, closestMainPoint.transform.position.z + Random.Range(-pointRadius, pointRadius));
         canBuild = true;

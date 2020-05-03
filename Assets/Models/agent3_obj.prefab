@@ -110,7 +110,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   structure: {fileID: 7836647536578920252, guid: dfd15eeceb8f8e3439f4fca9d45da027,
     type: 3}
-  marker: {fileID: 1175095271144626665, guid: 3eb43a1f31c900946997c5647aa6045d, type: 3}
   minBuildDelay: 0.1
   maxBuildDelay: 0.6
   maxBuildings: 10
@@ -118,7 +117,8 @@ MonoBehaviour:
   cam: {fileID: 0}
   agent: {fileID: 7533515863616998574}
   isActive: 0
-  pointRadius: 4
+  pointRadius: 3
+  maxDestinationDistance: 5
 --- !u!195 &7533515863616998574
 NavMeshAgent:
   m_ObjectHideFlags: 0

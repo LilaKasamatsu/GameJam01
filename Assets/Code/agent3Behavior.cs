@@ -7,80 +7,49 @@ using UnityEngine.EventSystems;
 public class agent3Behavior : MonoBehaviour
 {
     [SerializeField] GameObject structure;
-    [SerializeField] GameObject marker;
     [SerializeField] float minBuildDelay;
     [SerializeField] float maxBuildDelay;
     [SerializeField] int maxBuildings;
     [SerializeField] GameObject spawnAgent;
 
-    string[] radiusTags =
-     {
-                 "structure",
-                 "point",
 
-         };
-
-    private int gridSize;
 
     private GameObject ground;
-    private List<GameObject> mainPoint;
-    private GameObject[] tagStructure;
-    private GameObject[] tagPoint;
-
-    private List<float> pointPositions;
 
     public Grid grid;
     public Camera cam;
     public NavMeshAgent agent;
 
-    bool canBuild = false;
     public bool isActive = false;
+    bool canBuild = false;
     bool canSpawn = false;
+    private int gridSize;
+
+
+
+    public float pointRadius;
+    public float maxDestinationDistance;
 
     Vector3 agentMoveLocation;
+    List<Vector3> orientPositions;
 
-
-    private mainPoint pointScript;
-    public float pointRadius;
-
-
-    GameObject spawnController;
-    private SpawnSettings spawnerScript;
-
-
-    List<GridList> gridList;
-    List<OrientPositions> orientPositions = new List<OrientPositions>();
-    List<Vector3> buildPoints;
+    GridList[,] gridArray;
 
     void Start()
     {
         cam = Camera.main;
-
         ground = GameObject.FindGameObjectWithTag("ground");
-
-
-
-        spawnController = GameObject.Find("spawnController");
-        spawnerScript = spawnController.GetComponent<SpawnSettings>();
-
-        gridList = spawnerScript.gridList;
-        gridSize = spawnerScript.gridSize;
-
-
-
+        
+        gridSize = SpawnSettings.Instance.gridSize;
+        gridArray = GridArray.Instance.gridArray;
         // DIESER CODE IST DER NEUE
 
         //Create orientPosition List based on the grid
         //Adds all existing build-orientation points currently on the scene to the list
         // "state == true" means, that that location has a structure to orient on.
-        for (int i = 0; i < gridList.Count; i++)
-        {
-            orientPositions.Add(new OrientPositions( gridList[i].x, gridList[i].z, false ));
 
-        }
-        
-        //
-
+ 
+ 
         StartCoroutine(MoveTimer());
 
 
@@ -88,9 +57,9 @@ public class agent3Behavior : MonoBehaviour
 
 
 
-    void Update()
+    void FixedUpdate()
     {
-        grid = spawnerScript.grid;
+        grid = SpawnSettings.Instance.grid;
 
       
         
@@ -102,10 +71,11 @@ public class agent3Behavior : MonoBehaviour
         }
     }
 
+ 
 
     IEnumerator MoveTimer()
     {
-        //while loop is a bit more elegant in an coroutine then stopping and starting it over and over again-Philip
+        //while loop is a bit more elegant in an coroutine than stopping and starting it over and over again-Philip
         while (isActive == true)
         {
             BuildFoundation();
@@ -114,35 +84,43 @@ public class agent3Behavior : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(minBuildDelay, maxBuildDelay));
 
             //DIESER CODE IST DER NEUE
-            // instead of workingthrew the same list twice, once to change the bool and then a second time to cope the true once you could just skipp the first steps-Philip
+            // instead of working throw the same list twice, once to change the bool and then a second time to cope the true once you could just skipp the first steps-Philip
 
             //Search Grid for structures/main points
-            //The list buildPoints saves the Vector3 of all structures, that the agent has to orient on
-            List<Vector3> buildPoints = new List<Vector3>();
-            for (int i = 0; i < gridList.Count; i++)
-            {
+            //The list orientPositions saves the Vector3 of all structures, that the agent has to orient on
 
-                if (gridList[i].pointAmount > 0 || gridList[i].foundationAmount > 0)
+
+            orientPositions = new List<Vector3>();
+
+            int minX = Mathf.RoundToInt( (transform.position.x ) / gridSize - maxDestinationDistance) ;
+            int maxX = Mathf.RoundToInt( (transform.position.x ) / gridSize + maxDestinationDistance)  ;
+
+            int minZ = Mathf.RoundToInt( (transform.position.z ) / gridSize - maxDestinationDistance) ;
+            int maxZ = Mathf.RoundToInt( (transform.position.z ) / gridSize + maxDestinationDistance) ;
+
+
+            orientPositions = new List<Vector3>();
+            for (int x = minX; x >= minX  && x <= maxX && x < GridArray.Instance.arrayX && x > 0; x++)
+            {
+                for (int z = minZ; z >= minZ && z <= maxZ && z < GridArray.Instance.arrayZ && z > 0; z++)
                 {
 
-                    //return that this position has a strucutre to orient on.
-                    //orientPositions[i].state = true;
-                    buildPoints.Add(new Vector3(gridList[i].x, transform.position.y, gridList[i].z));
+                    if (gridArray[x, z].foundationAmount > 0)
+                    {
 
+                        //return that this position has a strucutre to orient on.
+                        orientPositions.Add(new Vector3(x * gridSize, transform.position.y, z * gridSize));
+
+                    }
                 }
             }
 
             //"GetClosestTarget" then compares all of those Vector3 and finds the closest
-            
-            Vector3 closestMainPoint = GetClosestTarget(buildPoints);
+            Vector3 closestMainPoint = GetClosestTarget(orientPositions);
+
             agentMoveLocation = new Vector3(closestMainPoint.x + Random.Range(-pointRadius, pointRadius), transform.position.y, closestMainPoint.z + Random.Range(-pointRadius, pointRadius));
-
-            //
-
-            //agentMoveLocation = new Vector3(transform.position.x + Random.Range(-pointRadius, pointRadius), transform.position.y, transform.position.z + Random.Range(-pointRadius, pointRadius));
-
-            canBuild = true;
-
+                  
+            canBuild = true;                        
             agent.SetDestination(agentMoveLocation);
 
         }
@@ -155,7 +133,7 @@ public class agent3Behavior : MonoBehaviour
     {
         Vector3 tMin = transform.position;
         Vector3 currentPos = transform.position;
-        float minDist = 10f;
+        float minDist = 30f;
  
         foreach (Vector3 t in target)
         {
@@ -173,31 +151,26 @@ public class agent3Behavior : MonoBehaviour
 
     private void BuildFoundation()
     {
-
+        gridArray = GridArray.Instance.gridArray;
         if (!agent.hasPath && canBuild == true)
         {
             Vector3 buildLocation = new Vector3(Mathf.Round(transform.position.x / gridSize) * gridSize, structure.transform.localScale.y / 2, Mathf.Round(transform.position.z / gridSize) * gridSize);
             canBuild = false;
 
+            int arrayPosX = Mathf.RoundToInt(buildLocation.x) / gridSize;
+            int arrayPosZ = Mathf.RoundToInt(buildLocation.z) / gridSize;
 
-
-            for (int i = 0; i < gridList.Count; i++)
+            if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount <= 0)
             {
-                if (gridList[i].x == buildLocation.x && gridList[i].z == buildLocation.z && gridList[i].pointAmount <= 0)
-                {
-                    if (gridList[i].foundationAmount <= 0)
-                    {
-                        Instantiate(structure, buildLocation, Quaternion.identity);
 
+                Instantiate(structure, buildLocation, Quaternion.identity);
+                gridArray[arrayPosX, arrayPosZ].foundationAmount += 1;
 
-                        gridList[i].foundationAmount = gridList[i].foundationAmount + 1;
-                    }
-                }
             }
         }
     }
 
-    private bool isOverUi()
+    private bool IsOverUi()
     {
         return EventSystem.current.IsPointerOverGameObject();
     }
@@ -223,7 +196,7 @@ public class agent3Behavior : MonoBehaviour
             canSpawn = true;
         }
 
-        if (Input.GetMouseButton(0) == true && canSpawn == true && !isOverUi())
+        if (Input.GetMouseButton(0) == true && canSpawn == true && !IsOverUi())
         {
 
 
@@ -232,28 +205,27 @@ public class agent3Behavior : MonoBehaviour
 
             int layer_mask = LayerMask.GetMask("Ground");
 
-
+            gridArray = GridArray.Instance.gridArray;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer_mask))
             {
                 Vector3 hitGrid = new Vector3(Mathf.Round(hit.point.x / gridSize) * gridSize, Mathf.Round(hit.point.y / gridSize) * gridSize, Mathf.Round(hit.point.z / gridSize) * gridSize);
 
+                int arrayPosX = Mathf.RoundToInt(hitGrid.x) / gridSize;
+                int arrayPosZ = Mathf.RoundToInt(hitGrid.z) / gridSize;
 
-
-                for (int i = 0; i < gridList.Count; i++)
+                if (gridArray[arrayPosX , arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount <= 0)
                 {
-                    if (gridList[i].x == hitGrid.x && gridList[i].z == hitGrid.z && gridList[i].structureAmount <= 0  && gridList[i].pointAmount <= 0 && gridList[i].foundationAmount <= 0)
-                    {
 
-                        Vector3 spawnLocation = new Vector3(Mathf.Round(hit.point.x / gridSize) * gridSize, structure.transform.localScale.y / 2, Mathf.Round(hit.point.z / gridSize) * gridSize);
+                    Vector3 spawnLocation = hitGrid;
+                    spawnLocation.y = structure.transform.localScale.y / 2;
 
-                        GameObject newAgent = Instantiate(spawnAgent, spawnLocation, Quaternion.identity);
-                        newAgent.GetComponent<agent3Behavior>().isActive = true;
-                        Instantiate(structure, spawnLocation, Quaternion.identity);
+                    GameObject newAgent = Instantiate(spawnAgent, spawnLocation + new Vector3(0, spawnAgent.transform.localScale.y / 2), Quaternion.identity);
+                    newAgent.GetComponent<agent3Behavior>().isActive = true;
 
 
-                        gridList[i].foundationAmount = gridList[i].foundationAmount + 1;
+                    Instantiate(structure, spawnLocation, Quaternion.identity);
+                    gridArray[arrayPosX, arrayPosZ].foundationAmount += 1;
 
-                    }
                 }
             }
         }

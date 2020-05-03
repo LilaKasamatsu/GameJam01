@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Grid 
 {
-
+    
     //grid stuff
 
     private int height;
@@ -12,8 +12,6 @@ public class Grid
     private float cellSize;
     private int[,] gridArray;
 
-    agent1Behavior agentScript;
-    GameObject agent;
 
     SpawnSettings spawnerScript;
     GameObject spawnController;
@@ -30,8 +28,6 @@ public class Grid
         this.height = height;
         this.cellSize = cellSize;
 
-        //agent = GameObject.FindGameObjectWithTag("agent1");
-        //agentScript = agent.GetComponent<agent1Behavior>();
 
         spawnController = GameObject.Find("spawnController");
         spawnerScript = spawnController.GetComponent<SpawnSettings>();
@@ -50,6 +46,7 @@ public class Grid
             {
                 // #Debug every grid width and height
                 //Debug.Log(x + " , " + i);
+
                 spawnerScript.CreateGridObject(x, i);
             }
         }
@@ -73,11 +70,6 @@ public class Grid
     {
         if (x >= 0 && z >= 0 && x < width && z < height)
         {
-            //gridArray[x, z] = value;
-
-
-           
-
             for (int i = 0; i < spawnerScript.gridList.Count; i++)
             {
                 if (spawnerScript.gridList[i].x == x && spawnerScript.gridList[i].z == z)
@@ -85,8 +77,6 @@ public class Grid
                     spawnerScript.gridList[i] = new GridList(x, z, valueStructure, valuePoint, valueFoundation);
                  }
             }
-
-
         }
     }
 
@@ -130,5 +120,5 @@ public class Grid
         
         return GetValue(x, z);
     }
-
+    
 }

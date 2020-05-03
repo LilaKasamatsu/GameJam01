@@ -12,23 +12,30 @@ public class SpawnSettings : MonoBehaviour
     [SerializeField] GameObject foundation;
     [SerializeField] GameObject structure;
     [SerializeField] GameObject mainPoint;
-
-
-    public int gridSize = 3;
     [SerializeField] GameObject marker;
 
-    //Debug Right mouse
-    int rightPressed = 0;
+    private GameObject ground;
 
     public Camera cam;
 
     public Grid grid;
-
-    private GameObject ground;
-
+    public int gridSize = 3;
     public List<GridList> gridList = new List<GridList>();
 
-
+    //Singleton
+    public static SpawnSettings Instance { get; private set; }
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
 
     public void CreateGridObject(float x, float z)
@@ -149,12 +156,8 @@ public class SpawnSettings : MonoBehaviour
 
         //Mouse Right
         if (Input.GetMouseButtonDown(1))
-        {
-           
-
-            rightPressed += 1;
-
-            //Debug.Log("click: " + rightPressed);
+        {           
+   
 
             
             Ray ray1 = cam.ScreenPointToRay(Input.mousePosition);
@@ -164,19 +167,18 @@ public class SpawnSettings : MonoBehaviour
 
             if (Physics.Raycast(ray1, out hit))
             {
-                //Debug.Log(grid.GetValue(hit.point));
-                //Debug.Log(hit.collider.gameObject.name);
-                //Debug.Log(grid.GetValue(hit.collider.gameObject.transform.position));
 
-                Vector3 hitPosition = hit.collider.gameObject.transform.position;
+                Vector3 hitPosition = hit.point;
 
-                for (int i = 0; i < gridList.Count; i++)
-                {
-                    if (gridList[i].x == hitPosition.x && gridList[i].z == hitPosition.z)
-                    {
-                        Debug.Log(gridList[i].x + " " + gridList[i].z + "; Foundation: "+ gridList[i].foundationAmount +"; Structures: " + gridList[i].structureAmount + "; Point: " + gridList[i].pointAmount);
-                    }
-                }
+                hitPosition.x = Mathf.Round(hit.point.x / gridSize) * gridSize;
+                hitPosition.y = Mathf.Round(hit.point.y / gridSize) * gridSize;
+                hitPosition.z = Mathf.Round(hit.point.z / gridSize) * gridSize;
+
+                int hitX = Mathf.RoundToInt(hitPosition.x) / gridSize;
+                int hitZ = Mathf.RoundToInt(hitPosition.z ) / gridSize;
+
+                Debug.Log("; Foundation: " + GridArray.Instance.gridArray[hitX, hitZ].foundationAmount + "; Structures: " + GridArray.Instance.gridArray[hitX, hitZ].structureAmount + "; Point: " + GridArray.Instance.gridArray[hitX, hitZ].pointAmount);
+                                
             }
         }
     }

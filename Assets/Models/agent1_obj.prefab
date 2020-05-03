@@ -118,6 +118,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   agent: {fileID: 6204259750687775720}
   isActive: 0
+  pointRadius: 2
 --- !u!195 &6204259750687775720
 NavMeshAgent:
   m_ObjectHideFlags: 0
