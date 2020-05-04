@@ -13,6 +13,7 @@ public class SpawnSettings : MonoBehaviour
     [SerializeField] GameObject structure;
     [SerializeField] GameObject mainPoint;
     [SerializeField] GameObject marker;
+    [SerializeField] GameObject buildMarker;
 
     private GameObject ground;
 
@@ -21,6 +22,7 @@ public class SpawnSettings : MonoBehaviour
     public Grid grid;
     public int cellSize = 3;
     public List<GridList> gridList = new List<GridList>();
+    public bool spawnMode = false;
 
     //Singleton
     public static SpawnSettings Instance { get; private set; }
@@ -37,15 +39,7 @@ public class SpawnSettings : MonoBehaviour
         }
     }
 
-
-    public void CreateGridObject(float x, float z)
-    {
-        //Visual Grid
-        //Instantiate(marker, new Vector3(x * gridSize, 0, z * gridSize), Quaternion.identity);
-
-        gridList.Add(new GridList(Mathf.RoundToInt(x * cellSize), Mathf.RoundToInt(z * cellSize), 0, 0, 0));
-
-    }
+    AgentStack agentStack;
 
     private void Start()
     {
@@ -54,6 +48,49 @@ public class SpawnSettings : MonoBehaviour
         //grid = new Grid(Mathf.RoundToInt(ground.transform.localScale.x / cellSize) + 1, Mathf.RoundToInt(ground.transform.localScale.z / cellSize) + 1, cellSize);
         
         cellSize = GridArray.Instance.cellSize;
+        agentStack = GridArray.Instance.agentStack;
+
+
+        CreateStartPoint();
+
+    }
+
+    public void CreateStartPoint()
+    {
+        int randomX = Random.Range(0, GridArray.Instance.arrayX * cellSize);
+        int randomZ = Random.Range(0, GridArray.Instance.arrayZ * cellSize);
+
+
+        int maxTries = 0;
+        while (maxTries < 12 && GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(randomX), GridArray.Instance.NumToGrid(randomZ)].foundationAmount > 0)
+        {
+            maxTries++;
+            randomX = Random.Range(0, GridArray.Instance.arrayX * cellSize);
+            randomZ = Random.Range(0, GridArray.Instance.arrayZ * cellSize);
+        }
+
+        if (maxTries >= 12)
+        {
+            Debug.Log("More than 12 spawn tries");
+        }
+
+        Instantiate(mainPoint, new Vector3(randomX, 3f, randomZ), Quaternion.identity);
+        GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(randomX), GridArray.Instance.NumToGrid(randomZ)].pointAmount += 1;
+
+        int minX = GridArray.Instance.NumToGrid(randomX) - 1;
+        int maxX = GridArray.Instance.NumToGrid(randomX) + 1;
+        int minZ = GridArray.Instance.NumToGrid(randomZ) - 1;
+        int maxZ = GridArray.Instance.NumToGrid(randomZ) + 1;
+
+
+        for (int x = minX; x >= minX && x <= maxX && x < GridArray.Instance.arrayX && x > 0; x++)
+        {
+            for (int z = minZ; z >= minZ && z <= maxZ && z < GridArray.Instance.arrayZ && z > 0; z++)
+            {
+                GridArray.Instance.gridArray[x, z].foundationAmount += 1;
+
+            }
+        }
     }
 
 
@@ -73,10 +110,11 @@ public class SpawnSettings : MonoBehaviour
             int arrayPosZ = Mathf.RoundToInt(hitGrid.z) / cellSize;
 
             //Foundation Agent
-            if (agent.GetComponent<AgentFoundation>() != null )
+            if (agent.GetComponent<AgentFoundation>() != null && agentStack.agentFoundation > 0)
             {
-                if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount <= 0)
+                if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
                 {
+                    agentStack.agentFoundation -= 1;
 
                     Vector3 spawnLocation = hitGrid;
                     spawnLocation.y = foundation.transform.localScale.y / 2;
@@ -85,17 +123,18 @@ public class SpawnSettings : MonoBehaviour
                     newAgent.GetComponent<AgentFoundation>().isActive = true;
 
 
-                    Instantiate(foundation, spawnLocation, Quaternion.identity);
-                    GridArray.Instance.gridArray[arrayPosX, arrayPosZ].foundationAmount += 1;
+                    //Instantiate(foundation, spawnLocation, Quaternion.identity);
+                    //GridArray.Instance.gridArray[arrayPosX, arrayPosZ].foundationAmount += 1;
 
                 }
             }
             
             //Structure Agent
-            if (agent.GetComponent<AgentStructure>() != null)
+            if (agent.GetComponent<AgentStructure>() != null && agentStack.agentStructure > 0)
             {
                 if (gridArray[arrayPosX, arrayPosZ].structureAmount <= 0 && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
                 {
+                    agentStack.agentStructure -= 1;
 
                     Vector3 spawnLocation = hitGrid;
                     spawnLocation.y = structure.transform.localScale.y / 2;
@@ -129,8 +168,17 @@ public class SpawnSettings : MonoBehaviour
 
         Vector3 objectPos = cam.ScreenToWorldPoint(mousePos);
         Instantiate(spawnAgent, objectPos, cam.transform.rotation);
+        CreateBuildMarker();
+
     }
 
+    private void CreateBuildMarker()
+    {
+        Instantiate(buildMarker, new Vector3(0, 0, 0), Quaternion.identity);
+              
+    
+
+    }
     void Update()
     {
         NumberSpawning();

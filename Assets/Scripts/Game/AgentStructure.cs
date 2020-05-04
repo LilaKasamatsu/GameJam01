@@ -35,13 +35,16 @@ public class AgentStructure : MonoBehaviour
 
     GridList[,] gridArray;
 
+  
     void Start()
     {
+
         cam = Camera.main;
         ground = GameObject.FindGameObjectWithTag("ground");
 
         cellSize = GridArray.Instance.cellSize;
         gridArray = GridArray.Instance.gridArray;
+        
         // DIESER CODE IST DER NEUE
 
         //Create orientPosition List based on the grid
@@ -61,12 +64,17 @@ public class AgentStructure : MonoBehaviour
     {
         grid = SpawnSettings.Instance.grid;
 
+        
+        if (isActive == true)
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
 
-
+        }
 
         if (isActive == false)
         {
             SpawnActiveAgent();
+
 
         }
     }
@@ -78,6 +86,7 @@ public class AgentStructure : MonoBehaviour
         //Looping and delaying their walk cycle 
         while (isActive == true)
         {
+            
             BuildStructure();
 
             yield return new WaitForSeconds(Random.Range(minBuildDelay, maxBuildDelay));
@@ -168,7 +177,9 @@ public class AgentStructure : MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {
+            SpawnSettings.Instance.spawnMode = false;
             Destroy(this.gameObject);
+
         }
 
         if (Input.GetMouseButtonUp(0))

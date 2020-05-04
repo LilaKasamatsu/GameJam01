@@ -10,6 +10,10 @@ public class InventoryUi : MonoBehaviour
 	public Button agentButton2;
 	public Button agentButton3;
 
+	[SerializeField] Text textFoundation;
+	[SerializeField] Text textStructure;
+
+
 	public GameObject agent1;
 	public GameObject agent2;
 	public GameObject agent3;
@@ -38,6 +42,11 @@ public class InventoryUi : MonoBehaviour
 		{
 			CheckButton();
 		}
+
+		textFoundation.text = GridArray.Instance.agentStack.agentFoundation.ToString();
+		textStructure.text = GridArray.Instance.agentStack.agentStructure.ToString();
+
+
 	}
 
 	private bool IsMouseOverUI()
@@ -61,6 +70,7 @@ public class InventoryUi : MonoBehaviour
 			{
 				Debug.Log("You have clicked the purple button!");
 
+				spawnerScript.spawnMode = true;
 				spawnerScript.SpawnAgent(agent3, hitList[i].gameObject.transform.position);
 				return agent3;
 
@@ -70,8 +80,20 @@ public class InventoryUi : MonoBehaviour
 			{
 				Debug.Log("You have clicked the black button!");
 
-				spawnerScript.SpawnAgent(agent2, hitList[i].gameObject.transform.position);
-				return agent2;
+				if( GridArray.Instance.agentStack.agentFoundation >= 5 && GridArray.Instance.agentStack.agentStructure >= 5)
+				{
+					SpawnSettings.Instance.CreateStartPoint();
+					GridArray.Instance.agentStack.agentStructure -= 5;
+
+					GridArray.Instance.agentStack.agentFoundation -= 5;
+
+
+				}
+
+
+				//spawnerScript.spawnMode = true;
+				//spawnerScript.SpawnAgent(agent2, hitList[i].gameObject.transform.position);
+				//return agent2;
 
 			}
 
@@ -79,6 +101,7 @@ public class InventoryUi : MonoBehaviour
 			{
 				Debug.Log("You have clicked the yellow button!");
 
+				spawnerScript.spawnMode = true;
 				spawnerScript.SpawnAgent(agent1, hitList[i].gameObject.transform.position);
 				return agent1;
 

@@ -5,7 +5,17 @@ using UnityEngine;
 public class GridArray : MonoBehaviour
 {
     [SerializeField] GameObject marker;
+    [SerializeField] int startingAgentStruc;
+    [SerializeField] int startingAgentFound;
+    [SerializeField] int startingAgentPoint;
+
+    [SerializeField] float minNewAgentDelay = 2;
+    [SerializeField] float maxNewAgentDelay = 6;
+    public int newAgentAmount;
+
+
     public GridList[,] gridArray;
+    public AgentStack agentStack;
     private GameObject ground;
     public int arrayX;
     public int arrayZ;
@@ -49,10 +59,6 @@ public class GridArray : MonoBehaviour
         }
     }
 
-    void GenerateGridSquares()
-    {
-
-    }
 
     //Singleton
     public static GridArray Instance { get; private set; }
@@ -73,8 +79,8 @@ public class GridArray : MonoBehaviour
 
     private void Start()
     {
-       
-        
+
+
         ground = GameObject.FindGameObjectWithTag("ground");
         CreateGrid();
 
@@ -83,6 +89,10 @@ public class GridArray : MonoBehaviour
 
         gridArray = new GridList[arrayX, arrayZ];
 
+        //Saving available agents
+        agentStack = new AgentStack(startingAgentStruc, startingAgentFound, startingAgentPoint);
+
+        
 
         for (int x = 0; x < arrayX; x++)
         {
@@ -94,21 +104,53 @@ public class GridArray : MonoBehaviour
 
             }
         }
+        StartCoroutine(AddAgentStack());
+
     }
 
+  
+
+    IEnumerator AddAgentStack()
+    {
+        yield return new WaitForSeconds(Random.Range(minNewAgentDelay, maxNewAgentDelay));
+
+        int randomAgentDrop = Random.Range(0, 100);
+
+        if (randomAgentDrop < 50)
+        {
+            agentStack.agentStructure += newAgentAmount;
+
+        }
+        else if (randomAgentDrop > 50)
+        {
+            agentStack.agentFoundation += newAgentAmount;
+            
+        }
+        StartCoroutine(AddAgentStack());
+
+
+    }
     public int NumToGrid(float i)
     {
-        i = Mathf.RoundToInt(i / SpawnSettings.Instance.cellSize) * SpawnSettings.Instance.cellSize;
+        i = Mathf.RoundToInt(i / cellSize);
         return (int) i;
+    }
+
+    public int RoundToGrid(float i)
+    {
+        i = Mathf.RoundToInt(i / cellSize) * cellSize;
+        return (int)i;
     }
 
     public Vector3 VectorToGrid(Vector3 i)
     {
-        i.x = Mathf.RoundToInt(i.x / SpawnSettings.Instance.cellSize) * SpawnSettings.Instance.cellSize;
-        i.y = Mathf.RoundToInt(i.y / SpawnSettings.Instance.cellSize) * SpawnSettings.Instance.cellSize;
-        i.z = Mathf.RoundToInt(i.z / SpawnSettings.Instance.cellSize) * SpawnSettings.Instance.cellSize;
+        i.x = Mathf.RoundToInt(i.x / cellSize) * cellSize;
+        i.y = Mathf.RoundToInt(i.y / cellSize) * cellSize;
+        i.z = Mathf.RoundToInt(i.z / cellSize) * cellSize;
         return i;
     }
+
+ 
 
     public Vector3 GetClosestTarget(List<Vector3> target, Vector3 position)
     {

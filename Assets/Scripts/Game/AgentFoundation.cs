@@ -34,6 +34,7 @@ public class AgentFoundation : MonoBehaviour
     List<Vector3> orientPositions;
 
     GridList[,] gridArray;
+    AgentStack agentStack;
 
     void Start()
     {
@@ -42,6 +43,8 @@ public class AgentFoundation : MonoBehaviour
         
         cellSize = GridArray.Instance.cellSize;
         gridArray = GridArray.Instance.gridArray;
+        agentStack = GridArray.Instance.agentStack;
+        
         // DIESER CODE IST DER NEUE
 
         //Create orientPosition List based on the grid
@@ -55,14 +58,16 @@ public class AgentFoundation : MonoBehaviour
 
     }
 
-
-
     void FixedUpdate()
     {
         grid = SpawnSettings.Instance.grid;
 
-      
-        
+        if (isActive == true && transform.GetChild(0).gameObject.activeSelf)
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
+
+        }
+
 
         if (isActive == false)
         {
@@ -78,6 +83,7 @@ public class AgentFoundation : MonoBehaviour
         //Looping and delaying their walk cycle 
         while (isActive == true)
         {
+
             BuildFoundation();
             
             yield return new WaitForSeconds(Random.Range(minBuildDelay, maxBuildDelay));
@@ -179,6 +185,7 @@ public class AgentFoundation : MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {
+            SpawnSettings.Instance.spawnMode = false;
             Destroy(this.gameObject);
         }
 
@@ -187,9 +194,8 @@ public class AgentFoundation : MonoBehaviour
             canSpawn = true;
         }
 
-        if (Input.GetMouseButton(0) == true  && !IsOverUi())
+        if (Input.GetMouseButton(0) == true  && !IsOverUi() )
         {
-
             SpawnSettings.Instance.PlaceAgent(spawnAgent);
         }
         

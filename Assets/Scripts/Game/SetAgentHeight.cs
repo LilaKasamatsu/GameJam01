@@ -19,9 +19,13 @@ public class SetAgentHeight : MonoBehaviour
         gridArray = GridArray.Instance.gridArray;
 
 
+        if(gridArray[arrayPosX, arrayPosZ].structureAmount > 0 && arrayPosX >= 0 && arrayPosX <= GridArray.Instance.arrayX && arrayPosZ >= 0 && arrayPosZ <= GridArray.Instance.arrayZ)
+        {
+            transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, parentY + 2 * gridArray[arrayPosX, arrayPosZ].structureAmount, 0.05f), transform.position.z);
 
-        transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, parentY + 2 * gridArray[arrayPosX, arrayPosZ].structureAmount, 0.1f), transform.position.z);
-        
+        }
+
+
 
 
     }
@@ -31,23 +35,10 @@ public class SetAgentHeight : MonoBehaviour
         cellSize =  GridArray.Instance.cellSize;
         //SetHeight();
     }
-
-    IEnumerator SetHeight()
+    private void Awake()
     {
-        while (1 == 1)
-        {
-            yield return new WaitForSeconds(0.001f);
+        //gameObject.SetActive(false);
 
-            int arrayPosX = Mathf.RoundToInt(transform.position.x / cellSize);
-            int arrayPosZ = Mathf.RoundToInt(transform.position.z / cellSize);
-            float parentY = transform.parent.position.y;
-
-            gridArray = GridArray.Instance.gridArray;
-
-
-            transform.position = new Vector3(transform.position.x, parentY + 2 * gridArray[arrayPosX, arrayPosZ].structureAmount, transform.position.z);
-
-
-        }
     }
+
 }
