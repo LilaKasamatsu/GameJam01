@@ -21,8 +21,9 @@ public class InventoryUi : MonoBehaviour
 
 	void Start()
 	{
-		spawnController = GameObject.Find("spawnController");
-		spawnerScript = spawnController.GetComponent<SpawnSettings>();
+	
+
+		spawnerScript = SpawnSettings.Instance.GetComponent<SpawnSettings>();
 
 		//Button button1 = agentButton1.GetComponent<Button>();
 		//btn.onClick.AddListener(TaskOnClick);

@@ -90,8 +90,28 @@ public class SpawnSettings : MonoBehaviour
 
                 }
             }
+            
+            //Structure Agent
+            if (agent.GetComponent<AgentStructure>() != null)
+            {
+                if (gridArray[arrayPosX, arrayPosZ].structureAmount <= 0 && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+                {
 
-      
+                    Vector3 spawnLocation = hitGrid;
+                    spawnLocation.y = structure.transform.localScale.y / 2;
+
+                    GameObject newAgent = Instantiate(agent, spawnLocation + new Vector3(0, agent.transform.localScale.y / 2), Quaternion.identity);
+                    newAgent.GetComponent<AgentStructure>().isActive = true;
+
+
+                    Instantiate(structure, spawnLocation, Quaternion.identity);
+                    GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
+
+                }
+            }
+
+
+
         }
 
 
@@ -152,23 +172,10 @@ public class SpawnSettings : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("structure"))
             {
-                Vector3 hitGrid = new Vector3(Mathf.Round(hit.point.x / cellSize) * cellSize, Mathf.Round(hit.point.y / cellSize) * cellSize, Mathf.Round(hit.point.z / cellSize) * cellSize);
 
+                PlaceAgent(agentStruc);
 
-
-                for (int i = 0; i < gridList.Count; i++)
-                {
-                    if (gridList[i].x == hitGrid.x && gridList[i].z == hitGrid.z && gridList[i].structureAmount <= 0 && gridList[i].foundationAmount > 0 && gridList[i].pointAmount <= 0)
-                    {
-                        Vector3 spawnLocation = new Vector3(Mathf.Round(hit.point.x / cellSize) * cellSize, structure.transform.localScale.y / 2, Mathf.Round(hit.point.z / cellSize) * cellSize);
-                        Instantiate(agentStruc, spawnLocation, Quaternion.identity);
-                        Instantiate(structure, spawnLocation, Quaternion.identity);
-
-                        gridList[i].structureAmount = gridList[i].structureAmount + 1;
-
-
-                    }
-                }
+                
             }
         }
 
