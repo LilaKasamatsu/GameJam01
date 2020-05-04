@@ -110,7 +110,18 @@ public class AgentFoundation : MonoBehaviour
             //"GetClosestTarget" then compares all of those Vector3 inside the maximum range "maxDestinationDistance" and finds the closest
             Vector3 closestMainPoint = GridArray.Instance.GetClosestTarget(orientPositions, transform.position);
 
-            agentMoveLocation = new Vector3(closestMainPoint.x + Random.Range(-pointRadius, pointRadius), transform.position.y, closestMainPoint.z + Random.Range(-pointRadius, pointRadius));
+            float closestX = closestMainPoint.x + Random.Range(-pointRadius, pointRadius);
+            float closestZ = closestMainPoint.z + Random.Range(-pointRadius, pointRadius);
+
+            float counter = 0.1f;
+            while (GridArray.Instance.gridArray[Mathf.RoundToInt(closestX) / cellSize, Mathf.RoundToInt(closestZ) / cellSize].foundationAmount != 0)
+            {
+                closestX = closestMainPoint.x + Random.Range(-pointRadius- counter, pointRadius+ counter);
+                closestZ = closestMainPoint.z + Random.Range(-pointRadius- counter, pointRadius+ counter);
+                counter += 0.1f;
+            }
+
+            agentMoveLocation = new Vector3(closestX, transform.position.y, closestZ);
                   
             canBuild = true;                        
             agent.SetDestination(agentMoveLocation);
@@ -121,7 +132,12 @@ public class AgentFoundation : MonoBehaviour
 
     }
 
+    IEnumerator SearchDestination()
+    {
+        yield return new WaitForFixedUpdate();
 
+
+    }
     private void BuildFoundation()
     {
         gridArray = GridArray.Instance.gridArray;
@@ -133,6 +149,7 @@ public class AgentFoundation : MonoBehaviour
             int arrayPosX = Mathf.RoundToInt(buildLocation.x) / cellSize;
             int arrayPosZ = Mathf.RoundToInt(buildLocation.z) / cellSize;
 
+       
             if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount <= 0)
             {
 
