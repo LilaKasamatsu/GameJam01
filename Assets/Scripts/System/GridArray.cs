@@ -21,6 +21,7 @@ public class GridArray : MonoBehaviour
     public void CreateGrid()
     {
         gridDimensions = new int[Mathf.RoundToInt(ground.transform.localScale.x / cellSize) + 1, Mathf.RoundToInt(ground.transform.localScale.z / cellSize) + 1];
+        int setSquare = Random.Range(0, 100);
 
         for (int x = 0; x < gridDimensions.GetLength(0); x++)
         {
@@ -29,14 +30,27 @@ public class GridArray : MonoBehaviour
             {
 
                 //Visual Grid
-                //Instantiate(marker, new Vector3(x * cellSize, 0, z * cellSize), Quaternion.identity);
+                if ( setSquare > 40)
+                {
+                    GameObject gridSquare = Instantiate(marker, new Vector3(x * cellSize, 0 -  marker.transform.localScale.y/2, z * cellSize), Quaternion.identity) as GameObject;
+                    
 
+                }
+                else
+                {
+                    setSquare = Random.Range(30, 50);
+
+                }
 
                 gridList.Add(new GridList(Mathf.RoundToInt(x * cellSize), Mathf.RoundToInt(z * cellSize), 0, 0, 0));
             }
         }
     }
 
+    void GenerateGridSquares()
+    {
+
+    }
 
     //Singleton
     public static GridArray Instance { get; private set; }
