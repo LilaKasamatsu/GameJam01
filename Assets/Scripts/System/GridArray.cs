@@ -30,6 +30,7 @@ public class GridArray : MonoBehaviour
             {
 
                 //Visual Grid
+                /*
                 if ( setSquare > 40)
                 {
                     GameObject gridSquare = Instantiate(marker, new Vector3(x * cellSize, 0 -  marker.transform.localScale.y/2, z * cellSize), Quaternion.identity) as GameObject;
@@ -41,6 +42,7 @@ public class GridArray : MonoBehaviour
                     setSquare = Random.Range(30, 50);
 
                 }
+                */
 
                 gridList.Add(new GridList(Mathf.RoundToInt(x * cellSize), Mathf.RoundToInt(z * cellSize), 0, 0, 0));
             }
