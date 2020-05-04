@@ -175,8 +175,9 @@ public class AgentFoundation : MonoBehaviour
         Vector3 objectPos = cam.ScreenToWorldPoint(mousePos);
         transform.position = objectPos;
 
+    
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(1))
         {
             Destroy(this.gameObject);
         }
@@ -186,11 +187,12 @@ public class AgentFoundation : MonoBehaviour
             canSpawn = true;
         }
 
-        if (Input.GetMouseButton(0) == true && canSpawn == true && !IsOverUi())
+        if (Input.GetMouseButton(0) == true  && !IsOverUi())
         {
 
-            SpawnSettings.Instance.PlaceAgent(spawnAgent); 
+            SpawnSettings.Instance.PlaceAgent(spawnAgent);
         }
+        
     }
 
 }

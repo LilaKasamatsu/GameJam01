@@ -166,7 +166,7 @@ public class AgentStructure : MonoBehaviour
         transform.position = objectPos;
 
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(1))
         {
             Destroy(this.gameObject);
         }
@@ -176,7 +176,7 @@ public class AgentStructure : MonoBehaviour
             canSpawn = true;
         }
 
-        if (Input.GetMouseButton(0) == true && canSpawn == true && !IsOverUi())
+        if (Input.GetMouseButton(0) == true && !IsOverUi())
         {
 
             SpawnSettings.Instance.PlaceAgent(spawnAgent);
