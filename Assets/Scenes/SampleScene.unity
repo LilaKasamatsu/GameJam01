@@ -301,9 +301,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b011e5df231467f4fa1f77180e6c54f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationspeed: 200
-  cameraZoomSpeed: 1000
-  cameraZoomTilt: 250
+  maxZoom: 16
+  minZoom: 0
+  currentZoom: 0
+  rotationspeed: 164
+  cameraZoomSpeed: 73.3
+  cameraTiltToZoomRatio: 0.287
 --- !u!1 &339049085
 GameObject:
   m_ObjectHideFlags: 0

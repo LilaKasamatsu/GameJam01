@@ -6,9 +6,13 @@ public class CameraRig : MonoBehaviour
 {
     float inputAxisMouse;
     float inputAxisScroll;
-    [SerializeField] [Range(80,500)] float rotationspeed;
-    [SerializeField] [Range(500, 1000)] float cameraZoomSpeed;
-    [SerializeField] [Range(10, 1000)] float cameraZoomTilt;
+    [SerializeField] [Range(10f,25f)]  float maxZoom;
+    [SerializeField] [Range(0f,0.5f)] float minZoom;
+    [SerializeField] float currentZoom;
+
+    [SerializeField] [Range (0,500)] float rotationspeed;
+    [SerializeField] [Range(0, 100)] float cameraZoomSpeed;
+    [SerializeField] [Range(0.1f,1)] float cameraTiltToZoomRatio;
     Camera targetCamera;
 
     private void Start()
@@ -23,12 +27,14 @@ public class CameraRig : MonoBehaviour
 
             transform.rotation = Quaternion.AngleAxis(inputAxisMouse*Time.deltaTime, transform.up)*transform.rotation;
         }
-        inputAxisScroll = Input.GetAxis("Mouse ScrollWheel");
-        if (inputAxisScroll > 0.02 || inputAxisScroll < -0.02)
+        inputAxisScroll = Mathf.Clamp(Input.GetAxis("Mouse ScrollWheel"),-0.1f,0.1f);
+        if (inputAxisScroll > 0.02&&currentZoom<=maxZoom || inputAxisScroll < -0.02 && currentZoom>=minZoom)
         {
+            currentZoom += inputAxisScroll *Mathf.Sqrt(cameraZoomSpeed);
             Vector3 cameraMoveDirection = (targetCamera.transform.position - transform.position).normalized;
-            targetCamera.transform.position -= cameraMoveDirection * inputAxisScroll * Time.deltaTime * cameraZoomSpeed;
-            targetCamera.transform.rotation = Quaternion.AngleAxis(-inputAxisScroll * Time.deltaTime * cameraZoomTilt, targetCamera.transform.right)*targetCamera.transform.rotation;
+            targetCamera.transform.position -= cameraMoveDirection * inputAxisScroll * cameraZoomSpeed;
+            targetCamera.transform.rotation = Quaternion.AngleAxis(-inputAxisScroll * cameraZoomSpeed*cameraTiltToZoomRatio, targetCamera.transform.right)*targetCamera.transform.rotation;
+            
         }
     }
 
