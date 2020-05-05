@@ -8,6 +8,7 @@ public class DestructionManager : MonoBehaviour
     [SerializeField] float maxCoolDown;
     [SerializeField] float duration;
     [SerializeField] int heightLimit;
+    [SerializeField] int remainedHeight;
     [SerializeField] int platformSearchDistance;
 
     private void Update()
@@ -15,7 +16,7 @@ public class DestructionManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             StartCoroutine("Destruction");
-            Debug.Log("startCoroutine");
+           
         }
     }
 
@@ -23,6 +24,7 @@ public class DestructionManager : MonoBehaviour
     {
         while (true)
         {
+            Debug.Log("SANDSTORM");
             int coloumscounter = 0;
             int GridLengthX = GridArray.Instance.arrayX;
             int GridLengthZ = GridArray.Instance.arrayZ;
@@ -55,7 +57,14 @@ public class DestructionManager : MonoBehaviour
 
     void Explode(GridList target, Vector3 targetVector)
     {
-        
+        List<GameObject> targetList = target.structureObjects;
+        for(int i = targetList.Count - 1; i > remainedHeight - 1; i--)
+        {
+           
+            Destroy(targetList[i]);
+            target.structureAmount -= 1;
+        }
+
     }
 
     void LookForStructures(GridList target, Vector3 targetVector)
