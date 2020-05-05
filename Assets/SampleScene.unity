@@ -384,8 +384,6 @@ MonoBehaviour:
   maxZoom: 10
   minZoom: 0
   ZoomWithoutTilt: 5
-  currentZoom: 0
-  currentMouseTilt: 0
   maxMouseTilt: 10
   minMouseTilt: -25
   rotationspeed: 164
@@ -741,6 +739,7 @@ Transform:
   - {fileID: 1178281057}
   - {fileID: 1933351252}
   - {fileID: 149271274}
+  - {fileID: 2078100792}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1921,3 +1920,51 @@ Transform:
   m_Father: {fileID: 806124160}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2078100791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2078100792}
+  - component: {fileID: 2078100793}
+  m_Layer: 0
+  m_Name: DestructionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2078100792
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078100791}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 806124160}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2078100793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078100791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab1f99f1460eb8749b47e0a5a719a739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minCoolDown: 2
+  maxCoolDown: 10
+  duration: 0
+  heightLimit: 5
+  platformSearchDistance: 12

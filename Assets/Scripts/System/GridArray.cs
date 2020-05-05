@@ -167,8 +167,6 @@ public class GridArray : MonoBehaviour
         return i;
     }
 
- 
-
     public Vector3 GetClosestTarget(List<Vector3> target, Vector3 position)
     {
         Vector3 tMin = position;
@@ -186,4 +184,57 @@ public class GridArray : MonoBehaviour
         }
         return tMin;
     }
+    public List<Vector3> searchForStructure(Vector3 target,float searchDistance)
+    {
+        int minX = NumToGrid(target.x - searchDistance);
+        int minZ = NumToGrid(target.z - searchDistance);
+
+        int maxX = NumToGrid(target.x + searchDistance);
+        int maxZ = NumToGrid(target.z + searchDistance);
+
+
+
+        //Search Grid for structures/main points
+        //The list orientPositions saves the Vector3 of all structures, that the agent has to orient on
+        List<Vector3> orientPositions = new List<Vector3>();
+        for (int x = minX; x >= minX && x <= maxX; x++)
+        {
+            for (int z = minZ; z >= minZ && z <= maxZ ; z++)
+            {
+                if (x < arrayX && x >= 0 && z < arrayZ && z > 0 && gridArray[x, z].structureAmount > 0)
+                {
+                    //return that this position has a strucutre to orient on.
+                    orientPositions.Add(new Vector3(x * cellSize, 0, z * cellSize));
+                }
+            }
+        }
+        return orientPositions;
+    }
+    public List<Vector3> searchForFoundations(Vector3 target, float searchDistance)
+    {
+        int minX = NumToGrid(target.x - searchDistance);
+        int minZ = NumToGrid(target.z - searchDistance);
+
+        int maxX = NumToGrid(target.x + searchDistance);
+        int maxZ = NumToGrid(target.z + searchDistance);
+
+
+
+        //Search Grid for structures/main points
+        //The list orientPositions saves the Vector3 of all structures, that the agent has to orient on
+        List<Vector3> orientPositions = new List<Vector3>();
+        for (int x = minX; x >= minX && x <= maxX; x++)
+        {
+            for (int z = minZ; z >= minZ && z <= maxZ; z++)
+            {
+                if (x < arrayX && x >= 0 && z < arrayZ && z > 0 && gridArray[x, z].foundationAmount > 0)
+                {
+                    //return that this position has a strucutre to orient on.
+                    orientPositions.Add(new Vector3(x * cellSize, 0, z * cellSize));
+                }
+            }
+        }
+        return orientPositions;
+    }
+
 }
