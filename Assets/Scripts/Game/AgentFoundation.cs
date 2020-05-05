@@ -89,11 +89,18 @@ public class AgentFoundation : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(minBuildDelay, maxBuildDelay));
 
 
-            int minX = Mathf.RoundToInt( (transform.position.x ) / cellSize - maxDestinationDistance) ;
-            int maxX = Mathf.RoundToInt( (transform.position.x ) / cellSize + maxDestinationDistance)  ;
+            //int minX = Mathf.RoundToInt( (transform.position.x ) / cellSize - maxDestinationDistance) ;
+            //int maxX = Mathf.RoundToInt( (transform.position.x ) / cellSize + maxDestinationDistance) ;
+            //int minZ = Mathf.RoundToInt( (transform.position.z ) / cellSize - maxDestinationDistance) ;
+            //int maxZ = Mathf.RoundToInt( (transform.position.z ) / cellSize + maxDestinationDistance) ;
 
-            int minZ = Mathf.RoundToInt( (transform.position.z ) / cellSize - maxDestinationDistance) ;
-            int maxZ = Mathf.RoundToInt( (transform.position.z ) / cellSize + maxDestinationDistance) ;
+            int minX = GridArray.Instance.NumToGrid(transform.position.x - pointRadius);
+            int minZ = GridArray.Instance.NumToGrid(transform.position.z - pointRadius);
+
+            int maxX = GridArray.Instance.NumToGrid(transform.position.x + pointRadius);
+            int maxZ = GridArray.Instance.NumToGrid(transform.position.z + pointRadius);
+
+
 
             //Search Grid for structures/main points
             //The list orientPositions saves the Vector3 of all structures, that the agent has to orient on
@@ -119,13 +126,28 @@ public class AgentFoundation : MonoBehaviour
             float closestX = closestMainPoint.x + Random.Range(-pointRadius, pointRadius);
             float closestZ = closestMainPoint.z + Random.Range(-pointRadius, pointRadius);
 
+            int gridX = GridArray.Instance.NumToGrid(closestX);
+            int gridZ = GridArray.Instance.NumToGrid(closestZ);
+
             float counter = 0.1f;
-            while (GridArray.Instance.gridArray[Mathf.RoundToInt(closestX) / cellSize, Mathf.RoundToInt(closestZ) / cellSize].foundationAmount != 0)
+
+
+            while (GridArray.Instance.CheckArrayBounds(gridX, gridZ) == false || (GridArray.Instance.CheckArrayBounds(gridX, gridZ) && GridArray.Instance.gridArray[gridX, gridZ].foundationAmount != 0))
             {
-                closestX = closestMainPoint.x + Random.Range(-pointRadius- counter, pointRadius+ counter);
-                closestZ = closestMainPoint.z + Random.Range(-pointRadius- counter, pointRadius+ counter);
+
+
+                closestX = closestMainPoint.x + Random.Range(-pointRadius - counter, pointRadius + counter);
+                closestZ = closestMainPoint.z + Random.Range(-pointRadius - counter, pointRadius + counter);
                 counter += 0.1f;
+
+                gridX = GridArray.Instance.NumToGrid(closestX);
+                gridZ = GridArray.Instance.NumToGrid(closestZ);
+
+        
             }
+
+    
+
 
             agentMoveLocation = new Vector3(closestX, transform.position.y, closestZ);
                   
@@ -152,17 +174,19 @@ public class AgentFoundation : MonoBehaviour
             Vector3 buildLocation = new Vector3(Mathf.Round(transform.position.x / cellSize) * cellSize, foundation.transform.localScale.y / 2, Mathf.Round(transform.position.z / cellSize) * cellSize);
             canBuild = false;
 
-            int arrayPosX = Mathf.RoundToInt(buildLocation.x) / cellSize;
-            int arrayPosZ = Mathf.RoundToInt(buildLocation.z) / cellSize;
+            int arrayPosX = GridArray.Instance.NumToGrid(buildLocation.x);
+            int arrayPosZ = GridArray.Instance.NumToGrid(buildLocation.z);
 
-       
-            if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount <= 0)
+            if( GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
             {
+                if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount <= 0)
+                {
+                    Instantiate(foundation, buildLocation, Quaternion.identity);
+                    gridArray[arrayPosX, arrayPosZ].foundationAmount += 1;
 
-                Instantiate(foundation, buildLocation, Quaternion.identity);
-                gridArray[arrayPosX, arrayPosZ].foundationAmount += 1;
-
+                }
             }
+          
         }
     }
 

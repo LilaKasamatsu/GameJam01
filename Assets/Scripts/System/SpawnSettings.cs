@@ -106,20 +106,20 @@ public class SpawnSettings : MonoBehaviour
         {
             Vector3 hitGrid = new Vector3(Mathf.Round(hit.point.x / cellSize) * cellSize, Mathf.Round(hit.point.y / cellSize) * cellSize, Mathf.Round(hit.point.z / cellSize) * cellSize);
 
-            int arrayPosX = Mathf.RoundToInt(hitGrid.x) / cellSize;
-            int arrayPosZ = Mathf.RoundToInt(hitGrid.z) / cellSize;
+            int arrayPosX = GridArray.Instance.NumToGrid(hitGrid.x); 
+            int arrayPosZ = GridArray.Instance.NumToGrid(hitGrid.z);
 
             //Foundation Agent
             if (agent.GetComponent<AgentFoundation>() != null && agentStack.agentFoundation > 0)
             {
-                if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+                if ( GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ) && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 )
                 {
                     agentStack.agentFoundation -= 1;
 
                     Vector3 spawnLocation = hitGrid;
                     spawnLocation.y = foundation.transform.localScale.y / 2;
 
-                    GameObject newAgent = Instantiate(agent, spawnLocation + new Vector3(0, agent.transform.localScale.y / 2), Quaternion.identity);
+                    GameObject newAgent = Instantiate(agent, spawnLocation + new Vector3(0, agent.transform.localScale.y ), Quaternion.identity);
                     newAgent.GetComponent<AgentFoundation>().isActive = true;
 
 

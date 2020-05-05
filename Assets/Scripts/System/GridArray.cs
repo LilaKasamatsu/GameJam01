@@ -118,7 +118,11 @@ public class GridArray : MonoBehaviour
 
     public bool CheckArrayBounds(int gridX, int gridZ)
     {
-        
+        if (gridX >= 0 && gridX <= arrayX && gridZ >= 0 && gridZ <= arrayZ)
+        {
+            return true;
+        }
+
         
         return false;
     }

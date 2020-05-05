@@ -38,16 +38,10 @@ public class CameraRig : MonoBehaviour
         {
             currentZoom += inputAxisScroll *Mathf.Sqrt(cameraZoomSpeed);
             Vector3 cameraMoveDirection = (targetCamera.transform.position - transform.position).normalized;
-//<<<<<<< Updated upstream
+
             targetCamera.transform.position -= cameraMoveDirection * inputAxisScroll * cameraZoomSpeed;
             targetCamera.transform.rotation = Quaternion.AngleAxis(-inputAxisScroll * cameraZoomSpeed*cameraTiltToZoomRatio, targetCamera.transform.right)*targetCamera.transform.rotation;
             
-//=======
-
-
-            targetCamera.transform.position -= cameraMoveDirection * inputAxisScroll * Time.deltaTime * cameraZoomSpeed;
-            targetCamera.transform.rotation = Quaternion.AngleAxis(-inputAxisScroll * Time.deltaTime * cameraZoomTilt, targetCamera.transform.right)*targetCamera.transform.rotation;
-//>>>>>>> Stashed changes
         }
 
  
