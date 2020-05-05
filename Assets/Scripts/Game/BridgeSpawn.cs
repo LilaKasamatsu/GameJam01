@@ -5,20 +5,39 @@ using UnityEngine;
 public class BridgeSpawn : MonoBehaviour
 {
     [SerializeField] GameObject bridge;
+    [SerializeField] GameObject selecter;
 
     private int cellSize;
     private Camera cam;
 
     private Vector3 startPoint;
     private Vector3 endPoint;
-    private Vector3 spawnLocation;
 
-    private bool build = false;
+
+    private GameObject[] structureSelects;
+
+    public bool build = false;
     private float bridgeSize;
 
     int hitGridX;
     int hitGridZ;
     float hitGridY;
+
+
+    //Singleton
+    public static BridgeSpawn Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -47,8 +66,17 @@ public class BridgeSpawn : MonoBehaviour
                     {
 
                         startPoint = new Vector3(hitGridX * cellSize, hitGridY, hitGridZ * cellSize);
-                        spawnLocation = new Vector3(hitGridX * cellSize, hitGridY, hitGridZ * cellSize);
                         build = true;
+
+                        List<StructureBehavior> selectedStructures = new List<StructureBehavior>();
+
+                        for (int i = 0; i < GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects.Count; i++)
+                        {
+                            selectedStructures.Add(GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[i].GetComponent<StructureBehavior>());
+                            selectedStructures[i].isSelected = true;
+
+                        }
+
 
                     }
 
@@ -82,11 +110,15 @@ public class BridgeSpawn : MonoBehaviour
                 {
                     if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0)
                     {
-                        GameObject bridgeNew = Instantiate(bridge, spawnLocation, Quaternion.identity) as GameObject;
+
+                        GameObject bridgeNew = Instantiate(bridge, startPoint, Quaternion.identity) as GameObject;
                         bridgeNew.transform.localScale = new Vector3(bridgeNew.transform.localScale.x, bridgeNew.transform.localScale.y, bridgeSize);
                         bridgeNew.transform.LookAt(endPoint);
+
+                        build = false;
+
                     }
-               
+
                 }
 
 
@@ -94,4 +126,5 @@ public class BridgeSpawn : MonoBehaviour
 
         }
     }
+           
 }

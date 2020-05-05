@@ -13,15 +13,21 @@ public class GridList
     public int structureAmount;
     public int pointAmount;
     public int foundationAmount;
+    public List<GameObject> structureObjects;
+    public int bridge;
 
 
-    public GridList(int newX, int newZ, int newStructureAmount, int newPointAmount, int newFoundationAmount)
+    public GridList(int newStructureAmount, int newPointAmount, int newFoundationAmount, int newBridge)
     {
-        x = newX;
-        z = newZ;
+        //x = newX;
+        //z = newZ;
         structureAmount = newStructureAmount;
         pointAmount = newPointAmount;
         foundationAmount = newFoundationAmount;
+        structureObjects = new List<GameObject>();
+        bridge = newBridge;
+
+        //structureObjects = newStructureObjects;
     }
 
 

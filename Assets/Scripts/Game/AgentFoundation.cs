@@ -111,9 +111,9 @@ public class AgentFoundation : MonoBehaviour
             //Search Grid for structures/main points
             //The list orientPositions saves the Vector3 of all structures, that the agent has to orient on
             orientPositions = new List<Vector3>();
-            for (int x = minX; x >= minX  && x <= maxX && x < GridArray.Instance.arrayX && x > 0; x++)
+            for (int x = minX; x >= minX  && x <= maxX && x < GridArray.Instance.arrayX && x >= 0; x++)
             {
-                for (int z = minZ; z >= minZ && z <= maxZ && z < GridArray.Instance.arrayZ && z > 0; z++)
+                for (int z = minZ; z >= minZ && z <= maxZ && z < GridArray.Instance.arrayZ && z >= 0; z++)
                 {
 
                     if (gridArray[x, z].foundationAmount > 0)

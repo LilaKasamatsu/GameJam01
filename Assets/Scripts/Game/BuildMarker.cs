@@ -7,6 +7,7 @@ public class BuildMarker : MonoBehaviour
 
     Camera cam;
 
+
     private void Start()
     {
         gameObject.GetComponent<MeshRenderer>().enabled = false;

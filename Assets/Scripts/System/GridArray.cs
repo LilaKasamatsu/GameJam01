@@ -57,7 +57,7 @@ public class GridArray : MonoBehaviour
                 }
                 */
 
-                gridList.Add(new GridList(Mathf.RoundToInt(x * cellSize), Mathf.RoundToInt(z * cellSize), 0, 0, 0));
+                gridList.Add(new GridList(0, 0, 0, 0));
             }
         }
     }
@@ -105,7 +105,7 @@ public class GridArray : MonoBehaviour
             {
                 //Debug.Log(x + " , " + i);
 
-                gridArray[x, z] = new GridList( 0, 0, 0, 0, 0 );
+                gridArray[x, z] = new GridList(0, 0, 0, 0);
 
             }
         }

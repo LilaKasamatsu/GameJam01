@@ -141,9 +141,12 @@ public class SpawnSettings : MonoBehaviour
 
                     GameObject newAgent = Instantiate(agent, spawnLocation + new Vector3(0, agent.transform.localScale.y / 2), Quaternion.identity);
                     newAgent.GetComponent<AgentStructure>().isActive = true;
+                                                    
+
+                    GameObject builtStructure = Instantiate(structure, spawnLocation, Quaternion.identity) as GameObject;
+                    GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
 
 
-                    Instantiate(structure, spawnLocation, Quaternion.identity);
                     GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
 
                 }
