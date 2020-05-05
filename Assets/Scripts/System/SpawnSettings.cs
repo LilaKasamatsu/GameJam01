@@ -112,44 +112,45 @@ public class SpawnSettings : MonoBehaviour
             //Foundation Agent
             if (agent.GetComponent<AgentFoundation>() != null && agentStack.agentFoundation > 0)
             {
-                if ( GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ) && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 )
+            
+                if ( GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ) )
                 {
-                    agentStack.agentFoundation -= 1;
+                    if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0)
+                    {
+                        agentStack.agentFoundation -= 1;
 
-                    Vector3 spawnLocation = hitGrid;
-                    spawnLocation.y = foundation.transform.localScale.y / 2;
+                        Vector3 spawnLocation = hitGrid;
+                        spawnLocation.y = foundation.transform.localScale.y / 2;
 
-                    GameObject newAgent = Instantiate(agent, spawnLocation + new Vector3(0, agent.transform.localScale.y ), Quaternion.identity);
-                    newAgent.GetComponent<AgentFoundation>().isActive = true;
-
-
-                    //Instantiate(foundation, spawnLocation, Quaternion.identity);
-                    //GridArray.Instance.gridArray[arrayPosX, arrayPosZ].foundationAmount += 1;
-
+                        GameObject newAgent = Instantiate(agent, spawnLocation + new Vector3(0, agent.transform.localScale.y), Quaternion.identity);
+                        newAgent.GetComponent<AgentFoundation>().isActive = true;
+                    }                    
                 }
             }
             
             //Structure Agent
             if (agent.GetComponent<AgentStructure>() != null && agentStack.agentStructure > 0)
             {
-                if (gridArray[arrayPosX, arrayPosZ].structureAmount <= 0 && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+                if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
                 {
-                    agentStack.agentStructure -= 1;
+                    if (gridArray[arrayPosX, arrayPosZ].structureAmount <= 0 && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+                    {
+                        agentStack.agentStructure -= 1;
 
-                    Vector3 spawnLocation = hitGrid;
-                    spawnLocation.y = structure.transform.localScale.y / 2;
+                        Vector3 spawnLocation = hitGrid;
+                        spawnLocation.y = structure.transform.localScale.y / 2;
 
-                    GameObject newAgent = Instantiate(agent, spawnLocation + new Vector3(0, agent.transform.localScale.y / 2), Quaternion.identity);
-                    newAgent.GetComponent<AgentStructure>().isActive = true;
-                                                    
-
-                    GameObject builtStructure = Instantiate(structure, spawnLocation, Quaternion.identity) as GameObject;
-                    GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
+                        GameObject newAgent = Instantiate(agent, spawnLocation + new Vector3(0, agent.transform.localScale.y / 2), Quaternion.identity);
+                        newAgent.GetComponent<AgentStructure>().isActive = true;
 
 
-                    GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
+                        GameObject builtStructure = Instantiate(structure, spawnLocation, Quaternion.identity) as GameObject;
+                        GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
 
-                }
+
+                        GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
+                    }
+                }                
             }
 
 

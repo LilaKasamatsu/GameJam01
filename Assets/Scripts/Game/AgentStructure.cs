@@ -140,25 +140,26 @@ public class AgentStructure : MonoBehaviour
         gridArray = GridArray.Instance.gridArray;
         if (!agent.hasPath && canBuild == true)
         {
-            int arrayPosX = Mathf.RoundToInt(transform.position.x / cellSize) ;
-            int arrayPosZ = Mathf.RoundToInt(transform.position.z / cellSize);
+            int arrayPosX = GridArray.Instance.NumToGrid(transform.position.x);
+            int arrayPosZ = GridArray.Instance.NumToGrid(transform.position.z);
 
-
-            Vector3 buildLocation = new Vector3(arrayPosX * cellSize, structure.transform.localScale.y/2 + 2* gridArray[arrayPosX, arrayPosZ].structureAmount, arrayPosZ * cellSize);
             canBuild = false;
 
-          
-     
-            if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].bridge <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+
+            if(GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
             {
+                Vector3 buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), structure.transform.localScale.y / 2 + 2 * gridArray[arrayPosX, arrayPosZ].structureAmount, GridArray.Instance.RoundToGrid(transform.position.z));
 
-                GameObject builtStructure = Instantiate(structure, buildLocation, Quaternion.identity) as GameObject;
-                gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
-                           
+                if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].bridge <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+                {
 
-                gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
+                    GameObject builtStructure = Instantiate(structure, buildLocation, Quaternion.identity) as GameObject;
+                    gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
+                    
+                    gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
 
-            }
+                }
+            }                                 
         }
     }
 

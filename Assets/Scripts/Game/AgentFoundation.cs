@@ -155,7 +155,7 @@ public class AgentFoundation : MonoBehaviour
         gridArray = GridArray.Instance.gridArray;
         if (!agent.hasPath && canBuild == true)
         {
-            Vector3 buildLocation = new Vector3(Mathf.Round(transform.position.x / cellSize) * cellSize, foundation.transform.localScale.y / 2, Mathf.Round(transform.position.z / cellSize) * cellSize);
+            Vector3 buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), foundation.transform.localScale.y / 2, GridArray.Instance.RoundToGrid(transform.position.z));
             canBuild = false;
 
             int arrayPosX = GridArray.Instance.NumToGrid(buildLocation.x);

@@ -171,7 +171,7 @@ public class GridArray : MonoBehaviour
     {
         Vector3 tMin = position;
         Vector3 currentPos = position;
-        float minDist = 30f;
+        float minDist = Mathf.Infinity;
 
         foreach (Vector3 t in target)
         {
