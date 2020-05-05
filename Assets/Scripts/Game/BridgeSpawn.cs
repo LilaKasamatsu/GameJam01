@@ -23,6 +23,9 @@ public class BridgeSpawn : MonoBehaviour
     int hitGridZ;
     float hitGridY;
 
+    List<StructureBehavior> selectedStructures = new List<StructureBehavior>();
+    List<StructureBehavior> selectedStructuresDest = new List<StructureBehavior>();
+
 
     //Singleton
     public static BridgeSpawn Instance { get; private set; }
@@ -68,7 +71,7 @@ public class BridgeSpawn : MonoBehaviour
                         startPoint = new Vector3(hitGridX * cellSize, hitGridY, hitGridZ * cellSize);
                         build = true;
 
-                        List<StructureBehavior> selectedStructures = new List<StructureBehavior>();
+                        selectedStructures = new List<StructureBehavior>();
 
                         for (int i = 0; i < GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects.Count; i++)
                         {
@@ -76,10 +79,48 @@ public class BridgeSpawn : MonoBehaviour
                             selectedStructures[i].isSelected = true;
 
                         }
+                    }
+                }
+            }
 
+            //Check while mouse down
+            if (Input.GetMouseButton(0))
+            {
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("structure"))
+                {
+                    hitGridX = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.x);
+                    hitGridZ = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.z);
+                    hitGridY = -1f + 2 * GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount;
+
+                    
+                    for (int i = 0; i < selectedStructuresDest.Count && i < selectedStructures.Count; i++)
+                    {
+                        if(selectedStructuresDest[i] != selectedStructures[i])
+                        {
+                            selectedStructuresDest[i].isSelected = false;
+
+                        }
 
                     }
+                    
+                    selectedStructuresDest = new List<StructureBehavior>();
 
+                    if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0)
+                    {
+
+                        endPoint = new Vector3(hitGridX * cellSize, hitGridY, hitGridZ * cellSize);
+
+                        
+                        for (int i = 0; i < GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects.Count; i++)
+                        {
+                            selectedStructuresDest.Add(GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[i].GetComponent<StructureBehavior>());
+                            selectedStructuresDest[i].isSelected = true;
+
+                        }
+                    }
                 }
             }
 
