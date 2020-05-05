@@ -100,31 +100,9 @@ public class AgentFoundation : MonoBehaviour
             //int minZ = Mathf.RoundToInt( (transform.position.z ) / cellSize - maxDestinationDistance) ;
             //int maxZ = Mathf.RoundToInt( (transform.position.z ) / cellSize + maxDestinationDistance) ;
 
-            int minX = GridArray.Instance.NumToGrid(transform.position.x - pointRadius);
-            int minZ = GridArray.Instance.NumToGrid(transform.position.z - pointRadius);
-
-            int maxX = GridArray.Instance.NumToGrid(transform.position.x + pointRadius);
-            int maxZ = GridArray.Instance.NumToGrid(transform.position.z + pointRadius);
-
-
-
-            //Search Grid for structures/main points
-            //The list orientPositions saves the Vector3 of all structures, that the agent has to orient on
-            orientPositions = new List<Vector3>();
-            for (int x = minX; x >= minX  && x <= maxX && x < GridArray.Instance.arrayX && x >= 0; x++)
-            {
-                for (int z = minZ; z >= minZ && z <= maxZ && z < GridArray.Instance.arrayZ && z >= 0; z++)
-                {
-
-                    if (gridArray[x, z].foundationAmount > 0)
-                    {
-
-                        //return that this position has a strucutre to orient on.
-                        orientPositions.Add(new Vector3(x * cellSize, transform.position.y, z * cellSize));
-
-                    }
-                }
-            }
+            
+            orientPositions= GridArray.Instance.searchForFoundations(transform.position, pointRadius);
+            
 
             //"GetClosestTarget" then compares all of those Vector3 inside the maximum range "maxDestinationDistance" and finds the closest
             Vector3 closestMainPoint = GridArray.Instance.GetClosestTarget(orientPositions, transform.position);
