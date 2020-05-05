@@ -33,7 +33,7 @@ public class DestructionManager : MonoBehaviour
                 for (int i = 0; i < GridLengthZ; i++)
                 {
                     GridList target = GridArray.Instance.gridArray[coloumscounter, i];
-                    Vector3 targetVector = new Vector3(coloumscounter, 0, i);
+                    Vector3 targetVector = new Vector3(i, 0, coloumscounter);
                    if( target.structureAmount >= heightLimit)
                     {
                         Explode(target,targetVector);
@@ -49,7 +49,7 @@ public class DestructionManager : MonoBehaviour
                 coloumscounter +=1;
                 yield return new WaitForEndOfFrame();
             }
-            
+            coloumscounter = 0;
 
             yield return new WaitForSeconds(Random.Range(minCoolDown, maxCoolDown));
         }
@@ -71,7 +71,8 @@ public class DestructionManager : MonoBehaviour
     {
         if (GridArray.Instance.searchForStructure(targetVector, platformSearchDistance).Count == 0)
         {
-            
+            Destroy(target.foundationObject);
+            target.foundationAmount = 0;
         }
     }
 

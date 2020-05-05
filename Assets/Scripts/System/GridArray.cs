@@ -170,12 +170,11 @@ public class GridArray : MonoBehaviour
     public Vector3 GetClosestTarget(List<Vector3> target, Vector3 position)
     {
         Vector3 tMin = position;
-        Vector3 currentPos = position;
-        float minDist = Mathf.Infinity;
+       
 
         foreach (Vector3 t in target)
         {
-            float dist = Vector3.Distance(t, currentPos);
+            float dist = Vector3.Distance(t, position);
             if (dist < minDist)
             {
                 tMin = t;
@@ -187,10 +186,15 @@ public class GridArray : MonoBehaviour
     public List<Vector3> searchForStructure(Vector3 target,float searchDistance)
     {
         int minX = NumToGrid(target.x - searchDistance);
+        minX = Mathf.Clamp(minX, 0, arrayX-1);
         int minZ = NumToGrid(target.z - searchDistance);
+        minZ = Mathf.Clamp(minZ, 0, arrayZ-1);
 
         int maxX = NumToGrid(target.x + searchDistance);
+        maxX =Mathf.Clamp(maxX, 0, arrayX-1);
         int maxZ = NumToGrid(target.z + searchDistance);
+        maxZ=Mathf.Clamp(maxZ, 0, arrayZ-1);
+        
 
 
 
@@ -201,7 +205,7 @@ public class GridArray : MonoBehaviour
         {
             for (int z = minZ; z >= minZ && z <= maxZ ; z++)
             {
-                if (x < arrayX && x >= 0 && z < arrayZ && z > 0 && gridArray[x, z].structureAmount > 0)
+                if (gridArray[x, z].structureAmount > 0)
                 {
                     //return that this position has a strucutre to orient on.
                     orientPositions.Add(new Vector3(x * cellSize, 0, z * cellSize));
