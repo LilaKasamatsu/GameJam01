@@ -12,6 +12,7 @@ public class StructureBehavior : MonoBehaviour
 
     public bool isSelected = false;
     public bool isBridged = false;
+    public bool isBase = true;
 
     void Start()
     {
@@ -23,11 +24,11 @@ public class StructureBehavior : MonoBehaviour
 
     private void Update()
     {
-        if (isSelected == true)
+        if (isSelected == true && isBase == true)
         {
             ChangeColorSelect();
         }
-        else if (isSelected == false && isBridged == false)
+        else if (isSelected == false && isBridged == false && isBase == false)
         {
             ChangeColorBase();
         }
@@ -37,10 +38,12 @@ public class StructureBehavior : MonoBehaviour
             isSelected = false;
         }
 
-        if (isBridged)
+        if (isBridged && isBase == false)
         {
-            render.material.color = colorBridged;
             render.material.DisableKeyword("_EMISSION");
+
+            render.material.color = colorBridged;
+            isBase = true;
         }
     }
 
@@ -52,6 +55,7 @@ public class StructureBehavior : MonoBehaviour
 
         Color finalColor = colorSelect * Mathf.LinearToGammaSpace(0.25f);
         render.material.SetColor("_EmissionColor", finalColor);
+        isBase = false;
 
     }
     public void ChangeColorBase()
@@ -59,6 +63,7 @@ public class StructureBehavior : MonoBehaviour
         render.material.color = colorBase;
 
         render.material.DisableKeyword("_EMISSION");
+        isBase = true;
 
     }
 }

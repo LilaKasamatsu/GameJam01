@@ -58,7 +58,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorBase: {r: 0.41985583, g: 0.8018868, b: 0.4901683, a: 1}
   colorSelect: {r: 1, g: 0, b: 0.06640482, a: 1}
+  colorBridged: {r: 0.8679245, g: 0.39711642, b: 0.39711642, a: 1}
   isSelected: 0
+  isBridged: 0
+  isBase: 1
 --- !u!23 &1626490740897838351
 MeshRenderer:
   m_ObjectHideFlags: 0

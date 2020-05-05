@@ -51,7 +51,7 @@ public class SpawnSettings : MonoBehaviour
         agentStack = GridArray.Instance.agentStack;
 
 
-        CreateStartPoint();
+        //CreateStartPoint();
 
     }
 

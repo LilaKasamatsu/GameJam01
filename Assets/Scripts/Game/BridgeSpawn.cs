@@ -23,6 +23,9 @@ public class BridgeSpawn : MonoBehaviour
     int hitGridZ;
     float hitGridY;
 
+    int oldX;
+    int oldZ;
+
     List<StructureBehavior> selectedStructures = new List<StructureBehavior>();
     List<StructureBehavior> selectedStructuresDest = new List<StructureBehavior>();
 
@@ -65,18 +68,27 @@ public class BridgeSpawn : MonoBehaviour
                     hitGridZ = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.z);
                     hitGridY = -1f + 2 * GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount;
 
+                    oldX = hitGridX;
+                    oldZ = hitGridZ;
+
                     if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0)
                     {
+                        GridArray.Instance.gridArray[hitGridX, hitGridZ].bridge = 1;
 
                         startPoint = new Vector3(hitGridX * cellSize, hitGridY, hitGridZ * cellSize);
                         build = true;
 
                         selectedStructures = new List<StructureBehavior>();
-
+                        
                         for (int i = 0; i < GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects.Count; i++)
                         {
                             selectedStructures.Add(GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[i].GetComponent<StructureBehavior>());
-                            selectedStructures[i].isSelected = true;
+                            
+                            if(selectedStructures[i].GetComponent<StructureBehavior>() != null)
+                            {
+                                selectedStructures[i].isSelected = true;
+
+                            }
 
                         }
                     }
@@ -95,13 +107,19 @@ public class BridgeSpawn : MonoBehaviour
                     hitGridZ = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.z);
                     hitGridY = -1f + 2 * GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount;
 
-                    
-                    for (int i = 0; i < selectedStructuresDest.Count && i < selectedStructures.Count; i++)
+
+                    for (int i = 0; i < selectedStructuresDest.Count; i++)
                     {
-                        if(selectedStructuresDest[i] != selectedStructures[i])
+                        if(selectedStructuresDest[i].GetComponent<StructureBehavior>() != null && (selectedStructuresDest.Count > selectedStructures.Count || selectedStructuresDest.Count < selectedStructures.Count))
                         {
                             selectedStructuresDest[i].isSelected = false;
 
+                        }
+
+                        else if (selectedStructuresDest[i].GetComponent<StructureBehavior>() != null && selectedStructuresDest[i] != selectedStructures[i])
+                        {
+                            selectedStructuresDest[i].isSelected = false;
+                            
                         }
 
                     }
@@ -113,11 +131,17 @@ public class BridgeSpawn : MonoBehaviour
 
                         endPoint = new Vector3(hitGridX * cellSize, hitGridY, hitGridZ * cellSize);
 
+                 
                         
                         for (int i = 0; i < GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects.Count; i++)
                         {
                             selectedStructuresDest.Add(GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[i].GetComponent<StructureBehavior>());
-                            selectedStructuresDest[i].isSelected = true;
+
+                            if (selectedStructuresDest[i].GetComponent<StructureBehavior>() != null)
+                            {
+                                selectedStructuresDest[i].isSelected = true;
+
+                            }
 
                         }
                     }
@@ -132,19 +156,17 @@ public class BridgeSpawn : MonoBehaviour
                 if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("structure"))
                 {
                   
-                    hitGridX = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.x);
-                    hitGridZ = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.z);
-                    hitGridY = -1.5f + 2 * GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount;
-
-             
-
-                    endPoint = new Vector3(hitGridX * cellSize, hitGridY, hitGridZ * cellSize);
+                 
                     bridgeSize = Vector3.Distance(startPoint, endPoint ) + 1;
-                                    
+                    GridArray.Instance.gridArray[hitGridX, hitGridZ].bridge = 1;
+
+
                 }
                 else
                 {
                     build = false;
+                    GridArray.Instance.gridArray[oldX, oldZ].bridge = 0;
+
                 }
 
                 if ( build == true)
@@ -157,6 +179,26 @@ public class BridgeSpawn : MonoBehaviour
                         bridgeNew.transform.LookAt(endPoint);
 
                         build = false;
+
+
+                        for (int i = 0; i < selectedStructuresDest.Count; i++)
+                        {
+                            if (selectedStructuresDest[i].GetComponent<StructureBehavior>() != null)
+                            {
+                                selectedStructuresDest[i].isBridged = true;
+
+                            }
+
+                        }
+                        for (int i = 0; i < selectedStructures.Count; i++)
+                        {
+                            if (selectedStructures[i].GetComponent<StructureBehavior>() != null)
+                            {
+                                selectedStructures[i].isBridged = true;
+
+                            }
+
+                        }
 
                     }
 

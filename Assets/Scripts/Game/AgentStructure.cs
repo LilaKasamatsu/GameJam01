@@ -149,7 +149,7 @@ public class AgentStructure : MonoBehaviour
 
           
      
-            if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0  && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+            if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].bridge <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
             {
 
                 GameObject builtStructure = Instantiate(structure, buildLocation, Quaternion.identity) as GameObject;
