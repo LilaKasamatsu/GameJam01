@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -362,7 +362,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 149271273}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 42, y: 0, z: 42}
+  m_LocalPosition: {x: 42, y: -20, z: 42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
@@ -381,13 +381,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b011e5df231467f4fa1f77180e6c54f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxZoom: 11.9
+  maxZoom: 10
   minZoom: 0
+  ZoomWithoutTilt: 5
   currentZoom: 0
+  currentMouseTilt: 0
+  maxMouseTilt: 10
+  minMouseTilt: -25
   rotationspeed: 164
-  cameraZoomSpeed: 73.3
-  cameraTiltToZoomRatio: 0.287
-  cameraZoomTilt: 0
+  cameraZoomSpeed: 56.4
+  cameraTiltToZoomRatio: 0.51
 --- !u!1 &339049085
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,7 +867,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.3057855, y: -0.6375698, z: 0.3057855, w: 0.6375698}
-  m_LocalPosition: {x: 89.1, y: 68.7, z: 0}
+  m_LocalPosition: {x: 78.3, y: 97.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 149271274}
