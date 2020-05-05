@@ -132,13 +132,13 @@ public class AgentFoundation : MonoBehaviour
             float counter = 0.1f;
 
 
-            while (GridArray.Instance.CheckArrayBounds(gridX, gridZ) == false || (GridArray.Instance.CheckArrayBounds(gridX, gridZ) && GridArray.Instance.gridArray[gridX, gridZ].foundationAmount != 0))
+            while (counter < 5f && (GridArray.Instance.CheckArrayBounds(gridX, gridZ) == false || (GridArray.Instance.CheckArrayBounds(gridX, gridZ) && GridArray.Instance.gridArray[gridX, gridZ].foundationAmount != 0)))
             {
 
 
                 closestX = closestMainPoint.x + Random.Range(-pointRadius - counter, pointRadius + counter);
                 closestZ = closestMainPoint.z + Random.Range(-pointRadius - counter, pointRadius + counter);
-                counter += 0.1f;
+                counter += 0.5f;
 
                 gridX = GridArray.Instance.NumToGrid(closestX);
                 gridZ = GridArray.Instance.NumToGrid(closestZ);

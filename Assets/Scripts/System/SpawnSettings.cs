@@ -278,10 +278,14 @@ public class SpawnSettings : MonoBehaviour
                 hitPosition.y = Mathf.Round(hit.point.y / cellSize) * cellSize;
                 hitPosition.z = Mathf.Round(hit.point.z / cellSize) * cellSize;
 
-                int hitX = Mathf.RoundToInt(hitPosition.x) / cellSize;
-                int hitZ = Mathf.RoundToInt(hitPosition.z) / cellSize;
+                int hitX = GridArray.Instance.NumToGrid(hitPosition.x);
+                int hitZ = GridArray.Instance.NumToGrid(hitPosition.z);
 
-                Debug.Log("; Foundation: " + GridArray.Instance.gridArray[hitX, hitZ].foundationAmount + "; Structures: " + GridArray.Instance.gridArray[hitX, hitZ].structureAmount + "; Point: " + GridArray.Instance.gridArray[hitX, hitZ].pointAmount);
+                if (GridArray.Instance.CheckArrayBounds(hitX, hitZ))
+                {
+                    Debug.Log("; Foundation: " + GridArray.Instance.gridArray[hitX, hitZ].foundationAmount + "; Structures: " + GridArray.Instance.gridArray[hitX, hitZ].structureAmount + "; Point: " + GridArray.Instance.gridArray[hitX, hitZ].pointAmount);
+
+                }
 
             }
         }

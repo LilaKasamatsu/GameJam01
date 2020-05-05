@@ -31,9 +31,7 @@ public class SetAgentHeight : MonoBehaviour
             {
                 transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, parentY + 2 * gridArray[arrayPosX, arrayPosZ].structureAmount, 0.05f), transform.position.z);
 
-            }
-
-
+            }            
         }
 
 
