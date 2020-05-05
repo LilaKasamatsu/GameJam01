@@ -223,6 +223,7 @@ public class AgentFoundation : MonoBehaviour
             SpawnSettings.Instance.PlaceAgent(spawnAgent);
         }
         
+        
     }
 
 }
