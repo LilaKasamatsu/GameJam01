@@ -16,6 +16,10 @@ public class BridgeSpawn : MonoBehaviour
     private bool build = false;
     private float bridgeSize;
 
+    int hitGridX;
+    int hitGridZ;
+    float hitGridY;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,16 +39,19 @@ public class BridgeSpawn : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("structure"))
                 {
-                    build = true;
+                    hitGridX = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.x);
+                    hitGridZ = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.z);
+                    hitGridY = -1f + 2 * GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount;
 
-                    int hitGridX = GridArray.Instance.NumToGrid(hit.point.x);
-                    int hitGridZ = GridArray.Instance.NumToGrid(hit.point.z);
-                    int hitGridY = GridArray.Instance.RoundToGrid(-1f + 2 * GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount);
+                    if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0)
+                    {
 
-                    startPoint = new Vector3(hitGridX * cellSize, hitGridY, hitGridZ * cellSize);
-                                
+                        startPoint = new Vector3(hitGridX * cellSize, hitGridY, hitGridZ * cellSize);
+                        spawnLocation = new Vector3(hitGridX * cellSize, hitGridY, hitGridZ * cellSize);
+                        build = true;
 
-                    spawnLocation = new Vector3(hitGridX * cellSize, hitGridY, hitGridZ * cellSize);
+                    }
+
                 }
             }
 
@@ -55,12 +62,14 @@ public class BridgeSpawn : MonoBehaviour
 
                 if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("structure"))
                 {
-                    int hitGridX = GridArray.Instance.NumToGrid(hit.point.x);
-                    int hitGridZ = GridArray.Instance.NumToGrid(hit.point.z);
-                    int hitGridY = GridArray.Instance.RoundToGrid(-1f + 2 * GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount);
+                  
+                    hitGridX = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.x);
+                    hitGridZ = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.z);
+                    hitGridY = -1.5f + 2 * GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount;
+
+             
 
                     endPoint = new Vector3(hitGridX * cellSize, hitGridY, hitGridZ * cellSize);
-
                     bridgeSize = Vector3.Distance(startPoint, endPoint ) + 1;
                                     
                 }
@@ -71,12 +80,13 @@ public class BridgeSpawn : MonoBehaviour
 
                 if ( build == true)
                 {
-                    GameObject bridgeNew = Instantiate(bridge, spawnLocation, Quaternion.identity) as GameObject;
-                    bridgeNew.transform.localScale = new Vector3(bridgeNew.transform.localScale.x, bridgeNew.transform.localScale.y, bridgeSize);
-
-                    //bridgeNew.transform.LookAt(new Vector3(endPoint.x * cellSize, endPoint.y, startPoint.z * cellSize));
-                    bridgeNew.transform.LookAt(endPoint);
-                    //bridgeNew.transform.localPosition += new Vector3(0, 0, bridgeSize / 2);
+                    if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0)
+                    {
+                        GameObject bridgeNew = Instantiate(bridge, spawnLocation, Quaternion.identity) as GameObject;
+                        bridgeNew.transform.localScale = new Vector3(bridgeNew.transform.localScale.x, bridgeNew.transform.localScale.y, bridgeSize);
+                        bridgeNew.transform.LookAt(endPoint);
+                    }
+               
                 }
 
 
