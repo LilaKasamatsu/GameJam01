@@ -30,7 +30,7 @@ public class GridArray : MonoBehaviour
 
     public void CreateGrid()
     {
-        gridDimensions = new int[Mathf.RoundToInt(ground.transform.localScale.x / cellSize) + 1, Mathf.RoundToInt(ground.transform.localScale.z / cellSize) + 1];
+        gridDimensions = new int[arrayX, arrayZ];
         int setSquare = Random.Range(0, 100);
 
         for (int x = 0; x < gridDimensions.GetLength(0); x++)
@@ -40,6 +40,9 @@ public class GridArray : MonoBehaviour
             {
 
                 //Visual Grid
+
+                //GameObject gridSquare = Instantiate(marker, new Vector3(x * cellSize, 0 - marker.transform.localScale.y / 2, z * cellSize), Quaternion.identity) as GameObject;
+
                 /*
                 if ( setSquare > 40)
                 {
@@ -82,10 +85,12 @@ public class GridArray : MonoBehaviour
 
 
         ground = GameObject.FindGameObjectWithTag("ground");
+
+        arrayX = Mathf.RoundToInt(ground.transform.localScale.x / cellSize) - 1;
+        arrayZ = Mathf.RoundToInt(ground.transform.localScale.z / cellSize) - 1;
+
         CreateGrid();
 
-        arrayX = Mathf.RoundToInt(ground.transform.localScale.x / gridSize);
-        arrayZ = Mathf.RoundToInt(ground.transform.localScale.z / gridSize);
 
         gridArray = new GridList[arrayX, arrayZ];
 
@@ -109,6 +114,14 @@ public class GridArray : MonoBehaviour
     }
 
   
+
+
+    public bool CheckArrayBounds(int gridX, int gridZ)
+    {
+        
+        
+        return false;
+    }
 
     IEnumerator AddAgentStack()
     {
