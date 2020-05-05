@@ -423,7 +423,7 @@ MonoBehaviour:
   startingAgentPoint: 1
   minNewAgentDelay: 1
   maxNewAgentDelay: 2
-  newAgentAmount: 10
+  newAgentAmount: 50
   arrayX: 0
   arrayZ: 0
   gridSize: 3

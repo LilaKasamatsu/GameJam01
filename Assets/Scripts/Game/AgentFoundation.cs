@@ -13,6 +13,12 @@ public class AgentFoundation : MonoBehaviour
     [SerializeField] GameObject spawnAgent;
 
 
+    //Der Bereich wird um diesen Wert erhöt, wenn sie kein nahes leeres Feld finden.
+    [SerializeField] float searchIncrease = 0.5f;
+
+    //Maximaler vergrößerter Bereich
+    [SerializeField] float maxSearch = 5f;
+
 
     private GameObject ground;
 
@@ -129,16 +135,16 @@ public class AgentFoundation : MonoBehaviour
             int gridX = GridArray.Instance.NumToGrid(closestX);
             int gridZ = GridArray.Instance.NumToGrid(closestZ);
 
-            float counter = 0.1f;
+            float counter = searchIncrease;
 
 
-            while (counter < 5f && (GridArray.Instance.CheckArrayBounds(gridX, gridZ) == false || (GridArray.Instance.CheckArrayBounds(gridX, gridZ) && GridArray.Instance.gridArray[gridX, gridZ].foundationAmount != 0)))
+            while (counter < maxSearch && (GridArray.Instance.CheckArrayBounds(gridX, gridZ) == false || (GridArray.Instance.CheckArrayBounds(gridX, gridZ) && GridArray.Instance.gridArray[gridX, gridZ].foundationAmount != 0)))
             {
 
 
                 closestX = closestMainPoint.x + Random.Range(-pointRadius - counter, pointRadius + counter);
                 closestZ = closestMainPoint.z + Random.Range(-pointRadius - counter, pointRadius + counter);
-                counter += 0.5f;
+                counter += searchIncrease;
 
                 gridX = GridArray.Instance.NumToGrid(closestX);
                 gridZ = GridArray.Instance.NumToGrid(closestZ);
