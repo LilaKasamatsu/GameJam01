@@ -110,15 +110,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   structure: {fileID: 8498785658671383159, guid: 8e4ed8fa909ff364bb564df49e49c781,
     type: 3}
-  marker: {fileID: 8657032037794361689, guid: f61351ffc3e864f4fbba23ead708edbc, type: 3}
-  minBuildDelay: 0.35
-  maxBuildDelay: 1.25
-  maxBuildings: 100
+  minBuildDelay: 1.38
+  maxBuildDelay: 2.09
+  maxBuildings: 25
   spawnAgent: {fileID: 6204259750687775721}
-  cam: {fileID: 0}
   agent: {fileID: 6204259750687775720}
   isActive: 0
   pointRadius: 2
+  maxDestinationDistance: 0
 --- !u!195 &6204259750687775720
 NavMeshAgent:
   m_ObjectHideFlags: 0

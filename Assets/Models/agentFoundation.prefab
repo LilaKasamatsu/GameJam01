@@ -58,8 +58,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foundation: {fileID: 7836647536578920252, guid: dfd15eeceb8f8e3439f4fca9d45da027,
     type: 3}
-  minBuildDelay: 0.3
-  maxBuildDelay: 1
+  minBuildDelay: 0.2
+  maxBuildDelay: 2
   maxBuildings: 0
   spawnAgent: {fileID: 4866568028121015989}
   agent: {fileID: 9062771477611380066}
