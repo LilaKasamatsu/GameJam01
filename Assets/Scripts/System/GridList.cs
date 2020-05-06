@@ -17,6 +17,7 @@ public class GridList
     public GameObject foundationObject;
     public int bridge;
 
+    public float towerWidth;
 
     public GridList(int newStructureAmount, int newPointAmount, int newFoundationAmount, int newBridge)
     {
@@ -32,6 +33,10 @@ public class GridList
         //structureObjects = newStructureObjects;
     }
 
+        towerWidth = 0;
 
- 
+}
+
+
+
 }
