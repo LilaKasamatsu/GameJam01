@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -37,7 +37,7 @@ public class AgentStructure : MonoBehaviour
 
     GridList[,] gridArray;
 
-  
+
     void Start()
     {
 
@@ -47,7 +47,7 @@ public class AgentStructure : MonoBehaviour
         cellSize = GridArray.Instance.cellSize;
         cellY = GridArray.Instance.cellY;
         gridArray = GridArray.Instance.gridArray;
-        
+
         // DIESER CODE IST DER NEUE
 
         //Create orientPosition List based on the grid
@@ -67,7 +67,7 @@ public class AgentStructure : MonoBehaviour
     {
         grid = SpawnSettings.Instance.grid;
 
-        
+
         if (isActive == true)
         {
             transform.GetChild(0).gameObject.SetActive(true);
@@ -89,7 +89,7 @@ public class AgentStructure : MonoBehaviour
         //Looping and delaying their walk cycle 
         while (isActive == true)
         {
-            
+
             BuildStructure();
 
             yield return new WaitForSeconds(Random.Range(minBuildDelay, maxBuildDelay));
@@ -109,7 +109,7 @@ public class AgentStructure : MonoBehaviour
                 for (int z = minZ; z >= minZ && z <= maxZ && z < GridArray.Instance.arrayZ && z > 0; z++)
                 {
 
-                    if (gridArray[x, z].structureAmount  > 0)
+                    if (gridArray[x, z].structureAmount > 0)
                     {
 
                         //return that this position has a strucutre to orient on.
@@ -125,7 +125,7 @@ public class AgentStructure : MonoBehaviour
             float closestX = closestMainPoint.x + Random.Range(-pointRadius, pointRadius);
             float closestZ = closestMainPoint.z + Random.Range(-pointRadius, pointRadius);
 
-         
+
 
             agentMoveLocation = new Vector3(closestX, transform.position.y, closestZ);
 
@@ -153,13 +153,13 @@ public class AgentStructure : MonoBehaviour
             canBuild = false;
 
 
-            if(GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
+            if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
             {
                 //buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount + 1, GridArray.Instance.RoundToGrid(transform.position.z));
 
 
                 if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].bridge <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
-                {          
+                {
 
                     gridY = Mathf.RoundToInt(gridArray[arrayPosX, arrayPosZ].structureAmount);
 
@@ -176,12 +176,12 @@ public class AgentStructure : MonoBehaviour
                         gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].zOrigin = arrayPosZ;
                     }
                     */
-                    if (gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].isBranched == false )
+                    if (gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].isBranched == false)
                     {
                         if (gridY > minBranchHeight)
                         {
                             if (randomValue >= 0 && randomValue < 10)
-                            {                                
+                            {
                                 if (gridArray[newArrayPosX - 1, newArrayPosZ].gridStructures[gridY].y == 0)
                                 {
                                     size.x = cellSize * 2f;
@@ -193,7 +193,7 @@ public class AgentStructure : MonoBehaviour
 
                                     gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
 
-                                }                        
+                                }
                             }
                             if (randomValue >= 10 && randomValue < 20)
                             {
@@ -270,7 +270,7 @@ public class AgentStructure : MonoBehaviour
 
                     }
                 }
-            }                                 
+            }
         }
     }
 
