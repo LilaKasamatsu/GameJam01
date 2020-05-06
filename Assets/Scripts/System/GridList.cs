@@ -36,9 +36,10 @@ public class GridList
         bridge = newBridge;
 
         gridStructures = new GridStructures[GridArray.Instance.maxStructures];
+
         for (int i = 0; i < gridStructures.Length; i++)
         {
-            gridStructures[i] = new GridStructures(0, 0, 0, new GameObject());
+            gridStructures[i] = new GridStructures(0, 0, 0, null);
         }
                           
 

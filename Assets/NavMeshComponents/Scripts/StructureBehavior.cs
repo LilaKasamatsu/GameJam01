@@ -24,6 +24,7 @@ public class StructureBehavior : MonoBehaviour
 
     private void Update()
     {
+        
         if (isSelected == true && isBase == true)
         {
             ChangeColorSelect();
@@ -45,6 +46,7 @@ public class StructureBehavior : MonoBehaviour
             render.material.color = colorBridged;
             isBase = true;
         }
+        
     }
 
     public void ChangeColorSelect()
