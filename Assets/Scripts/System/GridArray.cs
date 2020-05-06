@@ -167,6 +167,7 @@ public class GridArray : MonoBehaviour
         return i;
     }
 
+    float minDist = Mathf.Infinity;
     public Vector3 GetClosestTarget(List<Vector3> target, Vector3 position)
     {
         Vector3 tMin = position;

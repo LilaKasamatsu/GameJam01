@@ -33,10 +33,5 @@ public class GridList
         //structureObjects = newStructureObjects;
     }
 
-        towerWidth = 0;
-
 }
 
-
-
-}
