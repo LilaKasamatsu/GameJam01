@@ -162,20 +162,11 @@ public class AgentStructure : MonoBehaviour
                 {
 
                     gridY = Mathf.RoundToInt(gridArray[arrayPosX, arrayPosZ].structureAmount);
-
-
+                    
                     int randomValue = Random.Range(0, 100);
                     Vector3 size = structure.transform.localScale;
 
-                    //buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount, GridArray.Instance.RoundToGrid(transform.position.z));
-
-                    /*
-                    if (gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].y == 1)
-                    {
-                        gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].xOrigin = arrayPosX;
-                        gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].zOrigin = arrayPosZ;
-                    }
-                    */
+                
                     if (gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].isBranched == false)
                     {
                         if (gridY > minBranchHeight)
@@ -212,7 +203,7 @@ public class AgentStructure : MonoBehaviour
                             }
                             if (randomValue >= 20 && randomValue < 30)
                             {
-                                if (gridArray[newArrayPosX - 1, newArrayPosZ].gridStructures[gridY].y == 0)
+                                if (gridArray[newArrayPosX, newArrayPosZ - 1].gridStructures[gridY].y == 0)
                                 {
                                     size.z = cellSize * 2f;
                                     newArrayPosZ = arrayPosZ - 1;
@@ -227,7 +218,7 @@ public class AgentStructure : MonoBehaviour
                             }
                             if (randomValue >= 30 && randomValue < 40)
                             {
-                                if (gridArray[newArrayPosX + 1, newArrayPosZ].gridStructures[gridY].y == 0)
+                                if (gridArray[newArrayPosX, newArrayPosZ + 1].gridStructures[gridY].y == 0)
                                 {
                                     size.z = cellSize * 2f;
                                     newArrayPosZ = arrayPosZ + 1;
