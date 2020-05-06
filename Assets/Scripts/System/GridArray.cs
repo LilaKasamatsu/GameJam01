@@ -26,6 +26,9 @@ public class GridArray : MonoBehaviour
 
     private int[,] gridDimensions;
     public int cellSize = 3;
+    public int cellY = 2;
+    public int maxStructures;
+
 
 
     public void CreateGrid()

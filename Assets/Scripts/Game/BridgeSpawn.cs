@@ -66,7 +66,7 @@ public class BridgeSpawn : MonoBehaviour
                 {
                     hitGridX = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.x);
                     hitGridZ = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.z);
-                    hitGridY = -1f + 2 * GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount;
+                    hitGridY = GridArray.Instance.cellY * GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount;
 
                     oldX = hitGridX;
                     oldZ = hitGridZ;
@@ -105,7 +105,7 @@ public class BridgeSpawn : MonoBehaviour
                 {
                     hitGridX = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.x);
                     hitGridZ = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.z);
-                    hitGridY = -1f + 2 * GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount;
+                    hitGridY = GridArray.Instance.cellY * GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount;
 
 
                     for (int i = 0; i < selectedStructuresDest.Count; i++)

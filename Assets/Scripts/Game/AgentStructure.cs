@@ -11,7 +11,7 @@ public class AgentStructure : MonoBehaviour
     [SerializeField] float maxBuildDelay;
     [SerializeField] int maxBuildings;
     [SerializeField] GameObject spawnAgent;
-
+    [SerializeField] int minBranchHeight = 4;
 
 
     private GameObject ground;
@@ -24,8 +24,10 @@ public class AgentStructure : MonoBehaviour
     bool canBuild = false;
     bool canSpawn = false;
     private int cellSize;
-
-
+    private int cellY;
+    Vector3 buildLocation;
+    GameObject builtStructure;
+    int gridY;
 
     public float pointRadius;
     public float maxDestinationDistance;
@@ -43,6 +45,7 @@ public class AgentStructure : MonoBehaviour
         ground = GameObject.FindGameObjectWithTag("ground");
 
         cellSize = GridArray.Instance.cellSize;
+        cellY = GridArray.Instance.cellY;
         gridArray = GridArray.Instance.gridArray;
         
         // DIESER CODE IST DER NEUE
@@ -143,21 +146,129 @@ public class AgentStructure : MonoBehaviour
             int arrayPosX = GridArray.Instance.NumToGrid(transform.position.x);
             int arrayPosZ = GridArray.Instance.NumToGrid(transform.position.z);
 
+            int newArrayPosX = arrayPosX;
+            int newArrayPosZ = arrayPosZ;
+
+
             canBuild = false;
 
 
             if(GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
             {
-                Vector3 buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), structure.transform.localScale.y / 2 + 2 * gridArray[arrayPosX, arrayPosZ].structureAmount, GridArray.Instance.RoundToGrid(transform.position.z));
+                //buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount + 1, GridArray.Instance.RoundToGrid(transform.position.z));
+
 
                 if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].bridge <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
-                {
+                {          
 
-                    GameObject builtStructure = Instantiate(structure, buildLocation, Quaternion.identity) as GameObject;
-                    gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
-                    
-                    gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
+                    gridY = Mathf.RoundToInt(gridArray[arrayPosX, arrayPosZ].structureAmount);
 
+
+                    int randomValue = Random.Range(0, 100);
+                    Vector3 size = structure.transform.localScale;
+
+                    //buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount, GridArray.Instance.RoundToGrid(transform.position.z));
+
+                    /*
+                    if (gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].y == 1)
+                    {
+                        gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].xOrigin = arrayPosX;
+                        gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].zOrigin = arrayPosZ;
+                    }
+                    */
+                    if (gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].isBranched == false )
+                    {
+                        if (gridY > minBranchHeight)
+                        {
+                            if (randomValue >= 0 && randomValue < 10)
+                            {                                
+                                if (gridArray[newArrayPosX - 1, newArrayPosZ].gridStructures[gridY].y == 0)
+                                {
+                                    size.x = cellSize * 2f;
+                                    newArrayPosX = arrayPosX - 1;
+                                    gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].xOrigin = arrayPosX;
+                                    gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].zOrigin = arrayPosZ;
+
+                                    buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x) - cellSize, cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY, GridArray.Instance.RoundToGrid(transform.position.z));
+
+                                    gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
+
+                                }                        
+                            }
+                            if (randomValue >= 10 && randomValue < 20)
+                            {
+                                if (gridArray[newArrayPosX + 1, newArrayPosZ].gridStructures[gridY].y == 0)
+                                {
+                                    size.x = cellSize * 2f;
+                                    newArrayPosX = arrayPosX + 1;
+                                    gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].xOrigin = arrayPosX;
+                                    gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].zOrigin = arrayPosZ;
+
+                                    buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x) + cellSize, cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY, GridArray.Instance.RoundToGrid(transform.position.z));
+
+                                    gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
+
+                                }
+                            }
+                            if (randomValue >= 20 && randomValue < 30)
+                            {
+                                if (gridArray[newArrayPosX - 1, newArrayPosZ].gridStructures[gridY].y == 0)
+                                {
+                                    size.z = cellSize * 2f;
+                                    newArrayPosZ = arrayPosZ - 1;
+                                    gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].xOrigin = arrayPosX;
+                                    gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].zOrigin = arrayPosZ;
+
+                                    buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY, GridArray.Instance.RoundToGrid(transform.position.z) - cellSize);
+
+                                    gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
+
+                                }
+                            }
+                            if (randomValue >= 30 && randomValue < 40)
+                            {
+                                if (gridArray[newArrayPosX + 1, newArrayPosZ].gridStructures[gridY].y == 0)
+                                {
+                                    size.z = cellSize * 2f;
+                                    newArrayPosZ = arrayPosZ + 1;
+                                    gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].xOrigin = arrayPosX;
+                                    gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].zOrigin = arrayPosZ;
+
+                                    buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY, GridArray.Instance.RoundToGrid(transform.position.z) + cellSize);
+
+                                    gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
+
+                                }
+                            }
+
+                        }
+
+
+
+                        if (randomValue >= 40 || gridY == 0 || gridY <= minBranchHeight)
+                        {
+                            if (gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY + 1].y == 0 && gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY + 2].y == 0)
+                            {
+                                buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount, GridArray.Instance.RoundToGrid(transform.position.z));
+                                gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
+
+                            }
+
+
+                        }
+
+                        builtStructure = Instantiate(structure, buildLocation, Quaternion.identity) as GameObject;
+                        builtStructure.transform.localScale = size;
+
+                        gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
+
+                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].y = gridY;
+
+                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].strucObject = builtStructure;
+                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].x = newArrayPosX;
+                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].z = newArrayPosZ;
+
+                    }
                 }
             }                                 
         }

@@ -21,8 +21,10 @@ public class SpawnSettings : MonoBehaviour
 
     public Grid grid;
     public int cellSize = 3;
+    int cellY;
     public List<GridList> gridList = new List<GridList>();
     public bool spawnMode = false;
+    private Vector3 lastPlacedTile;
 
     //Singleton
     public static SpawnSettings Instance { get; private set; }
@@ -48,11 +50,25 @@ public class SpawnSettings : MonoBehaviour
         //grid = new Grid(Mathf.RoundToInt(ground.transform.localScale.x / cellSize) + 1, Mathf.RoundToInt(ground.transform.localScale.z / cellSize) + 1, cellSize);
         
         cellSize = GridArray.Instance.cellSize;
+        cellY = GridArray.Instance.cellY;
+
+
         agentStack = GridArray.Instance.agentStack;
 
 
         //CreateStartPoint();
 
+    }
+
+    void Update()
+    {
+        NumberSpawning();
+        GetGridValue();
+
+        if (spawnMode == false && lastPlacedTile != new Vector3 (-1, -1, -1))
+        {
+            lastPlacedTile = new Vector3(-1, -1, -1);
+        }
     }
 
     public void CreateStartPoint()
@@ -109,49 +125,62 @@ public class SpawnSettings : MonoBehaviour
             int arrayPosX = GridArray.Instance.NumToGrid(hitGrid.x); 
             int arrayPosZ = GridArray.Instance.NumToGrid(hitGrid.z);
 
-            //Foundation Agent
-            if (agent.GetComponent<AgentFoundation>() != null && agentStack.agentFoundation > 0)
+            Vector3 currentTile = new Vector3(arrayPosX, 0, arrayPosX);
+
+            if (currentTile != lastPlacedTile)
             {
-            
-                if ( GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ) )
+                //Foundation Agent
+                if (agent.GetComponent<AgentFoundation>() != null && agentStack.agentFoundation > 0)
                 {
-                    if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0)
+
+                    if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
                     {
-                        agentStack.agentFoundation -= 1;
+                        if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0)
+                        {
+                            agentStack.agentFoundation -= 1;
 
-                        Vector3 spawnLocation = hitGrid;
-                        spawnLocation.y = foundation.transform.localScale.y / 2;
+                            Vector3 spawnLocation = hitGrid;
+                            spawnLocation.y = foundation.transform.localScale.y / 2;
 
-                        GameObject newAgent = Instantiate(agent, spawnLocation + new Vector3(0, agent.transform.localScale.y), Quaternion.identity);
-                        newAgent.GetComponent<AgentFoundation>().isActive = true;
-                    }                    
+                            GameObject newAgent = Instantiate(agent, spawnLocation + new Vector3(0, agent.transform.localScale.y), Quaternion.identity);
+                            newAgent.GetComponent<AgentFoundation>().isActive = true;
+
+                            lastPlacedTile = currentTile;
+                        }
+                    }
+                }
+
+                //Structure Agent
+                if (agent.GetComponent<AgentStructure>() != null && agentStack.agentStructure > 0)
+                {
+                    if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
+                    {
+                        if (gridArray[arrayPosX, arrayPosZ].structureAmount <= 0 && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+                        {
+                            agentStack.agentStructure -= 1;
+
+                            Vector3 spawnLocation = hitGrid;
+                            spawnLocation.y = structure.transform.localScale.y / 2;
+
+                            GameObject newAgent = Instantiate(agent, spawnLocation + new Vector3(0, agent.transform.localScale.y / 2), Quaternion.identity);
+                            newAgent.GetComponent<AgentStructure>().isActive = true;
+
+                            lastPlacedTile = currentTile;
+
+                            /*Also Spawn Structure?
+                             * 
+                            GameObject builtStructure = Instantiate(structure, spawnLocation, Quaternion.identity) as GameObject;
+                            GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
+
+
+                            GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
+                            */
+                        }
+                    }
                 }
             }
+
             
-            //Structure Agent
-            if (agent.GetComponent<AgentStructure>() != null && agentStack.agentStructure > 0)
-            {
-                if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
-                {
-                    if (gridArray[arrayPosX, arrayPosZ].structureAmount <= 0 && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
-                    {
-                        agentStack.agentStructure -= 1;
-
-                        Vector3 spawnLocation = hitGrid;
-                        spawnLocation.y = structure.transform.localScale.y / 2;
-
-                        GameObject newAgent = Instantiate(agent, spawnLocation + new Vector3(0, agent.transform.localScale.y / 2), Quaternion.identity);
-                        newAgent.GetComponent<AgentStructure>().isActive = true;
-
-
-                        GameObject builtStructure = Instantiate(structure, spawnLocation, Quaternion.identity) as GameObject;
-                        GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
-
-
-                        GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
-                    }
-                }                
-            }
 
 
 
@@ -183,12 +212,7 @@ public class SpawnSettings : MonoBehaviour
     
 
     }
-    void Update()
-    {
-        NumberSpawning();
-        GetGridValue();
 
-    }
     private void NumberSpawning()
     {
         //Mouse Left
@@ -276,18 +300,45 @@ public class SpawnSettings : MonoBehaviour
             if (Physics.Raycast(ray1, out hit))
             {
 
-                Vector3 hitPosition = hit.point;
+                Vector3 hitPosition = hit.collider.gameObject.transform.parent.position;
 
-                hitPosition.x = Mathf.Round(hit.point.x / cellSize) * cellSize;
-                hitPosition.y = Mathf.Round(hit.point.y / cellSize) * cellSize;
-                hitPosition.z = Mathf.Round(hit.point.z / cellSize) * cellSize;
+                hitPosition.x = GridArray.Instance.RoundToGrid(hit.collider.gameObject.transform.parent.position.x );
+                hitPosition.z = GridArray.Instance.RoundToGrid(hit.collider.gameObject.transform.parent.position.z );
+
+                hitPosition.y = Mathf.RoundToInt(hit.collider.gameObject.transform.parent.position.y /cellY ) * cellY;
+
 
                 int hitX = GridArray.Instance.NumToGrid(hitPosition.x);
                 int hitZ = GridArray.Instance.NumToGrid(hitPosition.z);
 
+
                 if (GridArray.Instance.CheckArrayBounds(hitX, hitZ))
                 {
-                    Debug.Log("; Foundation: " + GridArray.Instance.gridArray[hitX, hitZ].foundationAmount + "; Structures: " + GridArray.Instance.gridArray[hitX, hitZ].structureAmount + "; Point: " + GridArray.Instance.gridArray[hitX, hitZ].pointAmount);
+                    //Debug on structure amount, foundation etc
+                    //Debug.Log("; Foundation: " + GridArray.Instance.gridArray[hitX, hitZ].foundationAmount + "; Structures: " + GridArray.Instance.gridArray[hitX, hitZ].structureAmount + "; Point: " + GridArray.Instance.gridArray[hitX, hitZ].pointAmount);
+
+                    Debug.Log(" x: " + hitX + " z: " + hitZ + " posY: " + GridArray.Instance.gridArray[hitX, hitZ].gridStructures[Mathf.RoundToInt(hitPosition.y / cellY) + 1].y);
+                    Debug.Log(" xOrigin: " + GridArray.Instance.gridArray[hitX, hitZ].gridStructures[Mathf.RoundToInt(hitPosition.y / cellY) + 1].xOrigin + " zOrigin: " + GridArray.Instance.gridArray[hitX, hitZ].gridStructures[Mathf.RoundToInt(hitPosition.y / cellY) + 1].zOrigin);
+
+                    /*
+                    for (int i = 0; i < GridArray.Instance.gridArray[hitX, hitZ].gridStructures.Length; i++)
+                    {
+                        //GridArray.Instance.gridArray[hitX, hitZ].gridStructures[i].y == Mathf.RoundToInt(hit.collider.transform.position.y / GridArray.Instance.cellY) * GridArray.Instance.cellY
+
+                        if (1 == 1)
+                        {
+                            Debug.Log(" x: " + hitX + " z: " + hitZ + " posY: " + GridArray.Instance.gridArray[hitX, hitZ].gridStructures[Mathf.RoundToInt(hit.collider.transform.position.y / cellY)].y);
+                            break;
+
+                        }
+                        else
+                        {
+                            Debug.Log("ERROR " + "x: " + hitX + " z: " + hitZ + "posY: " + hit.collider.transform.position.y);
+                            break;
+
+                        }                        
+                    }
+                    */
 
                 }
 

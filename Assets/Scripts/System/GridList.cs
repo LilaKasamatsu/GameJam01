@@ -9,6 +9,7 @@ public class GridList
 
     public int x;
     public int z;
+    public int y;
 
     public int structureAmount;
     public int pointAmount;
@@ -17,11 +18,14 @@ public class GridList
     public GameObject foundationObject;
     public int bridge;
 
+    public GridStructures[] gridStructures;
+
 
     public GridList(int newStructureAmount, int newPointAmount, int newFoundationAmount, int newBridge)
     {
         //x = newX;
         //z = newZ;
+        //y = newY;
         structureAmount = newStructureAmount;
         pointAmount = newPointAmount;
         foundationAmount = newFoundationAmount;
@@ -29,9 +33,19 @@ public class GridList
         foundationObject = new GameObject();
         bridge = newBridge;
 
-        //structureObjects = newStructureObjects;
+        gridStructures = new GridStructures[GridArray.Instance.maxStructures];
+        for (int i = 0; i < gridStructures.Length; i++)
+        {
+            gridStructures[i] = new GridStructures(0, 0, 0, new GameObject());
+        }
+
+
+
+
+
+
     }
 
 
- 
+
 }

@@ -56,15 +56,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b7966dac3827e45b7635d019b124f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  structure: {fileID: 8498785658671383159, guid: 8e4ed8fa909ff364bb564df49e49c781,
-    type: 3}
+  structure: {fileID: 67781199573577903, guid: f4112035a0585a94b8ef606cccd4d55b, type: 3}
   minBuildDelay: 0.2
-  maxBuildDelay: 2
+  maxBuildDelay: 1
   maxBuildings: 100
   spawnAgent: {fileID: 3869811639861139897}
   agent: {fileID: 862648634634928750}
   isActive: 0
-  pointRadius: 4
+  pointRadius: 3
   maxDestinationDistance: 8
 --- !u!195 &862648634634928750
 NavMeshAgent:

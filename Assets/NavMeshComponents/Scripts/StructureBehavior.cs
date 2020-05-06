@@ -16,7 +16,7 @@ public class StructureBehavior : MonoBehaviour
 
     void Start()
     {
-        render = GetComponent<Renderer>();
+        render = transform.GetChild(0).GetComponent<Renderer>();
 
         
 
