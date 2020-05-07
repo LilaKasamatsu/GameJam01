@@ -87,20 +87,21 @@ public class AgentFoundation : MonoBehaviour
 
         if (foundationsPlaced >= foundationsLifetime)
         {
-            StartCoroutine("RetireAgent");
+
+            RetireAgent();
         }
 
     }
 
 
-    IEnumerator RetireAgent()
+    private void RetireAgent()
     {
-
-        yield return new WaitForSeconds(Random.Range(0, 3));
-        Destroy(this.gameObject);
-
+      
         agentStack.agentAmount += 1;
         agentStack.agentFoundation -= 1;
+        Destroy(this.gameObject);
+
+        
 
     }
 

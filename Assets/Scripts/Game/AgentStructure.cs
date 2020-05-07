@@ -11,7 +11,9 @@ public class AgentStructure : MonoBehaviour
     [SerializeField] float maxBuildDelay;
     [SerializeField] int maxBuildings;
     [SerializeField] GameObject spawnAgent;
+
     [SerializeField] int minBranchHeight = 4;
+    [SerializeField] int branchChance = 40;
 
     public int structuresLifetime = 10;
     int structuresPlaced = 0;
@@ -64,7 +66,7 @@ public class AgentStructure : MonoBehaviour
         StartCoroutine(MoveTimer());
         if (structuresPlaced >= structuresLifetime)
         {
-            StartCoroutine("RetireAgent");
+            //StartCoroutine("RetireAgent");
         }
 
 
@@ -73,11 +75,12 @@ public class AgentStructure : MonoBehaviour
 
     IEnumerator RetireAgent()
     {
+        agentStack.agentAmount += 1;
+        agentStack.agentStructure -= 1;
         yield return new WaitForSeconds(Random.Range(0, 3));
         Destroy(this.gameObject);
 
-        agentStack.agentAmount += 1;
-        agentStack.agentStructure -= 1;
+
     }
 
     void FixedUpdate()
@@ -182,15 +185,18 @@ public class AgentStructure : MonoBehaviour
                     
                     int randomValue = Random.Range(0, 100);
                     Vector3 size = structure.transform.localScale;
-
+                    int selfChance = branchChance / 4;
+                    bool hasBuilt = false;
                 
-                    if (gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].isBranched == false)
+                    if (gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched == false)
                     {
-                        if (gridY > minBranchHeight)
+                        //Check if branch is possible
+                        //gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].y
+                        if (gridY >= minBranchHeight)
                         {
-                            if (randomValue >= 0 && randomValue < 10)
+                            if (randomValue >= 0 && randomValue < selfChance * 0.25f)
                             {
-                                if (gridArray[newArrayPosX - 1, newArrayPosZ].gridStructures[gridY].y == 0)
+                                if (gridArray[newArrayPosX - 1, newArrayPosZ].gridStructures[gridY].y == 0 && gridArray[newArrayPosX - 1, newArrayPosZ].gridStructures[gridY - 1].y == 0)
                                 {
                                     size.x = cellSize * 2f;
                                     newArrayPosX = arrayPosX - 1;
@@ -200,12 +206,14 @@ public class AgentStructure : MonoBehaviour
                                     buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x) - cellSize, cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY, GridArray.Instance.RoundToGrid(transform.position.z));
 
                                     gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
+                                    hasBuilt = true;
 
                                 }
                             }
-                            if (randomValue >= 10 && randomValue < 20)
+                            
+                            if (randomValue >= selfChance * 0.25f && randomValue < selfChance * 0.5f)
                             {
-                                if (gridArray[newArrayPosX + 1, newArrayPosZ].gridStructures[gridY].y == 0)
+                                if (gridArray[newArrayPosX + 1, newArrayPosZ].gridStructures[gridY].y == 0 && gridArray[newArrayPosX + 1, newArrayPosZ].gridStructures[gridY - 1].y == 0)
                                 {
                                     size.x = cellSize * 2f;
                                     newArrayPosX = arrayPosX + 1;
@@ -215,12 +223,13 @@ public class AgentStructure : MonoBehaviour
                                     buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x) + cellSize, cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY, GridArray.Instance.RoundToGrid(transform.position.z));
 
                                     gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
-
+                                    hasBuilt = true;
                                 }
                             }
-                            if (randomValue >= 20 && randomValue < 30)
+                            
+                            if (randomValue >= selfChance * 0.5f && randomValue < selfChance * 0.75f)
                             {
-                                if (gridArray[newArrayPosX, newArrayPosZ - 1].gridStructures[gridY].y == 0)
+                                if (gridArray[newArrayPosX, newArrayPosZ - 1].gridStructures[gridY].y == 0 && gridArray[newArrayPosX, newArrayPosZ - 1].gridStructures[gridY - 1].y == 0)
                                 {
                                     size.z = cellSize * 2f;
                                     newArrayPosZ = arrayPosZ - 1;
@@ -230,12 +239,12 @@ public class AgentStructure : MonoBehaviour
                                     buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY, GridArray.Instance.RoundToGrid(transform.position.z) - cellSize);
 
                                     gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
-
+                                    hasBuilt = true;
                                 }
                             }
-                            if (randomValue >= 30 && randomValue < 40)
+                            if (randomValue >= selfChance * 0.75f && randomValue < selfChance)
                             {
-                                if (gridArray[newArrayPosX, newArrayPosZ + 1].gridStructures[gridY].y == 0)
+                                if (gridArray[newArrayPosX, newArrayPosZ + 1].gridStructures[gridY].y == 0 && gridArray[newArrayPosX, newArrayPosZ + 1].gridStructures[gridY - 1].y == 0)
                                 {
                                     size.z = cellSize * 2f;
                                     newArrayPosZ = arrayPosZ + 1;
@@ -245,36 +254,39 @@ public class AgentStructure : MonoBehaviour
                                     buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY, GridArray.Instance.RoundToGrid(transform.position.z) + cellSize);
 
                                     gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
-
+                                    hasBuilt = true;
                                 }
                             }
 
                         }
 
 
+                        // || gridY == 0 || gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].y < minBranchHeight
 
-                        if (randomValue >= 40 || gridY == 0 || gridY <= minBranchHeight)
+                        if (randomValue >= branchChance || gridY < minBranchHeight)
                         {
                             if (gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY + 1].y == 0 && gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY + 2].y == 0)
                             {
                                 buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount, GridArray.Instance.RoundToGrid(transform.position.z));
                                 gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
-
+                                hasBuilt = true;
                             }
-
-
                         }
 
-                        builtStructure = Instantiate(structure, buildLocation, Quaternion.identity) as GameObject;
-                        builtStructure.transform.localScale = size;
+                        if (hasBuilt)
+                        {
+                            builtStructure = Instantiate(structure, buildLocation, Quaternion.identity) as GameObject;
+                            builtStructure.transform.localScale = size;
 
-                        gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
+                            gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
 
-                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].y = gridY;
+                            gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].y = gridY;
 
-                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].strucObject = builtStructure;
-                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].x = newArrayPosX;
-                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].z = newArrayPosZ;
+                            gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].strucObject = builtStructure;
+                            gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].x = newArrayPosX;
+                            gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].z = newArrayPosZ;
+                        }
+                    
 
                     }
                 }

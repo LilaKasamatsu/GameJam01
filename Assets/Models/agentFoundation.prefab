@@ -62,7 +62,7 @@ MonoBehaviour:
   maxBuildDelay: 2
   maxBuildings: 0
   spawnAgent: {fileID: 4866568028121015989}
-  foundationsLifetime: 6
+  foundationsLifetime: 8
   searchIncrease: 0.5
   maxSearch: 5
   agent: {fileID: 9062771477611380066}

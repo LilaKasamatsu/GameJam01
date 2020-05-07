@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   marker: {fileID: 1427785718841972201, guid: 0a8dddd32f143c7428ab5f3bfc49688d, type: 3}
-  agentPlaceAmount: 10
+  agentPlaceAmount: 60
   startingAgentFound: 1
   startingAgentPoint: 1
   minNewAgentDelay: 2
