@@ -711,7 +711,7 @@ GameObject:
   - component: {fileID: 631944066}
   - component: {fileID: 631944065}
   - component: {fileID: 631944064}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: GroundBound
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -866,7 +866,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 1.8e-44, z: 1.39693e-40, w: 5.9e-44}
+  m_BoundingSphereOverride: {x: 0, y: 1e-43, z: 1.47774e-40, w: 5.9e-44}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
