@@ -165,7 +165,7 @@ public class BridgeSpawn : MonoBehaviour
                 {
                   
                  
-                    bridgeSize = Vector3.Distance(startPoint, endPoint ) + 1;
+                    bridgeSize = Vector3.Distance(startPoint + new Vector3(0, modY, 0), endPoint + new Vector3(0, modEndY, 0)) ;
                     GridArray.Instance.gridArray[hitGridX, hitGridZ].bridge = 1;
 
 

@@ -180,10 +180,10 @@ public class AgentFoundation : MonoBehaviour
         if (!agent.hasPath && canBuild == true)
         {
 
-            Vector3 buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), transform.position.y - transform.localScale.y / 2, GridArray.Instance.RoundToGrid(transform.position.z));
+            Vector3 buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), transform.position.y - transform.localScale.y, GridArray.Instance.RoundToGrid(transform.position.z));
             canBuild = false;
 
-            buildLocation.y = Mathf.RoundToInt( (transform.position.y - transform.lossyScale.y) );
+            //buildLocation.y = (transform.position.y - transform.localScale.y);
 
             int arrayPosX = GridArray.Instance.NumToGrid(buildLocation.x);
             int arrayPosZ = GridArray.Instance.NumToGrid(buildLocation.z);

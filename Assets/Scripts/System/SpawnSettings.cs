@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SpawnSettings : MonoBehaviour
 {
@@ -62,7 +63,7 @@ public class SpawnSettings : MonoBehaviour
 
     void Update()
     {
-        NumberSpawning();
+        //NumberSpawning();
         GetGridValue();
 
         if (spawnMode == false && lastPlacedTile != new Vector3 (-1, -1, -1))
@@ -121,11 +122,11 @@ public class SpawnSettings : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer_mask))
         {
             //changed: Y rounded * and /
-            Vector3 hitGrid = new Vector3(Mathf.Round(hit.point.x / cellSize) * cellSize, Mathf.RoundToInt(hit.point.y / cellY) * cellY, Mathf.Round(hit.point.z / cellSize) * cellSize);
+            Vector3 hitGrid = new Vector3(Mathf.Round(hit.point.x / cellSize) * cellSize, Mathf.Round( hit.point.y / cellY) * cellY, Mathf.Round(hit.point.z / cellSize) * cellSize);
 
             int arrayPosX = GridArray.Instance.NumToGrid(hitGrid.x); 
             int arrayPosZ = GridArray.Instance.NumToGrid(hitGrid.z);
-            int arrayPosY = Mathf.RoundToInt(hit.point.y / cellY) * cellY;
+            float arrayPosY = hit.point.y;
 
             Vector3 currentTile = new Vector3(arrayPosX, arrayPosY, arrayPosX);
 
@@ -143,11 +144,14 @@ public class SpawnSettings : MonoBehaviour
                             agentStack.agentFoundation += 1;
 
                             Vector3 spawnLocation = hitGrid;
-                            
+                            spawnLocation.y = hit.point.y ;
+
                             //spawnLocation.y = foundation.transform.localScale.y / 2;
                             //+ new Vector3(0, agent.transform.localScale.y)
 
                             GameObject newAgent = Instantiate(agent, spawnLocation , Quaternion.identity);
+                            newAgent.GetComponent<NavMeshAgent>().enabled = true;
+
                             newAgent.GetComponent<AgentFoundation>().isActive = true;
 
                             lastPlacedTile = currentTile;
@@ -167,10 +171,14 @@ public class SpawnSettings : MonoBehaviour
 
 
                             Vector3 spawnLocation = hitGrid;
+                            spawnLocation.y = hit.point.y + agent.transform.localScale.y * 0.5f;
+
                             //spawnLocation.y = structure.transform.localScale.y / 2;
 
                             // + new Vector3(0, agent.transform.localScale.y / 2)
                             GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
+                            newAgent.GetComponent<NavMeshAgent>().enabled = true;
+
                             newAgent.GetComponent<AgentStructure>().isActive = true;
 
                             lastPlacedTile = currentTile;
@@ -200,11 +208,13 @@ public class SpawnSettings : MonoBehaviour
         //Instantiate(spawnAgent, spwnLocation, cam.transform.rotation);
 
         Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 10.0f;  // Preview Agent is 10 units in front of the camera
+        //mousePos.z = 1.0f;  // Preview Agent is 10 units in front of the camera
         mousePos.y = 125.0f;  // Preview Agent is a bit higher than the mouse cursor
 
         Vector3 objectPos = cam.ScreenToWorldPoint(mousePos);
-        Instantiate(spawnAgent, objectPos, cam.transform.rotation);
+        GameObject newAgent = Instantiate(spawnAgent, objectPos, cam.transform.rotation) as GameObject;
+        newAgent.GetComponent<NavMeshAgent>().enabled = false;
+
         CreateBuildMarker();
 
     }
