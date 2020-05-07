@@ -25,7 +25,12 @@ public class CameraRig : MonoBehaviour
     [SerializeField] float cameraMaxHeight;
     [SerializeField] float cameraMinHeight;
 
-    [SerializeField] [Range(0, 1)] float CameraMode;
+    enum CameraMode { 
+    normal,
+    alternative
+    };
+    [SerializeField] CameraMode cameraMode;
+
  
     Camera targetCamera;
 
@@ -36,14 +41,14 @@ public class CameraRig : MonoBehaviour
     }
     private void Update()
     {
-        if (CameraMode == 0)
+        switch (cameraMode)
         {
-            CameraMovement();
-        }
-        //CameraUpDown();
-        else if (CameraMode == 1)
-        {
-            AlternativeCameraMove();
+            case CameraMode.normal:
+                CameraMovement();
+                break;
+            case CameraMode.alternative:
+                AlternativeCameraMove();
+                break;
         }
         Zoom();
 
