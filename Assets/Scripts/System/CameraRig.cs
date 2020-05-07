@@ -27,7 +27,9 @@ public class CameraRig : MonoBehaviour
 
     enum CameraMode { 
     normal,
-    alternative
+    alternative,
+    PressMousewheel,
+    ScrollSteuerung
     };
     [SerializeField] CameraMode cameraMode;
 
@@ -45,12 +47,21 @@ public class CameraRig : MonoBehaviour
         {
             case CameraMode.normal:
                 CameraMovement();
+                Zoom();
                 break;
             case CameraMode.alternative:
                 AlternativeCameraMove();
+                Zoom();
+                break;
+            case CameraMode.PressMousewheel:
+                PressMousewheelCameraMovement();
+                Zoom();
+                break;
+            case CameraMode.ScrollSteuerung:
+                MousewheelCameraMovement();
                 break;
         }
-        Zoom();
+        
 
     }
 
@@ -86,6 +97,86 @@ public class CameraRig : MonoBehaviour
 
         }
         if (Input.GetMouseButtonUp(1))
+        {
+            Cursor.visible = true;
+        }
+
+
+
+    }
+    private void PressMousewheelCameraMovement()
+    {
+        if (Input.GetMouseButton(2))
+        {
+            Cursor.visible = false;
+            float inputAxisMouseY = Mathf.Clamp(-Input.GetAxis("Mouse Y"), -0.4f, 0.4f) * cameraUpMovespeed;
+            float inputAxisMouseX = Input.GetAxis("Mouse X") * rotationspeed;
+            transform.rotation = Quaternion.AngleAxis(inputAxisMouseX, Vector3.up) * transform.rotation;
+
+            if (transform.position.y > cameraMinHeight && inputAxisMouseY < 0 || transform.position.y < cameraMaxHeight && inputAxisMouseY > 0)
+            {
+                transform.position += Vector3.up * Mathf.Clamp(inputAxisMouseY, -cameraSpeedThreshold, cameraSpeedThreshold);
+            }
+
+        }
+        else if (Input.GetMouseButton(1))
+        {
+            Cursor.visible = false;
+            float inputAxisMouseY = Mathf.Clamp(-Input.GetAxis("Mouse Y"), -0.4f, 0.4f) * rotationspeed;
+            float inputAxisMouseX = Input.GetAxis("Mouse X") * rotationspeed;
+            transform.rotation = Quaternion.AngleAxis(inputAxisMouseX, Vector3.up) * transform.rotation;
+
+            if (inputAxisMouseY > 0.002 && currentMouseTilt <= maxMouseTilt || inputAxisMouseY < -0.002 && currentMouseTilt >= minMouseTilt)
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, (Quaternion.AngleAxis(45, targetCamera.transform.right) * transform.rotation), inputAxisMouseY);
+                currentMouseTilt += inputAxisMouseY;
+
+            }
+
+
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            Cursor.visible = true;
+        }
+        if (Input.GetMouseButtonUp(2))
+        {
+            Cursor.visible = true;
+        }
+
+
+
+    }
+    private void MousewheelCameraMovement()
+    {
+
+        if (Input.GetMouseButton(1))
+        {
+            Cursor.visible = false;
+            float inputAxisMouseY = Mathf.Clamp(-Input.GetAxis("Mouse Y"), -0.4f, 0.4f) * rotationspeed;
+            float inputAxisMouseX = Input.GetAxis("Mouse X") * rotationspeed;
+            transform.rotation = Quaternion.AngleAxis(inputAxisMouseX, Vector3.up) * transform.rotation;
+
+            if (inputAxisMouseY > 0.002 && currentMouseTilt <= maxMouseTilt || inputAxisMouseY < -0.002 && currentMouseTilt >= minMouseTilt)
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, (Quaternion.AngleAxis(45, targetCamera.transform.right) * transform.rotation), inputAxisMouseY);
+                currentMouseTilt += inputAxisMouseY;
+
+            }
+            
+            float inputAxisScroll = Input.GetAxis("Mouse ScrollWheel")*cameraUpMovespeed*10;
+            if (transform.position.y > cameraMinHeight && inputAxisScroll < 0 || transform.position.y < cameraMaxHeight && inputAxisScroll > 0)
+            {
+                    transform.position += Vector3.up * Mathf.Clamp(inputAxisScroll, -cameraSpeedThreshold, cameraSpeedThreshold);
+            }
+        }
+        else Zoom();
+        
+        if (Input.GetMouseButtonUp(1))
+        {
+            Cursor.visible = true;
+        }
+        if (Input.GetMouseButtonUp(2))
         {
             Cursor.visible = true;
         }
