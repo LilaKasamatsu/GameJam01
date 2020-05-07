@@ -34,6 +34,8 @@ public class AgentFoundation : MonoBehaviour
     bool canBuild = false;
     bool canSpawn = false;
     private int cellSize;
+    private int cellY;
+
 
 
 
@@ -52,6 +54,7 @@ public class AgentFoundation : MonoBehaviour
         ground = GameObject.FindGameObjectWithTag("ground");
         
         cellSize = GridArray.Instance.cellSize;
+        cellY = GridArray.Instance.cellY;
         gridArray = GridArray.Instance.gridArray;
         agentStack = GridArray.Instance.agentStack;
         
@@ -176,8 +179,11 @@ public class AgentFoundation : MonoBehaviour
         gridArray = GridArray.Instance.gridArray;
         if (!agent.hasPath && canBuild == true)
         {
-            Vector3 buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), foundation.transform.localScale.y / 2, GridArray.Instance.RoundToGrid(transform.position.z));
+
+            Vector3 buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), transform.position.y - transform.localScale.y / 2, GridArray.Instance.RoundToGrid(transform.position.z));
             canBuild = false;
+
+            buildLocation.y = Mathf.RoundToInt( (transform.position.y - transform.lossyScale.y) );
 
             int arrayPosX = GridArray.Instance.NumToGrid(buildLocation.x);
             int arrayPosZ = GridArray.Instance.NumToGrid(buildLocation.z);

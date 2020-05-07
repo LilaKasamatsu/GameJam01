@@ -121,12 +121,13 @@ public class SpawnSettings : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer_mask))
         {
             //changed: Y rounded * and /
-            Vector3 hitGrid = new Vector3(Mathf.Round(hit.point.x / cellSize) * cellSize, Mathf.Round(hit.point.y), Mathf.Round(hit.point.z / cellSize) * cellSize);
+            Vector3 hitGrid = new Vector3(Mathf.Round(hit.point.x / cellSize) * cellSize, Mathf.RoundToInt(hit.point.y / cellY) * cellY, Mathf.Round(hit.point.z / cellSize) * cellSize);
 
             int arrayPosX = GridArray.Instance.NumToGrid(hitGrid.x); 
             int arrayPosZ = GridArray.Instance.NumToGrid(hitGrid.z);
+            int arrayPosY = Mathf.RoundToInt(hit.point.y / cellY) * cellY;
 
-            Vector3 currentTile = new Vector3(arrayPosX, 0, arrayPosX);
+            Vector3 currentTile = new Vector3(arrayPosX, arrayPosY, arrayPosX);
 
             if (currentTile != lastPlacedTile)
             {
@@ -142,9 +143,11 @@ public class SpawnSettings : MonoBehaviour
                             agentStack.agentFoundation += 1;
 
                             Vector3 spawnLocation = hitGrid;
-                            spawnLocation.y = foundation.transform.localScale.y / 2;
+                            
+                            //spawnLocation.y = foundation.transform.localScale.y / 2;
+                            //+ new Vector3(0, agent.transform.localScale.y)
 
-                            GameObject newAgent = Instantiate(agent, spawnLocation + new Vector3(0, agent.transform.localScale.y), Quaternion.identity);
+                            GameObject newAgent = Instantiate(agent, spawnLocation , Quaternion.identity);
                             newAgent.GetComponent<AgentFoundation>().isActive = true;
 
                             lastPlacedTile = currentTile;
@@ -164,9 +167,10 @@ public class SpawnSettings : MonoBehaviour
 
 
                             Vector3 spawnLocation = hitGrid;
-                            spawnLocation.y = structure.transform.localScale.y / 2;
+                            //spawnLocation.y = structure.transform.localScale.y / 2;
 
-                            GameObject newAgent = Instantiate(agent, spawnLocation + new Vector3(0, agent.transform.localScale.y / 2), Quaternion.identity);
+                            // + new Vector3(0, agent.transform.localScale.y / 2)
+                            GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
                             newAgent.GetComponent<AgentStructure>().isActive = true;
 
                             lastPlacedTile = currentTile;
@@ -182,12 +186,8 @@ public class SpawnSettings : MonoBehaviour
                         }
                     }
                 }
-            }
-
+            }                    
             
-
-
-
         }
 
 
