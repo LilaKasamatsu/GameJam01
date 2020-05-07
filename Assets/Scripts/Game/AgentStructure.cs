@@ -13,6 +13,9 @@ public class AgentStructure : MonoBehaviour
     [SerializeField] GameObject spawnAgent;
     [SerializeField] int minBranchHeight = 4;
 
+    public int structuresLifetime = 10;
+    int structuresPlaced = 0;
+
 
     private GameObject ground;
 
@@ -36,6 +39,7 @@ public class AgentStructure : MonoBehaviour
     List<Vector3> orientPositions;
 
     GridList[,] gridArray;
+    AgentStack agentStack;
 
 
     void Start()
@@ -47,6 +51,7 @@ public class AgentStructure : MonoBehaviour
         cellSize = GridArray.Instance.cellSize;
         cellY = GridArray.Instance.cellY;
         gridArray = GridArray.Instance.gridArray;
+        agentStack = GridArray.Instance.agentStack;
 
         // DIESER CODE IST DER NEUE
 
@@ -57,11 +62,23 @@ public class AgentStructure : MonoBehaviour
 
 
         StartCoroutine(MoveTimer());
+        if (structuresPlaced >= structuresLifetime)
+        {
+            StartCoroutine("RetireAgent");
+        }
 
 
     }
 
 
+    IEnumerator RetireAgent()
+    {
+        yield return new WaitForSeconds(Random.Range(0, 3));
+        Destroy(this.gameObject);
+
+        agentStack.agentAmount += 1;
+        agentStack.agentStructure -= 1;
+    }
 
     void FixedUpdate()
     {

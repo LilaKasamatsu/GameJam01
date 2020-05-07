@@ -14,6 +14,9 @@ public class InventoryUi : MonoBehaviour
 	[SerializeField] Text textStructure;
 
 
+	[SerializeField] Text textAgentAmount;
+
+
 	public GameObject agent1;
 	public GameObject agent2;
 	public GameObject agent3;
@@ -45,6 +48,8 @@ public class InventoryUi : MonoBehaviour
 
 		textFoundation.text = GridArray.Instance.agentStack.agentFoundation.ToString();
 		textStructure.text = GridArray.Instance.agentStack.agentStructure.ToString();
+
+		textAgentAmount.text = GridArray.Instance.agentStack.agentAmount.ToString();
 
 
 	}

@@ -5,16 +5,16 @@ using System;
 
 public class AgentStack 
 {
-    public int agentStructure;
+    public int agentAmount;
     public int agentFoundation;
-    public int agentPoint;
+    public int agentStructure;
 
     //Contains the currently available to place agents
-    public AgentStack(int newAgentStructure, int newAgentFoundation, int newAgentPoint)
+    public AgentStack(int newAgentAmount, int newAgentFoundation, int newAgentStructure)
     {
-        agentStructure = newAgentStructure;
+        agentAmount = newAgentAmount;
         agentFoundation = newAgentFoundation;
-        agentPoint = newAgentPoint;
+        agentStructure = newAgentStructure;
 
     }
 }

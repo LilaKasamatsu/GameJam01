@@ -120,7 +120,8 @@ public class SpawnSettings : MonoBehaviour
         GridList[,] gridArray = GridArray.Instance.gridArray;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer_mask))
         {
-            Vector3 hitGrid = new Vector3(Mathf.Round(hit.point.x / cellSize) * cellSize, Mathf.Round(hit.point.y / cellSize) * cellSize, Mathf.Round(hit.point.z / cellSize) * cellSize);
+            //changed: Y rounded * and /
+            Vector3 hitGrid = new Vector3(Mathf.Round(hit.point.x / cellSize) * cellSize, Mathf.Round(hit.point.y), Mathf.Round(hit.point.z / cellSize) * cellSize);
 
             int arrayPosX = GridArray.Instance.NumToGrid(hitGrid.x); 
             int arrayPosZ = GridArray.Instance.NumToGrid(hitGrid.z);
@@ -130,14 +131,15 @@ public class SpawnSettings : MonoBehaviour
             if (currentTile != lastPlacedTile)
             {
                 //Foundation Agent
-                if (agent.GetComponent<AgentFoundation>() != null && agentStack.agentFoundation > 0)
+                if (agent.GetComponent<AgentFoundation>() != null && agentStack.agentAmount > 0)
                 {
 
                     if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
                     {
                         if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0)
                         {
-                            agentStack.agentFoundation -= 1;
+                            agentStack.agentAmount -= 1;
+                            agentStack.agentFoundation += 1;
 
                             Vector3 spawnLocation = hitGrid;
                             spawnLocation.y = foundation.transform.localScale.y / 2;
@@ -151,13 +153,15 @@ public class SpawnSettings : MonoBehaviour
                 }
 
                 //Structure Agent
-                if (agent.GetComponent<AgentStructure>() != null && agentStack.agentStructure > 0)
+                if (agent.GetComponent<AgentStructure>() != null && agentStack.agentAmount > 0)
                 {
                     if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
                     {
                         if (gridArray[arrayPosX, arrayPosZ].structureAmount <= 0 && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
                         {
-                            agentStack.agentStructure -= 1;
+                            agentStack.agentAmount -= 1;
+                            agentStack.agentStructure += 1;
+
 
                             Vector3 spawnLocation = hitGrid;
                             spawnLocation.y = structure.transform.localScale.y / 2;

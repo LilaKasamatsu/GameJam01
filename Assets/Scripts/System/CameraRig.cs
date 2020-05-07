@@ -6,9 +6,9 @@ public class CameraRig : MonoBehaviour
 {
     
     
-    [SerializeField] [Range(10f,25f)]  float maxZoom;
+    [SerializeField] [Range(5f,25f)]  float maxZoom;
     [SerializeField] [Range(0f,0.5f)] float minZoom;
-    [SerializeField] [Range(2, 5)] float ZoomWithoutTilt;
+    [SerializeField] [Range(2, 20)] float ZoomWithoutTilt;
     float currentZoom;
 
     float currentMouseTilt;

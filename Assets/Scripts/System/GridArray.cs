@@ -5,9 +5,10 @@ using UnityEngine;
 public class GridArray : MonoBehaviour
 {
     [SerializeField] GameObject marker;
-    [SerializeField] int startingAgentStruc;
+    [SerializeField] int agentPlaceAmount;
     [SerializeField] int startingAgentFound;
     [SerializeField] int startingAgentPoint;
+
 
     [SerializeField] float minNewAgentDelay = 2;
     [SerializeField] float maxNewAgentDelay = 6;
@@ -87,7 +88,7 @@ public class GridArray : MonoBehaviour
     {
 
 
-        ground = GameObject.FindGameObjectWithTag("ground");
+        ground = GameObject.Find("GroundBound");
 
         arrayX = Mathf.RoundToInt(ground.transform.localScale.x / cellSize) - 1;
         arrayZ = Mathf.RoundToInt(ground.transform.localScale.z / cellSize) - 1;
@@ -98,7 +99,7 @@ public class GridArray : MonoBehaviour
         gridArray = new GridList[arrayX, arrayZ];
 
         //Saving available agents
-        agentStack = new AgentStack(startingAgentStruc, startingAgentFound, startingAgentPoint);
+        agentStack = new AgentStack(agentPlaceAmount, 0, 0);
 
         
 
@@ -132,23 +133,13 @@ public class GridArray : MonoBehaviour
 
     IEnumerator AddAgentStack()
     {
-        yield return new WaitForSeconds(Random.Range(minNewAgentDelay, maxNewAgentDelay));
-
-        int randomAgentDrop = Random.Range(0, 100);
-
-        if (randomAgentDrop < 50)
+        while ( 1 == 1)
         {
-            agentStack.agentStructure += newAgentAmount;
+            yield return new WaitForSeconds(Random.Range(minNewAgentDelay, maxNewAgentDelay));
 
+            agentStack.agentAmount += newAgentAmount;
         }
-        else if (randomAgentDrop > 50)
-        {
-            agentStack.agentFoundation += newAgentAmount;
-            
-        }
-        StartCoroutine(AddAgentStack());
-
-
+                     
     }
     public int NumToGrid(float i)
     {

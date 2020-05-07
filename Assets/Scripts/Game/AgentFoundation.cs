@@ -12,6 +12,10 @@ public class AgentFoundation : MonoBehaviour
     [SerializeField] int maxBuildings;
     [SerializeField] GameObject spawnAgent;
 
+    public int foundationsLifetime = 10;
+    int foundationsPlaced = 0;
+
+
 
     //Der Bereich wird um diesen Wert erhöt, wenn sie kein nahes leeres Feld finden.
     [SerializeField] float searchIncrease = 0.5f;
@@ -80,9 +84,25 @@ public class AgentFoundation : MonoBehaviour
             SpawnActiveAgent();
 
         }
+
+        if (foundationsPlaced >= foundationsLifetime)
+        {
+            StartCoroutine("RetireAgent");
+        }
+
     }
 
- 
+
+    IEnumerator RetireAgent()
+    {
+
+        yield return new WaitForSeconds(Random.Range(0, 3));
+        Destroy(this.gameObject);
+
+        agentStack.agentAmount += 1;
+        agentStack.agentFoundation -= 1;
+
+    }
 
     IEnumerator MoveTimer()
     {
@@ -171,6 +191,7 @@ public class AgentFoundation : MonoBehaviour
 
 
                     gridArray[arrayPosX, arrayPosZ].foundationAmount += 1;
+                    foundationsPlaced += 1;
 
                 }
             }
