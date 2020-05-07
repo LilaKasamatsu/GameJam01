@@ -204,6 +204,7 @@ public class AgentStructure : MonoBehaviour
                                     gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].zOrigin = arrayPosZ;
 
                                     buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x) - cellSize, cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY, GridArray.Instance.RoundToGrid(transform.position.z));
+                                    buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].structureAmount;
 
                                     gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
                                     hasBuilt = true;
@@ -221,6 +222,7 @@ public class AgentStructure : MonoBehaviour
                                     gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].zOrigin = arrayPosZ;
 
                                     buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x) + cellSize, cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY, GridArray.Instance.RoundToGrid(transform.position.z));
+                                    buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].structureAmount;
 
                                     gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
                                     hasBuilt = true;
@@ -237,6 +239,7 @@ public class AgentStructure : MonoBehaviour
                                     gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].zOrigin = arrayPosZ;
 
                                     buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY, GridArray.Instance.RoundToGrid(transform.position.z) - cellSize);
+                                    buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].structureAmount;
 
                                     gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
                                     hasBuilt = true;
@@ -252,6 +255,7 @@ public class AgentStructure : MonoBehaviour
                                     gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].zOrigin = arrayPosZ;
 
                                     buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY, GridArray.Instance.RoundToGrid(transform.position.z) + cellSize);
+                                    buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].structureAmount;
 
                                     gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
                                     hasBuilt = true;
@@ -267,7 +271,10 @@ public class AgentStructure : MonoBehaviour
                         {
                             if (gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY + 1].y == 0 && gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY + 2].y == 0)
                             {
-                                buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount, GridArray.Instance.RoundToGrid(transform.position.z));
+                                //buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount, GridArray.Instance.RoundToGrid(transform.position.z));
+                                buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), 0, GridArray.Instance.RoundToGrid(transform.position.z));
+                                buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].structureAmount;
+
                                 gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
                                 hasBuilt = true;
                             }

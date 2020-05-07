@@ -26,6 +26,9 @@ public class BridgeSpawn : MonoBehaviour
     int oldX;
     int oldZ;
 
+    int modY;
+    int modEndY;
+
     List<StructureBehavior> selectedStructures = new List<StructureBehavior>();
     List<StructureBehavior> selectedStructuresDest = new List<StructureBehavior>();
 
@@ -68,6 +71,8 @@ public class BridgeSpawn : MonoBehaviour
                     hitGridZ = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.z);
                     hitGridY = GridArray.Instance.cellY * GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount;
 
+                    modY = Mathf.RoundToInt(GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount - 1].transform.position.y);
+
                     oldX = hitGridX;
                     oldZ = hitGridZ;
 
@@ -106,6 +111,9 @@ public class BridgeSpawn : MonoBehaviour
                     hitGridX = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.x);
                     hitGridZ = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.z);
                     hitGridY = GridArray.Instance.cellY * GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount;
+
+                    modEndY = Mathf.RoundToInt(GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount - 1].transform.position.y);
+
 
 
                     for (int i = 0; i < selectedStructuresDest.Count; i++)
@@ -166,7 +174,6 @@ public class BridgeSpawn : MonoBehaviour
                 {
                     build = false;
                     GridArray.Instance.gridArray[oldX, oldZ].bridge = 0;
-
                 }
 
                 if ( build == true)
@@ -174,9 +181,18 @@ public class BridgeSpawn : MonoBehaviour
                     if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0)
                     {
 
-                        GameObject bridgeNew = Instantiate(bridge, startPoint, Quaternion.identity) as GameObject;
+                        //GameObject bridgeNew = Instantiate(bridge, startPoint, Quaternion.identity) as GameObject;
+                        //bridgeNew.transform.localScale = new Vector3(bridgeNew.transform.localScale.x, bridgeNew.transform.localScale.y, bridgeSize);
+                        //bridgeNew.transform.LookAt(endPoint);
+
+                        Vector3 spawnStart = new Vector3(startPoint.x, 0, startPoint.z);
+                        Vector3 spawnEnd = new Vector3(endPoint.x, 0, endPoint.z);
+
+
+                        GameObject bridgeNew = Instantiate(bridge, spawnStart + new Vector3(0, modY, 0), Quaternion.identity) as GameObject;
                         bridgeNew.transform.localScale = new Vector3(bridgeNew.transform.localScale.x, bridgeNew.transform.localScale.y, bridgeSize);
-                        bridgeNew.transform.LookAt(endPoint);
+                        bridgeNew.transform.LookAt(spawnEnd + new Vector3(0, modEndY, 0));
+
 
                         build = false;
 
