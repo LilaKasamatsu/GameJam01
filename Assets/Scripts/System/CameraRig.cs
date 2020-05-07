@@ -19,6 +19,9 @@ public class CameraRig : MonoBehaviour
     [SerializeField] [Range(0, 100)] float cameraZoomSpeed;
     [SerializeField] [Range(0.1f,1)] float cameraTiltToZoomRatio;
 
+    [SerializeField] float cameraUpMovespeed;
+    [SerializeField] float cameraMoveDistanceThreshold;
+ 
     Camera targetCamera;
 
     private void Start()
@@ -29,6 +32,7 @@ public class CameraRig : MonoBehaviour
     private void Update()
     {
         CameraMovement();
+        //CameraUpDown();
 
     }
 
@@ -41,13 +45,26 @@ public class CameraRig : MonoBehaviour
            
 
             transform.rotation = Quaternion.AngleAxis(inputAxisMouseX * Time.deltaTime, Vector3.up) * transform.rotation;
+
+            float screenCentre = Screen.height / 2;
+            float MouseDistance = Input.mousePosition.y - screenCentre;
+
+            if (MouseDistance >= cameraMoveDistanceThreshold)
+            {
+                targetCamera.transform.position += transform.up * cameraUpMovespeed;
+            }
+            if (MouseDistance <= -cameraMoveDistanceThreshold)
+            {
+                targetCamera.transform.position -= transform.up * cameraUpMovespeed;
+            }
+            /*
             if (inputAxisMouseY > 0.002 && currentMouseTilt <= maxMouseTilt || inputAxisMouseY < -0.002 && currentMouseTilt >= minMouseTilt)
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, (Quaternion.AngleAxis(45, targetCamera.transform.right) * transform.rotation), inputAxisMouseY );
                 currentMouseTilt += inputAxisMouseY;
 
             }
-
+            */
         }
         float inputAxisScroll = Mathf.Clamp(Input.GetAxis("Mouse ScrollWheel"), -0.1f, 0.1f);
         if (inputAxisScroll > 0.02 && currentZoom <= maxZoom || inputAxisScroll < -0.02 && currentZoom >= minZoom - ZoomWithoutTilt)
@@ -61,6 +78,23 @@ public class CameraRig : MonoBehaviour
                 targetCamera.transform.rotation = Quaternion.AngleAxis(-inputAxisScroll * cameraZoomSpeed * cameraTiltToZoomRatio, targetCamera.transform.right) * targetCamera.transform.rotation;
             }
             currentZoom += inputAxisScroll * Mathf.Sqrt(cameraZoomSpeed);
+        }
+    }
+    private void CameraUpDown()
+    {
+        if (Input.GetMouseButton(2)) 
+        {
+            float screenCentre = Screen.height / 2;
+            float MouseDistance = Input.mousePosition.y - screenCentre;
+
+            if (MouseDistance >= cameraMoveDistanceThreshold)
+            {
+                targetCamera.transform.position += transform.up * cameraUpMovespeed;
+            }
+            if (MouseDistance <= -cameraMoveDistanceThreshold)
+            {
+                targetCamera.transform.position -= transform.up * cameraUpMovespeed;
+            }
         }
     }
 }
