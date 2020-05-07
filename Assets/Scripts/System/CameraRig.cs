@@ -24,6 +24,8 @@ public class CameraRig : MonoBehaviour
 
     [SerializeField] float cameraMaxHeight;
     [SerializeField] float cameraMinHeight;
+
+    [SerializeField] [Range(0, 1)] float CameraMode;
  
     Camera targetCamera;
 
@@ -34,8 +36,56 @@ public class CameraRig : MonoBehaviour
     }
     private void Update()
     {
-        CameraMovement();
+        if (CameraMode == 0)
+        {
+            CameraMovement();
+        }
         //CameraUpDown();
+        else if (CameraMode == 1)
+        {
+            AlternativeCameraMove();
+        }
+        Zoom();
+
+    }
+
+    private void AlternativeCameraMove()
+    {
+        if(Input.GetMouseButton(0) && Input.GetMouseButton(1))
+        {
+            Cursor.visible = false;
+            float inputAxisMouseY = Mathf.Clamp(-Input.GetAxis("Mouse Y"), -0.4f, 0.4f) * cameraUpMovespeed;
+            float inputAxisMouseX = Input.GetAxis("Mouse X") * rotationspeed;
+            transform.rotation = Quaternion.AngleAxis(inputAxisMouseX, Vector3.up) * transform.rotation;
+
+            if (transform.position.y > cameraMinHeight && inputAxisMouseY < 0 || transform.position.y < cameraMaxHeight && inputAxisMouseY > 0)
+            {
+                transform.position += Vector3.up  * Mathf.Clamp(inputAxisMouseY, -cameraSpeedThreshold, cameraSpeedThreshold);
+            }
+
+        }
+        else if (Input.GetMouseButton(1))
+        {
+            Cursor.visible = false;
+            float inputAxisMouseY = Mathf.Clamp(-Input.GetAxis("Mouse Y"), -0.4f, 0.4f) * rotationspeed;
+            float inputAxisMouseX = Input.GetAxis("Mouse X") * rotationspeed;
+            transform.rotation = Quaternion.AngleAxis(inputAxisMouseX, Vector3.up) * transform.rotation;
+
+            if (inputAxisMouseY > 0.002 && currentMouseTilt <= maxMouseTilt || inputAxisMouseY < -0.002 && currentMouseTilt >= minMouseTilt)
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, (Quaternion.AngleAxis(45, targetCamera.transform.right) * transform.rotation), inputAxisMouseY);
+                currentMouseTilt += inputAxisMouseY;
+
+            }
+            
+
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            Cursor.visible = true;
+        }
+
+
 
     }
 
@@ -58,7 +108,7 @@ public class CameraRig : MonoBehaviour
         {
             float inputAxisMouseY = Mathf.Clamp(-Input.GetAxis("Mouse Y"), -0.4f, 0.4f) * rotationspeed;
             float inputAxisMouseX = Input.GetAxis("Mouse X") * rotationspeed;
-            transform.rotation = Quaternion.AngleAxis(inputAxisMouseX , Vector3.up) * transform.rotation;
+            transform.rotation = Quaternion.AngleAxis(inputAxisMouseX, Vector3.up) * transform.rotation;
 
             if (inputAxisMouseY > 0.002 && currentMouseTilt <= maxMouseTilt || inputAxisMouseY < -0.002 && currentMouseTilt >= minMouseTilt)
             {
@@ -68,6 +118,11 @@ public class CameraRig : MonoBehaviour
             }
 
         }
+        
+    }
+
+    private void Zoom()
+    {
         float inputAxisScroll = Mathf.Clamp(Input.GetAxis("Mouse ScrollWheel"), -0.1f, 0.1f);
         if (inputAxisScroll > 0.02 && currentZoom <= maxZoom || inputAxisScroll < -0.02 && currentZoom >= minZoom - ZoomWithoutTilt)
         {
@@ -99,7 +154,7 @@ public class CameraRig : MonoBehaviour
             
             
             yield return new WaitForEndOfFrame();
-            yield return new WaitForEndOfFrame();
+            
         }
     }
 
