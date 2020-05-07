@@ -474,16 +474,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b011e5df231467f4fa1f77180e6c54f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxZoom: 10
+  maxZoom: 14
   minZoom: 0
   ZoomWithoutTilt: 5
   maxMouseTilt: 10
   minMouseTilt: -25
-  rotationspeed: 164
+  rotationspeed: 5
   cameraZoomSpeed: 65
   cameraTiltToZoomRatio: 0.3
-  cameraUpMovespeed: 0.5
-  cameraMoveDistanceThreshold: 300
+  cameraUpMovespeed: 0.025
+  cameraSpeedThreshold: 200
+  cameraMaxHeight: 100
+  cameraMinHeight: 0
 --- !u!1 &339049085
 GameObject:
   m_ObjectHideFlags: 0
