@@ -25,6 +25,7 @@ public class AgentStructure : MonoBehaviour
     Camera cam;
     public NavMeshAgent agent;
 
+    public bool hasSignal = false;
     public bool isActive = false;
     bool canBuild = false;
     bool canSpawn = false;
@@ -68,8 +69,6 @@ public class AgentStructure : MonoBehaviour
         {
             //StartCoroutine("RetireAgent");
         }
-
-
     }
 
 
@@ -83,10 +82,19 @@ public class AgentStructure : MonoBehaviour
 
     }
 
+    public void ReceiveSignal(Vector3 position, float destMin)
+    {
+        transform.GetChild(0).gameObject.GetComponent<SetAgentHeight>().GoToSignal(position, destMin);
+    }
+
     void FixedUpdate()
     {
         grid = SpawnSettings.Instance.grid;
 
+        if (hasSignal == true && agent.hasPath)
+        {
+            agent.ResetPath();
+        }
 
         if (isActive == true)
         {
@@ -98,16 +106,19 @@ public class AgentStructure : MonoBehaviour
         {
             SpawnActiveAgent();
 
-
         }
     }
+
+
+
+     
 
 
 
     IEnumerator MoveTimer()
     {
         //Looping and delaying their walk cycle 
-        while (isActive == true)
+        while (isActive == true && hasSignal == false)
         {
 
             BuildStructure();

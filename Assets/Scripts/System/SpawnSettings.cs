@@ -121,7 +121,6 @@ public class SpawnSettings : MonoBehaviour
         GridList[,] gridArray = GridArray.Instance.gridArray;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer_mask))
         {
-            //changed: Y rounded * and /
             Vector3 hitGrid = new Vector3(Mathf.Round(hit.point.x / cellSize) * cellSize, Mathf.Round( hit.point.y / cellY) * cellY, Mathf.Round(hit.point.z / cellSize) * cellSize);
 
             int arrayPosX = GridArray.Instance.NumToGrid(hitGrid.x); 

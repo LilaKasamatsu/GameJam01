@@ -1168,6 +1168,7 @@ GameObject:
   - component: {fileID: 1092224750}
   - component: {fileID: 1092224751}
   - component: {fileID: 1092224752}
+  - component: {fileID: 1092224753}
   m_Layer: 0
   m_Name: spawnController
   m_TagString: Untagged
@@ -1233,6 +1234,22 @@ MonoBehaviour:
   bridge: {fileID: 3202815648605575545, guid: 6de116fbef708364b9d89e3e4a186bc9, type: 3}
   selecter: {fileID: 0}
   build: 0
+--- !u!114 &1092224753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092224749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8530aebc19ecd56419ee5ca4bb82a371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  signalObj: {fileID: 2771595247243132528, guid: 331f0ed1d5e6cb442ae6529a6600c6dc,
+    type: 3}
+  signalRadius: 50
+  destMin: 0.1
 --- !u!1 &1092691738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1457,7 +1474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1178281057}
   - component: {fileID: 1178281056}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: navMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

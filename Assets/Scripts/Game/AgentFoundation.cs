@@ -30,6 +30,7 @@ public class AgentFoundation : MonoBehaviour
     Camera cam;
     public NavMeshAgent agent;
 
+    public bool hasSignal = false;
     public bool isActive = false;
     bool canBuild = false;
     bool canSpawn = false;
@@ -111,7 +112,7 @@ public class AgentFoundation : MonoBehaviour
     IEnumerator MoveTimer()
     {
         //Looping and delaying their walk cycle 
-        while (isActive == true)
+        while (isActive == true && hasSignal == false)
         {
 
             BuildFoundation();

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 862648634634928750}
   - component: {fileID: 1145020795337754913}
   - component: {fileID: 6099165479920085528}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: agentStructure
   m_TagString: agent1
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 4096972942338178994}
   - component: {fileID: 526866094404119357}
   - component: {fileID: 6849307986453282703}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: agentStructure_obj
   m_TagString: agent1
   m_Icon: {fileID: 0}
