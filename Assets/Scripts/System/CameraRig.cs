@@ -7,7 +7,7 @@ public class CameraRig : MonoBehaviour
     
     
     [SerializeField] [Range(5f,25f)]  float maxZoom;
-    [SerializeField] [Range(0f,0.5f)] float minZoom;
+    [SerializeField] [Range(-20f,0.5f)] float minZoom;
     [SerializeField] [Range(2, 20)] float ZoomWithoutTilt;
     float currentZoom;
 

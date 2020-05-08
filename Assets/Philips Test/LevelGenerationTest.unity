@@ -382,7 +382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxZoom: 14
-  minZoom: 0
+  minZoom: -12.8
   ZoomWithoutTilt: 5
   maxMouseTilt: 25
   minMouseTilt: -35
@@ -901,6 +901,7 @@ Transform:
   - {fileID: 1933351252}
   - {fileID: 149271274}
   - {fileID: 2078100792}
+  - {fileID: 1681719565}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2140,11 +2141,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1681719564}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.000061035156, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 806124160}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1681719566
 MonoBehaviour:
@@ -2170,14 +2171,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b5193c85612b9419569ebfa90868e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AmountOfGround: 2
-  minBlockScale: 5
-  maxBlockScale: 125
-  totalScale: 70
-  maxElevation: 15
+  AmountOfGround: 4
+  minBlockScale: 10
+  maxBlockScale: 20
+  totalScale: 40
+  maxElevation: 5
   BaseBlockPrefab: {fileID: 8480382081163276554, guid: 0edbd097529e30f428bfa7967110fc93,
     type: 3}
   Groundbounds: {fileID: 631944063}
+  cameraRig: {fileID: 149271273}
+  surface: {fileID: 1178281056}
 --- !u!1 &1933351249
 GameObject:
   m_ObjectHideFlags: 0
@@ -2293,3 +2296,5 @@ MonoBehaviour:
   heightLimit: 7
   remainedHeight: 3
   platformSearchDistance: 6
+  destructionMode: 1
+  maxLocalHeightLimit: 15
