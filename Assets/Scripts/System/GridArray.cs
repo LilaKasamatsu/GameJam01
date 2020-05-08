@@ -200,7 +200,7 @@ public class GridArray : MonoBehaviour
         {
             for (int z = minZ; z >= minZ && z <= maxZ ; z++)
             {
-                if (gridArray[x, z].structureAmount > 0)
+                if (gridArray[x, z].structureAmount > 0 && target.y == gridArray[x,z].foundationObject.transform.position.y)
                 {
                     //return that this position has a strucutre to orient on.
                     orientPositions.Add(new Vector3(x * cellSize, 0, z * cellSize));

@@ -33,13 +33,16 @@ public class DestructionManager : MonoBehaviour
                 for (int i = 0; i < GridLengthZ; i++)
                 {
                     GridList target = GridArray.Instance.gridArray[coloumscounter, i];
-                    Vector3 targetVector = new Vector3(i, 0, coloumscounter);
+
                    if( target.structureAmount >= heightLimit)
                     {
+                        Vector3 targetVector = new Vector3(coloumscounter * GridArray.Instance.cellSize, target.foundationObject.transform.position.y, i * GridArray.Instance.cellSize);
                         Explode(target,targetVector);
+
                     }
                    else if (target.structureAmount==0 && target.foundationAmount > 0)
                     {
+                        Vector3 targetVector = new Vector3(coloumscounter * GridArray.Instance.cellSize, target.foundationObject.transform.position.y, i * GridArray.Instance.cellSize);
                         LookForStructures(target,targetVector);
                     }
 
