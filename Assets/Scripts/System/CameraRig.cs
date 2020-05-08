@@ -7,7 +7,7 @@ public class CameraRig : MonoBehaviour
     
     
     [SerializeField] [Range(5f,25f)]  float maxZoom;
-    [SerializeField] [Range(0f,0.5f)] float minZoom;
+    [SerializeField] [Range(-20f,0.5f)] float minZoom;
     [SerializeField] [Range(2, 20)] float ZoomWithoutTilt;
     float currentZoom;
 
@@ -29,7 +29,8 @@ public class CameraRig : MonoBehaviour
     normal,
     alternative,
     PressMousewheel,
-    ScrollSteuerung
+    ScrollSteuerung,
+    ReverseScrollSteuerung
     };
     [SerializeField] CameraMode cameraMode;
 
@@ -59,6 +60,9 @@ public class CameraRig : MonoBehaviour
                 break;
             case CameraMode.ScrollSteuerung:
                 MousewheelCameraMovement();
+                break;
+            case CameraMode.ReverseScrollSteuerung:
+                ReverseScrollCameraMovement();
                 break;
         }
         
@@ -172,6 +176,43 @@ public class CameraRig : MonoBehaviour
         }
         else Zoom();
         
+        if (Input.GetMouseButtonUp(1))
+        {
+            Cursor.visible = true;
+        }
+        if (Input.GetMouseButtonUp(2))
+        {
+            Cursor.visible = true;
+        }
+
+
+
+    }
+
+    private void ReverseScrollCameraMovement()
+    {
+        float inputAxisScroll = -Input.GetAxis("Mouse ScrollWheel") * cameraUpMovespeed * 10;
+        if (Input.GetMouseButton(1))
+        {
+            Cursor.visible = false;
+            float inputAxisMouseY = Mathf.Clamp(-Input.GetAxis("Mouse Y"), -0.4f, 0.4f) * rotationspeed;
+            float inputAxisMouseX = Input.GetAxis("Mouse X") * rotationspeed;
+            transform.rotation = Quaternion.AngleAxis(inputAxisMouseX, Vector3.up) * transform.rotation;
+
+            if (inputAxisMouseY > 0.002 && currentMouseTilt <= maxMouseTilt || inputAxisMouseY < -0.002 && currentMouseTilt >= minMouseTilt)
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, (Quaternion.AngleAxis(45, targetCamera.transform.right) * transform.rotation), inputAxisMouseY);
+                currentMouseTilt += inputAxisMouseY;
+
+            }
+
+            Zoom();
+        }
+        else if (transform.position.y > cameraMinHeight && inputAxisScroll < 0 || transform.position.y < cameraMaxHeight && inputAxisScroll > 0)
+        {
+            transform.position += Vector3.up * Mathf.Clamp(inputAxisScroll, -cameraSpeedThreshold, cameraSpeedThreshold);
+        }
+
         if (Input.GetMouseButtonUp(1))
         {
             Cursor.visible = true;
