@@ -5,7 +5,7 @@ using UnityEngine;
 public class SignalBehavior : MonoBehaviour
 {
 
-    [SerializeField] GameObject signalObj;
+    public GameObject signalObj;
     public float signalRadius;
     public float destMin = 3;
 
@@ -13,6 +13,21 @@ public class SignalBehavior : MonoBehaviour
     private GridArray gridArray;
     private int cellSize;
     private int cellY;
+    
+    //Singleton
+    public static SignalBehavior Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -23,49 +38,26 @@ public class SignalBehavior : MonoBehaviour
         cellY = gridArray.cellY;
         
     }
-
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+       
+    }
+
+
+    public void FindAgents(Vector3 center, Vector3 destination, float radius, int layer)
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(center, radius, layer);
+        int i = 0;
+        while (i < hitColliders.Length)
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            int layer_mask = LayerMask.GetMask("Ground");
-
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer_mask))
+            if (hitColliders[i].GetComponent<AgentStructure>() != false)
             {
-                Vector3 hitGrid = new Vector3(Mathf.Round(hit.point.x / cellSize) * cellSize, Mathf.Round(hit.point.y / cellY) * cellY, Mathf.Round(hit.point.z / cellSize) * cellSize);
-
-                int arrayPosX = GridArray.Instance.NumToGrid(hitGrid.x);
-                int arrayPosZ = GridArray.Instance.NumToGrid(hitGrid.z);
-                float arrayPosY = hit.point.y;
-
-                Vector3 spawnPosition = new Vector3(arrayPosX * cellSize, arrayPosY, arrayPosZ * cellSize);
-
-                Instantiate(signalObj, spawnPosition, Quaternion.identity);
-
-
-                int layer_agent = LayerMask.GetMask("Agent");
-                FindAgents(spawnPosition + new Vector3(0, 1, 0), signalRadius, layer_agent);
+                hitColliders[i].GetComponent<AgentStructure>().ReceiveSignal(destination, destMin);
             }
-
-        
-        }
-
-        void FindAgents(Vector3 center, float radius, int layer)
-        {
-            Collider[] hitColliders = Physics.OverlapSphere(center, radius, layer);
-            int i = 0;
-            while (i < hitColliders.Length)
-            {
-                if (hitColliders[i].GetComponent<AgentStructure>() != false)
-                {
-                    hitColliders[i].GetComponent<AgentStructure>().ReceiveSignal(center, destMin);               
-                }
-                i++;
-            }
+            i++;
         }
     }
+
+
+
 }

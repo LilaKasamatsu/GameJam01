@@ -25,7 +25,7 @@ public class StructureBehavior : MonoBehaviour
     private void Update()
     {
         
-        if (isSelected == true && isBase == true)
+        if (isSelected == true)
         {
             ChangeColorSelect();
         }
