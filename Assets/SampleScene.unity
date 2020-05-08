@@ -1209,7 +1209,8 @@ MonoBehaviour:
     type: 3}
   foundation: {fileID: 7836647536578920252, guid: dfd15eeceb8f8e3439f4fca9d45da027,
     type: 3}
-  structure: {fileID: 67781199573577903, guid: f4112035a0585a94b8ef606cccd4d55b, type: 3}
+  structure: {fileID: 1442146771346905019, guid: 35120af49f5fda445ba817ff86779788,
+    type: 3}
   mainPoint: {fileID: 4456545508637451220, guid: 3d96406741bbbbe41b1adec0fc04446d,
     type: 3}
   marker: {fileID: 1427785718841972201, guid: 0a8dddd32f143c7428ab5f3bfc49688d, type: 3}
