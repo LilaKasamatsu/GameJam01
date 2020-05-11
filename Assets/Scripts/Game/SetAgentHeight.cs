@@ -51,6 +51,8 @@ public class SetAgentHeight : MonoBehaviour
                 transform.parent.gameObject.GetComponent<NavMeshAgent>().Warp(warpPosition);
                 transform.parent.gameObject.GetComponent<AgentStructure>().hasSignal = false;
                 transform.parent.gameObject.GetComponent<AgentStructure>().StartCoroutine("MoveTimer");
+
+                transform.position = signalPos;
             }
         }
 

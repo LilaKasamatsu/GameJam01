@@ -191,7 +191,7 @@ public class CameraRig : MonoBehaviour
 
     private void ReverseScrollCameraMovement()
     {
-        float inputAxisScroll = -Input.GetAxis("Mouse ScrollWheel") * cameraUpMovespeed * 10;
+        float inputAxisScroll = Input.GetAxis("Mouse ScrollWheel") * cameraUpMovespeed * 10;
         if (Input.GetMouseButton(1))
         {
             Cursor.visible = false;

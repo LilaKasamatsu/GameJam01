@@ -8,6 +8,7 @@ public class GridArray : MonoBehaviour
     [SerializeField] int agentPlaceAmount;
     [SerializeField] int startingAgentFound;
     [SerializeField] int startingAgentPoint;
+    [SerializeField] LevelGenerator levelGenerator;
 
 
     [SerializeField] float minNewAgentDelay = 2;
@@ -60,9 +61,11 @@ public class GridArray : MonoBehaviour
 
                 }
                 */
-                float width = Random.Range(0f, 2f);
+                float width = Random.Range(0f, 1f);
+                int color = Random.Range(0, 3);
 
-                gridList.Add(new GridList(0, 0, 0, 0, 0, width));
+
+                gridList.Add(new GridList(0, 0, 0, 0, 0, width, "nope", color));
             }
         }
     }
@@ -87,9 +90,10 @@ public class GridArray : MonoBehaviour
 
     private void Start()
     {
+        levelGenerator.GenerateMap();
+        levelGenerator.surface.BuildNavMesh();
 
-
-        ground = GameObject.Find("GroundBound");
+        ground = levelGenerator.Groundbounds;
 
         arrayX = Mathf.RoundToInt(ground.transform.localScale.x / cellSize) - 1;
         arrayZ = Mathf.RoundToInt(ground.transform.localScale.z / cellSize) - 1;
@@ -110,8 +114,25 @@ public class GridArray : MonoBehaviour
             {
                 //Debug.Log(x + " , " + i);
 
-                float width = Random.Range(0f, 1.5f);
-                gridArray[x, z] = new GridList(0, 0, 0, 0, 0, width);
+                float width = Random.Range(0f, 1f);
+                int range = Random.Range(0, 3);
+                int color = Random.Range(0, 3);
+                
+                string shape = "circ";
+                if (range == 0)
+                {
+                    shape = "squ";
+                }
+                if (range == 1)
+                {
+                    shape = "tri";
+                }
+                if (range == 2)
+                {
+                    shape = "circ";
+                }
+
+                gridArray[x, z] = new GridList(0, 0, 0, 0, 0, width, shape, color);
 
             }
         }
