@@ -22,6 +22,7 @@ public class LevelGenerator : MonoBehaviour
         surface.BuildNavMesh();
 
     }
+    
 
     void GenerateMap()
     {
@@ -49,7 +50,7 @@ public class LevelGenerator : MonoBehaviour
                     
                 int ScaleX = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale), 0, maxScaleX)*3;
                 int ScaleZ = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale), 0, MaxScaleZ)*3;
-                int ScaleY = Mathf.Clamp(Mathf.Abs(posY*4),20,32);
+                int ScaleY = Mathf.Clamp(Mathf.Abs(posY*4),maxElevation*2,maxElevation*4);
 
                 GameObject BaseBlock= Instantiate(BaseBlockPrefab, new Vector3(posX, posY, posZ), Quaternion.identity,this.transform);
                 BaseBlock.transform.localScale = new Vector3(ScaleX, ScaleY, ScaleZ);
