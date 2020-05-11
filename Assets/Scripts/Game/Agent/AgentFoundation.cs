@@ -12,6 +12,8 @@ public class AgentFoundation : MonoBehaviour
     [SerializeField] int maxBuildings;
     [SerializeField] GameObject spawnAgent;
 
+    [SerializeField] GameObject destructionAnim;
+
     public int foundationsLifetime = 10;
     int foundationsPlaced = 0;
 
@@ -100,7 +102,7 @@ public class AgentFoundation : MonoBehaviour
 
     private void RetireAgent()
     {
-      
+        Instantiate(destructionAnim, this.transform.position, Quaternion.identity);
         agentStack.agentAmount += 1;
         agentStack.agentFoundation -= 1;
         Destroy(this.gameObject);

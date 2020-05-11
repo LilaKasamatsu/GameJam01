@@ -60,10 +60,10 @@ MonoBehaviour:
   categories: []
   uiBounds:
     serializedVersion: 2
-    x: 765
+    x: 666
     y: -548
-    width: 2945
-    height: 2709
+    width: 3044
+    height: 2689
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -101,6 +101,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614871}
   - {fileID: 8926484042661614873}
   - {fileID: 8926484042661614893}
+  - {fileID: 8926484042661614894}
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
@@ -168,6 +169,19 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0.1
+    min: -Infinity
+    max: Infinity
+    descendantCount: 0
+  - name: Sparks COlor
+    path: Sparks COlor
+    tooltip: 
+    sheetType: m_Gradient
+    realType: Gradient
+    defaultValue:
+      m_Type:
+        m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":8.474189758300782,"g":8.474189758300782,"b":8.474189758300782,"a":1.0},"time":0.0},{"color":{"r":0.0,"g":5.992156982421875,"b":5.113725662231445,"a":1.0},"time":0.16765087842941285},{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":0.9970549941062927}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":0.40881970524787905},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
     min: -Infinity
     max: Infinity
     descendantCount: 0
@@ -2358,8 +2372,8 @@ VisualEffectResource:
         data[3]: 13
       - op: 1
         valueIndex: 6
-        data[0]: -1
-        data[1]: -1
+        data[0]: 0
+        data[1]: 1
         data[2]: -1
         data[3]: 14
       - op: 1
@@ -2403,7 +2417,7 @@ VisualEffectResource:
         data[0]: -1
         data[1]: -1
         data[2]: -1
-        data[3]: 1
+        data[3]: 2
       - op: 1
         valueIndex: 17
         data[0]: -1
@@ -2433,7 +2447,7 @@ VisualEffectResource:
         data[0]: -1
         data[1]: -1
         data[2]: -1
-        data[3]: 1
+        data[3]: 12
       - op: 1
         valueIndex: 23
         data[0]: -1
@@ -2454,7 +2468,7 @@ VisualEffectResource:
         data[3]: 5
       - op: 1
         valueIndex: 56
-        data[0]: -1
+        data[0]: 4
         data[1]: -1
         data[2]: -1
         data[3]: 1
@@ -2472,7 +2486,7 @@ VisualEffectResource:
         data[3]: 1
       - op: 1
         valueIndex: 62
-        data[0]: -1
+        data[0]: 3
         data[1]: -1
         data[2]: -1
         data[3]: 1
@@ -2526,8 +2540,8 @@ VisualEffectResource:
         data[3]: -1
       - op: 1
         valueIndex: 81
-        data[0]: -1
-        data[1]: -1
+        data[0]: 6
+        data[1]: 6
         data[2]: -1
         data[3]: 3
       - op: 1
@@ -2728,6 +2742,13 @@ VisualEffectResource:
               weightedMode: 0
               inWeight: 0
               outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        - m_ExpressionIndex: 4
+          m_Value:
+            serializedVersion: 2
+            m_Curve:
             - serializedVersion: 3
               time: 1
               value: -0.030670166
@@ -2745,19 +2766,19 @@ VisualEffectResource:
             serializedVersion: 2
             m_Curve:
             - serializedVersion: 3
-              time: 0.009941054
-              value: 0.40323406
-              inSlope: -0.47636706
-              outSlope: -0.47636706
+              time: 0.25885093
+              value: 0.14315072
+              inSlope: 0.015207232
+              outSlope: 0.015207232
               tangentMode: 0
               weightedMode: 0
               inWeight: 0
               outWeight: 0
             - serializedVersion: 3
-              time: 0.9958191
-              value: 0.0037378073
-              inSlope: 0.016047528
-              outSlope: 0.016047528
+              time: 1
+              value: -0.030670166
+              inSlope: 0
+              outSlope: 0
               tangentMode: 0
               weightedMode: 0
               inWeight: 0
@@ -4590,7 +4611,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614601}
   - {fileID: 8926484042661614603}
   - {fileID: 8926484042661614618}
-  m_UIPosition: {x: 942, y: 657}
+  m_UIPosition: {x: 942, y: 734}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -4626,7 +4647,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614589}
   - {fileID: 8926484042661614591}
   - {fileID: 8926484042661614593}
-  m_UIPosition: {x: 943, y: 1078}
+  m_UIPosition: {x: 943, y: 1155}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -4845,7 +4866,8 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
     attributes: []
   m_Direction: 0
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 8926484042661614895}
 --- !u!114 &8926484042661614595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6018,7 +6040,8 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
     attributes: []
   m_Direction: 0
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 8926484042661614895}
 --- !u!114 &8926484042661614644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11330,3 +11353,88 @@ MonoBehaviour:
     - context: {fileID: 8926484042661614758}
       slotIndex: 0
   eventName: OnPlay
+--- !u!114 &8926484042661614894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330e0fca1717dde4aaa144f48232aa64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 114350483966674976}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 0
+  m_UISuperCollapsed: 0
+  m_InputSlots: []
+  m_OutputSlots:
+  - {fileID: 8926484042661614895}
+  m_ExposedName: Sparks COlor
+  m_Exposed: 1
+  m_Order: 5
+  m_Category: 
+  m_Min:
+    m_Type:
+      m_SerializableType: 
+    m_SerializableObject: 
+  m_Max:
+    m_Type:
+      m_SerializableType: 
+    m_SerializableObject: 
+  m_IsOutput: 0
+  m_Tooltip: 
+  m_Nodes:
+  - m_Id: 0
+    linkedSlots:
+    - outputSlot: {fileID: 8926484042661614895}
+      inputSlot: {fileID: 8926484042661614594}
+    position: {x: 666, y: 1586}
+    expandedSlots: []
+    expanded: 1
+  - m_Id: 1
+    linkedSlots:
+    - outputSlot: {fileID: 8926484042661614895}
+      inputSlot: {fileID: 8926484042661614643}
+    position: {x: 1376.0001, y: 1972.9502}
+    expandedSlots: []
+    expanded: 0
+--- !u!114 &8926484042661614895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f778ff57c4e8145b9681fe3268d8e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 0}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  m_MasterSlot: {fileID: 8926484042661614895}
+  m_MasterData:
+    m_Owner: {fileID: 8926484042661614894}
+    m_Value:
+      m_Type:
+        m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      m_SerializableObject: '{"colorKeys":[{"color":{"r":8.474189758300782,"g":8.474189758300782,"b":8.474189758300782,"a":1.0},"time":0.0},{"color":{"r":0.0,"g":5.992156982421875,"b":5.113725662231445,"a":1.0},"time":0.16765087842941285},{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":0.9970549941062927}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":0.40881970524787905},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
+    m_Space: 2147483647
+  m_Property:
+    name: o
+    m_serializedType:
+      m_SerializableType: UnityEngine.Gradient, UnityEngine.CoreModule, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    attributes: []
+  m_Direction: 1
+  m_LinkedSlots:
+  - {fileID: 8926484042661614594}
+  - {fileID: 8926484042661614643}
