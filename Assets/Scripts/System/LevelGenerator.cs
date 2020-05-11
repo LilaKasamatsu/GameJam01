@@ -44,7 +44,7 @@ public class LevelGenerator : MonoBehaviour
         Groundbounds.transform.position = new Vector3(totalScale / 2-cellsize, -20, totalScale / 2 - cellsize);
         cameraRig.transform.position = Groundbounds.transform.position + Vector3.up * 23;
         List<int> posList=new List<int>();
-        for(int i = (-maxElevation-1)*2; i <= (1+maxElevation)*2;i+=2)
+        for(int i = (-maxElevation-1)*4; i <= 0;i+=2)
         {
             posList.Add(i);
 
@@ -82,7 +82,7 @@ public class LevelGenerator : MonoBehaviour
             }
 
         }
-
+        transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
 
     }
 
