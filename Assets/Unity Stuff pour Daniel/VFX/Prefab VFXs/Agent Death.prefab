@@ -52,7 +52,10 @@ VisualEffect:
     m_Vector2f:
       m_Array: []
     m_Vector3f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 5, y: 5, z: 5}
+        m_Name: VELOCITY MAX
+        m_Overridden: 1
     m_Vector4f:
       m_Array: []
     m_Uint:
