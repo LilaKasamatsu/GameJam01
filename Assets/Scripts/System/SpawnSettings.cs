@@ -131,68 +131,74 @@ public class SpawnSettings : MonoBehaviour
 
             if (currentTile != lastPlacedTile)
             {
-                //Foundation Agent
-                if (agent.GetComponent<AgentFoundation>() != null && agentStack.agentAmount > 0)
+
+                if (hit.normal.normalized == new Vector3(0f, 1f, 0f))
                 {
 
-                    if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
+                    //Foundation Agent
+                    if (agent.GetComponent<AgentFoundation>() != null && agentStack.agentAmount > 0)
                     {
-                        if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0)
+
+                        if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
                         {
-                            agentStack.agentAmount -= 1;
-                            agentStack.agentFoundation += 1;
+                            if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0)
+                            {
+                                agentStack.agentAmount -= 1;
+                                agentStack.agentFoundation += 1;
 
-                            Vector3 spawnLocation = hitGrid;
-                            spawnLocation.y = hit.point.y ;
+                                Vector3 spawnLocation = hitGrid;
+                                spawnLocation.y = hit.point.y;
 
-                            //spawnLocation.y = foundation.transform.localScale.y / 2;
-                            //+ new Vector3(0, agent.transform.localScale.y)
+                                //spawnLocation.y = foundation.transform.localScale.y / 2;
+                                //+ new Vector3(0, agent.transform.localScale.y)
 
-                            GameObject newAgent = Instantiate(agent, spawnLocation , Quaternion.identity);
-                            newAgent.GetComponent<NavMeshAgent>().enabled = true;
+                                GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
+                                newAgent.GetComponent<NavMeshAgent>().enabled = true;
 
-                            newAgent.GetComponent<AgentFoundation>().isActive = true;
+                                newAgent.GetComponent<AgentFoundation>().isActive = true;
 
-                            lastPlacedTile = currentTile;
+                                lastPlacedTile = currentTile;
+                            }
+                        }
+                    }
+
+                    //Structure Agent
+                    if (agent.GetComponent<AgentStructure>() != null && agentStack.agentAmount > 0)
+                    {
+                        if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
+                        {
+                            if (gridArray[arrayPosX, arrayPosZ].structureAmount <= 0 && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+                            {
+                                agentStack.agentAmount -= 1;
+                                agentStack.agentStructure += 1;
+
+
+                                Vector3 spawnLocation = hitGrid;
+                                spawnLocation.y = hit.point.y + agent.transform.localScale.y * 0.5f;
+
+                                //spawnLocation.y = structure.transform.localScale.y / 2;
+
+                                // + new Vector3(0, agent.transform.localScale.y / 2)
+                                GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
+                                newAgent.GetComponent<NavMeshAgent>().enabled = true;
+
+                                newAgent.GetComponent<AgentStructure>().isActive = true;
+
+                                lastPlacedTile = currentTile;
+
+                                /*Also Spawn Structure?
+                                 * 
+                                GameObject builtStructure = Instantiate(structure, spawnLocation, Quaternion.identity) as GameObject;
+                                GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
+
+
+                                GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
+                                */
+                            }
                         }
                     }
                 }
 
-                //Structure Agent
-                if (agent.GetComponent<AgentStructure>() != null && agentStack.agentAmount > 0)
-                {
-                    if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
-                    {
-                        if (gridArray[arrayPosX, arrayPosZ].structureAmount <= 0 && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
-                        {
-                            agentStack.agentAmount -= 1;
-                            agentStack.agentStructure += 1;
-
-
-                            Vector3 spawnLocation = hitGrid;
-                            spawnLocation.y = hit.point.y + agent.transform.localScale.y * 0.5f;
-
-                            //spawnLocation.y = structure.transform.localScale.y / 2;
-
-                            // + new Vector3(0, agent.transform.localScale.y / 2)
-                            GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
-                            newAgent.GetComponent<NavMeshAgent>().enabled = true;
-
-                            newAgent.GetComponent<AgentStructure>().isActive = true;
-
-                            lastPlacedTile = currentTile;
-
-                            /*Also Spawn Structure?
-                             * 
-                            GameObject builtStructure = Instantiate(structure, spawnLocation, Quaternion.identity) as GameObject;
-                            GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
-
-
-                            GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
-                            */
-                        }
-                    }
-                }
             }                    
             
         }
