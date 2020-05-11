@@ -20,7 +20,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void Awake()
     {
-        if (instance = null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -44,7 +44,7 @@ public class LevelGenerator : MonoBehaviour
         Groundbounds.transform.position = new Vector3(totalScale / 2-cellsize, -20, totalScale / 2 - cellsize);
         cameraRig.transform.position = Groundbounds.transform.position + Vector3.up * 23;
         List<int> posList=new List<int>();
-        for(int i = -maxElevation*2; i < maxElevation*2;i+=2)
+        for(int i = (-maxElevation-1)*2; i <= (1+maxElevation)*2;i+=2)
         {
             posList.Add(i);
 
@@ -54,16 +54,16 @@ public class LevelGenerator : MonoBehaviour
         {
             for (int j = 1; j < AmountOfGround-1; j++)
             {
-                int ElevationInt = Random.Range(0, posList.Count);
-                int elevation = posList[Random.Range(0,posList.Count)];
+                int ElevationInt = Random.Range(1, posList.Count-1);
+                int elevation = posList[ElevationInt];
                 posList.RemoveAt(ElevationInt - 1);
                 posList.RemoveAt(ElevationInt - 1);
                 posList.RemoveAt(ElevationInt - 1);
 
-                int upperEndX = Mathf.RoundToInt(totalScale / AmountOfGround * (i+1)/3+1);
-                int lowerEndX = Mathf.RoundToInt(totalScale / AmountOfGround * i/3-1);
-                int upperEndZ = Mathf.RoundToInt(totalScale / AmountOfGround * (j+1)/3+1);
-                int lowerEndZ = Mathf.RoundToInt(totalScale / AmountOfGround * j/3-1);
+                int upperEndX = Mathf.RoundToInt(totalScale / AmountOfGround * (i+1)/3+2);
+                int lowerEndX = Mathf.RoundToInt(totalScale / AmountOfGround * i/3-4);
+                int upperEndZ = Mathf.RoundToInt(totalScale / AmountOfGround * (j+1)/3+2);
+                int lowerEndZ = Mathf.RoundToInt(totalScale / AmountOfGround * j/3-4);
 
                 int posX = Random.Range(lowerEndX, upperEndX)*3;
                 int posZ = Random.Range(lowerEndZ, upperEndZ)*3;
@@ -71,9 +71,9 @@ public class LevelGenerator : MonoBehaviour
                 int maxScaleX = Mathf.Min(totalScale-posX, posX - 3)/2;
                 int MaxScaleZ = Mathf.Min(totalScale-posZ, posZ - 3)/2;
                     
-                int ScaleX = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale), 0, maxScaleX)*3;
-                int ScaleZ = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale), 0, MaxScaleZ)*3;
-                int ScaleY = Mathf.Clamp(Mathf.Abs(posY*6),maxElevation*2,maxElevation*12);
+                int ScaleX = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale)*3, 0, maxScaleX);
+                int ScaleZ = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale)*3, 0, MaxScaleZ);
+                int ScaleY = Mathf.Clamp(Mathf.Abs(posY*12),maxElevation*2,maxElevation*24);
 
                 GameObject BaseBlock= Instantiate(BaseBlockPrefab, new Vector3(posX, posY, posZ), Quaternion.identity,this.transform);
                 BaseBlock.transform.localScale = new Vector3(ScaleX, ScaleY, ScaleZ);
