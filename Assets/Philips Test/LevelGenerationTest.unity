@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 55503272}
   - component: {fileID: 55503275}
   m_Layer: 5
-  m_Name: ButtonPurple
+  m_Name: ButtonFoundation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -501,7 +501,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.34901962, g: 0.1734936, b: 0.101960786, a: 1}
+  m_Color: {r: 1, g: 0.995283, b: 0.9987383, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -579,7 +579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09198114, g: 0.5, b: 0.38212788, a: 1}
+  m_Color: {r: 0.6745283, g: 1, b: 0.8894624, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -774,7 +774,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 7.248e-42, z: 0, w: -1}
+  m_BoundingSphereOverride: {x: 1.6014e-41, y: 1.01e-43, z: 4.5905e-41, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -804,7 +804,7 @@ GameObject:
   - component: {fileID: 758062041}
   - component: {fileID: 758062040}
   m_Layer: 5
-  m_Name: AgentAmount
+  m_Name: ButtonAgentAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -844,7 +844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9009434, b: 0.9153051, a: 1}
+  m_Color: {r: 1, g: 0.8376521, b: 0.759434, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -989,7 +989,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.23641804, g: 0.23349059, b: 0.31132078, a: 0}
+  m_BackGroundColor: {r: 0.11859204, g: 0.22173552, b: 0.38679248, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1176,7 +1176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   signalObj: {fileID: 2771595247243132528, guid: 331f0ed1d5e6cb442ae6529a6600c6dc,
     type: 3}
-  signalRadius: 50
+  signalRadius: 20
   destMin: 0.1
 --- !u!114 &1092224754
 MonoBehaviour:
@@ -1306,9 +1306,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c90a3149b1905b94aba94a4f2dc4e3d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentButton1: {fileID: 0}
-  agentButton2: {fileID: 0}
-  agentButton3: {fileID: 0}
   textFoundation: {fileID: 1506025639}
   textStructure: {fileID: 1665201221}
   textAgentAmount: {fileID: 1662836163}
@@ -1591,7 +1588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.44705886, g: 0.10588236, b: 0.49803925, a: 1}
+  m_Color: {r: 1, g: 0.8820755, b: 0.8820755, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1799,7 +1796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4363633, g: 0.065815255, b: 0.4811321, a: 1}
+  m_Color: {r: 0.9960785, g: 0.882353, b: 0.882353, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1877,7 +1874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.34901962, g: 0.16862746, b: 0.10196079, a: 1}
+  m_Color: {r: 0.9568628, g: 0.9490197, b: 0.95294124, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1936,7 +1933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09019608, g: 0.5019608, b: 0.3803922, a: 1}
+  m_Color: {r: 0.6745098, g: 0.9960785, b: 0.89019614, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1997,7 +1994,7 @@ GameObject:
   - component: {fileID: 1676055902}
   - component: {fileID: 1676055901}
   m_Layer: 5
-  m_Name: ButtonYellow
+  m_Name: ButtonStructure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
