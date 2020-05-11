@@ -39,11 +39,10 @@ public class ObjectiveSpawn : MonoBehaviour
                 if (Physics.Raycast(spawnPosition, new Vector3(0, -1, 0), out hit, Mathf.Infinity, layer_mask))
                 {
                     Debug.Log("Did Hit");
-                    spawnPosition.y = hit.point.y + 30;
+                    spawnPosition.y = hit.point.y + 15;
 
                     hasSpawned = true;
                     Instantiate(objectiveCube, spawnPosition, Quaternion.identity);
-                    Instantiate(objectiveRay, spawnPosition, Quaternion.identity);
                 }
 
 

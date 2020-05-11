@@ -16,16 +16,21 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("bridge"))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             Destroy(this.gameObject);
             agentStack.agentAmount += 5;
         }
+    }
+
+       
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("bridge"))
+        {
+            Destroy(this.gameObject);
+            agentStack.agentAmount += 5;
+        }
+  
     }
 }
