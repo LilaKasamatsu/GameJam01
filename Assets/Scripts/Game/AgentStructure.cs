@@ -229,7 +229,7 @@ public class AgentStructure : MonoBehaviour
                                     buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY;
 
                                     gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
-                                    gridArray[arrayPosX, arrayPosZ].bridgedStructures = gridArray[arrayPosX, arrayPosZ].structureAmount;
+                                    gridArray[arrayPosX, arrayPosZ].branchedStructures = gridArray[arrayPosX, arrayPosZ].structureAmount;
                                     isBranch = true;
                                     hasBuilt = true;
 
@@ -251,7 +251,7 @@ public class AgentStructure : MonoBehaviour
                                     buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY;
 
                                     gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
-                                    gridArray[arrayPosX, arrayPosZ].bridgedStructures = gridArray[arrayPosX, arrayPosZ].structureAmount;
+                                    gridArray[arrayPosX, arrayPosZ].branchedStructures = gridArray[arrayPosX, arrayPosZ].structureAmount;
                                     isBranch = true;
 
                                     hasBuilt = true;
@@ -273,7 +273,7 @@ public class AgentStructure : MonoBehaviour
                                     buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY;
 
                                     gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
-                                    gridArray[arrayPosX, arrayPosZ].bridgedStructures = gridArray[arrayPosX, arrayPosZ].structureAmount;
+                                    gridArray[arrayPosX, arrayPosZ].branchedStructures = gridArray[arrayPosX, arrayPosZ].structureAmount;
                                     isBranch = true;
 
                                     hasBuilt = true;
@@ -294,7 +294,7 @@ public class AgentStructure : MonoBehaviour
                                     buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY;
 
                                     gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
-                                    gridArray[arrayPosX, arrayPosZ].bridgedStructures = gridArray[arrayPosX, arrayPosZ].structureAmount;
+                                    gridArray[arrayPosX, arrayPosZ].branchedStructures = gridArray[arrayPosX, arrayPosZ].structureAmount;
                                     isBranch = true;
 
                                     hasBuilt = true;
