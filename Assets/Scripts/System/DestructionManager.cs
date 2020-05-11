@@ -51,7 +51,7 @@ public class DestructionManager : MonoBehaviour
                 {
                     GridList target = GridArray.Instance.gridArray[coloumscounter, i];
 
-                    if (target.structureAmount >= heightLimit)
+                    if (target.structureAmount - target.bridgedStructures >= heightLimit)
                     {
                         Vector3 targetVector = new Vector3(coloumscounter * GridArray.Instance.cellSize, target.foundationObject.transform.position.y, i * GridArray.Instance.cellSize);
                         Explode(target, targetVector);
@@ -91,7 +91,7 @@ public class DestructionManager : MonoBehaviour
                 {
                     GridList target = GridArray.Instance.gridArray[coloumscounter, i];
 
-                   if( target.structureAmount >= heightLimit)
+                   if( target.structureAmount-target.bridgedStructures >= heightLimit)
                     {
                         Vector3 targetVector = new Vector3(coloumscounter * GridArray.Instance.cellSize, target.foundationObject.transform.position.y, i * GridArray.Instance.cellSize);
                         Explode(target,targetVector);
@@ -118,7 +118,11 @@ public class DestructionManager : MonoBehaviour
     void Explode(GridList target, Vector3 targetVector)
     {
         List<GameObject> targetList = target.structureObjects;
-        for(int i = targetList.Count - 1; i > remainedHeight - 1; i--)
+        if (target.bridgeObjects.Count != 0)
+        {
+            Destroy(target.bridgeObjects[0]);
+        }
+        for(int i = targetList.Count - 1; i > remainedHeight + target.bridgedStructures- 1; i--)
         {
            
             Destroy(targetList[i]);
