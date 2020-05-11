@@ -427,6 +427,7 @@ MonoBehaviour:
   agentPlaceAmount: 3
   startingAgentFound: 1
   startingAgentPoint: 1
+  levelGenerator: {fileID: 1681719567}
   minNewAgentDelay: 5
   maxNewAgentDelay: 12
   newAgentAmount: 1
@@ -2175,7 +2176,7 @@ MonoBehaviour:
   minBlockScale: 15
   maxBlockScale: 20
   totalScale: 70
-  maxElevation: 14
+  maxElevation: 7
   BaseBlockPrefab: {fileID: 8480382081163276554, guid: 0edbd097529e30f428bfa7967110fc93,
     type: 3}
   Groundbounds: {fileID: 631944063}

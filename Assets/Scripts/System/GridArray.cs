@@ -8,6 +8,7 @@ public class GridArray : MonoBehaviour
     [SerializeField] int agentPlaceAmount;
     [SerializeField] int startingAgentFound;
     [SerializeField] int startingAgentPoint;
+    [SerializeField] LevelGenerator levelGenerator;
 
 
     [SerializeField] float minNewAgentDelay = 2;
@@ -86,9 +87,10 @@ public class GridArray : MonoBehaviour
 
     private void Start()
     {
+        levelGenerator.GenerateMap();
+        levelGenerator.surface.BuildNavMesh();
 
-
-        ground = GameObject.Find("GroundBound");
+        ground = levelGenerator.Groundbounds;
 
         arrayX = Mathf.RoundToInt(ground.transform.localScale.x / cellSize) - 1;
         arrayZ = Mathf.RoundToInt(ground.transform.localScale.z / cellSize) - 1;

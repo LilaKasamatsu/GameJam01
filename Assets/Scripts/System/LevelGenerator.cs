@@ -12,19 +12,31 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] [Range(10,100)] int totalScale;
     [SerializeField] [Range(5, 20)] int maxElevation;
     [SerializeField] GameObject BaseBlockPrefab;
-    [SerializeField] GameObject Groundbounds;
+    [SerializeField] public GameObject Groundbounds;
     [SerializeField] GameObject cameraRig;
-    [SerializeField] NavMeshSurface surface;
+    [SerializeField] public NavMeshSurface surface;
 
+    public static LevelGenerator instance;
+
+    private void Awake()
+    {
+        if (instance = null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
     private void Start()
     {
-        GenerateMap();
-        surface.BuildNavMesh();
-
+        
+        
     }
     
 
-    void GenerateMap()
+    public void GenerateMap()
     {
         int cellsize = GridArray.Instance.cellSize;
         totalScale *= cellsize;
@@ -50,7 +62,7 @@ public class LevelGenerator : MonoBehaviour
                     
                 int ScaleX = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale), 0, maxScaleX)*3;
                 int ScaleZ = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale), 0, MaxScaleZ)*3;
-                int ScaleY = Mathf.Clamp(Mathf.Abs(posY*4),maxElevation*2,maxElevation*4);
+                int ScaleY = Mathf.Clamp(Mathf.Abs(posY*6),maxElevation*2,maxElevation*12);
 
                 GameObject BaseBlock= Instantiate(BaseBlockPrefab, new Vector3(posX, posY, posZ), Quaternion.identity,this.transform);
                 BaseBlock.transform.localScale = new Vector3(ScaleX, ScaleY, ScaleZ);
