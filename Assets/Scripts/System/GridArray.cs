@@ -62,7 +62,7 @@ public class GridArray : MonoBehaviour
                 */
                 float width = Random.Range(0f, 2f);
 
-                gridList.Add(new GridList(0, 0, 0, 0, width));
+                gridList.Add(new GridList(0, 0, 0, 0, 0, width));
             }
         }
     }
@@ -111,7 +111,7 @@ public class GridArray : MonoBehaviour
                 //Debug.Log(x + " , " + i);
 
                 float width = Random.Range(0f, 1.5f);
-                gridArray[x, z] = new GridList(0, 0, 0, 0, width);
+                gridArray[x, z] = new GridList(0, 0, 0, 0, 0, width);
 
             }
         }
