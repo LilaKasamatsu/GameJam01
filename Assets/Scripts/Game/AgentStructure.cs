@@ -296,6 +296,10 @@ public class AgentStructure : MonoBehaviour
                             builtStructure = Instantiate(structure, buildLocation, Quaternion.identity) as GameObject;
                             builtStructure.transform.localScale = size;
 
+                            builtStructure.transform.localScale = new Vector3(builtStructure.transform.localScale.x - gridArray[newArrayPosX, newArrayPosZ].towerWidth,
+                                builtStructure.transform.localScale.y,
+                                builtStructure.transform.localScale.z - gridArray[newArrayPosX, newArrayPosZ].towerWidth);
+
                             gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
 
                             gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].y = gridY;

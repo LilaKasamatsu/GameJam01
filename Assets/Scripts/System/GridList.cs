@@ -23,11 +23,9 @@ public class GridList
     public GridStructures[] gridStructures;
     public GridStructures[] gridBridges;
 
-
-
     public float towerWidth;
 
-    public GridList(int newStructureAmount, int newPointAmount, int newFoundationAmount, int newBridge)
+    public GridList(int newStructureAmount, int newPointAmount, int newFoundationAmount, int newBridge, float newTowerWidth)
     {
         //x = newX;
         //z = newZ;
@@ -51,6 +49,7 @@ public class GridList
 
         //gridBridges[0] = new GridStructures(0, 0, 0, null);
 
+        towerWidth = newTowerWidth;
 
     }
 
