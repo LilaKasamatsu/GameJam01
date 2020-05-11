@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -989,7 +989,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.9292453, g: 0.98902124, b: 1, a: 0}
+  m_BackGroundColor: {r: 0.21173014, g: 0.23969086, b: 0.24528301, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2147,11 +2147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b5193c85612b9419569ebfa90868e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AmountOfGround: 4
-  minBlockScale: 85
-  maxBlockScale: 118
-  totalScale: 70
-  maxElevation: 6
+  AmountOfGround: 5
+  minBlockScale: 10
+  maxBlockScale: 40
+  totalScale: 80
+  maxElevation: 15
   BaseBlockPrefab: {fileID: 8480382081163276554, guid: 0edbd097529e30f428bfa7967110fc93,
     type: 3}
   Groundbounds: {fileID: 631944063}

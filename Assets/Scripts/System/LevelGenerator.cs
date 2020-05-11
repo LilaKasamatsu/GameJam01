@@ -9,7 +9,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] [Range(5, 300)] int minBlockScale;
     [SerializeField] [Range(5, 300)] int maxBlockScale;
 
-    [SerializeField] [Range(10,100)] int totalScale;
+    [SerializeField] [Range(50,500)] int totalScale;
     [SerializeField] [Range(5, 20)] int maxElevation;
     [SerializeField] GameObject BaseBlockPrefab;
     [SerializeField] public GameObject Groundbounds;
@@ -73,7 +73,7 @@ public class LevelGenerator : MonoBehaviour
                     
                 int ScaleX = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale)*3, 0, maxScaleX);
                 int ScaleZ = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale)*3, 0, MaxScaleZ);
-                int ScaleY = Mathf.Clamp(Mathf.Abs(posY*12),maxElevation*2,maxElevation*24);
+                int ScaleY = 20000;
 
                 GameObject BaseBlock= Instantiate(BaseBlockPrefab, new Vector3(posX, posY, posZ), Quaternion.identity,this.transform);
                 BaseBlock.transform.localScale = new Vector3(ScaleX, ScaleY, ScaleZ);
@@ -86,6 +86,10 @@ public class LevelGenerator : MonoBehaviour
 
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        
+    }
 
 
 }

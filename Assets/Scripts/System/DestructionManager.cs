@@ -142,6 +142,7 @@ public class DestructionManager : MonoBehaviour
             }
 
 
+
             Destroy(targetBridgeObject);
             
             
@@ -150,7 +151,7 @@ public class DestructionManager : MonoBehaviour
         {
            
             Destroy(targetList[i]);
-
+            target.gridStructures[i].y = 0;
             targetList.RemoveAt(i);
             target.structureAmount -= 1;
 
