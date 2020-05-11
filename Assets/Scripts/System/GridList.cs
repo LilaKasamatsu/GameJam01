@@ -15,10 +15,14 @@ public class GridList
     public int pointAmount;
     public int foundationAmount;
     public List<GameObject> structureObjects;
+    public List<GameObject> bridgeObjects;
+
     public GameObject foundationObject;
     public int bridge;
 
     public GridStructures[] gridStructures;
+    public GridStructures[] gridBridges;
+
 
 
     public float towerWidth;
@@ -32,16 +36,21 @@ public class GridList
         pointAmount = newPointAmount;
         foundationAmount = newFoundationAmount;
         structureObjects = new List<GameObject>();
+        bridgeObjects = new List<GameObject>();
+
         foundationObject = new GameObject();
         bridge = newBridge;
 
         gridStructures = new GridStructures[GridArray.Instance.maxStructures];
+        //gridBridges = new GridStructures[1];
 
         for (int i = 0; i < gridStructures.Length; i++)
         {
             gridStructures[i] = new GridStructures(0, 0, 0, null);
         }
-                          
+
+        //gridBridges[0] = new GridStructures(0, 0, 0, null);
+
 
     }
 

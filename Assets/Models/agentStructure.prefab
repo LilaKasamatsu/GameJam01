@@ -65,6 +65,7 @@ MonoBehaviour:
   branchChance: 40
   structuresLifetime: 10
   agent: {fileID: 862648634634928750}
+  hasSignal: 0
   isActive: 0
   pointRadius: 3
   maxDestinationDistance: 8
@@ -250,3 +251,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe88a85e354a9554881a150041a968a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  signalWalkSpeed: 0.15

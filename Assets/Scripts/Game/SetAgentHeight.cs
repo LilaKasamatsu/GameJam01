@@ -33,14 +33,22 @@ public class SetAgentHeight : MonoBehaviour
             if ((transform.position.x < signalPos.x - destMin || transform.position.x > signalPos.x + destMin) &&
                 (transform.position.z < signalPos.z - destMin || transform.position.z > signalPos.z + destMin))
             {
-                transform.position = Vector3.Lerp(transform.position, signalPos, signalWalkSpeed);
+                transform.position = Vector3.MoveTowards(transform.position, signalPos, signalWalkSpeed);
 
             }
             else
             {
-                Debug.Log("child finished path");
+                //int arrayPosY = Mathf.RoundToInt(GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount - 1].transform.position.y);
+
                 hasSignal = false;
-                transform.parent.gameObject.GetComponent<NavMeshAgent>().Warp(signalPos);
+                int gridX = GridArray.Instance.NumToGrid( signalPos.x);
+                int gridZ = GridArray.Instance.NumToGrid( signalPos.z);
+
+                //Position of Signal - Amount of Structures
+                int warpY = Mathf.RoundToInt(GridArray.Instance.gridArray[gridX, gridZ].structureObjects[GridArray.Instance.gridArray[gridX, gridZ].structureAmount - 1].transform.position.y - GridArray.Instance.gridArray[gridX, gridZ].structureAmount);
+
+                Vector3 warpPosition = new Vector3(signalPos.x, warpY, signalPos.z);
+                transform.parent.gameObject.GetComponent<NavMeshAgent>().Warp(warpPosition);
                 transform.parent.gameObject.GetComponent<AgentStructure>().hasSignal = false;
                 transform.parent.gameObject.GetComponent<AgentStructure>().StartCoroutine("MoveTimer");
             }
