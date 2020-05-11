@@ -66,8 +66,8 @@ MonoBehaviour:
   maxBuildDelay: 1
   maxBuildings: 100
   spawnAgent: {fileID: 3869811639861139897}
-  minBranchHeight: 3
-  branchChance: 75
+  minBranchHeight: 10
+  branchChance: 5
   structuresLifetime: 10
   agent: {fileID: 862648634634928750}
   hasSignal: 0

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -989,7 +989,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.11859204, g: 0.22173552, b: 0.38679248, a: 0}
+  m_BackGroundColor: {r: 0.21173014, g: 0.23969086, b: 0.24528301, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2127,7 +2127,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1681719565}
-  - component: {fileID: 1681719566}
   - component: {fileID: 1681719567}
   m_Layer: 9
   m_Name: LevelGeneration
@@ -2150,18 +2149,6 @@ Transform:
   m_Father: {fileID: 806124160}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1681719566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1681719564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b36af0a91653e34c9fe0a4116a9622e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1681719567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2174,11 +2161,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67b5193c85612b9419569ebfa90868e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AmountOfGround: 4
-  minBlockScale: 85
-  maxBlockScale: 118
-  totalScale: 70
-  maxElevation: 6
+  AmountOfGround: 5
+  minBlockScale: 10
+  maxBlockScale: 40
+  totalScale: 80
+  maxElevation: 15
   BaseBlockPrefab: {fileID: 8480382081163276554, guid: 0edbd097529e30f428bfa7967110fc93,
     type: 3}
   Groundbounds: {fileID: 631944063}
