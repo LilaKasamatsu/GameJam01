@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class StructureBehavior : MonoBehaviour
 {
-    [SerializeField] Color colorBase;
+    [SerializeField] Color colorBase1;
+    [SerializeField] Color colorBase2;
+    [SerializeField] Color colorBase3;
+
+    private Color colorBaseFinal;
+
     [SerializeField] Color colorSelect;
     [SerializeField] Color colorBridged;
 
@@ -17,15 +22,30 @@ public class StructureBehavior : MonoBehaviour
     void Start()
     {
         render = transform.GetChild(0).GetComponent<Renderer>();
+        int randomColor = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(transform.position.x), GridArray.Instance.NumToGrid(transform.position.z)].color;
 
-        
+        if (randomColor == 0)
+        {
+            colorBaseFinal = colorBase1;
+        }
+        else if (randomColor == 1)
+        {
+            colorBaseFinal = colorBase2;
 
+        }
+        else if (randomColor == 2)
+        {
+            colorBaseFinal = colorBase3;
+
+        }
+        //render.material.color = colorBaseFinal;
+        render.material.SetColor("_baseColor", colorBaseFinal);
     }
 
     private void Update()
     {
         
-        if (isSelected == true && isBase == true)
+        if (isSelected == true)
         {
             ChangeColorSelect();
         }
@@ -51,7 +71,7 @@ public class StructureBehavior : MonoBehaviour
 
     public void ChangeColorSelect()
     {
-        render.material.color = colorBase;
+        render.material.color = colorBaseFinal;
 
         render.material.EnableKeyword("_EMISSION");
 
@@ -62,7 +82,7 @@ public class StructureBehavior : MonoBehaviour
     }
     public void ChangeColorBase()
     {
-        render.material.color = colorBase;
+        render.material.color = colorBaseFinal;
 
         render.material.DisableKeyword("_EMISSION");
         isBase = true;

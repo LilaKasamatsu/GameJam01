@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -477,16 +477,16 @@ MonoBehaviour:
   maxZoom: 14
   minZoom: 0
   ZoomWithoutTilt: 5
-  maxMouseTilt: 10
-  minMouseTilt: -25
+  maxMouseTilt: 25
+  minMouseTilt: -35
   rotationspeed: 5
   cameraZoomSpeed: 65
   cameraTiltToZoomRatio: 0.3
-  cameraUpMovespeed: 15
+  cameraUpMovespeed: 10
   cameraSpeedThreshold: 200
   cameraMaxHeight: 100
   cameraMinHeight: 0
-  cameraMode: 3
+  cameraMode: 4
 --- !u!1 &339049085
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,7 +711,7 @@ GameObject:
   - component: {fileID: 631944066}
   - component: {fileID: 631944065}
   - component: {fileID: 631944064}
-  m_Layer: 9
+  m_Layer: 2
   m_Name: GroundBound
   m_TagString: ground
   m_Icon: {fileID: 0}
@@ -738,7 +738,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 631944063}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -866,7 +866,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 1.8e-44, z: 1.39693e-40, w: 5.9e-44}
+  m_BoundingSphereOverride: {x: 8e-45, y: 4.2845864e+10, z: 1.61e-43, w: 0.14453125}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -995,7 +995,7 @@ Transform:
   - {fileID: 149271274}
   - {fileID: 2078100792}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &956210356
 GameObject:
@@ -1168,6 +1168,7 @@ GameObject:
   - component: {fileID: 1092224750}
   - component: {fileID: 1092224751}
   - component: {fileID: 1092224752}
+  - component: {fileID: 1092224753}
   m_Layer: 0
   m_Name: spawnController
   m_TagString: Untagged
@@ -1209,7 +1210,8 @@ MonoBehaviour:
     type: 3}
   foundation: {fileID: 7836647536578920252, guid: dfd15eeceb8f8e3439f4fca9d45da027,
     type: 3}
-  structure: {fileID: 67781199573577903, guid: f4112035a0585a94b8ef606cccd4d55b, type: 3}
+  structure: {fileID: 1442146771346905019, guid: 35120af49f5fda445ba817ff86779788,
+    type: 3}
   mainPoint: {fileID: 4456545508637451220, guid: 3d96406741bbbbe41b1adec0fc04446d,
     type: 3}
   marker: {fileID: 1427785718841972201, guid: 0a8dddd32f143c7428ab5f3bfc49688d, type: 3}
@@ -1232,6 +1234,22 @@ MonoBehaviour:
   bridge: {fileID: 3202815648605575545, guid: 6de116fbef708364b9d89e3e4a186bc9, type: 3}
   selecter: {fileID: 0}
   build: 0
+--- !u!114 &1092224753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092224749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8530aebc19ecd56419ee5ca4bb82a371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  signalObj: {fileID: 2771595247243132528, guid: 331f0ed1d5e6cb442ae6529a6600c6dc,
+    type: 3}
+  signalRadius: 25
+  destMin: 2
 --- !u!1 &1092691738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,7 +1343,7 @@ RectTransform:
   m_Children:
   - {fileID: 956210357}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1456,7 +1474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1178281057}
   - component: {fileID: 1178281056}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: navMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1835,36 +1853,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: '-'
---- !u!1 &1516811438
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1516811439}
-  m_Layer: 0
-  m_Name: bridge
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1516811439
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1516811438}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 84.16, y: 2.23, z: 7.1973686}
-  m_LocalScale: {x: 5, y: 5, z: 5}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1568336948
 GameObject:
   m_ObjectHideFlags: 0
@@ -2409,7 +2397,7 @@ Transform:
   - {fileID: 1917692624}
   - {fileID: 2080652329}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1681719566
 MonoBehaviour:
@@ -2630,7 +2618,7 @@ MonoBehaviour:
   duration: 0
   heightLimit: 7
   remainedHeight: 3
-  platformSearchDistance: 12
+  platformSearchDistance: 6
 --- !u!1 &2080652328
 GameObject:
   m_ObjectHideFlags: 0
