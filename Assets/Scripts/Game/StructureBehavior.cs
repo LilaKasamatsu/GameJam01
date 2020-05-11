@@ -38,7 +38,8 @@ public class StructureBehavior : MonoBehaviour
             colorBaseFinal = colorBase3;
 
         }
-        render.material.color = colorBaseFinal;
+        //render.material.color = colorBaseFinal;
+        render.material.SetColor("_baseColor", colorBaseFinal);
     }
 
     private void Update()
