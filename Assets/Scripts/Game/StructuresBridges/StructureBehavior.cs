@@ -23,7 +23,7 @@ public class StructureBehavior : MonoBehaviour
     {
         render = transform.GetChild(0).GetComponent<Renderer>();
         int randomColor = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(transform.position.x), GridArray.Instance.NumToGrid(transform.position.z)].color;
-        randomColor = 0;
+        //randomColor = 0;
 
         if (randomColor == 0)
         {
