@@ -65,26 +65,38 @@ public class BridgeSpawn : MonoBehaviour
         for (int i = 0; i < GridArray.Instance.gridArray[gridX, gridZ].bridgeObjects.Count; i++)
         {
             Vector3 spawnPosition = new Vector3(0, 0, 0);
-   
-            
 
+            int sigY;
+            int structureAmount;
             //Vector3 currentGridPos = new Vector3(gridX, 0, gridZ);
+            Vector3 gridOrigin = GridArray.Instance.gridArray[gridX, gridZ].bridgeObjects[i].GetComponent<BridgeStruct>().gridOrigin;
+            Vector3 gridEnd = GridArray.Instance.gridArray[gridX, gridZ].bridgeObjects[i].GetComponent<BridgeStruct>().gridEnd;
 
-            if (GridArray.Instance.gridArray[gridX, gridZ].bridgeObjects[i].GetComponent<BridgeStruct>().gridOrigin.x == gridX &&
-                GridArray.Instance.gridArray[gridX, gridZ].bridgeObjects[i].GetComponent<BridgeStruct>().gridOrigin.z == gridZ)
+
+
+            if (gridOrigin.x == gridX &&
+                gridOrigin.z == gridZ)
             {
-                spawnPosition = GridArray.Instance.gridArray[gridX, gridZ].bridgeObjects[i].GetComponent<BridgeStruct>().gridEnd;
-                spawnPosition.x = GridArray.Instance.gridArray[gridX, gridZ].bridgeObjects[i].GetComponent<BridgeStruct>().gridEnd.x * cellSize;
-                spawnPosition.z = GridArray.Instance.gridArray[gridX, gridZ].bridgeObjects[i].GetComponent<BridgeStruct>().gridEnd.z * cellSize;
+                spawnPosition = gridEnd;
+                spawnPosition.x = gridEnd.x * cellSize;
+                spawnPosition.z = gridEnd.z * cellSize;
+
+                sigY = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].structureObjects.Count - 1;
+                spawnPosition.y = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].structureObjects[sigY].transform.position.y - (sigY + 1)*GridArray.Instance.cellY;
                 Debug.Log("Position Grid End");
 
             }
             else
             {
-                spawnPosition = GridArray.Instance.gridArray[gridX, gridZ].bridgeObjects[i].GetComponent<BridgeStruct>().gridOrigin;
-                spawnPosition.x = GridArray.Instance.gridArray[gridX, gridZ].bridgeObjects[i].GetComponent<BridgeStruct>().gridOrigin.x * cellSize;
-                spawnPosition.z = GridArray.Instance.gridArray[gridX, gridZ].bridgeObjects[i].GetComponent<BridgeStruct>().gridOrigin.z * cellSize;
+                spawnPosition = gridOrigin;
+                spawnPosition.x = gridOrigin.x * cellSize;
+                spawnPosition.z = gridOrigin.z * cellSize;
                 Debug.Log("Position Grid Origin");
+
+                sigY = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].structureObjects.Count - 1;
+
+                spawnPosition.y = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].structureObjects[sigY].transform.position.y - (sigY + 1) * GridArray.Instance.cellY;
+
 
             }
 

@@ -27,6 +27,8 @@ public class GridList
     public int branchedStructures;
     public string structureShape;
 
+    public int sizeY;
+
     public int color;
 
     public GridList(int newStructureAmount, int newPointAmount, int newFoundationAmount, int newBridge, int newBranched, float newTowerWidth, string newShape, int newColor)
