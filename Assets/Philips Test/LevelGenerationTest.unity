@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.36362213, g: 0.3636236, b: 0.36362168, a: 1}
+  m_IndirectSpecularColor: {r: 0.5823206, g: 0.8457471, b: 0.91136557, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1011,7 +1011,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 6e-45, z: 3.6352e-41, w: 5.9e-44}
+  m_BoundingSphereOverride: {x: 0, y: 4.14e-41, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -1454,11 +1454,8 @@ MonoBehaviour:
     type: 3}
   foundation: {fileID: 7836647536578920252, guid: dfd15eeceb8f8e3439f4fca9d45da027,
     type: 3}
-  structure: {fileID: 1442146771346905019, guid: 35120af49f5fda445ba817ff86779788,
-    type: 3}
   mainPoint: {fileID: 4456545508637451220, guid: 3d96406741bbbbe41b1adec0fc04446d,
     type: 3}
-  marker: {fileID: 1427785718841972201, guid: 0a8dddd32f143c7428ab5f3bfc49688d, type: 3}
   buildMarker: {fileID: 1427785718841972201, guid: 0a8dddd32f143c7428ab5f3bfc49688d,
     type: 3}
   cellSize: 3
@@ -1516,6 +1513,8 @@ MonoBehaviour:
   Heightincrease: 3
   maximumHeight: 30
   AgentsPerCube: 10
+  minIntervall: 5
+  maxIntervall: 20
 --- !u!1 &1092691738
 GameObject:
   m_ObjectHideFlags: 0
