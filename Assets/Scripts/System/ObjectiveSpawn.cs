@@ -12,6 +12,8 @@ public class ObjectiveSpawn : MonoBehaviour
     [SerializeField] float Heightincrease;
     [SerializeField] float maximumHeight;
     [SerializeField] int AgentsPerCube;
+    [SerializeField] int minIntervall = 10;
+    [SerializeField] int maxIntervall = 40;
 
     public static ObjectiveSpawn instance;
     float currentHeight;
