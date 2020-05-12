@@ -196,13 +196,13 @@ public class BridgeSpawn : MonoBehaviour
 
                     for (int i = 0; i < selectedStructuresDest.Count; i++)
                     {
-                        if (selectedStructuresDest[i].GetComponent<StructureBehavior>() != null && (selectedStructuresDest.Count > selectedStructures.Count || selectedStructuresDest.Count < selectedStructures.Count))
+                        if (selectedStructuresDest[i]!=null && selectedStructuresDest[i].GetComponent<StructureBehavior>() != null && (selectedStructuresDest.Count > selectedStructures.Count || selectedStructuresDest.Count < selectedStructures.Count))
                         {
                             selectedStructuresDest[i].isSelected = false;
 
                         }
 
-                        else if (selectedStructuresDest[i].GetComponent<StructureBehavior>() != null && selectedStructuresDest[i] != selectedStructures[i])
+                        else if (selectedStructuresDest[i] != null && selectedStructuresDest[i].GetComponent<StructureBehavior>() != null && selectedStructuresDest[i] != selectedStructures[i])
                         {
                             selectedStructuresDest[i].isSelected = false;
 
@@ -281,8 +281,8 @@ public class BridgeSpawn : MonoBehaviour
 
                         for (int i = 0; i < selectedStructuresDest.Count; i++)
                         {
-                            if (selectedStructuresDest[i].GetComponent<StructureBehavior>() != null)
-                            {
+                            if (selectedStructuresDest[i] != null && selectedStructuresDest[i].GetComponent<StructureBehavior>() != null)
+                            { 
                                 selectedStructuresDest[i].isBridged = true;
 
                             }

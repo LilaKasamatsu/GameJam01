@@ -59,11 +59,13 @@ public class StructureBehavior : MonoBehaviour
             isSelected = false;
         }
 
-        if (isBridged && isBase == false)
+        if (isBridged && isBase == false && isSelected == false)
         {
             render.material.DisableKeyword("_EMISSION");
 
-            render.material.color = colorBridged;
+            //render.material.color = colorBridged;
+            render.material.SetColor("_baseColor", colorBridged);
+
             isBase = true;
         }
         
@@ -75,14 +77,20 @@ public class StructureBehavior : MonoBehaviour
 
         render.material.EnableKeyword("_EMISSION");
 
+
         Color finalColor = colorSelect * Mathf.LinearToGammaSpace(0.25f);
+
         render.material.SetColor("_EmissionColor", finalColor);
+        render.material.SetColor("_baseColor", colorSelect);
+                
         isBase = false;
 
     }
     public void ChangeColorBase()
     {
-        render.material.color = colorBaseFinal;
+        //render.material.color = colorBaseFinal;
+        render.material.SetColor("_baseColor", colorBaseFinal);
+
 
         render.material.DisableKeyword("_EMISSION");
         isBase = true;

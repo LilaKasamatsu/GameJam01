@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class DestructionManager : MonoBehaviour
 {
@@ -118,17 +120,42 @@ public class DestructionManager : MonoBehaviour
     void Explode(GridList target, Vector3 targetVector)
     {
         List<GameObject> targetList = target.structureObjects;
-        if (target.bridgeObjects.Count != 0)
+        for(int i=target.bridgeObjects.Count-1;i>=0;i--)
         {
-            Destroy(target.bridgeObjects[0]);
+            GameObject targetBridgeObject = target.bridgeObjects[i];
+            BridgeStruct targetscript = targetBridgeObject.GetComponent<BridgeStruct>();
+            Vector3 targetBridgeOrigin =targetscript.gridOrigin;
+            Vector3 targetBridgeEnd = targetscript.gridEnd;
+            GridList targetGridOrigin = GridArray.Instance.gridArray[Mathf.RoundToInt(targetBridgeOrigin.x), Mathf.RoundToInt(targetBridgeOrigin.z)];
+            GridList targetGridEnd = GridArray.Instance.gridArray[Mathf.RoundToInt(targetBridgeEnd.x), Mathf.RoundToInt(targetBridgeEnd.z)];
+            targetGridOrigin.bridgeObjects.Remove(targetBridgeObject);
+            targetGridEnd.bridgeObjects.Remove(targetBridgeObject);
+            if (targetGridOrigin.bridgeObjects.Count == 0)
+            {
+                targetGridOrigin.structureObjects[targetGridOrigin.structureObjects.Count - 1].GetComponent<StructureBehavior>().isBridged = false;
+                targetGridOrigin.bridge = 0;
+            }
+            if (targetGridEnd.bridgeObjects.Count == 0)
+            {
+                targetGridEnd.structureObjects[targetGridEnd.structureObjects.Count - 1].GetComponent<StructureBehavior>().isBridged = false;
+                targetGridEnd.bridge = 0;
+            }
+
+
+
+            Destroy(targetBridgeObject);
+            
+            
         }
         for(int i = targetList.Count - 1; i > remainedHeight + target.branchedStructures - 1; i--)
         {
            
             Destroy(targetList[i]);
+            target.gridStructures[i].y = 0;
+            targetList.RemoveAt(i);
             target.structureAmount -= 1;
-        }
 
+        }
     }
 
     void LookForStructures(GridList target, Vector3 targetVector)
