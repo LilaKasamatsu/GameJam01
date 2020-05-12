@@ -393,7 +393,7 @@ MonoBehaviour:
   cameraSpeedThreshold: 200
   cameraMaxHeight: 100
   cameraMinHeight: 0
-  cameraMode: 4
+  cameraMode: 3
 --- !u!1 &339049085
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,7 +989,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 0.4660583, b: 0.3443396, a: 0}
+  m_BackGroundColor: {r: 0.9056604, g: 0.7048772, b: 0.8771438, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1289,9 +1289,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c90a3149b1905b94aba94a4f2dc4e3d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentButton1: {fileID: 0}
-  agentButton2: {fileID: 0}
-  agentButton3: {fileID: 0}
   textFoundation: {fileID: 1506025639}
   textStructure: {fileID: 1665201221}
   textAgentAmount: {fileID: 1662836163}
