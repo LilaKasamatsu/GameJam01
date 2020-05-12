@@ -20,36 +20,54 @@ public class ObjectiveSpawn : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            bool hasSpawned = false;
+            SpawnCube();
 
-            while (hasSpawned == false)
+        }
+    }
+
+    private void SpawnCube()
+    {
+        bool hasSpawned = false;
+
+        while (hasSpawned == false)
+        {
+            float x = Random.Range(0 + GridArray.Instance.cellSize, GridArray.Instance.arrayX * GridArray.Instance.cellSize - GridArray.Instance.cellSize);
+            float z = Random.Range(0 + GridArray.Instance.cellSize, GridArray.Instance.arrayZ * GridArray.Instance.cellSize - GridArray.Instance.cellSize);
+            float y = 100;
+
+            spawnPosition = new Vector3(x, y, z);
+
+
+            int layer_mask = LayerMask.GetMask("Ground");
+
+            RaycastHit hit;
+
+
+            if (Physics.Raycast(spawnPosition, new Vector3(0, -1, 0), out hit, Mathf.Infinity, layer_mask))
             {
-                float x = Random.Range(0 + GridArray.Instance.cellSize, GridArray.Instance.arrayX * GridArray.Instance.cellSize - GridArray.Instance.cellSize);
-                float z = Random.Range(0 + GridArray.Instance.cellSize, GridArray.Instance.arrayZ * GridArray.Instance.cellSize - GridArray.Instance.cellSize);
-                float y = 100;
+                Debug.Log("Did Hit");
+                spawnPosition.y = hit.point.y + 15;
 
-                spawnPosition = new Vector3(x, y, z);
-
-
-                int layer_mask = LayerMask.GetMask("Ground");
-
-                RaycastHit hit;
-
-
-                if (Physics.Raycast(spawnPosition, new Vector3(0, -1, 0), out hit, Mathf.Infinity, layer_mask))
-                {
-                    Debug.Log("Did Hit");
-                    spawnPosition.y = hit.point.y + 15;
-
-                    hasSpawned = true;
-                    Instantiate(objectiveCube, spawnPosition, Quaternion.identity);
-                }
-
-
+                hasSpawned = true;
+                Instantiate(objectiveCube, spawnPosition, Quaternion.identity);
             }
 
 
-         
         }
     }
+
+    IEnumerator SpawnCountdown()
+    {
+        while (true)
+        {
+
+
+
+
+
+        }
+
+
+    }
+
 }
