@@ -84,14 +84,7 @@ public class LevelGenerator : MonoBehaviour
             }
 
         }
-        transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
 
     }
-
-    private void OnTriggerStay(Collider other)
-    {
-        
-    }
-
-
+         
 }

@@ -9,9 +9,8 @@ public class AgentFoundation : MonoBehaviour
     [SerializeField] GameObject foundation;
     [SerializeField] float minBuildDelay;
     [SerializeField] float maxBuildDelay;
-    [SerializeField] int maxBuildings;
     [SerializeField] GameObject spawnAgent;
-
+    [SerializeField] int destructionTimer = 10;
     [SerializeField] GameObject destructionAnim;
 
     public int foundationsLifetime = 10;
@@ -24,10 +23,7 @@ public class AgentFoundation : MonoBehaviour
 
     //Maximaler vergrößerter Bereich
     [SerializeField] float maxSearch = 5f;
-
-
-    private GameObject ground;
-
+        
     public Grid grid;
     Camera cam;
     public NavMeshAgent agent;
@@ -54,21 +50,22 @@ public class AgentFoundation : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
-        ground = GameObject.FindGameObjectWithTag("ground");
         
         cellSize = GridArray.Instance.cellSize;
         cellY = GridArray.Instance.cellY;
         gridArray = GridArray.Instance.gridArray;
         agentStack = GridArray.Instance.agentStack;
-        
+
         // DIESER CODE IST DER NEUE
 
         //Create orientPosition List based on the grid
         //Adds all existing build-orientation points currently on the scene to the list
         // "state == true" means, that that location has a structure to orient on.
 
- 
- 
+
+        StartCoroutine(RetireTimer());
+
+
         StartCoroutine(MoveTimer());
 
 
@@ -99,7 +96,15 @@ public class AgentFoundation : MonoBehaviour
 
     }
 
+    IEnumerator RetireTimer()
+    {
+        yield return new WaitForSeconds(destructionTimer);
+        Instantiate(destructionAnim, this.transform.position, Quaternion.identity);
+        agentStack.agentAmount += 1;
+        agentStack.agentFoundation -= 1;
+        Destroy(this.gameObject);
 
+    }
     private void RetireAgent()
     {
         Instantiate(destructionAnim, this.transform.position, Quaternion.identity);

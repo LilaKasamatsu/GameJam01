@@ -8,12 +8,10 @@ public class AgentStructure : MonoBehaviour
 {
     [SerializeField] GameObject structure;
     [SerializeField] GameObject structureSquare;
-    [SerializeField] GameObject structureTriangle;
     [SerializeField] GameObject branch;
 
     [SerializeField] float minBuildDelay;
     [SerializeField] float maxBuildDelay;
-    [SerializeField] int maxBuildings;
     [SerializeField] GameObject spawnAgent;
 
     [SerializeField] int minBranchHeight = 4;
@@ -36,7 +34,6 @@ public class AgentStructure : MonoBehaviour
     public bool hasSignal = false;
     public bool isActive = false;
     bool canBuild = false;
-    bool canSpawn = false;
     private int cellSize;
     private int cellY;
     Vector3 buildLocation;
@@ -416,7 +413,7 @@ public class AgentStructure : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            canSpawn = true;
+            //canSpawn = true;
         }
 
         if (Input.GetMouseButton(0) == true && !IsOverUi())
