@@ -33,7 +33,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6708433422871871702}
-  - {fileID: 3979486308484312019}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -68,7 +67,7 @@ MonoBehaviour:
   maxBuildings: 100
   spawnAgent: {fileID: 3869811639861139897}
   minBranchHeight: 3
-  branchChance: 90
+  branchChance: 25
   structuresLifetime: 10
   agent: {fileID: 862648634634928750}
   hasSignal: 0
