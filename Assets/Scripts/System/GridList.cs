@@ -62,9 +62,6 @@ public class GridList
         color = newColor;
 
     }
-
-
-
 }
 
 
