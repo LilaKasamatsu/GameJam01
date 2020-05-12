@@ -6,10 +6,6 @@ using UnityEngine.EventSystems;
 
 public class InventoryUi : MonoBehaviour
 {
-	public Button agentButton1;
-	public Button agentButton2;
-	public Button agentButton3;
-
 	[SerializeField] Text textFoundation;
 	[SerializeField] Text textStructure;
 
@@ -71,7 +67,7 @@ public class InventoryUi : MonoBehaviour
 
 		for (int i = 0; i < hitList.Count; i++)
 		{
-			if (hitList[i].gameObject.name == "ButtonPurple")
+			if (hitList[i].gameObject.name == "ButtonFoundation")
 			{
 				Debug.Log("You have clicked the purple button!");
 
@@ -102,7 +98,7 @@ public class InventoryUi : MonoBehaviour
 
 			}
 
-			if (hitList[i].gameObject.name == "ButtonYellow")
+			if (hitList[i].gameObject.name == "ButtonStructure")
 			{
 				Debug.Log("You have clicked the yellow button!");
 
