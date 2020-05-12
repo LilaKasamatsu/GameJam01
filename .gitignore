@@ -62,3 +62,9 @@ crashlytics-build.properties
 Assets/Materials/Shader.meta~development.meta
 
 Assets/Materials/Shader.meta~HEAD.meta
+
+Assets/Models/agentFoundation.prefab.meta
+
+Assets/Models/bridge_.prefab.meta
+
+Assets/Models/structure.prefab.meta

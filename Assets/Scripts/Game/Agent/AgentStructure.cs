@@ -311,7 +311,7 @@ public class AgentStructure : MonoBehaviour
 
                     //Normal Building
                     // || gridY == 0 || gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].y < minBranchHeight
-                    if (randomValue >= branchChance || gridY < minBranchHeight)
+                    if (randomValue >= branchChance && gridY < GridArray.Instance.maxStructures - 2 || gridY < minBranchHeight && gridY < GridArray.Instance.maxStructures-2)
                     {
                         if (gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY + 1].y == 0 && gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY + 2].y == 0)
                         {
