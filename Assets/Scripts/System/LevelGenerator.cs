@@ -9,7 +9,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] [Range(5, 300)] int minBlockScale;
     [SerializeField] [Range(5, 300)] int maxBlockScale;
 
-    [SerializeField] [Range(10,100)] int totalScale;
+    [SerializeField] [Range(50,500)] int totalScale;
     [SerializeField] [Range(5, 20)] int maxElevation;
     [SerializeField] GameObject BaseBlockPrefab;
     [SerializeField] public GameObject Groundbounds;
@@ -44,7 +44,7 @@ public class LevelGenerator : MonoBehaviour
         Groundbounds.transform.position = new Vector3(totalScale / 2-cellsize, -20, totalScale / 2 - cellsize);
         cameraRig.transform.position = Groundbounds.transform.position + Vector3.up * 23;
         List<int> posList=new List<int>();
-        for(int i = (-maxElevation-1)*2; i <= (1+maxElevation)*2;i+=2)
+        for(int i = (-maxElevation-1)*4; i <= 0;i+=2)
         {
             posList.Add(i);
 
@@ -73,7 +73,7 @@ public class LevelGenerator : MonoBehaviour
                     
                 int ScaleX = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale)*3, 0, maxScaleX);
                 int ScaleZ = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale)*3, 0, MaxScaleZ);
-                int ScaleY = Mathf.Clamp(Mathf.Abs(posY*12),maxElevation*2,maxElevation*24);
+                int ScaleY = 20000;
 
                 GameObject BaseBlock= Instantiate(BaseBlockPrefab, new Vector3(posX, posY, posZ), Quaternion.identity,this.transform);
                 BaseBlock.transform.localScale = new Vector3(ScaleX, ScaleY, ScaleZ);
@@ -82,10 +82,14 @@ public class LevelGenerator : MonoBehaviour
             }
 
         }
-
+        transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
 
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        
+    }
 
 
 }

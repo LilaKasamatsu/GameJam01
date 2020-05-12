@@ -11,6 +11,7 @@ TagManager:
   - Undefined
   - marker
   - foundation
+  - bridge
   layers:
   - Default
   - TransparentFX

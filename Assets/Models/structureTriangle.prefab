@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6464776015201268127}
   - component: {fileID: 1858006008599209619}
   - component: {fileID: 3727935410070241523}
-  - component: {fileID: 912962826712984042}
   m_Layer: 0
   m_Name: structureTriangle
   m_TagString: structure
@@ -46,11 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f5c90647680a342a092a785a32f1e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorBase1: {r: 0.56514776, g: 0.9433962, b: 0.76401293, a: 1}
-  colorBase2: {r: 0.916046, g: 0.990566, b: 0.52799034, a: 1}
+  colorBase1: {r: 0.5647059, g: 0.94509804, b: 0.8214166, a: 1}
+  colorBase2: {r: 0.8475283, g: 0.99215686, b: 0.5294118, a: 1}
   colorBase3: {r: 0.9716981, g: 0.6789092, b: 0.5729352, a: 1}
-  colorSelect: {r: 1, g: 0, b: 0.06640482, a: 1}
-  colorBridged: {r: 0.8867924, g: 0.36391956, b: 0.43585587, a: 1}
+  colorSelect: {r: 1, g: 0, b: 0.5719805, a: 1}
+  colorBridged: {r: 0.8301887, g: 0.39551443, b: 0.4543425, a: 1}
   isSelected: 0
   isBridged: 0
   isBase: 1
@@ -66,20 +65,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09395d477dfd69e408ebe0d923ab7465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &912962826712984042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 909975761926916362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68b55c42493e7d04f9fd09baffa28566, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  radius: 4
-  id: 0
 --- !u!1 &4795670495616795151
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +124,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: da856cc6501482b42b2974eb36fb2cdd, type: 2}
+  - {fileID: 2100000, guid: b0755f747c22ae047b969d84b7210bf6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
