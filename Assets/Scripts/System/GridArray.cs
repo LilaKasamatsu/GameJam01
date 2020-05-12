@@ -93,6 +93,7 @@ public class GridArray : MonoBehaviour
         levelGenerator.GenerateMap();
         levelGenerator.surface.BuildNavMesh();
 
+
         ground = levelGenerator.Groundbounds;
 
         arrayX = Mathf.RoundToInt(ground.transform.localScale.x / cellSize) - 1;

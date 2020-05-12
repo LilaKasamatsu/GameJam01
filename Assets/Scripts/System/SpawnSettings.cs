@@ -11,9 +11,7 @@ public class SpawnSettings : MonoBehaviour
     [SerializeField] GameObject agentFound;
 
     [SerializeField] GameObject foundation;
-    [SerializeField] GameObject structure;
     [SerializeField] GameObject mainPoint;
-    [SerializeField] GameObject marker;
     [SerializeField] GameObject buildMarker;
 
     private GameObject ground;
@@ -149,7 +147,6 @@ public class SpawnSettings : MonoBehaviour
                                 Vector3 spawnLocation = hitGrid;
                                 spawnLocation.y = hit.point.y;
 
-                                //spawnLocation.y = foundation.transform.localScale.y / 2;
                                 //+ new Vector3(0, agent.transform.localScale.y)
 
                                 GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
@@ -232,76 +229,6 @@ public class SpawnSettings : MonoBehaviour
 
     }
 
-    private void NumberSpawning()
-    {
-        //Mouse Left
-        if (Input.GetKey(KeyCode.Alpha2))
-        {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("ground"))
-            {
-                Vector3 hitGrid = new Vector3(Mathf.Round(hit.point.x / cellSize) * cellSize, Mathf.Round(hit.point.y / cellSize) * cellSize, Mathf.Round(hit.point.z / cellSize) * cellSize);
-
-
-                for (int i = 0; i < gridList.Count; i++)
-                {
-                    if (gridList[i].x == hitGrid.x && gridList[i].z == hitGrid.z && gridList[i].foundationAmount <= 0)
-                    {
-                        Vector3 spawnLocation = new Vector3(Mathf.Round(hit.point.x / cellSize) * cellSize, foundation.transform.localScale.y / 2, Mathf.Round(hit.point.z / cellSize) * cellSize);
-                        Instantiate(agentFound, spawnLocation, Quaternion.identity);
-                        Instantiate(foundation, spawnLocation, Quaternion.identity);
-
-                        gridList[i].foundationAmount = gridList[i].foundationAmount + 1;
-                    }
-                }
-            }
-        }
-
-        if (Input.GetKey(KeyCode.Alpha3))
-        {
-
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("structure"))
-            {
-
-                PlaceAgent(agentStruc);
-
-                
-            }
-        }
-
-
-        //Main Point Spawner
-        if (Input.GetKey(KeyCode.Alpha1))
-        {
-
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-
-
-            if (Physics.Raycast(ray, out hit) && hit.collider.CompareTag("ground"))
-            {
-                Vector3 hitGrid = new Vector3(Mathf.Round(hit.point.x / cellSize) * cellSize, Mathf.Round(hit.point.y / cellSize) * cellSize, Mathf.Round(hit.point.z / cellSize) * cellSize);
-
-                for (int i = 0; i < gridList.Count; i++)
-                {
-                    if (gridList[i].x == hitGrid.x && gridList[i].z == hitGrid.z && gridList[i].structureAmount <= 0 && gridList[i].pointAmount <= 0)
-                    {
-                        Vector3 spawnLocation = new Vector3(Mathf.Round(hit.point.x / cellSize) * cellSize, mainPoint.transform.localScale.y / 2, Mathf.Round(hit.point.z / cellSize) * cellSize);
-                        Instantiate(agentPoint, spawnLocation, Quaternion.identity);
-                        Instantiate(mainPoint, spawnLocation, Quaternion.identity);
-
-                        gridList[i].pointAmount = gridList[i].pointAmount + 1;
-                    }
-                }
-            }
-        }
-    }
 
     private void GetGridValue()
     {
@@ -331,7 +258,7 @@ public class SpawnSettings : MonoBehaviour
                 int hitZ = GridArray.Instance.NumToGrid(hitPosition.z);
 
 
-                if (GridArray.Instance.CheckArrayBounds(hitX, hitZ))
+                if (GridArray.Instance.CheckArrayBounds(hitX, hitZ) && !hit.collider.gameObject.CompareTag("ground"))
                 {
                     //Debug on structure amount, foundation etc
                     //Debug.Log("; Foundation: " + GridArray.Instance.gridArray[hitX, hitZ].foundationAmount + "; Structures: " + GridArray.Instance.gridArray[hitX, hitZ].structureAmount + "; Point: " + GridArray.Instance.gridArray[hitX, hitZ].pointAmount);

@@ -59,12 +59,9 @@ MonoBehaviour:
   structure: {fileID: 67781199573577903, guid: f4112035a0585a94b8ef606cccd4d55b, type: 3}
   structureSquare: {fileID: 667734470985571616, guid: 170d48e4eab429c4e9157a1760a20d0f,
     type: 3}
-  structureTriangle: {fileID: 909975761926916362, guid: b62ce3fb84cd82e47894ec00b9cc5fcf,
-    type: 3}
   branch: {fileID: 1993668517952593440, guid: 58f7b7517e7b3074ea62fde5d8ebe8e0, type: 3}
   minBuildDelay: 0.2
   maxBuildDelay: 1
-  maxBuildings: 100
   spawnAgent: {fileID: 3869811639861139897}
   minBranchHeight: 6
   branchChance: 25
@@ -199,7 +196,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4331768168982916721}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -283,7 +280,7 @@ PrefabInstance:
     - target: {fileID: 1084430820865936870, guid: 419af265e63948e40ba17fe3e5cb0b51,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1084430822425606645, guid: 419af265e63948e40ba17fe3e5cb0b51,
         type: 3}

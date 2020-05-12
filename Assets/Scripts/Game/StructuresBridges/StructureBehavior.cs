@@ -23,6 +23,7 @@ public class StructureBehavior : MonoBehaviour
     {
         render = transform.GetChild(0).GetComponent<Renderer>();
         int randomColor = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(transform.position.x), GridArray.Instance.NumToGrid(transform.position.z)].color;
+        randomColor = 0;
 
         if (randomColor == 0)
         {
@@ -76,12 +77,12 @@ public class StructureBehavior : MonoBehaviour
 
         render.material.color = colorBaseFinal;
 
-        render.material.EnableKeyword("_EMISSION");
+        //render.material.EnableKeyword("_EMISSION");
 
 
         Color finalColor = colorSelect * Mathf.LinearToGammaSpace(0.5f);
-
         render.material.SetColor("_EmissionColor", finalColor);
+
         render.material.SetColor("_baseColor", colorSelect);               
 
 
@@ -101,7 +102,7 @@ public class StructureBehavior : MonoBehaviour
         Color finalColor = colorSelect * Mathf.LinearToGammaSpace(0f);
         render.material.SetColor("_baseColor", colorBaseFinal);
 
-        render.material.SetColor("_EmissionColor", finalColor);
+        render.material.SetColor("_EmissionColor", Color.black);
         //render.material.DisableKeyword("_EMISSION");
         
         isBase = true;
