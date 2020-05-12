@@ -1194,6 +1194,12 @@ MonoBehaviour:
     type: 3}
   objectiveRay: {fileID: 8238040989999224019, guid: 38ea095ec46cb944c89d14734a5697f6,
     type: 3}
+  trysPerFrame: 5
+  minDistanceBetweenTwoSpawns: 10
+  startingHeight: 15
+  Heightincrease: 3
+  maximumHeight: 30
+  AgentsPerCube: 10
 --- !u!1 &1092691738
 GameObject:
   m_ObjectHideFlags: 0
