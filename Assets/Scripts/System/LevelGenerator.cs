@@ -73,12 +73,12 @@ public class LevelGenerator : MonoBehaviour
                     
                 int ScaleX = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale)*3, 0, maxScaleX);
                 int ScaleZ = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale)*3, 0, MaxScaleZ);
-                int ScaleY = 20000;
+                int ScaleY = 3000;
 
 
 
                 GameObject BaseBlock= Instantiate(BaseBlockPrefabs[Random.Range(0,BaseBlockPrefabs.Count-1)], new Vector3(posX, posY, posZ), Quaternion.identity,this.transform);
-                BaseBlock.transform.localScale = new Vector3(ScaleX, ScaleY, ScaleZ);
+                BaseBlock.transform.localScale = new Vector3(ScaleX*50, ScaleY, ScaleZ*50);
 
 
             }
