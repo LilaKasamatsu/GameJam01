@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4704562592492259367}
   - component: {fileID: 6341567152055045693}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: bridge_
   m_TagString: bridge
   m_Icon: {fileID: 0}
@@ -150,6 +150,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: bridge
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: a5917721c9e721e4883d6ef467f1cf8a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5917721c9e721e4883d6ef467f1cf8a, type: 3}
