@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f5c90647680a342a092a785a32f1e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorBase1: {r: 0.33962262, g: 0.24300583, b: 0, a: 1}
-  colorBase2: {r: 0.8475283, g: 0.99215686, b: 0.5294118, a: 1}
-  colorBase3: {r: 0.9716981, g: 0.6789092, b: 0.5729352, a: 1}
+  colorBase1: {r: 0.03831435, g: 0.3649272, b: 0.38679248, a: 1}
+  colorBase2: {r: 0.09714311, g: 0.3490566, b: 0.3460929, a: 1}
+  colorBase3: {r: 0.04774832, g: 0.3289694, b: 0.3490566, a: 1}
   colorSelect: {r: 1, g: 0, b: 0.5719805, a: 1}
   colorBridged: {r: 0.8301887, g: 0.39551443, b: 0.4543425, a: 1}
   isSelected: 0
@@ -160,6 +160,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: da856cc6501482b42b2974eb36fb2cdd, type: 2}
+    - target: {fileID: -1504981713932161579, guid: dd74383d0a00b7d49b652032d73c5a45,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: dd74383d0a00b7d49b652032d73c5a45,
         type: 3}
       propertyPath: m_Name
