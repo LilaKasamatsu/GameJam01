@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f5c90647680a342a092a785a32f1e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorBase1: {r: 0.9607844, g: 0.3372549, b: 0.3372549, a: 1}
-  colorBase2: {r: 0.9716981, g: 0.7645153, b: 0.2704254, a: 1}
-  colorBase3: {r: 0.9245283, g: 0.487286, b: 0.30962977, a: 1}
+  colorBase1: {r: 0.8301887, g: 0.051350724, b: 0, a: 1}
+  colorBase2: {r: 0.61572945, g: 0.020247417, b: 0.8584906, a: 1}
+  colorBase3: {r: 0.1744162, g: 0.5754717, b: 0, a: 1}
   colorSelect: {r: 1, g: 0, b: 0.5719805, a: 1}
   colorBridged: {r: 0.8301887, g: 0.39551443, b: 0.4543425, a: 1}
   isSelected: 0
@@ -143,17 +143,17 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: dd74383d0a00b7d49b652032d73c5a45,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: dd74383d0a00b7d49b652032d73c5a45,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: dd74383d0a00b7d49b652032d73c5a45,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: dd74383d0a00b7d49b652032d73c5a45,
         type: 3}
