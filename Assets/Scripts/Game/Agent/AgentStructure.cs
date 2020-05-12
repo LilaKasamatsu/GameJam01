@@ -345,7 +345,7 @@ public class AgentStructure : MonoBehaviour
                             }
                             else if (gridArray[newArrayPosX, newArrayPosZ].structureShape == "tri")
                             {
-                                finalStructure = structureTriangle;
+                                finalStructure = structure;
                             }
                             else
                             {

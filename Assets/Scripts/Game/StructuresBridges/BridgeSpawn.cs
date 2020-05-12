@@ -32,6 +32,8 @@ public class BridgeSpawn : MonoBehaviour
 
     List<StructureBehavior> selectedStructures = new List<StructureBehavior>();
     List<StructureBehavior> selectedStructuresDest = new List<StructureBehavior>();
+    StructureBehavior selectedDest = new StructureBehavior();
+    StructureBehavior selectedOrigin = new StructureBehavior();
 
 
     //Singleton
@@ -114,7 +116,7 @@ public class BridgeSpawn : MonoBehaviour
 
     void Update()
     {
-
+        //Signal Spawning stuff
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             Ray raySig = cam.ScreenPointToRay(Input.mousePosition);
@@ -126,7 +128,7 @@ public class BridgeSpawn : MonoBehaviour
 
                 int arrayPosX = GridArray.Instance.NumToGrid(hitGrid.x);
                 int arrayPosZ = GridArray.Instance.NumToGrid(hitGrid.z);
-                int arrayPosY = Mathf.RoundToInt(GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureObjects[GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureAmount - 1].transform.position.y);
+                int arrayPosY = Mathf.RoundToInt(GridArray.Instance.gridArray[arrayPosX, arrayPosZ].sizeY) * cellY;
 
 
                 if (GridArray.Instance.gridArray[arrayPosX, arrayPosZ].bridge > 0)
@@ -147,6 +149,7 @@ public class BridgeSpawn : MonoBehaviour
         }
 
 
+        //Bridge Spawning
         if (SpawnSettings.Instance.spawnMode == false)
         {
             if (Input.GetMouseButtonDown(0))
@@ -158,7 +161,7 @@ public class BridgeSpawn : MonoBehaviour
                 {
                     hitGridX = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.x);
                     hitGridZ = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.z);
-                    hitGridY = Mathf.RoundToInt(GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount - 1].transform.position.y);
+                    hitGridY = Mathf.RoundToInt(GridArray.Instance.gridArray[hitGridX, hitGridZ].sizeY) * cellY;
 
 
 
@@ -170,26 +173,26 @@ public class BridgeSpawn : MonoBehaviour
                     {
                         GridArray.Instance.gridArray[hitGridX, hitGridZ].bridge = 1;
 
-                        startPoint = new Vector3(hitGridX * cellSize, hitGridY, hitGridZ * cellSize);
+                        startPoint = new Vector3(hitGridX * cellSize, GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].transform.position.y + hitGridY, hitGridZ * cellSize);
                         build = true;
 
-                        selectedStructures = new List<StructureBehavior>();
+                        //selectedStructures = new List<StructureBehavior>();
 
-                        for (int i = 0; i < GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects.Count; i++)
+                        selectedOrigin = GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].GetComponent<StructureBehavior>();
+
+                        if (selectedOrigin.GetComponent<StructureBehavior>() != null)
                         {
-                            selectedStructures.Add(GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[i].GetComponent<StructureBehavior>());
-
-                            if (selectedStructures[i].GetComponent<StructureBehavior>() != null)
-                            {
-                                selectedStructures[i].isSelected = true;
-
-                            }
+                            selectedOrigin.isSelected = true;
 
                         }
+            
                     }
                 }
             }
-
+            if (selectedDest != null && selectedDest.GetComponent<StructureBehavior>() != null)
+            {
+                GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].GetComponent<StructureBehavior>().isSelected = false;
+            }
             //Check while mouse down
             if (Input.GetMouseButton(0))
             {
@@ -200,48 +203,30 @@ public class BridgeSpawn : MonoBehaviour
                 {
                     hitGridX = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.x);
                     hitGridZ = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.z);
-                    hitGridY = Mathf.RoundToInt(GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount - 1].transform.position.y);
 
-                    //modEndY = GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount - 1].transform.position.y;
+                    hitGridY = Mathf.RoundToInt(GridArray.Instance.gridArray[hitGridX, hitGridZ].sizeY) * cellY;
+                   
+             
+                    
 
-
-
-                    for (int i = 0; i < selectedStructuresDest.Count; i++)
-                    {
-                        if (selectedStructuresDest[i]!=null && selectedStructuresDest[i].GetComponent<StructureBehavior>() != null && (selectedStructuresDest.Count > selectedStructures.Count || selectedStructuresDest.Count < selectedStructures.Count))
-                        {
-                            selectedStructuresDest[i].isSelected = false;
-
-                        }
-
-                        else if (selectedStructuresDest[i] != null && selectedStructuresDest[i].GetComponent<StructureBehavior>() != null && selectedStructuresDest[i] != selectedStructures[i])
-                        {
-                            selectedStructuresDest[i].isSelected = false;
-
-                        }
-
-                    }
-
-                    selectedStructuresDest = new List<StructureBehavior>();
+                    //selectedStructuresDest = new List<StructureBehavior>();
 
                     if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0)
                     {
 
-                        endPoint = new Vector3(hitGridX * cellSize, hitGridY, hitGridZ * cellSize);
+                        endPoint = new Vector3(hitGridX * cellSize, GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].transform.position.y + hitGridY, hitGridZ * cellSize);
 
 
+                        //selectedStructuresDest.Add(GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].GetComponent<StructureBehavior>());
+                        selectedDest = GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].GetComponent<StructureBehavior>();
+                        
 
-                        for (int i = 0; i < GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects.Count; i++)
+                        if (selectedDest.GetComponent<StructureBehavior>() != null)
                         {
-                            selectedStructuresDest.Add(GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[i].GetComponent<StructureBehavior>());
-
-                            if (selectedStructuresDest[i].GetComponent<StructureBehavior>() != null)
-                            {
-                                selectedStructuresDest[i].isSelected = true;
-
-                            }
+                            selectedDest.isSelected = true;
 
                         }
+                   
                     }
                 }
             }
@@ -291,22 +276,17 @@ public class BridgeSpawn : MonoBehaviour
                         build = false;
 
 
-                        for (int i = 0; i < selectedStructuresDest.Count; i++)
+                        //Selected Destination sets to "isBridged"
+                        if (selectedDest != null && selectedDest.GetComponent<StructureBehavior>() != null)
                         {
-                            if (selectedStructuresDest[i] != null && selectedStructuresDest[i].GetComponent<StructureBehavior>() != null)
-                            { 
-                                selectedStructuresDest[i].isBridged = true;
-
-                            }
+                            selectedDest.isBridged = true;
 
                         }
-                        for (int i = 0; i < selectedStructures.Count; i++)
-                        {
-                            if (selectedStructures[i].GetComponent<StructureBehavior>() != null)
-                            {
-                                selectedStructures[i].isBridged = true;
 
-                            }
+                        //Selected Origin sets to "isBridged"
+                        if (selectedOrigin.GetComponent<StructureBehavior>() != null)
+                        {
+                            selectedOrigin.isBridged = true;
 
                         }
 
