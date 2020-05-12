@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -167,5 +168,10 @@ public class DestructionManager : MonoBehaviour
         }
     }
 
-    
+    void SpawnParticles()
+    {
+        NativeArray<int> positionsX = new NativeArray<int>(GridArray.Instance.arrayX,Allocator.Temp);
+
+
+    }
 }
