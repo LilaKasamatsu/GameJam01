@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using Unity.Collections;
 
 
-public class GridList
+
+public class GridList : MonoBehaviour
 {
 
     public int x;
@@ -61,8 +63,20 @@ public class GridList
 
         color = newColor;
 
+        
     }
 
+    public void CreateWindParticles(float heightlimit)
+    {
+        if (heightlimit <= structureAmount - branchedStructures)
+        {
+            GameObject WindPrefab = DestructionManager.instance.windPrefab;
+            float cellSize = GridArray.Instance.cellSize;
+            Instantiate<GameObject>(WindPrefab, new Vector3(x * cellSize, heightlimit, z * cellSize), Quaternion.identity);
+
+        }
+
+    }
 
 
 }

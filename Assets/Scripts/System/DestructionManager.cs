@@ -10,16 +10,31 @@ public class DestructionManager : MonoBehaviour
     [SerializeField] float minCoolDown;
     [SerializeField] float maxCoolDown;
     [SerializeField] float duration;
-    [SerializeField] int heightLimit;
+    public int heightLimit;
     [SerializeField] int remainedHeight;
     [SerializeField] int platformSearchDistance;
     [SerializeField] DestructionMode destructionMode;
     [SerializeField] int maxLocalHeightLimit;
+    public GameObject windPrefab;
+    public float cooldown;
+    public static DestructionManager instance;
     enum DestructionMode
     {
         global,
         local
     };
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     private void Update()
     {
@@ -88,8 +103,17 @@ public class DestructionManager : MonoBehaviour
             int coloumscounter = 0;
             int GridLengthX = GridArray.Instance.arrayX;
             int GridLengthZ = GridArray.Instance.arrayZ;
+            
+            
+            StartCoroutine(SpawnParticles(0));
+            StartCoroutine(SpawnParticles(3));
+            StartCoroutine(SpawnParticles(6));
+            StartCoroutine(SpawnParticles(9));
+            StartCoroutine(SpawnParticles(12));
+            StartCoroutine(SpawnParticles(15));
             while (coloumscounter<GridLengthX)
             {
+                
                 for (int i = 0; i < GridLengthZ; i++)
                 {
                     GridList target = GridArray.Instance.gridArray[coloumscounter, i];
@@ -113,6 +137,14 @@ public class DestructionManager : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
             coloumscounter = 0;
+            cooldown = Random.Range(minCoolDown, maxCoolDown);
+
+            while (cooldown > 0)
+            {
+
+                cooldown -= Time.deltaTime;
+
+            }
 
             yield return new WaitForSeconds(Random.Range(minCoolDown, maxCoolDown));
         }
@@ -168,10 +200,14 @@ public class DestructionManager : MonoBehaviour
         }
     }
 
-    void SpawnParticles()
+    IEnumerator SpawnParticles(int Offset)
     {
-        NativeArray<int> positionsX = new NativeArray<int>(GridArray.Instance.arrayX,Allocator.Temp);
-
-
+       
+       for(int i =Offset; i < LevelGenerator.instance.Groundbounds.transform.lossyScale.x; i+=18)
+        {
+            Instantiate(windPrefab, new Vector3(i, heightLimit + Random.Range(-.75f, .75f), 0 + Random.Range(-2.5f, 2.5f)), Quaternion.identity);
+            yield return new WaitForEndOfFrame();
+        }
+       
     }
 }

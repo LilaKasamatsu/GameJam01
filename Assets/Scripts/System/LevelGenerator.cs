@@ -88,10 +88,5 @@ public class LevelGenerator : MonoBehaviour
 
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        
-    }
-
 
 }
