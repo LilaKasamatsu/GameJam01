@@ -11,7 +11,7 @@ public class LevelGenerator : MonoBehaviour
 
     [SerializeField] [Range(50,500)] int totalScale;
     [SerializeField] [Range(5, 20)] int maxElevation;
-    [SerializeField] GameObject BaseBlockPrefab;
+    [SerializeField] List<GameObject> BaseBlockPrefabs;
     [SerializeField] public GameObject Groundbounds;
     [SerializeField] GameObject cameraRig;
     [SerializeField] public NavMeshSurface surface;
@@ -60,10 +60,10 @@ public class LevelGenerator : MonoBehaviour
                 posList.RemoveAt(ElevationInt - 1);
                 posList.RemoveAt(ElevationInt - 1);
 
-                int upperEndX = Mathf.RoundToInt(totalScale / AmountOfGround * (i+1)/3+2);
-                int lowerEndX = Mathf.RoundToInt(totalScale / AmountOfGround * i/3-4);
-                int upperEndZ = Mathf.RoundToInt(totalScale / AmountOfGround * (j+1)/3+2);
-                int lowerEndZ = Mathf.RoundToInt(totalScale / AmountOfGround * j/3-4);
+                int upperEndX = Mathf.RoundToInt(totalScale / AmountOfGround * (i+1)/3);
+                int lowerEndX = Mathf.RoundToInt(totalScale / AmountOfGround * i/3);
+                int upperEndZ = Mathf.RoundToInt(totalScale / AmountOfGround * (j+1)/3);
+                int lowerEndZ = Mathf.RoundToInt(totalScale / AmountOfGround * j/3);
 
                 int posX = Random.Range(lowerEndX, upperEndX)*3;
                 int posZ = Random.Range(lowerEndZ, upperEndZ)*3;
@@ -75,7 +75,9 @@ public class LevelGenerator : MonoBehaviour
                 int ScaleZ = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale)*3, 0, MaxScaleZ);
                 int ScaleY = 20000;
 
-                GameObject BaseBlock= Instantiate(BaseBlockPrefab, new Vector3(posX, posY, posZ), Quaternion.identity,this.transform);
+
+
+                GameObject BaseBlock= Instantiate(BaseBlockPrefabs[Random.Range(0,BaseBlockPrefabs.Count-1)], new Vector3(posX, posY, posZ), Quaternion.identity,this.transform);
                 BaseBlock.transform.localScale = new Vector3(ScaleX, ScaleY, ScaleZ);
 
 

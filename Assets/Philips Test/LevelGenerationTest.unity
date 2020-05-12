@@ -1159,7 +1159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cdd4451dc030b24bab2f4822fce72c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bridge: {fileID: 3202815648605575545, guid: 6de116fbef708364b9d89e3e4a186bc9, type: 3}
+  bridge: {fileID: 3202815648605575545, guid: 7e7ce15401f40a04299edc7742fb7417, type: 3}
   selecter: {fileID: 0}
   build: 0
 --- !u!114 &1092224753
@@ -1194,6 +1194,12 @@ MonoBehaviour:
     type: 3}
   objectiveRay: {fileID: 8238040989999224019, guid: 38ea095ec46cb944c89d14734a5697f6,
     type: 3}
+  trysPerFrame: 5
+  minDistanceBetweenTwoSpawns: 10
+  startingHeight: 15
+  Heightincrease: 3
+  maximumHeight: 30
+  AgentsPerCube: 10
 --- !u!1 &1092691738
 GameObject:
   m_ObjectHideFlags: 0
@@ -2166,8 +2172,9 @@ MonoBehaviour:
   maxBlockScale: 40
   totalScale: 80
   maxElevation: 15
-  BaseBlockPrefab: {fileID: 8480382081163276554, guid: 0edbd097529e30f428bfa7967110fc93,
-    type: 3}
+  BaseBlockPrefabs:
+  - {fileID: 8480382081163276554, guid: 0edbd097529e30f428bfa7967110fc93, type: 3}
+  - {fileID: 8480382081163276554, guid: 0edbd097529e30f428bfa7967110fc93, type: 3}
   Groundbounds: {fileID: 631944063}
   cameraRig: {fileID: 149271273}
   surface: {fileID: 1178281056}

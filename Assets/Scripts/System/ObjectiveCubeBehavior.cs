@@ -4,32 +4,16 @@ using UnityEngine;
 
 public class ObjectiveCubeBehavior : MonoBehaviour
 {
-    AgentStack agentStack;
+    
+    [HideInInspector] public int amountOfAgents;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        agentStack = GridArray.Instance.agentStack;
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            Destroy(this.gameObject);
-            agentStack.agentAmount += 5;
-        }
-    }
-
-       
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("bridge"))
         {
             Destroy(this.gameObject);
-            agentStack.agentAmount += 5;
+            GridArray.Instance.agentStack.agentAmount += amountOfAgents;
+            ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(2));
         }
   
     }
