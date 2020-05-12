@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6464776015201268127}
   - component: {fileID: 1858006008599209619}
-  - component: {fileID: 3727935410070241523}
   m_Layer: 0
   m_Name: structureTriangle
   m_TagString: structure
@@ -53,18 +52,19 @@ MonoBehaviour:
   isSelected: 0
   isBridged: 0
   isBase: 1
---- !u!114 &3727935410070241523
-MonoBehaviour:
+--- !u!65 &4613574310519457513
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 909975761926916362}
+  m_GameObject: {fileID: 2777583172772543261}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09395d477dfd69e408ebe0d923ab7465, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 2
+  m_Size: {x: 0.02, y: 0.020000005, z: 0.020000005}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2817945322515332878
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76,6 +76,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cylinder-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 112782932758381587, guid: c9f84b2acb0e7ce4e9bdfb1436b199f4,
+        type: 3}
+      propertyPath: m_TagString
+      value: structure
       objectReference: {fileID: 0}
     - target: {fileID: 1849987096372605135, guid: c9f84b2acb0e7ce4e9bdfb1436b199f4,
         type: 3}
@@ -154,6 +159,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9f84b2acb0e7ce4e9bdfb1436b199f4, type: 3}
+--- !u!1 &2777583172772543261 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 112782932758381587, guid: c9f84b2acb0e7ce4e9bdfb1436b199f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2817945322515332878}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1211658468107438350 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4020578269016143360, guid: c9f84b2acb0e7ce4e9bdfb1436b199f4,
