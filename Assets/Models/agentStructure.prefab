@@ -60,8 +60,8 @@ MonoBehaviour:
   structureSquare: {fileID: 667734470985571616, guid: 170d48e4eab429c4e9157a1760a20d0f,
     type: 3}
   branch: {fileID: 1993668517952593440, guid: 58f7b7517e7b3074ea62fde5d8ebe8e0, type: 3}
-  minBuildDelay: 0.2
-  maxBuildDelay: 1
+  minBuildDelay: 0.3
+  maxBuildDelay: 3
   spawnAgent: {fileID: 3869811639861139897}
   minBranchHeight: 6
   branchChance: 25

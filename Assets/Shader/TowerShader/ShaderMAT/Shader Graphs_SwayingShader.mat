@@ -39,7 +39,7 @@ Material:
     - Vector1_F3CED7E1: 0.05
     - Vector1_FA552A2: 0.98
     m_Colors:
-    - Color_6C7432F0: {r: 1, g: 0.7842259, b: 0, a: 0}
+    - Color_6C7432F0: {r: 1, g: 0.7837838, b: 0, a: 0}
     - Color_DF6CC9E4: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_96E671B8: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}

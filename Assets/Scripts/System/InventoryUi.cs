@@ -8,14 +8,16 @@ public class InventoryUi : MonoBehaviour
 {
 	[SerializeField] Text textFoundation;
 	[SerializeField] Text textStructure;
+	[SerializeField] Text textBranch;
+
 
 
 	[SerializeField] Text textAgentAmount;
 
 
-	public GameObject agent1;
-	public GameObject agent2;
-	public GameObject agent3;
+	public GameObject agentStructure;
+	public GameObject agentBranch;
+	public GameObject agentFoundation;
 
 
 
@@ -44,6 +46,7 @@ public class InventoryUi : MonoBehaviour
 
 		textFoundation.text = GridArray.Instance.agentStack.agentFoundation.ToString();
 		textStructure.text = GridArray.Instance.agentStack.agentStructure.ToString();
+		textBranch.text = GridArray.Instance.agentStack.agentBranch.ToString();
 
 		textAgentAmount.text = GridArray.Instance.agentStack.agentAmount.ToString();
 
@@ -72,8 +75,8 @@ public class InventoryUi : MonoBehaviour
 				Debug.Log("You have clicked the purple button!");
 
 				spawnerScript.spawnMode = true;
-				spawnerScript.SpawnAgent(agent3, hitList[i].gameObject.transform.position);
-				return agent3;
+				spawnerScript.SpawnAgent(agentFoundation, hitList[i].gameObject.transform.position);
+				return agentFoundation;
 
 			}
 
@@ -103,8 +106,17 @@ public class InventoryUi : MonoBehaviour
 				Debug.Log("You have clicked the yellow button!");
 
 				spawnerScript.spawnMode = true;
-				spawnerScript.SpawnAgent(agent1, hitList[i].gameObject.transform.position);
-				return agent1;
+				spawnerScript.SpawnAgent(agentStructure, hitList[i].gameObject.transform.position);
+				return agentStructure;
+
+			}
+
+			if (hitList[i].gameObject.name == "ButtonBranch")
+			{
+
+				spawnerScript.spawnMode = true;
+				spawnerScript.SpawnAgent(agentBranch, hitList[i].gameObject.transform.position);
+				return agentBranch;
 
 			}
 

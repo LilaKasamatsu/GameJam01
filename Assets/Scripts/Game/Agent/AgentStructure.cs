@@ -206,6 +206,7 @@ public class AgentStructure : MonoBehaviour
                     bool hasBuilt = false;
                     bool isBranch = false;
                 
+                    /*
                     //Set building to branch
                     if (gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched == false)
                     {
@@ -304,11 +305,10 @@ public class AgentStructure : MonoBehaviour
                                             
 
                     }
-
+                    */
 
                     //Normal Building
-                    // || gridY == 0 || gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].y < minBranchHeight
-                    if (randomValue >= branchChance && gridY < GridArray.Instance.maxStructures - 2 || gridY < minBranchHeight && gridY < GridArray.Instance.maxStructures-2)
+                    if (gridY < GridArray.Instance.maxStructures - 2 || gridY < minBranchHeight && gridY < GridArray.Instance.maxStructures-2)
                     {
                         if (gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY + 1].y == 0 && gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY + 2].y == 0)
                         {
@@ -326,30 +326,20 @@ public class AgentStructure : MonoBehaviour
                     if (hasBuilt)
                     {
                         GameObject finalStructure = new GameObject();
-
-                        if (isBranch == true)
+                                               
+                        if (gridArray[newArrayPosX, newArrayPosZ].structureShape == "squ")
                         {
-                            finalStructure = branch;
-                            builtStructure = Instantiate(finalStructure, buildLocation, Quaternion.identity) as GameObject;
-                            builtStructure.transform.Rotate(new Vector3(0, buildRotation, 0));
-
+                            finalStructure = structureSquare;
+                        }
+                        else if (gridArray[newArrayPosX, newArrayPosZ].structureShape == "tri")
+                        {
+                            finalStructure = structure;
                         }
                         else
                         {
-                            if (gridArray[newArrayPosX, newArrayPosZ].structureShape == "squ")
-                            {
-                                finalStructure = structureSquare;
-                            }
-                            else if (gridArray[newArrayPosX, newArrayPosZ].structureShape == "tri")
-                            {
-                                finalStructure = structure;
-                            }
-                            else
-                            {
-                                finalStructure = structure;
-                            }
-                        }                       
-                       
+                            finalStructure = structure;
+                        }
+
                         if (gridArray[arrayPosX, arrayPosZ].sizeY == 0)
                         {
                             builtStructure = Instantiate(finalStructure, buildLocation, Quaternion.identity) as GameObject;
