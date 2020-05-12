@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f5c90647680a342a092a785a32f1e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorBase1: {r: 0.56514776, g: 0.9433962, b: 0.76401293, a: 1}
-  colorBase2: {r: 0.916046, g: 0.990566, b: 0.52799034, a: 1}
-  colorBase3: {r: 0.9716981, g: 0.6789092, b: 0.5729352, a: 1}
+  colorBase1: {r: 0.9803922, g: 0.2627451, b: 0.03137255, a: 1}
+  colorBase2: {r: 0.7490196, g: 0.07058824, b: 0.13333334, a: 1}
+  colorBase3: {r: 0.96470594, g: 0.09019608, b: 0.054901965, a: 1}
   colorSelect: {r: 1, g: 0, b: 0.06640482, a: 1}
   colorBridged: {r: 0.8867924, g: 0.36391956, b: 0.43585587, a: 1}
   isSelected: 0
