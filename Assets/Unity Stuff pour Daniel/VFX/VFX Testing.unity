@@ -295,11 +295,7 @@ VFXRenderer:
   m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1125,7 +1121,7 @@ PrefabInstance:
     - target: {fileID: 3307686841704038773, guid: aba093896de28314286d68a60d5e4c18,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 37.59
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3307686841704038773, guid: aba093896de28314286d68a60d5e4c18,
         type: 3}
@@ -1135,7 +1131,7 @@ PrefabInstance:
     - target: {fileID: 3307686841704038773, guid: aba093896de28314286d68a60d5e4c18,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 35.2
       objectReference: {fileID: 0}
     - target: {fileID: 3307686841704038773, guid: aba093896de28314286d68a60d5e4c18,
         type: 3}

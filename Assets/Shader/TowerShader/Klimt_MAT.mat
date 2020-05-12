@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Klimt_MAT
+  m_Shader: {fileID: -6465566751694194690, guid: 1a37c692672a12b48bb46442a016f194,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_88A1B3E2:
+        m_Texture: {fileID: 2800000, guid: a0788099378c5614dad17e6c2c84ddba, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_9276DE65:
+        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_528D05A9_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 89a77334fb4b99f4a93cefa5a6358f28, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_715B67C8: 0.3
+    - Vector1_CABFF9CB: 0
+    - Vector1_EF22C243: 0
+    - Vector1_F3CED7E1: 0.05
+    - Vector1_FA552A2: 0.5
+    m_Colors:
+    - Color_6C7432F0: {r: 1, g: 0.746502, b: 0, a: 0}
+    - Vector2_96E671B8: {r: 6, g: 3, b: 0, a: 0}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _baseColor: {r: 0.9245283, g: 0, b: 0.1950525, a: 0}

@@ -44,14 +44,17 @@ public class StructureBehavior : MonoBehaviour
 
     private void Update()
     {
-        
-        if (isSelected == true)
+        if (isBase == false && isSelected == false)
         {
-            ChangeColorSelect();
-        }
-        else if (isSelected == false && isBridged == false && isBase == false)
-        {
-            ChangeColorBase();
+            if (isBridged)
+            {
+                ChangeColorBridged();
+ 
+            }
+            else if (isBridged == false)
+            {
+                ChangeColorBase();
+            }
         }
 
         if (BridgeSpawn.Instance.build == false)
@@ -59,40 +62,48 @@ public class StructureBehavior : MonoBehaviour
             isSelected = false;
         }
 
-        if (isBridged && isBase == false && isSelected == false)
+
+        if (isSelected == true)
         {
-            render.material.DisableKeyword("_EMISSION");
-
-            //render.material.color = colorBridged;
-            render.material.SetColor("_baseColor", colorBridged);
-
-            isBase = true;
-        }
+            ChangeColorSelect();
+        }  
         
     }
 
     public void ChangeColorSelect()
     {
+        isBase = false;
+
         render.material.color = colorBaseFinal;
 
         render.material.EnableKeyword("_EMISSION");
 
 
-        Color finalColor = colorSelect * Mathf.LinearToGammaSpace(0.25f);
+        Color finalColor = colorSelect * Mathf.LinearToGammaSpace(0.5f);
 
         render.material.SetColor("_EmissionColor", finalColor);
-        render.material.SetColor("_baseColor", colorSelect);
-                
-        isBase = false;
+        render.material.SetColor("_baseColor", colorSelect);               
 
+
+    }
+    public void ChangeColorBridged()
+    {
+        Color finalColor = colorSelect * Mathf.LinearToGammaSpace(0.1f);
+        render.material.SetColor("_EmissionColor", finalColor);
+
+        //render.material.DisableKeyword("_EMISSION");
+        render.material.SetColor("_baseColor", colorBridged);
+
+        isBase = true;
     }
     public void ChangeColorBase()
     {
-        //render.material.color = colorBaseFinal;
+        Color finalColor = colorSelect * Mathf.LinearToGammaSpace(0f);
         render.material.SetColor("_baseColor", colorBaseFinal);
 
-
-        render.material.DisableKeyword("_EMISSION");
+        render.material.SetColor("_EmissionColor", finalColor);
+        //render.material.DisableKeyword("_EMISSION");
+        
         isBase = true;
 
     }
