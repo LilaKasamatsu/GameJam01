@@ -189,10 +189,7 @@ public class BridgeSpawn : MonoBehaviour
                     }
                 }
             }
-            if (selectedDest != null && selectedDest.GetComponent<StructureBehavior>() != null)
-            {
-                GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].GetComponent<StructureBehavior>().isSelected = false;
-            }
+        
             //Check while mouse down
             if (Input.GetMouseButton(0))
             {
@@ -205,9 +202,14 @@ public class BridgeSpawn : MonoBehaviour
                     hitGridZ = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.z);
 
                     hitGridY = Mathf.RoundToInt(GridArray.Instance.gridArray[hitGridX, hitGridZ].sizeY) * cellY;
-                   
-             
-                    
+
+
+                    if (selectedDest != null && selectedDest.GetComponent<StructureBehavior>() != null)
+                    {
+                        selectedDest.isSelected = false;
+                        selectedOrigin.isSelected = true;
+
+                    }
 
                     //selectedStructuresDest = new List<StructureBehavior>();
 
