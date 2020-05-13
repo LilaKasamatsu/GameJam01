@@ -16,8 +16,8 @@ public class GridList
     public int structureAmount;
     public int pointAmount;
     public int foundationAmount;
-    public List<GameObject> structureObjects;
-    public List<GameObject> bridgeObjects;
+    public List<GameObject> structureObjects;
+    public List<GameObject> bridgeObjects;
 
     public GameObject foundationObject;
     public int bridge;
@@ -42,46 +42,46 @@ public class GridList
         structureAmount = newStructureAmount;
         pointAmount = newPointAmount;
         foundationAmount = newFoundationAmount;
-        structureObjects = new List<GameObject>();
+        structureObjects = new List<GameObject>();
         bridgeObjects = new List<GameObject>();
 
         foundationObject = null;
         bridge = newBridge;
 
-        gridStructures = new GridStructures[GridArray.Instance.maxStructures];
-        //gridBridges = new GridStructures[1];
-
-        for (int i = 0; i < gridStructures.Length; i++)
-        {
-            gridStructures[i] = new GridStructures(0, 0, 0, null);
-        }
-
-        //gridBridges[0] = new GridStructures(0, 0, 0, null);
-
-        towerWidth = newTowerWidth;
-        branchedStructures = newBranched;
-        structureShape = newShape;
-
-        color = newColor;
-
-        
-    }
-
-    public void CreateWindParticles()
-    {
-        if (DestructionManager.instance.heightLimit <= structureAmount - branchedStructures && warningSystemEngaged==false)
-        {
-            GameObject WindPrefab = DestructionManager.instance.windPrefab;
-            float cellSize = GridArray.Instance.cellSize;
-            Vector3 target = structureObjects[0].transform.position;
-            DestructionManager.instance.ParticleInstantiate(target.x,target.y+DestructionManager.instance.heightLimit*2 ,target.z);
-            warningSystemEngaged = true;
-
-        }
-
-    }
-
-
+        gridStructures = new GridStructures[GridArray.Instance.maxStructures];
+        //gridBridges = new GridStructures[1];
+
+        for (int i = 0; i < gridStructures.Length; i++)
+        {
+            gridStructures[i] = new GridStructures(0, 0, 0, null);
+        }
+
+        //gridBridges[0] = new GridStructures(0, 0, 0, null);
+
+        towerWidth = newTowerWidth;
+        branchedStructures = newBranched;
+        structureShape = newShape;
+
+        color = newColor;
+
+        
+    }
+
+    public void CreateWindParticles()
+    {
+        if (DestructionManager.instance.heightLimit <= structureAmount - branchedStructures && warningSystemEngaged==false)
+        {
+            GameObject WindPrefab = DestructionManager.instance.windPrefab;
+            float cellSize = GridArray.Instance.cellSize;
+            Vector3 target = structureObjects[0].transform.position;
+            DestructionManager.instance.ParticleInstantiate(target.x,target.y+DestructionManager.instance.heightLimit*2 ,target.z);
+            warningSystemEngaged = true;
+
+        }
+
+    }
+
+
 }
 
 

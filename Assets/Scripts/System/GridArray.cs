@@ -105,7 +105,7 @@ public class GridArray : MonoBehaviour
         gridArray = new GridList[arrayX, arrayZ];
 
         //Saving available agents
-        agentStack = new AgentStack(agentPlaceAmount, 0, 0);
+        agentStack = new AgentStack(agentPlaceAmount, 0, 0, 0);
 
         
 
