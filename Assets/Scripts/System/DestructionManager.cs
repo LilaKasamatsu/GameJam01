@@ -143,6 +143,7 @@ public class DestructionManager : MonoBehaviour
                 {
                     particle.transform.localScale += new Vector3( Time.deltaTime,Time.deltaTime,Time.deltaTime);
                 }
+                yield return new WaitForEndOfFrame();
 
             }
 
@@ -178,6 +179,7 @@ public class DestructionManager : MonoBehaviour
         {
             Destroy(target.windParticle);
             target.warningSystemEngaged = false;
+            particles.Remove(target.windParticle);
         }
         target.sizeY = heightLimit += target.branchedStructures;
 
