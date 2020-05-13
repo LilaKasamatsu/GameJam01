@@ -35,6 +35,8 @@ public class GridList
     public bool warningSystemEngaged;
     public GameObject windParticle;
 
+    public List<int> branchAtY = new List<int>();
+
     public GridList( int newPointAmount, int newFoundationAmount, int newBridge, int newBranched, float newTowerWidth, string newShape, int newColor)
     {
         //x = newX;
@@ -49,7 +51,7 @@ public class GridList
         foundationObject = null;
         bridge = newBridge;
 
-        gridStructures = new GridStructures[GridArray.Instance.maxStructures];
+        gridStructures = new GridStructures[1];
         //gridBridges = new GridStructures[1];
 
         for (int i = 0; i < gridStructures.Length; i++)

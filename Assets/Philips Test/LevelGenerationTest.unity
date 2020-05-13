@@ -3149,6 +3149,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bridge: {fileID: 3202815648605575545, guid: 7e7ce15401f40a04299edc7742fb7417, type: 3}
+  previewBridge: {fileID: 5883627539825866293, guid: 603a98877a2bc3948ac2be11cd325088,
+    type: 3}
   selecter: {fileID: 0}
   build: 0
 --- !u!114 &1092224753
