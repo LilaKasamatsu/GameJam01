@@ -33,6 +33,7 @@ public class GridList
 
     public int color;
     public bool warningSystemEngaged;
+    public GameObject windParticle;
 
     public GridList( int newPointAmount, int newFoundationAmount, int newBridge, int newBranched, float newTowerWidth, string newShape, int newColor)
     {
@@ -73,9 +74,8 @@ public class GridList
             GameObject WindPrefab = DestructionManager.instance.windPrefab;
             float cellSize = GridArray.Instance.cellSize;
             Vector3 target = structureObjects[0].transform.position;
-            DestructionManager.instance.ParticleInstantiate(target.x,target.y+(DestructionManager.instance.heightLimit+branchedStructures)*2 ,target.z);
+            windParticle= DestructionManager.instance.ParticleInstantiate(target.x,target.y+(DestructionManager.instance.heightLimit+branchedStructures)*2 ,target.z);
             warningSystemEngaged = true;
-
         }
 
     }

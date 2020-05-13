@@ -106,13 +106,7 @@ public class DestructionManager : MonoBehaviour
             int GridLengthX = GridArray.Instance.arrayX;
             int GridLengthZ = GridArray.Instance.arrayZ;
             
-            
-            StartCoroutine(SpawnParticles(0));
-            StartCoroutine(SpawnParticles(3));
-            StartCoroutine(SpawnParticles(6));
-            StartCoroutine(SpawnParticles(9));
-            StartCoroutine(SpawnParticles(12));
-            StartCoroutine(SpawnParticles(15));
+          
             while (coloumscounter<GridLengthX)
             {
                 
@@ -180,8 +174,11 @@ public class DestructionManager : MonoBehaviour
             }
             Destroy(targetBridgeObject);
         }
-
-        target.warningSystemEngaged = false;
+        if (target.warningSystemEngaged)
+        {
+            Destroy(target.windParticle);
+            target.warningSystemEngaged = false;
+        }
         target.sizeY = heightLimit += target.branchedStructures;
 
         
@@ -207,12 +204,14 @@ public class DestructionManager : MonoBehaviour
        
     }
 
-     public void ParticleInstantiate(float x,float y, float z)
+     public GameObject ParticleInstantiate(float x,float y, float z)
     {
        GameObject particle = Instantiate<GameObject>(windPrefab, new Vector3(x , y, z ), Quaternion.identity);
-        if(particle != null)
+        if (particle != null)
         {
             particles.Add(particle);
         }
+            return particle;
+        
     }
 }
