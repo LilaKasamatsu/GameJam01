@@ -60,8 +60,8 @@ MonoBehaviour:
     type: 3}
   minBuildDelay: 0.2
   maxBuildDelay: 2
-  maxBuildings: 0
   spawnAgent: {fileID: 4866568028121015989}
+  destructionTimer: 20
   destructionAnim: {fileID: 46301278182483637, guid: 9dbb2d66de88c554593f27428ca2f91e,
     type: 3}
   foundationsLifetime: 8

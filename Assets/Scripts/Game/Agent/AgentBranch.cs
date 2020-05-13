@@ -51,6 +51,7 @@ public class AgentBranch : MonoBehaviour
 
     void Start()
     {
+   
 
         cam = Camera.main;
 
@@ -303,6 +304,9 @@ public class AgentBranch : MonoBehaviour
                             finalStructure = branch;
                             builtStructure = Instantiate(finalStructure, buildLocation, Quaternion.identity) as GameObject;
                             builtStructure.transform.Rotate(new Vector3(0, buildRotation, 0));
+
+                            builtStructure.transform.SetParent(gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform);
+
 
                         }
           

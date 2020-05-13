@@ -8,18 +8,22 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: boden_mat1
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 4cb57f1d63ffbb742ab3635c410b8e58,
+    type: 3}
   m_ShaderKeywords: _RECEIVE_SHADOWS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2050
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_5EF4DF4D:
+        m_Texture: {fileID: 2800000, guid: aca5f1681a064024caec355389567a8f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -60,6 +64,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_5E83FE4A_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 6dcec3ad6b893cc4e97a6e8581de1b9b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -91,6 +99,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_6D517E3F: {r: 1, g: 0, b: 0.217732, a: 0}
+    - Vector2_AD1498E: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _BaseColor: {r: 0.9254902, g: 0.090196095, b: 0.18689479, a: 1}
     - _Color: {r: 0.60929155, g: 0.7802421, b: 0.7924528, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

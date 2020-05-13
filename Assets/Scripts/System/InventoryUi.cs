@@ -79,27 +79,7 @@ public class InventoryUi : MonoBehaviour
 				return agentFoundation;
 
 			}
-
-			if (hitList[i].gameObject.name == "ButtonBlack")
-			{
-				Debug.Log("You have clicked the black button!");
-
-				if( GridArray.Instance.agentStack.agentFoundation >= 5 && GridArray.Instance.agentStack.agentStructure >= 5)
-				{
-					SpawnSettings.Instance.CreateStartPoint();
-					GridArray.Instance.agentStack.agentStructure -= 5;
-
-					GridArray.Instance.agentStack.agentFoundation -= 5;
-
-
-				}
-
-
-				//spawnerScript.spawnMode = true;
-				//spawnerScript.SpawnAgent(agent2, hitList[i].gameObject.transform.position);
-				//return agent2;
-
-			}
+						
 
 			if (hitList[i].gameObject.name == "ButtonStructure")
 			{
