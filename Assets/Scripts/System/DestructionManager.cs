@@ -183,7 +183,7 @@ public class DestructionManager : MonoBehaviour
         }
         target.sizeY = heightLimit += target.branchedStructures;
 
-        
+        transform.parent.
     }
 
     void LookForStructures(GridList target, Vector3 targetVector)
