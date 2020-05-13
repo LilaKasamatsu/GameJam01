@@ -115,7 +115,7 @@ public class DestructionManager : MonoBehaviour
                 {
                     GridList target = GridArray.Instance.gridArray[coloumscounter, i];
 
-                   if(target.warningSystemEngaged && target.sizeY-target.branchedStructures >= heightLimit)
+                   if( target.sizeY-target.branchedStructures >= heightLimit)
                     {
                         Vector3 targetVector = new Vector3(coloumscounter * GridArray.Instance.cellSize, target.foundationObject.transform.position.y, i * GridArray.Instance.cellSize);
                         Explode(target,targetVector);
