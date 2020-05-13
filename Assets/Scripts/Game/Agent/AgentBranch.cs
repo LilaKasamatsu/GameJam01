@@ -337,7 +337,7 @@ public class AgentBranch : MonoBehaviour
                     // hasBuild == if the previous operators were true and the agent can build on this position. Else, do nothing.
                     if (hasBuilt)
                     {
-                        GameObject finalStructure = new GameObject();
+                        GameObject finalStructure = null;
 
                         if (isBranch == true)
                         {
