@@ -559,7 +559,7 @@ MonoBehaviour:
   cameraTiltToZoomRatio: 0.3
   cameraUpMovespeed: 10
   cameraSpeedThreshold: 200
-  cameraMaxHeight: 100
+  cameraMaxHeight: 150
   cameraMinHeight: -40
   cameraMode: 4
 --- !u!4 &177199024 stripped
