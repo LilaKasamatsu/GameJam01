@@ -115,7 +115,7 @@ public class AgentStructure : MonoBehaviour
 
         }
     }
-    
+
     IEnumerator MoveTimer()
     {
         //Looping and delaying their walk cycle 
@@ -231,7 +231,7 @@ public class AgentStructure : MonoBehaviour
                     // hasBuild == if the previous operators were true and the agent can build on this position. Else, do nothing.
                     if (hasBuilt)
                     {
-                        GameObject finalStructure = new GameObject();
+                        GameObject finalStructure = null;
                                                
                         if (gridArray[arrayPosX, arrayPosZ].structureShape == "squ")
                         {
@@ -262,7 +262,7 @@ public class AgentStructure : MonoBehaviour
                         {
 
                             gridArray[arrayPosX, arrayPosZ].sizeY += 1;
-
+                            //gridArray[arrayPosX, arrayPosZ].CreateWindParticles();
                             /*
                             gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform.localScale 
                                 = new Vector3 

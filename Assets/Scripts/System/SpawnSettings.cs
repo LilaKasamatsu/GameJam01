@@ -237,15 +237,15 @@ public class SpawnSettings : MonoBehaviour
 
             // && hit.collider.CompareTag("structure") || hit.collider.CompareTag("ground") ||  hit.collider.CompareTag("marker")
 
-            if (Physics.Raycast(ray1, out hit))
+            if (Physics.Raycast(ray1, out hit)&& hit.collider.gameObject.transform.parent != null)
             {
-
+                 
                 Vector3 hitPosition = hit.collider.gameObject.transform.parent.position;
 
-                hitPosition.x = GridArray.Instance.RoundToGrid(hit.collider.gameObject.transform.parent.position.x );
-                hitPosition.z = GridArray.Instance.RoundToGrid(hit.collider.gameObject.transform.parent.position.z );
+                hitPosition.x = GridArray.Instance.RoundToGrid(hitPosition.x );
+                hitPosition.z = GridArray.Instance.RoundToGrid(hitPosition.z );
 
-                hitPosition.y = Mathf.RoundToInt(hit.collider.gameObject.transform.parent.position.y /cellY ) * cellY;
+                hitPosition.y = Mathf.RoundToInt(hitPosition.y /cellY ) * cellY;
 
 
                 int hitX = GridArray.Instance.NumToGrid(hitPosition.x);
