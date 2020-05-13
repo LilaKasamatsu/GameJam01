@@ -249,7 +249,7 @@ public class AgentStructure : MonoBehaviour
                         {
 
                             gridArray[arrayPosX, arrayPosZ].sizeY += 1;
-                            gridArray[arrayPosX, arrayPosZ].CreateWindParticles();
+                            //gridArray[arrayPosX, arrayPosZ].CreateWindParticles();
                             /*
                             gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform.localScale 
                                 = new Vector3 

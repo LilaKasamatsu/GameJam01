@@ -16,8 +16,9 @@ public class DestructionManager : MonoBehaviour
     [SerializeField] int platformSearchDistance;
     [SerializeField] DestructionMode destructionMode;
     [SerializeField] int maxLocalHeightLimit;
+    [SerializeField] int maxWindParticles;
     public GameObject windPrefab;
-    public float cooldown;
+    public float windTimer;
     public static DestructionManager instance;
     List<GameObject> particles = new List<GameObject>();
     enum DestructionMode
@@ -109,7 +110,7 @@ public class DestructionManager : MonoBehaviour
           
             while (coloumscounter<GridLengthX)
             {
-                
+               
                 for (int i = 0; i < GridLengthZ; i++)
                 {
                     GridList target = GridArray.Instance.gridArray[coloumscounter, i];
@@ -131,23 +132,51 @@ public class DestructionManager : MonoBehaviour
 
                 coloumscounter +=1;
                 yield return new WaitForEndOfFrame();
+                for (int i = 0; i < particles.Count; i++)
+                {
+                    if (particles[i].transform.localScale.x <= 0f)
+                    {
+                        Destroy(particles[i]);
+                        particles.RemoveAt(i);
+                    }
+                }
+               
             }
             coloumscounter = 0;
-            cooldown = Random.Range(minCoolDown, maxCoolDown);
-
-            while (cooldown > 0)
+            float windCooldown = Random.Range(minCoolDown, maxCoolDown);
+            windTimer = 0;
+            ParticleInstantiate(LevelGenerator.instance.Groundbounds.transform.position.x, heightLimit, LevelGenerator.instance.Groundbounds.transform.position.z);
+            while (windTimer <windCooldown)
             {
 
-                cooldown -= Time.deltaTime;
-                foreach(GameObject particle in particles)
+                windTimer += Time.deltaTime;
+               
+                if (windTimer/windCooldown >= particles.Count/maxWindParticles)
                 {
-                    particle.transform.localScale += new Vector3( Time.deltaTime,Time.deltaTime,Time.deltaTime);
+                    ParticleInstantiate(LevelGenerator.instance.Groundbounds.transform.position.x, heightLimit, LevelGenerator.instance.Groundbounds.transform.position.z);
                 }
+                for(int i = 0;i<particles.Count;i++)
+                {
+                   
+                        particles[i].transform.localScale = Vector3.Lerp(windPrefab.transform.lossyScale, new Vector3(0f, 0f,0f),windTimer/windCooldown);
+                                      
+                }
+               
                 yield return new WaitForEndOfFrame();
 
             }
 
         }
+    }
+    public GameObject ParticleInstantiate(float x, float y, float z)
+    {
+        GameObject particle = Instantiate<GameObject>(windPrefab, new Vector3(x, y, z), Quaternion.AngleAxis(Random.Range(0,360),Vector3.up));
+        if (particle != null)
+        {
+            particles.Add(particle);
+        }
+        return particle;
+
     }
 
     void Explode(GridList target, Vector3 targetVector)
@@ -205,14 +234,5 @@ public class DestructionManager : MonoBehaviour
        
     }
 
-     public GameObject ParticleInstantiate(float x,float y, float z)
-    {
-       GameObject particle = Instantiate<GameObject>(windPrefab, new Vector3(x , y, z ), Quaternion.identity);
-        if (particle != null)
-        {
-            particles.Add(particle);
-        }
-            return particle;
-        
-    }
+   
 }

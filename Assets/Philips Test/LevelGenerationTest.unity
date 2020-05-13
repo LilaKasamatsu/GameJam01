@@ -2175,7 +2175,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 3.2095e-41, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 7.2793e-41, y: 1.01e-43, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -6136,9 +6136,10 @@ MonoBehaviour:
   platformSearchDistance: 9
   destructionMode: 0
   maxLocalHeightLimit: 15
+  maxWindParticles: 12
   windPrefab: {fileID: 2712643673001669053, guid: 16f6778ed0dba434f860be35d1c6ce64,
     type: 3}
-  cooldown: 0
+  windTimer: 0
 --- !u!4 &2104433547 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4363996000856533292, guid: 3b6465cce417bfd47aef4f4bcc117fa7,
