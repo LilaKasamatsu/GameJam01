@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class WindAnimation : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] List<Animation> forwardAnimations;
+    [SerializeField] List<Animation> backwardsAnimations;
+    [SerializeField] List<Animation> upwardsAnimations;
+    [SerializeField] List<Animation> downwardsAnimations;
+    Animator anim;
+    List<Animation> currentList;
+
+    private void Start()
     {
-        
+        anim = GetComponent<Animator>();
+        currentList = forwardAnimations;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (anim.IsInTransition(0))
+        {
+            GetRandomAnimation();
+        }
+    }
+
+    void GetRandomAnimation()
+    {
+        anim.Play(currentList[Random.Range(0, currentList.Count - 1)].name);
+
+
     }
 }

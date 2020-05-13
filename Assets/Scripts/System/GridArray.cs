@@ -65,7 +65,7 @@ public class GridArray : MonoBehaviour
                 int color = Random.Range(0, 3);
 
 
-                gridList.Add(new GridList(0, 0, 0, 0, 0, width, "nope", color));
+                gridList.Add(new GridList( 0, 0, 0, 0, width, "nope", color));
             }
         }
     }
@@ -133,7 +133,7 @@ public class GridArray : MonoBehaviour
                     shape = "circ";
                 }
 
-                gridArray[x, z] = new GridList(0, 0, 0, 0, 0, width, shape, color);
+                gridArray[x, z] = new GridList( 0, 0, 0, 0, width, shape, color);
 
             }
         }
@@ -224,7 +224,7 @@ public class GridArray : MonoBehaviour
         {
             for (int z = minZ; z >= minZ && z <= maxZ ; z++)
             {
-                if (gridArray[x, z].structureAmount > 0 && target.y == gridArray[x,z].foundationObject.transform.position.y)
+                if (gridArray[x, z].sizeY > 0 && target.y == gridArray[x,z].foundationObject.transform.position.y)
                 {
                     //return that this position has a strucutre to orient on.
                     orientPositions.Add(new Vector3(x * cellSize, 0, z * cellSize));
