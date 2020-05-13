@@ -6,7 +6,7 @@ using Unity.Collections;
 
 
 
-public class GridList : MonoBehaviour
+public class GridList 
 {
 
     public int x;
@@ -32,6 +32,7 @@ public class GridList : MonoBehaviour
     public int sizeY;
 
     public int color;
+    public bool warningSystemEngaged;
 
     public GridList(int newStructureAmount, int newPointAmount, int newFoundationAmount, int newBridge, int newBranched, float newTowerWidth, string newShape, int newColor)
     {
@@ -44,7 +45,7 @@ public class GridList : MonoBehaviour
         structureObjects = new List<GameObject>();
         bridgeObjects = new List<GameObject>();
 
-        foundationObject = new GameObject();
+        foundationObject = null;
         bridge = newBridge;
 
         gridStructures = new GridStructures[GridArray.Instance.maxStructures];
@@ -66,13 +67,15 @@ public class GridList : MonoBehaviour
         
     }
 
-    public void CreateWindParticles(float heightlimit)
+    public void CreateWindParticles()
     {
-        if (heightlimit <= structureAmount - branchedStructures)
+        if (DestructionManager.instance.heightLimit <= structureAmount - branchedStructures && warningSystemEngaged==false)
         {
             GameObject WindPrefab = DestructionManager.instance.windPrefab;
             float cellSize = GridArray.Instance.cellSize;
-            Instantiate<GameObject>(WindPrefab, new Vector3(x * cellSize, heightlimit, z * cellSize), Quaternion.identity);
+            Vector3 target = structureObjects[0].transform.position;
+            DestructionManager.instance.ParticleInstantiate(target.x,target.y+DestructionManager.instance.heightLimit*2 ,target.z);
+            warningSystemEngaged = true;
 
         }
 

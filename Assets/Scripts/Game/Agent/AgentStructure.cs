@@ -317,7 +317,7 @@ public class AgentStructure : MonoBehaviour
                             buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].structureAmount;
 
                             gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
-                            gridArray[arrayPosX, arrayPosZ].CreateWindParticles(DestructionManager.instance.heightLimit);
+                            gridArray[arrayPosX, arrayPosZ].CreateWindParticles();
                             hasBuilt = true;
                         }
                     }

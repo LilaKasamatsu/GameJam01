@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -18,6 +19,7 @@ public class DestructionManager : MonoBehaviour
     public GameObject windPrefab;
     public float cooldown;
     public static DestructionManager instance;
+    List<GameObject> particles;
     enum DestructionMode
     {
         global,
@@ -143,6 +145,10 @@ public class DestructionManager : MonoBehaviour
             {
 
                 cooldown -= Time.deltaTime;
+                foreach(GameObject particle in particles)
+                {
+                    particle.transform.localScale += new Vector3( Time.deltaTime,Time.deltaTime,Time.deltaTime);
+                }
 
             }
 
@@ -209,5 +215,10 @@ public class DestructionManager : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
        
+    }
+
+     public void ParticleInstantiate(float x,float y, float z)
+    {
+       particles.Add(Instantiate<GameObject>(windPrefab, new Vector3(x , y, z ), Quaternion.identity));
     }
 }

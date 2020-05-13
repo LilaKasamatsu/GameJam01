@@ -53,6 +53,32 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &-6926329048782127520
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WindTrail08_FullCircle 0
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 2272ca6065c5f9e4e9f2bf7a74be0547, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &-5621269111669759295
 AnimatorState:
   serializedVersion: 5
@@ -189,8 +215,7 @@ AnimatorState:
   m_Name: WindTrail04
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions:
-  - {fileID: -2388050853089532908}
+  m_Transitions: []
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -332,6 +357,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -5559772003713823862}
     m_Position: {x: 715, y: 395, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -6926329048782127520}
+    m_Position: {x: 285.7876, y: 320.89874, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -341,4 +369,4 @@ AnimatorStateMachine:
   m_EntryPosition: {x: -130, y: -150, z: 0}
   m_ExitPosition: {x: 370, y: -80, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 2023455020972990524}
+  m_DefaultState: {fileID: -6926329048782127520}
