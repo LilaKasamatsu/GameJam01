@@ -139,7 +139,7 @@ public class AgentBranch : MonoBehaviour
                 for (int z = minZ; z >= minZ && z <= maxZ && z < GridArray.Instance.arrayZ && z > 0; z++)
                 {
 
-                    if (gridArray[x, z].structureAmount > 0)
+                    if (gridArray[x, z].sizeY > 0)
                     {
 
                         //return that this position has a strucutre to orient on.
@@ -185,13 +185,13 @@ public class AgentBranch : MonoBehaviour
 
             if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
             {
-                //buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount + 1, GridArray.Instance.RoundToGrid(transform.position.z));
+                //buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].sizeY + 1, GridArray.Instance.RoundToGrid(transform.position.z));
 
 
                 if (gridArray[arrayPosX, arrayPosZ] != null && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].bridge <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
                 {
 
-                    gridY = Mathf.RoundToInt(gridArray[arrayPosX, arrayPosZ].structureAmount);
+                    gridY = Mathf.RoundToInt(gridArray[arrayPosX, arrayPosZ].sizeY);
 
                     int randomValue = Random.Range(0, 100);
                     Vector3 size = structure.transform.localScale;
@@ -213,7 +213,23 @@ public class AgentBranch : MonoBehaviour
                                     buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY, GridArray.Instance.RoundToGrid(transform.position.z));
                                     buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY;
 
+                                    GridList target = gridArray[arrayPosX, arrayPosZ];
+                                    //gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
+                                    target.branchedStructures = gridArray[arrayPosX, arrayPosZ].sizeY;
+                                    isBranch = true;
+                                    hasBuilt = true;
+
                                     buildRotation = 0;
+                                    if (target.warningSystemEngaged && target.sizeY-target.branchedStructures>=DestructionManager.instance.heightLimit)
+                                    {
+                                        Transform targetTransform=target.windParticle.transform; 
+                                        targetTransform.position = new Vector3(targetTransform.position.x, buildLocation.y + DestructionManager.instance.heightLimit, targetTransform.position.z);
+                                    }
+                                    else if(target.warningSystemEngaged)
+                                    {
+                                        Destroy(target.windParticle);
+                                        target.warningSystemEngaged = false;
+                                    }
                                 }
                             }
 
@@ -225,7 +241,23 @@ public class AgentBranch : MonoBehaviour
                                     buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY, GridArray.Instance.RoundToGrid(transform.position.z));
                                     buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY;
 
+                                    GridList target = gridArray[arrayPosX, arrayPosZ];
+                                    //gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
+                                    target.branchedStructures = gridArray[arrayPosX, arrayPosZ].sizeY;
+                                    isBranch = true;
+
+                                    hasBuilt = true;
                                     buildRotation = 180;
+                                    if (target.warningSystemEngaged && target.sizeY - target.branchedStructures >= DestructionManager.instance.heightLimit)
+                                    {
+                                        Transform targetTransform = target.windParticle.transform;
+                                        targetTransform.position = new Vector3(targetTransform.position.x, buildLocation.y + DestructionManager.instance.heightLimit, targetTransform.position.z);
+                                    }
+                                    else if (target.warningSystemEngaged)
+                                    {
+                                        Destroy(target.windParticle);
+                                        target.warningSystemEngaged = false;
+                                    }
                                 }
                             }
 
@@ -237,7 +269,23 @@ public class AgentBranch : MonoBehaviour
                                     buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY, GridArray.Instance.RoundToGrid(transform.position.z));
                                     buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY;
 
+                                    GridList target = gridArray[arrayPosX, arrayPosZ];
+                                    //gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
+                                    target.branchedStructures = gridArray[arrayPosX, arrayPosZ].sizeY;
+                                    isBranch = true;
+
+                                    hasBuilt = true;
                                     buildRotation = 270;
+                                    if (target.warningSystemEngaged && target.sizeY - target.branchedStructures >= DestructionManager.instance.heightLimit)
+                                    {
+                                        Transform targetTransform = target.windParticle.transform;
+                                        targetTransform.position = new Vector3(targetTransform.position.x, buildLocation.y + DestructionManager.instance.heightLimit, targetTransform.position.z);
+                                    }
+                                    else if (target.warningSystemEngaged)
+                                    {
+                                        Destroy(target.windParticle);
+                                        target.warningSystemEngaged = false;
+                                    }
                                 }
                             }
                             if (randomValue >= selfChance * 0.75f && randomValue < selfChance)
@@ -249,7 +297,23 @@ public class AgentBranch : MonoBehaviour
                                     buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].structureAmount - cellY;
 
                       
+                                    GridList target = gridArray[arrayPosX, arrayPosZ];
+                                    //gridArray[arrayPosX, arrayPosZ].gridStructures[gridY].isBranched = true;
+                                    target.branchedStructures = gridArray[arrayPosX, arrayPosZ].sizeY;
+                                    isBranch = true;
+
+                                    hasBuilt = true;
                                     buildRotation = 90;
+                                    if (target.warningSystemEngaged && target.sizeY - target.branchedStructures >= DestructionManager.instance.heightLimit)
+                                    {
+                                        Transform targetTransform = target.windParticle.transform;
+                                        targetTransform.position = new Vector3(targetTransform.position.x, buildLocation.y + DestructionManager.instance.heightLimit, targetTransform.position.z);
+                                    }
+                                    else if (target.warningSystemEngaged)
+                                    {
+                                        Destroy(target.windParticle);
+                                        target.warningSystemEngaged = false;
+                                    }
                                 }
                             }
 

@@ -6,8 +6,8 @@ using UnityEngine.EventSystems;
 
 public class AgentStructure : MonoBehaviour
 {
-    [SerializeField] GameObject structure;
-    [SerializeField] GameObject structureSquare;
+    [SerializeField] GameObject structure;
+    [SerializeField] GameObject structureSquare;
 
     [SerializeField] float minBuildDelay;
     [SerializeField] float maxBuildDelay;
@@ -45,88 +45,88 @@ public class AgentStructure : MonoBehaviour
     Vector3 agentMoveLocation;
     List<Vector3> orientPositions;
 
-    GridList[,] gridArray;
-    AgentStack agentStack;
-
-
+    GridList[,] gridArray;
+    AgentStack agentStack;
+
+
     void Start()
-    {
+    {
 
         cam = Camera.main;
-        ground = GameObject.FindGameObjectWithTag("ground");
-
+        ground = GameObject.FindGameObjectWithTag("ground");
+
         cellSize = GridArray.Instance.cellSize;
         cellY = GridArray.Instance.cellY;
-        gridArray = GridArray.Instance.gridArray;
-        agentStack = GridArray.Instance.agentStack;
-
-        // DIESER CODE IST DER NEUE
-
-        //Create orientPosition List based on the grid
-        //Adds all existing build-orientation points currently on the scene to the list
-        // "state == true" means, that that location has a structure to orient on.
-
-
-
-        StartCoroutine(MoveTimer());
-        if (structuresPlaced >= structuresLifetime)
-        {
-            //StartCoroutine("RetireAgent");
+        gridArray = GridArray.Instance.gridArray;
+        agentStack = GridArray.Instance.agentStack;
+
+        // DIESER CODE IST DER NEUE
+
+        //Create orientPosition List based on the grid
+        //Adds all existing build-orientation points currently on the scene to the list
+        // "state == true" means, that that location has a structure to orient on.
+
+
+
+        StartCoroutine(MoveTimer());
+        if (structuresPlaced >= structuresLifetime)
+        {
+            //StartCoroutine("RetireAgent");
         }
     }
 
 
-    IEnumerator RetireAgent()
-    {
-        agentStack.agentAmount += 1;
-        agentStack.agentStructure -= 1;
-        yield return new WaitForSeconds(Random.Range(0, 3));
-        Destroy(this.gameObject);
-
-
+    IEnumerator RetireAgent()
+    {
+        agentStack.agentAmount += 1;
+        agentStack.agentStructure -= 1;
+        yield return new WaitForSeconds(Random.Range(0, 3));
+        Destroy(this.gameObject);
+
+
     }
 
-    public void ReceiveSignal(Vector3 position, float destMin)
-    {
-        transform.GetChild(0).gameObject.GetComponent<SetAgentHeight>().GoToSignal(position, destMin);
+    public void ReceiveSignal(Vector3 position, float destMin)
+    {
+        transform.GetChild(0).gameObject.GetComponent<SetAgentHeight>().GoToSignal(position, destMin);
     }
 
     void FixedUpdate()
     {
-        grid = SpawnSettings.Instance.grid;
-
-        if (hasSignal == true && agent.hasPath)
-        {
-            agent.ResetPath();
-        }
-
-        if (isActive == true)
-        {
-            transform.GetChild(0).gameObject.SetActive(true);
-
-        }
-
+        grid = SpawnSettings.Instance.grid;
+
+        if (hasSignal == true && agent.hasPath)
+        {
+            agent.ResetPath();
+        }
+
+        if (isActive == true)
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
+
+        }
+
         if (isActive == false)
         {
             SpawnActiveAgent();
 
         }
-    }
+    }
+
 
 
-
-     
-
-
-
+     
+
+
+
     IEnumerator MoveTimer()
     {
         //Looping and delaying their walk cycle 
         while (isActive == true && hasSignal == false)
-        {
-
-            BuildStructure();
-
+        {
+
+            BuildStructure();
+
             yield return new WaitForSeconds(Random.Range(minBuildDelay, maxBuildDelay));
 
 
@@ -144,7 +144,7 @@ public class AgentStructure : MonoBehaviour
                 for (int z = minZ; z >= minZ && z <= maxZ && z < GridArray.Instance.arrayZ && z > 0; z++)
                 {
 
-                    if (gridArray[x, z].structureAmount > 0)
+                    if (gridArray[x, z].sizeY > 0)
                     {
 
                         //return that this position has a strucutre to orient on.
@@ -158,121 +158,123 @@ public class AgentStructure : MonoBehaviour
             Vector3 closestMainPoint = GridArray.Instance.GetClosestTarget(orientPositions, transform.position);
 
             float closestX = closestMainPoint.x + Random.Range(-pointRadius, pointRadius);
-            float closestZ = closestMainPoint.z + Random.Range(-pointRadius, pointRadius);
-
-
-
-            agentMoveLocation = new Vector3(closestX, transform.position.y, closestZ);
-
-            canBuild = true;
+            float closestZ = closestMainPoint.z + Random.Range(-pointRadius, pointRadius);
+
+
+
+            agentMoveLocation = new Vector3(closestX, transform.position.y, closestZ);
+
+            canBuild = true;
             agent.SetDestination(agentMoveLocation);
 
-        }
-
-
-
+        }
+
+
+
     }
 
     private void BuildStructure()
     {
         gridArray = GridArray.Instance.gridArray;
         if (!agent.hasPath && canBuild == true)
-        {
+        {
             int arrayPosX = GridArray.Instance.NumToGrid(transform.position.x);
-            int arrayPosZ = GridArray.Instance.NumToGrid(transform.position.z);
-
-            int newArrayPosX = arrayPosX;
-            int newArrayPosZ = arrayPosZ;
-
-
-            canBuild = false;
-
-
-            if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
-            {
-                //buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount + 1, GridArray.Instance.RoundToGrid(transform.position.z));
-
-
-                if (gridArray[arrayPosX,arrayPosZ]!=null && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].bridge <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
-                {
-
-                    gridY = Mathf.RoundToInt(gridArray[arrayPosX, arrayPosZ].structureAmount);
-                    
-                    int randomValue = Random.Range(0, 100);
-                    Vector3 size = structure.transform.localScale;
-                    bool hasBuilt = false;
-                
-        
-
-                    //Normal Building
-                    if (gridY < GridArray.Instance.maxStructures - 2 || gridY < minBranchHeight && gridY < GridArray.Instance.maxStructures-2)
-                    {
-                        if (gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY + 1].y == 0 && gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY + 2].y == 0)
-                        {
-                            //buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].structureAmount, GridArray.Instance.RoundToGrid(transform.position.z));
-                            buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), 0, GridArray.Instance.RoundToGrid(transform.position.z));
-                            buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].structureAmount;
-
-                            gridArray[arrayPosX, arrayPosZ].structureAmount += 1;
-                            hasBuilt = true;
-                        }
-                    }
-
-                    //Instantiate structure.
-                    // hasBuild == if the previous operators were true and the agent can build on this position. Else, do nothing.
-                    if (hasBuilt)
-                    {
-                        GameObject finalStructure = new GameObject();
-                                               
-                        if (gridArray[newArrayPosX, newArrayPosZ].structureShape == "squ")
-                        {
-                            finalStructure = structureSquare;
-                        }
-                        else if (gridArray[newArrayPosX, newArrayPosZ].structureShape == "tri")
-                        {
-                            finalStructure = structure;
-                        }
-                        else
-                        {
-                            finalStructure = structure;
-                        }
-
-                        if (gridArray[arrayPosX, arrayPosZ].sizeY == 0)
-                        {
-                            builtStructure = Instantiate(finalStructure, buildLocation, Quaternion.identity) as GameObject;
-                            //builtStructure.transform.Rotate(new Vector3(0, buildRotation, 0));
-                            gridArray[arrayPosX, arrayPosZ].sizeY += 1;
-                            gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
-
-
-                            builtStructure.transform.localScale = new Vector3(builtStructure.transform.localScale.x - gridArray[newArrayPosX, newArrayPosZ].towerWidth,
-                                builtStructure.transform.localScale.y,
-                                builtStructure.transform.localScale.z - gridArray[newArrayPosX, newArrayPosZ].towerWidth);
-                        }
-                        else if(gridArray[arrayPosX, arrayPosZ].sizeY >= 1)
-                        {
-
-                            gridArray[arrayPosX, arrayPosZ].sizeY += 1;
-
-                            /*
-                            gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform.localScale 
-                                = new Vector3 
-                                (gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform.localScale.x, 
-                                gridArray[arrayPosX, arrayPosZ].sizeY * cellY,
-                                gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform.localScale.z);
-                            */
-                        }                                  
-                                           
-                       
-
-                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].y = gridY;
-
-                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].strucObject = builtStructure;
-                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].x = newArrayPosX;
-                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].z = newArrayPosZ;
-                    }
-                }
-            }
+            int arrayPosZ = GridArray.Instance.NumToGrid(transform.position.z);
+
+            int newArrayPosX = arrayPosX;
+            int newArrayPosZ = arrayPosZ;
+
+
+            canBuild = false;
+
+
+            if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
+            {
+                //buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].sizeY + 1, GridArray.Instance.RoundToGrid(transform.position.z));
+
+
+                if (gridArray[arrayPosX,arrayPosZ]!=null && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].bridge <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+                {
+
+                    gridY = Mathf.RoundToInt(gridArray[arrayPosX, arrayPosZ].sizeY);
+                    
+                    int randomValue = Random.Range(0, 100);
+                    Vector3 size = structure.transform.localScale;
+                    bool hasBuilt = false;
+                
+        
+
+                    //Normal Building
+                    if (gridY < GridArray.Instance.maxStructures - 2 || gridY < minBranchHeight && gridY < GridArray.Instance.maxStructures-2)
+                    {
+                        if (gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY + 1].y == 0 && gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY + 2].y == 0)
+                        {
+                            //buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].sizeY, GridArray.Instance.RoundToGrid(transform.position.z));
+                            buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), 0, GridArray.Instance.RoundToGrid(transform.position.z));
+                            buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].sizeY;
+
+                            
+                           
+                            hasBuilt = true;
+                        }
+                    }
+
+                    //Instantiate structure.
+                    // hasBuild == if the previous operators were true and the agent can build on this position. Else, do nothing.
+                    if (hasBuilt)
+                    {
+                        GameObject finalStructure = new GameObject();
+                                               
+                        if (gridArray[newArrayPosX, newArrayPosZ].structureShape == "squ")
+                        {
+                            finalStructure = structureSquare;
+                        }
+                        else if (gridArray[newArrayPosX, newArrayPosZ].structureShape == "tri")
+                        {
+                            finalStructure = structure;
+                        }
+                        else
+                        {
+                            finalStructure = structure;
+                        }
+
+                        if (gridArray[arrayPosX, arrayPosZ].sizeY == 0)
+                        {
+                            builtStructure = Instantiate(finalStructure, buildLocation, Quaternion.identity) as GameObject;
+                            //builtStructure.transform.Rotate(new Vector3(0, buildRotation, 0));
+                            gridArray[arrayPosX, arrayPosZ].sizeY += 1;
+                            gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
+                            
+
+
+                            builtStructure.transform.localScale = new Vector3(builtStructure.transform.localScale.x - gridArray[newArrayPosX, newArrayPosZ].towerWidth,
+                                builtStructure.transform.localScale.y,
+                                builtStructure.transform.localScale.z - gridArray[newArrayPosX, newArrayPosZ].towerWidth);
+                        }
+                        else if(gridArray[arrayPosX, arrayPosZ].sizeY >= 1)
+                        {
+
+                            gridArray[arrayPosX, arrayPosZ].sizeY += 1;
+
+                            /*
+                            gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform.localScale 
+                                = new Vector3 
+                                (gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform.localScale.x, 
+                                gridArray[arrayPosX, arrayPosZ].sizeY * cellY,
+                                gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform.localScale.z);
+                            */
+                        }                                  
+                                           
+                       
+
+                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].y = gridY;
+
+                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].strucObject = builtStructure;
+                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].x = newArrayPosX;
+                        gridArray[newArrayPosX, newArrayPosZ].gridStructures[gridY].z = newArrayPosZ;
+                    }
+                }
+            }
         }
     }
 
@@ -293,7 +295,7 @@ public class AgentStructure : MonoBehaviour
 
 
         if (Input.GetMouseButton(1))
-        {
+        {
             SpawnSettings.Instance.spawnMode = false;
             Destroy(this.gameObject);
 
@@ -307,7 +309,7 @@ public class AgentStructure : MonoBehaviour
         if (Input.GetMouseButton(0) == true && !IsOverUi())
         {
 
-            SpawnSettings.Instance.PlaceAgent(spawnAgent);
+            SpawnSettings.Instance.PlaceAgent(spawnAgent);
         }
     }
 
