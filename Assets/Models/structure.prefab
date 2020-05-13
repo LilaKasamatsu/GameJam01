@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f5c90647680a342a092a785a32f1e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorBase1: {r: 0.8867924, g: 0, b: 0, a: 1}
-  colorBase2: {r: 0.9056604, g: 0.004271993, b: 0.53984183, a: 1}
-  colorBase3: {r: 1, g: 0, b: 0.2827692, a: 1}
-  colorSelect: {r: 1, g: 0, b: 0.5719805, a: 1}
+  colorBase1: {r: 0.8018868, g: 0, b: 0.34239498, a: 1}
+  colorBase2: {r: 1, g: 0.21226418, b: 0.37595335, a: 1}
+  colorBase3: {r: 0.764151, g: 0, b: 0.43737566, a: 1}
+  colorSelect: {r: 0.24845636, g: 0.24256852, b: 0.745283, a: 1}
   colorBridged: {r: 0.59437215, g: 0, b: 0.7075472, a: 1}
   isSelected: 0
   isBridged: 0
