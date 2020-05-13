@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.5823206, g: 0.8457471, b: 0.91136557, a: 1}
+  m_IndirectSpecularColor: {r: 0.12679026, g: 0.1791628, b: 0.23748642, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2249,7 +2249,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 6.6287e-41, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: -1.49e-43, y: 1e-45, z: 8.5e-44, w: 1e-45}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -3148,6 +3148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bridge: {fileID: 3202815648605575545, guid: 7e7ce15401f40a04299edc7742fb7417, type: 3}
+  previewBridge: {fileID: 5883627539825866293, guid: 603a98877a2bc3948ac2be11cd325088,
+    type: 3}
   selecter: {fileID: 0}
   build: 0
 --- !u!114 &1092224753
