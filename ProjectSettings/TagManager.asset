@@ -12,6 +12,7 @@ TagManager:
   - marker
   - foundation
   - bridge
+  - branch
   layers:
   - Default
   - TransparentFX

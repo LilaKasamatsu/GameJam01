@@ -24,6 +24,8 @@ public class SpawnSettings : MonoBehaviour
     public List<GridList> gridList = new List<GridList>();
     public bool spawnMode = false;
     private Vector3 lastPlacedTile;
+    private bool tileTimer = true;
+    AgentStack agentStack;
 
     //Singleton
     public static SpawnSettings Instance { get; private set; }
@@ -40,7 +42,6 @@ public class SpawnSettings : MonoBehaviour
         }
     }
 
-    AgentStack agentStack;
 
     private void Start()
     {
@@ -59,6 +60,13 @@ public class SpawnSettings : MonoBehaviour
 
     }
 
+    IEnumerator SetSpawnDelay()
+    {
+        tileTimer = false;
+        yield return new WaitForSeconds(0.1f);
+        tileTimer = true;
+    }
+
     void Update()
     {
         //NumberSpawning();
@@ -69,45 +77,6 @@ public class SpawnSettings : MonoBehaviour
             lastPlacedTile = new Vector3(-1, -1, -1);
         }
     }
-
-    public void CreateStartPoint()
-    {
-        int randomX = Random.Range(0, GridArray.Instance.arrayX * cellSize);
-        int randomZ = Random.Range(0, GridArray.Instance.arrayZ * cellSize);
-
-
-        int maxTries = 0;
-        while (maxTries < 12 && GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(randomX), GridArray.Instance.NumToGrid(randomZ)].foundationAmount > 0)
-        {
-            maxTries++;
-            randomX = Random.Range(0, GridArray.Instance.arrayX * cellSize);
-            randomZ = Random.Range(0, GridArray.Instance.arrayZ * cellSize);
-        }
-
-        if (maxTries >= 12)
-        {
-            Debug.Log("More than 12 spawn tries");
-        }
-
-        Instantiate(mainPoint, new Vector3(randomX, 3f, randomZ), Quaternion.identity);
-        GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(randomX), GridArray.Instance.NumToGrid(randomZ)].pointAmount += 1;
-
-        int minX = GridArray.Instance.NumToGrid(randomX) - 1;
-        int maxX = GridArray.Instance.NumToGrid(randomX) + 1;
-        int minZ = GridArray.Instance.NumToGrid(randomZ) - 1;
-        int maxZ = GridArray.Instance.NumToGrid(randomZ) + 1;
-
-
-        for (int x = minX; x >= minX && x <= maxX && x < GridArray.Instance.arrayX && x > 0; x++)
-        {
-            for (int z = minZ; z >= minZ && z <= maxZ && z < GridArray.Instance.arrayZ && z > 0; z++)
-            {
-                GridArray.Instance.gridArray[x, z].foundationAmount += 1;
-
-            }
-        }
-    }
-
 
 
 
@@ -153,9 +122,9 @@ public class SpawnSettings : MonoBehaviour
             int arrayPosZ = GridArray.Instance.NumToGrid(hitGrid.z);
             float arrayPosY = hitAll.point.y;
 
-            Vector3 currentTile = new Vector3(arrayPosX, arrayPosY, arrayPosX);
+            //Vector3 currentTile = new Vector3(arrayPosX, arrayPosY, arrayPosX);
 
-            if (currentTile != lastPlacedTile)
+            if (tileTimer)
             {
 
                 if (hitAll.normal.normalized == new Vector3(0f, 1f, 0f))
@@ -182,7 +151,8 @@ public class SpawnSettings : MonoBehaviour
 
                                 newAgent.GetComponent<AgentFoundation>().isActive = true;
 
-                                lastPlacedTile = currentTile;
+                                //lastPlacedTile = currentTile;
+                                StartCoroutine(SetSpawnDelay());
                             }
                         }
                     }
@@ -206,7 +176,9 @@ public class SpawnSettings : MonoBehaviour
 
                                 newAgent.GetComponent<AgentStructure>().isActive = true;
 
-                                lastPlacedTile = currentTile;
+                                //lastPlacedTile = currentTile;
+                                StartCoroutine(SetSpawnDelay());
+
 
                             }
                         }
@@ -230,7 +202,8 @@ public class SpawnSettings : MonoBehaviour
 
                                 newAgent.GetComponent<AgentBranch>().isActive = true;
 
-                                lastPlacedTile = currentTile;
+                                //lastPlacedTile = currentTile;
+                                StartCoroutine(SetSpawnDelay());
 
                             }
                         }

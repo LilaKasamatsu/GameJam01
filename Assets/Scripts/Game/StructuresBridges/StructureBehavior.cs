@@ -13,15 +13,46 @@ public class StructureBehavior : MonoBehaviour
     [SerializeField] Color colorSelect;
     [SerializeField] Color colorBridged;
 
-    Renderer render;
+    //Renderer render;
+    List<Renderer> renders = new List<Renderer>();
 
     public bool isSelected = false;
     public bool isBridged = false;
     public bool isBase = true;
+    float randomGrowthMax;
+    float randomLerp = 0.0001f;
+
+    List<GameObject> tag_targets;
+
+    private void AddDescendants(Transform parent, List<GameObject> list)
+    {
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform child = transform.GetChild(i);
+            //!child.gameObject.GetComponent<StructureBehavior>() &&
+            if ( (child.gameObject.CompareTag("structure") || child.gameObject.CompareTag("branch")))
+            {
+                list.Add(child.gameObject);
+                if(child.gameObject.GetComponent<Renderer>() != null)
+                {
+                    renders.Add(child.gameObject.GetComponent<Renderer>());
+                }
+       
+            }
+            if (child.transform.childCount > 0)
+            {
+                AddDescendants(child, list);
+
+            }
+        }
+    }
 
     void Start()
     {
-        render = transform.GetChild(0).GetComponent<Renderer>();
+        AddDescendants(transform, new List<GameObject>());
+
+        //render = transform.GetChild(0).GetComponent<Renderer>();
         int randomColor = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(transform.position.x), GridArray.Instance.NumToGrid(transform.position.z)].color;
         //randomColor = 0;
 
@@ -40,11 +71,38 @@ public class StructureBehavior : MonoBehaviour
 
         }
         //render.material.color = colorBaseFinal;
-        render.material.SetColor("_baseColor", colorBaseFinal);
+        //render.material.SetColor("_baseColor", colorBaseFinal);
+
+        for (int i = 0; i < renders.Count; i++)
+        {
+            renders[i].material.SetColor("_baseColor", colorBaseFinal);
+        }
+
+        StartCoroutine(growthDelay());
+    }
+
+    IEnumerator growthDelay()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(0.5f, 2));
+            randomLerp = Random.Range(0.0001f, 0.05f);
+            randomGrowthMax = Random.Range(-0.5f, 0.5f);
+        }
     }
 
     private void Update()
     {
+        int gridX = GridArray.Instance.NumToGrid(transform.position.x);
+        int gridZ = GridArray.Instance.NumToGrid(transform.position.z);
+
+
+
+        transform.localScale = new Vector3(transform.localScale.x, 
+            Mathf.Lerp(transform.localScale.y, GridArray.Instance.gridArray[gridX, gridZ].sizeY * GridArray.Instance.cellY + randomGrowthMax, randomLerp), 
+            transform.localScale.z);
+
+
         if (isBase == false && isSelected == false)
         {
             if (isBridged)
@@ -75,35 +133,43 @@ public class StructureBehavior : MonoBehaviour
     {
         isBase = false;
 
-        render.material.color = colorBaseFinal;
-
-        //render.material.EnableKeyword("_EMISSION");
-
 
         Color finalColor = colorSelect * Mathf.LinearToGammaSpace(0.5f);
-        render.material.SetColor("_EmissionColor", finalColor);
+        //render.material.SetColor("_emissionColor", finalColor);
 
-        render.material.SetColor("_baseColor", colorSelect);               
+        //render.material.SetColor("_baseColor", colorSelect);
+        for (int i = 0; i < renders.Count; i++)
+        {
+            renders[i].material.SetColor("_baseColor", colorSelect);
+        }
+
 
 
     }
     public void ChangeColorBridged()
     {
         Color finalColor = colorSelect * Mathf.LinearToGammaSpace(0.1f);
-        render.material.SetColor("_EmissionColor", finalColor);
+        //render.material.SetColor("_emissionColor", finalColor);
 
-        //render.material.DisableKeyword("_EMISSION");
-        render.material.SetColor("_baseColor", colorBridged);
+        //render.material.SetColor("_baseColor", colorBridged);
+        for (int i = 0; i < renders.Count; i++)
+        {
+            renders[i].material.SetColor("_baseColor", colorBridged);
+        }
 
         isBase = true;
     }
     public void ChangeColorBase()
     {
         Color finalColor = colorSelect * Mathf.LinearToGammaSpace(0f);
-        render.material.SetColor("_baseColor", colorBaseFinal);
+        //render.material.SetColor("_baseColor", colorBaseFinal);
 
-        render.material.SetColor("_EmissionColor", Color.black);
-        //render.material.DisableKeyword("_EMISSION");
+        for (int i = 0; i < renders.Count; i++)
+        {
+            renders[i].material.SetColor("_baseColor", colorBaseFinal);
+        }
+
+        //render.material.SetColor("_emissionColor", Color.black);
         
         isBase = true;
 
