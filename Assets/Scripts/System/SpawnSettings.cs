@@ -162,7 +162,7 @@ public class SpawnSettings : MonoBehaviour
                     {
                         if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
                         {
-                            if (gridArray[arrayPosX, arrayPosZ].structureAmount <= 0 && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+                            if (gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
                             {
                                 agentStack.agentAmount -= 1;
                                 agentStack.agentStructure += 1;
@@ -188,7 +188,7 @@ public class SpawnSettings : MonoBehaviour
                     {
                         if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
                         {
-                            if (gridArray[arrayPosX, arrayPosZ].structureAmount <= 0 && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+                            if (gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
                             {
                                 agentStack.agentAmount -= 1;
                                 agentStack.agentBranch += 1;
