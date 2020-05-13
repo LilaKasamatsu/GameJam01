@@ -23,7 +23,7 @@ public class SetAgentHeight : MonoBehaviour
         int arrayPosZ = GridArray.Instance.NumToGrid(transform.position.z);
 
         Vector3 parentPos = transform.parent.position;
-        //float lerpY = Mathf.Lerp(transform.position.y, parentY + 2 * gridArray[arrayPosX, arrayPosZ].structureAmount, 0.1f);
+        //float lerpY = Mathf.Lerp(transform.position.y, parentY + 2 * gridArray[arrayPosX, arrayPosZ].sizeY, 0.1f);
 
         gridArray = GridArray.Instance.gridArray;
 
@@ -38,14 +38,14 @@ public class SetAgentHeight : MonoBehaviour
             }
             else
             {
-                //int arrayPosY = Mathf.RoundToInt(GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[GridArray.Instance.gridArray[hitGridX, hitGridZ].structureAmount - 1].transform.position.y);
+                //int arrayPosY = Mathf.RoundToInt(GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[GridArray.Instance.gridArray[hitGridX, hitGridZ].sizeY - 1].transform.position.y);
 
                 hasSignal = false;
                 int gridX = GridArray.Instance.NumToGrid( signalPos.x);
                 int gridZ = GridArray.Instance.NumToGrid( signalPos.z);
 
                 //Position of Signal - Amount of Structures
-                int warpY = Mathf.RoundToInt(GridArray.Instance.gridArray[gridX, gridZ].structureObjects[GridArray.Instance.gridArray[gridX, gridZ].structureAmount - 1].transform.position.y - GridArray.Instance.gridArray[gridX, gridZ].structureAmount);
+                int warpY = Mathf.RoundToInt(GridArray.Instance.gridArray[gridX, gridZ].structureObjects[GridArray.Instance.gridArray[gridX, gridZ].sizeY - 1].transform.position.y - GridArray.Instance.gridArray[gridX, gridZ].sizeY);
 
                 Vector3 warpPosition = new Vector3(signalPos.x, warpY, signalPos.z);
                 transform.parent.gameObject.GetComponent<NavMeshAgent>().Warp(warpPosition);
@@ -59,7 +59,7 @@ public class SetAgentHeight : MonoBehaviour
         if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ) && parentNav.isOnNavMesh && hasSignal == false)
         {
 
-            transform.position = new Vector3(parentPos.x, Mathf.Lerp(transform.position.y, parentPos.y + 2 * gridArray[arrayPosX, arrayPosZ].structureAmount, 0.07f), parentPos.z);
+            transform.position = new Vector3(parentPos.x, Mathf.Lerp(transform.position.y, parentPos.y + 2 * gridArray[arrayPosX, arrayPosZ].sizeY, 0.07f), parentPos.z);
 
         }    
     }

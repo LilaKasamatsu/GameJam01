@@ -19,7 +19,7 @@ public class DestructionManager : MonoBehaviour
     public GameObject windPrefab;
     public float cooldown;
     public static DestructionManager instance;
-    List<GameObject> particles;
+    List<GameObject> particles = new List<GameObject>();
     enum DestructionMode
     {
         global,
@@ -71,13 +71,13 @@ public class DestructionManager : MonoBehaviour
                 {
                     GridList target = GridArray.Instance.gridArray[coloumscounter, i];
 
-                    if (target.structureAmount - target.branchedStructures >= heightLimit)
+                    if (target.sizeY - target.branchedStructures >= heightLimit)
                     {
                         Vector3 targetVector = new Vector3(coloumscounter * GridArray.Instance.cellSize, target.foundationObject.transform.position.y, i * GridArray.Instance.cellSize);
                         Explode(target, targetVector);
 
                     }
-                    else if (heightLimit==0 && target.structureAmount == 0 && target.foundationAmount > 0)
+                    else if (heightLimit==0 && target.sizeY == 0 && target.foundationAmount > 0)
                     {
                         Vector3 targetVector = new Vector3(coloumscounter * GridArray.Instance.cellSize, target.foundationObject.transform.position.y, i * GridArray.Instance.cellSize);
                         LookForStructures(target, targetVector);
@@ -120,13 +120,13 @@ public class DestructionManager : MonoBehaviour
                 {
                     GridList target = GridArray.Instance.gridArray[coloumscounter, i];
 
-                   if( target.structureAmount-target.branchedStructures >= heightLimit)
+                   if(target.warningSystemEngaged && target.sizeY-target.branchedStructures >= heightLimit)
                     {
                         Vector3 targetVector = new Vector3(coloumscounter * GridArray.Instance.cellSize, target.foundationObject.transform.position.y, i * GridArray.Instance.cellSize);
                         Explode(target,targetVector);
 
                     }
-                   else if (target.structureAmount==0 && target.foundationAmount > 0)
+                   else if (target.sizeY==0 && target.foundationAmount > 0)
                     {
                         Vector3 targetVector = new Vector3(coloumscounter * GridArray.Instance.cellSize, target.foundationObject.transform.position.y, i * GridArray.Instance.cellSize);
                         LookForStructures(target,targetVector);
@@ -152,7 +152,6 @@ public class DestructionManager : MonoBehaviour
 
             }
 
-            yield return new WaitForSeconds(Random.Range(minCoolDown, maxCoolDown));
         }
     }
 
@@ -171,30 +170,21 @@ public class DestructionManager : MonoBehaviour
             targetGridEnd.bridgeObjects.Remove(targetBridgeObject);
             if (targetGridOrigin.bridgeObjects.Count == 0)
             {
-                targetGridOrigin.structureObjects[targetGridOrigin.structureObjects.Count - 1].GetComponent<StructureBehavior>().isBridged = false;
+                targetGridOrigin.structureObjects[0].GetComponent<StructureBehavior>().isBridged = false;
                 targetGridOrigin.bridge = 0;
             }
             if (targetGridEnd.bridgeObjects.Count == 0)
             {
-                targetGridEnd.structureObjects[targetGridEnd.structureObjects.Count - 1].GetComponent<StructureBehavior>().isBridged = false;
+                targetGridEnd.structureObjects[0].GetComponent<StructureBehavior>().isBridged = false;
                 targetGridEnd.bridge = 0;
             }
-
-
-
             Destroy(targetBridgeObject);
-            
-            
         }
-        for(int i = targetList.Count - 1; i > remainedHeight + target.branchedStructures - 1; i--)
-        {
-           
-            Destroy(targetList[i]);
-            target.gridStructures[i].y = 0;
-            targetList.RemoveAt(i);
-            target.structureAmount -= 1;
 
-        }
+        target.warningSystemEngaged = false;
+        target.sizeY = heightLimit += target.branchedStructures;
+
+        
     }
 
     void LookForStructures(GridList target, Vector3 targetVector)
@@ -219,6 +209,10 @@ public class DestructionManager : MonoBehaviour
 
      public void ParticleInstantiate(float x,float y, float z)
     {
-       particles.Add(Instantiate<GameObject>(windPrefab, new Vector3(x , y, z ), Quaternion.identity));
+       GameObject particle = Instantiate<GameObject>(windPrefab, new Vector3(x , y, z ), Quaternion.identity);
+        if(particle != null)
+        {
+            particles.Add(particle);
+        }
     }
 }

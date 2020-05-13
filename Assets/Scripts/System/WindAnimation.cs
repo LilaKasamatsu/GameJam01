@@ -27,7 +27,7 @@ public class WindAnimation : MonoBehaviour
 
     void GetRandomAnimation()
     {
-        anim.Play(currentList[Random.RandomRange(0, currentList.Count - 1)].name);
+        anim.Play(currentList[Random.Range(0, currentList.Count - 1)].name);
 
 
     }

@@ -13,7 +13,7 @@ public class GridList
     public int z;
     public int y;
 
-    public int structureAmount;
+    
     public int pointAmount;
     public int foundationAmount;
     public List<GameObject> structureObjects;
@@ -34,12 +34,12 @@ public class GridList
     public int color;
     public bool warningSystemEngaged;
 
-    public GridList(int newStructureAmount, int newPointAmount, int newFoundationAmount, int newBridge, int newBranched, float newTowerWidth, string newShape, int newColor)
+    public GridList( int newPointAmount, int newFoundationAmount, int newBridge, int newBranched, float newTowerWidth, string newShape, int newColor)
     {
         //x = newX;
         //z = newZ;
         //y = newY;
-        structureAmount = newStructureAmount;
+       
         pointAmount = newPointAmount;
         foundationAmount = newFoundationAmount;
         structureObjects = new List<GameObject>();
@@ -61,7 +61,6 @@ public class GridList
         towerWidth = newTowerWidth;
         branchedStructures = newBranched;
         structureShape = newShape;
-
         color = newColor;
 
         
@@ -69,12 +68,12 @@ public class GridList
 
     public void CreateWindParticles()
     {
-        if (DestructionManager.instance.heightLimit <= structureAmount - branchedStructures && warningSystemEngaged==false)
+        if (DestructionManager.instance.heightLimit <= sizeY - branchedStructures && warningSystemEngaged==false)
         {
             GameObject WindPrefab = DestructionManager.instance.windPrefab;
             float cellSize = GridArray.Instance.cellSize;
             Vector3 target = structureObjects[0].transform.position;
-            DestructionManager.instance.ParticleInstantiate(target.x,target.y+DestructionManager.instance.heightLimit*2 ,target.z);
+            DestructionManager.instance.ParticleInstantiate(target.x,target.y+(DestructionManager.instance.heightLimit+branchedStructures)*2 ,target.z);
             warningSystemEngaged = true;
 
         }

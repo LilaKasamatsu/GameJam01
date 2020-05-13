@@ -192,7 +192,7 @@ public class SpawnSettings : MonoBehaviour
                     {
                         if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
                         {
-                            if (gridArray[arrayPosX, arrayPosZ].structureAmount <= 0 && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+                            if (gridArray[arrayPosX, arrayPosZ].sizeY <= 0 && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
                             {
                                 agentStack.agentAmount -= 1;
                                 agentStack.agentStructure += 1;
@@ -216,7 +216,7 @@ public class SpawnSettings : MonoBehaviour
                     {
                         if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
                         {
-                            if (gridArray[arrayPosX, arrayPosZ].structureAmount <= 0 && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+                            if (gridArray[arrayPosX, arrayPosZ].sizeY <= 0 && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
                             {
                                 agentStack.agentAmount -= 1;
                                 agentStack.agentBranch += 1;
@@ -303,7 +303,7 @@ public class SpawnSettings : MonoBehaviour
                 if (GridArray.Instance.CheckArrayBounds(hitX, hitZ) && !hit.collider.gameObject.CompareTag("ground"))
                 {
                     //Debug on structure amount, foundation etc
-                    //Debug.Log("; Foundation: " + GridArray.Instance.gridArray[hitX, hitZ].foundationAmount + "; Structures: " + GridArray.Instance.gridArray[hitX, hitZ].structureAmount + "; Point: " + GridArray.Instance.gridArray[hitX, hitZ].pointAmount);
+                    //Debug.Log("; Foundation: " + GridArray.Instance.gridArray[hitX, hitZ].foundationAmount + "; Structures: " + GridArray.Instance.gridArray[hitX, hitZ].sizeY + "; Point: " + GridArray.Instance.gridArray[hitX, hitZ].pointAmount);
 
                     Debug.Log(" x: " + hitX + " z: " + hitZ + " posY: " + GridArray.Instance.gridArray[hitX, hitZ].gridStructures[Mathf.RoundToInt(hitPosition.y / cellY) + 1].y);
                     Debug.Log(" xOrigin: " + GridArray.Instance.gridArray[hitX, hitZ].gridStructures[Mathf.RoundToInt(hitPosition.y / cellY) + 1].xOrigin + " zOrigin: " + GridArray.Instance.gridArray[hitX, hitZ].gridStructures[Mathf.RoundToInt(hitPosition.y / cellY) + 1].zOrigin);

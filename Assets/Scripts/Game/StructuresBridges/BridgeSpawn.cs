@@ -69,7 +69,7 @@ public class BridgeSpawn : MonoBehaviour
             Vector3 spawnPosition = new Vector3(0, 0, 0);
 
             int sigY;
-            int structureAmount;
+            int sizeY;
             //Vector3 currentGridPos = new Vector3(gridX, 0, gridZ);
             Vector3 gridOrigin = GridArray.Instance.gridArray[gridX, gridZ].bridgeObjects[i].GetComponent<BridgeStruct>().gridOrigin;
             Vector3 gridEnd = GridArray.Instance.gridArray[gridX, gridZ].bridgeObjects[i].GetComponent<BridgeStruct>().gridEnd;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.5824488, g: 0.8467119, b: 0.91152185, a: 1}
+  m_IndirectSpecularColor: {r: 0.5824372, g: 0.84670085, b: 0.9115103, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1197,8 +1197,6 @@ MonoBehaviour:
   Heightincrease: 3
   maximumHeight: 30
   AgentsPerCube: 10
-  minIntervall: 10
-  maxIntervall: 40
 --- !u!1 &1092691738
 GameObject:
   m_ObjectHideFlags: 0
@@ -2608,8 +2606,8 @@ MonoBehaviour:
   minCoolDown: 30
   maxCoolDown: 60
   duration: 0
-  heightLimit: 5
-  remainedHeight: 5
+  heightLimit: 10
+  remainedHeight: 10
   platformSearchDistance: 9
   destructionMode: 0
   maxLocalHeightLimit: 15
