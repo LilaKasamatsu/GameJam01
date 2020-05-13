@@ -209,6 +209,15 @@ public class AgentFoundation : MonoBehaviour
                     gridArray[arrayPosX, arrayPosZ].foundationObject = builtStructure;
 
 
+
+                    int[] numbers = { 0, 90, 180, 270 };
+
+                    int randomIndex = Random.Range(0, 3);
+                    float randomInt = numbers[randomIndex];
+
+                    builtStructure.transform.Rotate(new Vector3(0, randomInt, 0));
+
+
                     gridArray[arrayPosX, arrayPosZ].foundationAmount += 1;
                     foundationsPlaced += 1;
 
