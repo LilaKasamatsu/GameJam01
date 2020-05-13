@@ -82,10 +82,10 @@ public class SpawnSettings : MonoBehaviour
 
     public void PlaceAgent(GameObject agent)
     {
-        bool hitGround = false;
-        RaycastHit hitAll = new RaycastHit();
+        bool hitGround = false;
+        RaycastHit hitAll = new RaycastHit();
 
-        RaycastHit[] hits;
+        RaycastHit[] hits;
         hits = Physics.RaycastAll(cam.ScreenPointToRay(Input.mousePosition));
 
 
@@ -132,90 +132,75 @@ public class SpawnSettings : MonoBehaviour
 
                     //Foundation Agent
                     if (agent.GetComponent<AgentFoundation>() != null && agentStack.agentAmount > 0)
-                    {
-
+                    {
                         if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
                         {
                             if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0)
                             {
-                                agentStack.agentAmount -= 1;
-                                agentStack.agentFoundation += 1;
-
-                                Vector3 spawnLocation = hitGrid;
-                                spawnLocation.y = hitAll.point.y;
-
+                                agentStack.agentAmount -= 1;
+                                agentStack.agentFoundation += 1;                                
+                                Vector3 spawnLocation = hitGrid;
+                                spawnLocation.y = hitAll.point.y;                                
                                 //+ new Vector3(0, agent.transform.localScale.y)
-
-                                GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
+                                GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
                                 newAgent.GetComponent<NavMeshAgent>().enabled = true;
 
-                                newAgent.GetComponent<AgentFoundation>().isActive = true;
-
-                                //lastPlacedTile = currentTile;
-                                StartCoroutine(SetSpawnDelay());
-                            }
-                        }
-                    }
-
+                                newAgent.GetComponent<AgentFoundation>().isActive = true;
+                                //lastPlacedTile = currentTile;
+                                tileTimer = false;
+
+                            }
+                        }
+                    }
                     //Structure Agent
                     if (agent.GetComponent<AgentStructure>() != null && agentStack.agentAmount > 0)
-                    {
+                    {
                         if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
-                        {
+                        {
                             if (gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
                             {
-                                agentStack.agentAmount -= 1;
+                                agentStack.agentAmount -= 1;
                                 agentStack.agentStructure += 1;
-
-
-                                Vector3 spawnLocation = hitGrid;
+                                Vector3 spawnLocation = hitGrid;
                                 spawnLocation.y = hitAll.point.y + agent.transform.localScale.y * 0.5f;
 
-                                GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
+                                GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
                                 newAgent.GetComponent<NavMeshAgent>().enabled = true;
-
-                                newAgent.GetComponent<AgentStructure>().isActive = true;
-
-                                //lastPlacedTile = currentTile;
-                                StartCoroutine(SetSpawnDelay());
-
-
+                                newAgent.GetComponent<AgentStructure>().isActive = true;
+
+                                //lastPlacedTile = currentTile;
+                                tileTimer = false;
+
                             }
                         }
                     }
                     //Branch Agent
                     if (agent.GetComponent<AgentBranch>() != null && agentStack.agentAmount > 0)
-                    {
+                    {
                         if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
                         {
                             if (gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
-                            {
-                                agentStack.agentAmount -= 1;
-                                agentStack.agentBranch += 1;
+                            {
+                                agentStack.agentAmount -= 1;
+                                agentStack.agentBranch += 1;
 
+                                Vector3 spawnLocation = hitGrid;
+                                spawnLocation.y = hitAll.point.y + agent.transform.localScale.y * 0.5f;
 
-                                Vector3 spawnLocation = hitGrid;
-                                spawnLocation.y = hitAll.point.y + agent.transform.localScale.y * 0.5f;
-
-                                GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
+                                GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
                                 newAgent.GetComponent<NavMeshAgent>().enabled = true;
-
-                                newAgent.GetComponent<AgentBranch>().isActive = true;
-
-                                //lastPlacedTile = currentTile;
-                                StartCoroutine(SetSpawnDelay());
-
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-
-     
-
-
+                                newAgent.GetComponent<AgentBranch>().isActive = true;
+
+                                //lastPlacedTile = currentTile;
+                                tileTimer = false;
+
+                            }
+                        }
+                    }
+                }
+                StartCoroutine(SetSpawnDelay());
+            }
+        }
     }
 
     public void SpawnAgent(GameObject spawnAgent, Vector3 position)
@@ -238,10 +223,7 @@ public class SpawnSettings : MonoBehaviour
 
     private void CreateBuildMarker()
     {
-        Instantiate(buildMarker, new Vector3(0, 0, 0), Quaternion.identity);
-              
-    
-
+        Instantiate(buildMarker, new Vector3(0, 0, 0), Quaternion.identity);           
     }
 
 
@@ -249,10 +231,7 @@ public class SpawnSettings : MonoBehaviour
     {
         //Mouse Right
         if (Input.GetMouseButtonDown(1))
-        {
-
-
-
+        {            
             Ray ray1 = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 

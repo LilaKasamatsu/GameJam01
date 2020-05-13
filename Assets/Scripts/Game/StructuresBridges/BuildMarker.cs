@@ -40,7 +40,7 @@ public class BuildMarker : MonoBehaviour
                 int arrayPosX = GridArray.Instance.NumToGrid(hitGrid.x);
                 int arrayPosZ = GridArray.Instance.NumToGrid(hitGrid.z);
 
-                Vector3 markerPosition = new Vector3(hitGrid.x, hit.point.y, hitGrid.z);
+                Vector3 markerPosition = new Vector3(hit.point.x, hit.point.y, hit.point.z);
 
                 transform.position = markerPosition;
 

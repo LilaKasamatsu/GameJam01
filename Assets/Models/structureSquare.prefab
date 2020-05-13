@@ -53,6 +53,7 @@ MonoBehaviour:
   isSelected: 0
   isBridged: 0
   isBase: 1
+  startY: 0
 --- !u!114 &3916143028483921113
 MonoBehaviour:
   m_ObjectHideFlags: 0

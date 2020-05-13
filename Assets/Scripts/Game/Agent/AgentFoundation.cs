@@ -66,7 +66,11 @@ public class AgentFoundation : MonoBehaviour
         StartCoroutine(RetireTimer());
 
 
-        StartCoroutine(MoveTimer());
+
+        if (GetComponent<NavMeshAgent>())
+        {
+            StartCoroutine(MoveTimer());
+        }
 
 
     }
