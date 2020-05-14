@@ -27,10 +27,10 @@ TagManager:
   - Obstacles
   - Nav
   - Agent
-  - 
-  - 
-  - 
-  - 
+  - FogVolumeShadowCaster
+  - FogVolume
+  - FogVolumeSurrogate
+  - FogVolumeUniform
   - 
   - 
   - 
