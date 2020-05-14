@@ -10123,7 +10123,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -10182,9 +10182,9 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0}
+    m_Position: {x: 0, y: 0, z: -18.2}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 0.1, y: 0.1, z: 0.1}
+    m_Scale: {x: 1, y: 1, z: -10.8}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -10382,7 +10382,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 30
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -19164,11 +19164,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8606119792836252250}
     m_Modifications:
-    - target: {fileID: 6797149448880013755, guid: 38ea095ec46cb944c89d14734a5697f6,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7552163248144665468, guid: 38ea095ec46cb944c89d14734a5697f6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19177,7 +19172,7 @@ PrefabInstance:
     - target: {fileID: 7552163248144665468, guid: 38ea095ec46cb944c89d14734a5697f6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -83.1
       objectReference: {fileID: 0}
     - target: {fileID: 7552163248144665468, guid: 38ea095ec46cb944c89d14734a5697f6,
         type: 3}
@@ -19224,35 +19219,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7552163248144665468, guid: 38ea095ec46cb944c89d14734a5697f6,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.033333335
-      objectReference: {fileID: 0}
-    - target: {fileID: 7552163248144665468, guid: 38ea095ec46cb944c89d14734a5697f6,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 166.66667
-      objectReference: {fileID: 0}
-    - target: {fileID: 7552163248144665468, guid: 38ea095ec46cb944c89d14734a5697f6,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.033333335
-      objectReference: {fileID: 0}
     - target: {fileID: 8238040989999224019, guid: 38ea095ec46cb944c89d14734a5697f6,
         type: 3}
       propertyPath: m_Name
       value: CubeRay
-      objectReference: {fileID: 0}
-    - target: {fileID: 8238040989999224019, guid: 38ea095ec46cb944c89d14734a5697f6,
-        type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8238040989999224019, guid: 38ea095ec46cb944c89d14734a5697f6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38ea095ec46cb944c89d14734a5697f6, type: 3}
