@@ -1029,7 +1029,7 @@ MonoBehaviour:
   marker: {fileID: 1427785718841972201, guid: 0a8dddd32f143c7428ab5f3bfc49688d, type: 3}
   agentPlaceAmount: 100
   startingAgentFoundation: 5
-  startingAgentBranch: 0
+  startingAgentBranch: 10
   startingAgentStructure: 20
   levelGenerator: {fileID: 1681719567}
   minNewAgentDelay: 5
@@ -3356,10 +3356,10 @@ MonoBehaviour:
   objectiveRay: {fileID: 8238040989999224019, guid: 38ea095ec46cb944c89d14734a5697f6,
     type: 3}
   trysPerFrame: 5
-  minDistanceBetweenTwoSpawns: 10
-  startingHeight: 15
-  Heightincrease: 3
-  maximumHeight: 35
+  minDistanceBetweenTwoSpawns: 25
+  startingHeight: -5
+  Heightincrease: 15
+  maximumHeight: 70
   AgentsPerCube: 10
 --- !u!1 &1092691738
 GameObject:

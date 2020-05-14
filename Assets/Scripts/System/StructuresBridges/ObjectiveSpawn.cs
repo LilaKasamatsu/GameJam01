@@ -32,19 +32,10 @@ public class ObjectiveSpawn : MonoBehaviour
     {
 
         currentHeight = startingHeight;
-        StartCoroutine(SpawnCube(2));
+        StartCoroutine(SpawnCube(1));
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            //StartCoroutine( SpawnCube(2));
-
-        }
-    }
+    
 
     public IEnumerator SpawnCube(int amountOfCubes)
     {
@@ -53,8 +44,8 @@ public class ObjectiveSpawn : MonoBehaviour
 
         while (hasSpawned >0)
         {
-            float x = Random.Range(0 + GridArray.Instance.cellSize, GridArray.Instance.arrayX * GridArray.Instance.cellSize - GridArray.Instance.cellSize);
-            float z = Random.Range(0 + GridArray.Instance.cellSize, GridArray.Instance.arrayZ * GridArray.Instance.cellSize - GridArray.Instance.cellSize);
+            float x = Random.Range(5* GridArray.Instance.cellSize, GridArray.Instance.arrayX * GridArray.Instance.cellSize - GridArray.Instance.cellSize*5);
+            float z = Random.Range(5 * GridArray.Instance.cellSize, GridArray.Instance.arrayZ * GridArray.Instance.cellSize - GridArray.Instance.cellSize*5);
             float y = 100;
 
             spawnPosition = new Vector3(x, y, z);
@@ -68,9 +59,10 @@ public class ObjectiveSpawn : MonoBehaviour
             if ( Vector3.Distance( new Vector3(spawnPosition.x,0,spawnPosition.z),new Vector3(lastPosition.x,0,lastPosition.z))>minDistanceBetweenTwoSpawns && Physics.Raycast(spawnPosition, new Vector3(0, -1, 0), out hit, Mathf.Infinity, layer_mask))
             {
                 Debug.Log("Did Hit");
-                spawnPosition.y = hit.point.y + currentHeight;
+                spawnPosition.y =currentHeight;
+                spawnPosition.y= Mathf.Clamp(spawnPosition.y, hit.point.y + 10, Mathf.Infinity);
                 currentHeight += Heightincrease;
-                Mathf.Clamp(currentHeight, startingHeight, maximumHeight);
+                currentHeight= Mathf.Clamp(currentHeight, startingHeight, maximumHeight);
 
                 hasSpawned -= 1;
                 Instantiate(objectiveCube, spawnPosition, Quaternion.identity).GetComponent<ObjectiveCubeBehavior>().amountOfAgents = AgentsPerCube;

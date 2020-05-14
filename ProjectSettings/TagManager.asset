@@ -13,6 +13,7 @@ TagManager:
   - foundation
   - bridge
   - branch
+  - previewBridge
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Obstacles
   - Nav
   - Agent
-  - 
+  - ObjectiveSpawn
   - 
   - 
   - 
