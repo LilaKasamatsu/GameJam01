@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6460426825641044447}
   m_Layer: 0
-  m_Name: GameObject 3
+  m_Name: BaseBlock2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,38 +116,43 @@ PrefabInstance:
     - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.02223107
+      value: 0.030089943
       objectReference: {fileID: 0}
     - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Center.z
-      value: -0.011142954
+      value: -0.010841918
       objectReference: {fileID: 0}
     - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.02
+      value: 0.026318885
       objectReference: {fileID: 0}
     - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Center.y
-      value: 0
+      value: 0.000151949
       objectReference: {fileID: 0}
     - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.02
+      value: 0.02844534
       objectReference: {fileID: 0}
     - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Center.x
-      value: -0.000019200146
+      value: -0.00024762377
+      objectReference: {fileID: 0}
+    - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8239334824818077870, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: -5495902117074765545, guid: fe0a3a9c962123247bbdda5fd6889d72,
+      objectReference: {fileID: 2480500454739157344, guid: d90dca01d69548048b6e7aaad95a85e0,
         type: 3}
     - target: {fileID: 9015651093089628766, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}

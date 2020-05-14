@@ -6,8 +6,11 @@ public class GridArray : MonoBehaviour
 {
     [SerializeField] GameObject marker;
     [SerializeField] int agentPlaceAmount;
-    [SerializeField] int startingAgentFound;
-    [SerializeField] int startingAgentPoint;
+
+    [SerializeField] int startingAgentFoundation;
+    [SerializeField] int startingAgentBranch;
+    [SerializeField] int startingAgentStructure;
+    
     [SerializeField] LevelGenerator levelGenerator;
 
 
@@ -105,7 +108,7 @@ public class GridArray : MonoBehaviour
         gridArray = new GridList[arrayX, arrayZ];
 
         //Saving available agents
-        agentStack = new AgentStack(agentPlaceAmount, 0, 0, 0);
+        agentStack = new AgentStack(agentPlaceAmount, startingAgentStructure, startingAgentFoundation, startingAgentBranch, 0, 0, 0);
 
         
 

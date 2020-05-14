@@ -21,9 +21,10 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: bonusCube_mat
-  m_Shader: {fileID: -6465566751694194690, guid: 34574b0b66a779949880d3fe2ac01869,
+  m_Shader: {fileID: -6465566751694194690, guid: a46ff4faec7b34148855604757d12d23,
     type: 3}
-  m_ShaderKeywords: _EMISSION _ENVIRONMENTREFLECTIONS_OFF _RECEIVE_SHADOWS_OFF
+  m_ShaderKeywords: _EMISSION _ENVIRONMENTREFLECTIONS_OFF _GLOSSYREFLECTIONS_OFF
+    _RECEIVE_SHADOWS_OFF
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -46,6 +47,18 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -62,6 +75,22 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_2D4E2D84_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 53014a1f91ce0544584eac288c07e081, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_69F52F77_Texture_1:
+        m_Texture: {fileID: 2800000, guid: aca5f1681a064024caec355389567a8f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_BA7CE61F_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 8a9d67b672a689d43a1c68ce53959571, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -73,27 +102,35 @@ Material:
     - _BumpScale: 1
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DstBlend: 10
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
     - _EnvironmentReflections: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
+    - _Mode: 0
     - _OcclusionStrength: 1
+    - _Parallax: 0.02
     - _QueueOffset: 0
     - _ReceiveShadows: 0
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 5
+    - _SrcBlend: 1
     - _Surface: 1
+    - _UVSec: 0
     - _WorkflowMode: 1
-    - _ZWrite: 0
+    - _ZWrite: 1
     m_Colors:
     - Color_13547858: {r: 0.4223797, g: 0.1674528, b: 0.6698113, a: 0}
+    - Color_36EB72EC: {r: 1, g: 0.821872, b: 0.5518868, a: 0}
     - Color_481CD397: {r: 2, g: 1.568627, b: 0.9176471, a: 0}
+    - Color_4E76DFA1: {r: 0.8603976, g: 0.50002164, b: 0, a: 0}
     - Color_AD04D5CC: {r: 0.6509434, g: 0.13203098, b: 0.62276083, a: 0}
+    - Vector2_3DC17497: {r: 0.2, g: 0.2, b: 0, a: 0}
+    - Vector2_B3683E9E: {r: 0.8, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 0.3537736, g: 0.8859602, b: 1, a: 0.9137255}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0.20324835, g: 0.42309767, b: 0.16165523, a: 1}
+    - _Color: {r: 1, g: 0.94089884, b: 0.4575472, a: 1}
+    - _EmissionColor: {r: 12.996038, g: 3.0069265, b: 6.4725366, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}

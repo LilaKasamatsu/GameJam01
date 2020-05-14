@@ -28,7 +28,8 @@ public class AgentBranch : MonoBehaviour
 
     public int structuresLifetime = 10;
     int structuresPlaced = 0;
-    
+    [SerializeField] int destructionTimer = 10;
+    [SerializeField] GameObject destructionAnim;
 
     public Grid grid;
     Camera cam;
@@ -67,6 +68,7 @@ public class AgentBranch : MonoBehaviour
         gridArray = GridArray.Instance.gridArray;
         agentStack = GridArray.Instance.agentStack;
 
+        StartCoroutine(RetireTimer());
 
         if (GetComponent<NavMeshAgent>())
         {
@@ -78,9 +80,18 @@ public class AgentBranch : MonoBehaviour
     }
 
 
+    IEnumerator RetireTimer()
+    {
+        yield return new WaitForSeconds(destructionTimer);
+        Instantiate(destructionAnim, this.transform.position, Quaternion.identity);
+        agentStack.agentAmountBranch += 1;
+        agentStack.agentBranch -= 1;
+        Destroy(this.gameObject);
+
+    }
     private void RetireAgent()
     {
-        agentStack.agentAmount += 1;
+        agentStack.agentAmountBranch += 1;
         agentStack.agentBranch -= 1;
         Destroy(this.gameObject);
 
@@ -92,7 +103,7 @@ public class AgentBranch : MonoBehaviour
         transform.GetChild(0).gameObject.GetComponent<SetAgentHeight>().GoToSignal(position, destMin);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         grid = SpawnSettings.Instance.grid;
 

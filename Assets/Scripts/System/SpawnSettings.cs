@@ -131,35 +131,38 @@ public class SpawnSettings : MonoBehaviour
                 {
 
                     //Foundation Agent
-                    if (agent.GetComponent<AgentFoundation>() != null && agentStack.agentAmount > 0)
+                    if (agent.GetComponent<AgentFoundation>() != null && agentStack.agentAmountFoundation > 0)
                     {
-                        if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
-                        {
-                            if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0)
-                            {
-                                agentStack.agentAmount -= 1;
-                                agentStack.agentFoundation += 1;                                
-                                Vector3 spawnLocation = hitGrid;
-                                spawnLocation.y = hitAll.point.y;                                
-                                //+ new Vector3(0, agent.transform.localScale.y)
-                                GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
-                                newAgent.GetComponent<NavMeshAgent>().enabled = true;
-
-                                newAgent.GetComponent<AgentFoundation>().isActive = true;
-                                //lastPlacedTile = currentTile;
-                                tileTimer = false;
+                        if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
+                        {
+                            agentStack.agentAmountFoundation -= 1;
+                            agentStack.agentFoundation += 1;
 
-                            }
+
+                            Vector3 spawnLocation = hitGrid;
+                            spawnLocation.y = hitAll.point.y;
+
+
+                            //+ new Vector3(0, agent.transform.localScale.y)
+
+                            GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
+                            newAgent.GetComponent<NavMeshAgent>().enabled = true;
+
+
+
+                            newAgent.GetComponent<AgentFoundation>().isActive = true;
+                            //lastPlacedTile = currentTile;
+                            tileTimer = false;
                         }
                     }
                     //Structure Agent
-                    if (agent.GetComponent<AgentStructure>() != null && agentStack.agentAmount > 0)
+                    if (agent.GetComponent<AgentStructure>() != null && agentStack.agentAmountStructure > 0)
                     {
                         if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
                         {
-                            if (gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+                            if (gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
                             {
-                                agentStack.agentAmount -= 1;
+                                agentStack.agentAmountStructure -= 1;
                                 agentStack.agentStructure += 1;
                                 Vector3 spawnLocation = hitGrid;
                                 spawnLocation.y = hitAll.point.y + agent.transform.localScale.y * 0.5f;
@@ -175,13 +178,13 @@ public class SpawnSettings : MonoBehaviour
                         }
                     }
                     //Branch Agent
-                    if (agent.GetComponent<AgentBranch>() != null && agentStack.agentAmount > 0)
+                    if (agent.GetComponent<AgentBranch>() != null && agentStack.agentAmountBranch > 0)
                     {
                         if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
                         {
                             if (gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
                             {
-                                agentStack.agentAmount -= 1;
+                                agentStack.agentAmountBranch -= 1;
                                 agentStack.agentBranch += 1;
 
                                 Vector3 spawnLocation = hitGrid;

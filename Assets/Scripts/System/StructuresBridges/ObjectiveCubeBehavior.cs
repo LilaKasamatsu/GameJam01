@@ -30,7 +30,7 @@ public class ObjectiveCubeBehavior : MonoBehaviour
 
             if (cooldown >= .25)
             {
-                GridArray.Instance.agentStack.agentAmount += amountOfAgents;
+                GridArray.Instance.agentStack.agentAmountStructure += amountOfAgents;
                 ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(1));
             }
             else
