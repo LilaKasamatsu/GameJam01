@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3207211992047819448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 123.12, y: 35.33, z: 99.13391}
-  m_LocalScale: {x: 2.9703026, y: 5.4496655, z: 5.548178}
+  m_LocalScale: {x: 2.9703026, y: 5.4496655, z: 4.1080933}
   m_Children:
   - {fileID: 263344947174265446}
   m_Father: {fileID: 0}
@@ -48,6 +48,7 @@ MonoBehaviour:
   colorBase1: {r: 0.9716981, g: 0.52854896, b: 0.4995995, a: 1}
   colorBase2: {r: 0.9622642, g: 0.80474937, b: 0.34042364, a: 1}
   colorBase3: {r: 0.9433962, g: 0.5562074, b: 0.3960484, a: 1}
+  colorGradient: {r: 0, g: 0, b: 0, a: 0}
   colorSelect: {r: 1, g: 0, b: 0.5719805, a: 1}
   colorBridged: {r: 0.59437215, g: 0, b: 0.7075472, a: 1}
   isSelected: 0
@@ -92,7 +93,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3890211834529161333}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.512, y: 0.074, z: 0}
+  m_LocalPosition: {x: -1.151, y: -0.233, z: 0}
   m_LocalScale: {x: 40.774162, y: 29.62374, z: 49.091984}
   m_Children: []
   m_Father: {fileID: 3207211992047819397}
