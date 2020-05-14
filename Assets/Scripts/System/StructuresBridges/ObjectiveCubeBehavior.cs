@@ -9,12 +9,39 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     [SerializeField] GameObject effect1;
     [SerializeField] GameObject effect2;
     [SerializeField] GameObject effect3;
-
+    [SerializeField] GameObject selecterBridge;
+    [SerializeField] Color sphereColor;
+    [SerializeField] Color sphereColorSelect;
 
     float cooldown;
     private void Update()
     {
         cooldown += Time.deltaTime;
+
+        /*
+         * DEBUGGING COLOR
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            transform.GetChild(1).GetComponent<Renderer>().material.EnableKeyword("_Emission");
+            transform.GetChild(1).GetComponent<Renderer>().material.SetColor("_EmissionColor", sphereColor);
+
+            Color color = transform.GetChild(1).GetComponent<MeshRenderer>().material.color;
+            transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 0.05f);
+
+
+
+
+        }
+        if (Input.GetKey(KeyCode.Alpha2))
+        {
+            transform.GetChild(1).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+            transform.GetChild(1).GetComponent<Renderer>().material.SetColor("_EmissionColor", sphereColorSelect);
+
+            Color color = transform.GetChild(1).GetComponent<MeshRenderer>().material.color;
+            transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 0.35f);
+
+        }
+        */
     }
 
     private void OnTriggerEnter(Collider other)
@@ -38,6 +65,34 @@ public class ObjectiveCubeBehavior : MonoBehaviour
                 ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(2));
             }
         }
+
+        if (other.gameObject.CompareTag("previewBridge"))
+        {
+            transform.GetChild(1).GetComponent<Renderer>().material.EnableKeyword("_Emission");
+            transform.GetChild(1).GetComponent<Renderer>().material.SetColor("_EmissionColor", sphereColorSelect);
+
+            Color color = transform.GetChild(1).GetComponent<MeshRenderer>().material.color;
+            transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 0.35f);
+
+        }
+
+    }
+
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("previewBridge"))
+        {
+            transform.GetChild(1).GetComponent<Renderer>().material.EnableKeyword("_Emission");
+            transform.GetChild(1).GetComponent<Renderer>().material.SetColor("_EmissionColor", sphereColor);
   
+            Color color = transform.GetChild(1).GetComponent<MeshRenderer>().material.color;
+            transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 0.05f);
+
+        }
+
+
+
     }
 }

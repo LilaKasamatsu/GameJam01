@@ -167,7 +167,8 @@ public class BridgeSpawn : MonoBehaviour
             }
             else
             {
-                Destroy(previewObject);
+                StartCoroutine(DestroyPreview());
+            
             }
 
             if (Input.GetMouseButtonUp(0) && build == true)
@@ -178,6 +179,12 @@ public class BridgeSpawn : MonoBehaviour
         }
     }
 
+    IEnumerator DestroyPreview()
+    {
+        previewObject.transform.Translate(Vector3.up * 10000);
+        yield return new WaitForFixedUpdate();
+        Destroy(previewObject);
+    }
     private void SpawnSignal()
     {
 

@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 2726281370118840689}
   m_Layer: 2
   m_Name: bridge_preview
-  m_TagString: Untagged
+  m_TagString: previewBridge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,7 +149,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: a5917721c9e721e4883d6ef467f1cf8a,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: previewBridge
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: a5917721c9e721e4883d6ef467f1cf8a,
         type: 3}
