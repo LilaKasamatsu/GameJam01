@@ -16,6 +16,7 @@ public class DestructionManager : MonoBehaviour
     [SerializeField] int remainedHeight;
     [SerializeField] int platformSearchDistance;
     [SerializeField] DestructionMode destructionMode;
+    [SerializeField] int minLocalHeightLimit;
     [SerializeField] int maxLocalHeightLimit;
     [SerializeField] int maxWindParticles;
     public GameObject windPrefab;
@@ -59,6 +60,7 @@ public class DestructionManager : MonoBehaviour
         {
             Debug.Log("SANDSTORM auf höhe:" + heightLimit);
             int coloumscounter = 0;
+            int coloumsCounterCounter=5;
             int GridLengthX = GridArray.Instance.arrayX;
             int GridLengthZ = GridArray.Instance.arrayZ;
             
@@ -70,7 +72,7 @@ public class DestructionManager : MonoBehaviour
                 {
                     GridList target = GridArray.Instance.gridArray[coloumscounter, i];
 
-                   if(target.structureObjects.Count!=0 && target.sizeY*2 +target.foundationObject.transform.position.y >= heightLimit)
+                   if(target.bridgeObjects.Count==0 && target.structureObjects.Count!=0 && target.sizeY*2 +target.foundationObject.transform.position.y >= heightLimit)
                     {
                         target.sizeY = target.branchedStructures + Mathf.RoundToInt(( heightLimit - target.foundationObject.transform.position.y)/GridArray.Instance.cellY);
                     }
@@ -87,9 +89,14 @@ public class DestructionManager : MonoBehaviour
 
                 }
 
-
+                
                 coloumscounter +=1;
-                yield return new WaitForEndOfFrame();
+                if (coloumscounter >= coloumsCounterCounter)
+                {
+                    coloumsCounterCounter += 5;
+                    yield return new WaitForEndOfFrame();
+                }
+                
                 
                
             }
@@ -103,7 +110,7 @@ public class DestructionManager : MonoBehaviour
                 
             }
             coloumscounter = 0;
-            heightLimit = Mathf.FloorToInt(Random.Range(2, maxLocalHeightLimit) / 3 + Random.Range(2, maxLocalHeightLimit) / 3 + Random.Range(2, maxLocalHeightLimit) / 3);
+            heightLimit = Mathf.FloorToInt(Random.Range(minLocalHeightLimit, maxLocalHeightLimit) / 3 + Random.Range(minLocalHeightLimit, maxLocalHeightLimit) / 3 + Random.Range(minLocalHeightLimit, maxLocalHeightLimit) / 3);
             float windCooldown = Random.Range(minCoolDown, maxCoolDown);
             windTimer = 0;
             Debug.Log("waiting for next sandstorm in:" + windCooldown);

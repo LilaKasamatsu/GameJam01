@@ -1028,9 +1028,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   marker: {fileID: 1427785718841972201, guid: 0a8dddd32f143c7428ab5f3bfc49688d, type: 3}
   agentPlaceAmount: 100
-  startingAgentFoundation: 100
-  startingAgentBranch: 100
-  startingAgentStructure: 100
+  startingAgentFoundation: 5
+  startingAgentBranch: 20
+  startingAgentStructure: 0
   levelGenerator: {fileID: 1681719567}
   minNewAgentDelay: 5
   maxNewAgentDelay: 12
@@ -1040,7 +1040,7 @@ MonoBehaviour:
   gridSize: 3
   cellSize: 3
   cellY: 2
-  maxStructures: 30
+  maxStructures: 70
 --- !u!4 &339049087
 Transform:
   m_ObjectHideFlags: 0
@@ -3360,7 +3360,7 @@ MonoBehaviour:
   startingHeight: 15
   Heightincrease: 3
   maximumHeight: 35
-  AgentsPerCube: 5
+  AgentsPerCube: 10
 --- !u!1 &1092691738
 GameObject:
   m_ObjectHideFlags: 0
@@ -6652,7 +6652,8 @@ MonoBehaviour:
   remainedHeight: 10
   platformSearchDistance: 9
   destructionMode: 0
-  maxLocalHeightLimit: 15
+  minLocalHeightLimit: 8
+  maxLocalHeightLimit: 20
   maxWindParticles: 25
   windPrefab: {fileID: 2712643673001669053, guid: 16f6778ed0dba434f860be35d1c6ce64,
     type: 3}
