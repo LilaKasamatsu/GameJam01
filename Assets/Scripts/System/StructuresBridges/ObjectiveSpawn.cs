@@ -60,7 +60,7 @@ public class ObjectiveSpawn : MonoBehaviour
             spawnPosition = new Vector3(x, y, z);
 
 
-            int layer_mask = LayerMask.GetMask("Ground");
+            int layer_mask = LayerMask.GetMask("ObjectiveSpawn");
 
             RaycastHit hit;
 

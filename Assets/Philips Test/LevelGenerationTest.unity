@@ -1029,8 +1029,8 @@ MonoBehaviour:
   marker: {fileID: 1427785718841972201, guid: 0a8dddd32f143c7428ab5f3bfc49688d, type: 3}
   agentPlaceAmount: 100
   startingAgentFoundation: 5
-  startingAgentBranch: 20
-  startingAgentStructure: 0
+  startingAgentBranch: 0
+  startingAgentStructure: 20
   levelGenerator: {fileID: 1681719567}
   minNewAgentDelay: 5
   maxNewAgentDelay: 12
