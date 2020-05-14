@@ -8,6 +8,8 @@ public class StructureBehavior : MonoBehaviour
     [SerializeField] Color colorBase2;
     [SerializeField] Color colorBase3;
 
+    [SerializeField] Color colorGradient;
+
     private Color colorBaseFinal;
 
     [SerializeField] Color colorSelect;
@@ -79,6 +81,9 @@ public class StructureBehavior : MonoBehaviour
         for (int i = 0; i < renders.Count; i++)
         {
             renders[i].material.SetColor("_baseColor", colorBaseFinal);
+            renders[i].material.SetColor("_gradientColor", colorGradient);
+
+
         }
 
         StartCoroutine(growthDelay());
@@ -154,6 +159,8 @@ public class StructureBehavior : MonoBehaviour
         for (int i = 0; i < renders.Count; i++)
         {
             renders[i].material.SetColor("_baseColor", colorSelect);
+            renders[i].material.SetColor("_gradientColor", colorSelect);
+
         }
 
 
@@ -168,6 +175,8 @@ public class StructureBehavior : MonoBehaviour
         for (int i = 0; i < renders.Count; i++)
         {
             renders[i].material.SetColor("_baseColor", colorBridged);
+            renders[i].material.SetColor("_gradientColor", colorBridged);
+
         }
 
         isBase = true;
@@ -180,10 +189,12 @@ public class StructureBehavior : MonoBehaviour
         for (int i = 0; i < renders.Count; i++)
         {
             renders[i].material.SetColor("_baseColor", colorBaseFinal);
+            renders[i].material.SetColor("_gradientColor", colorGradient);
+
         }
 
         //render.material.SetColor("_emissionColor", Color.black);
-        
+
         isBase = true;
 
     }
