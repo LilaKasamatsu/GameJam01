@@ -70,7 +70,7 @@ public class DestructionManager : MonoBehaviour
                 {
                     GridList target = GridArray.Instance.gridArray[coloumscounter, i];
 
-                   if(target.structureObjects.Count!=0 && target.sizeY>= (heightLimit- target.foundationObject.transform.position.y)/GridArray.Instance.cellY)
+                   if(target.structureObjects.Count!=0 && target.sizeY*2 +target.foundationObject.transform.position.y >= heightLimit)
                     {
                         
                         target.sizeY = target.branchedStructures + Mathf.RoundToInt(( heightLimit - target.foundationObject.transform.position.y)/GridArray.Instance.cellY);
