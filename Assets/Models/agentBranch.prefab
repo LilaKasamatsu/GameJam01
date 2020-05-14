@@ -9817,8 +9817,8 @@ MonoBehaviour:
   agent: {fileID: 4946647224684088886}
   hasSignal: 0
   isActive: 0
-  pointRadius: 4
-  maxDestinationDistance: 4
+  pointRadius: 2
+  maxDestinationDistance: 2
 --- !u!195 &4946647224684088886
 NavMeshAgent:
   m_ObjectHideFlags: 0
