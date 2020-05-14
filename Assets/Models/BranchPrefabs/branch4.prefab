@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 5506164882659240678}
   m_LocalRotation: {x: -0.00000009735359, y: -0.0000000754979, z: -9.199445e-15, w: 1}
   m_LocalPosition: {x: -1.359, y: 0.17, z: 0}
-  m_LocalScale: {x: 143.23676, y: 104.005615, z: 114.47577}
+  m_LocalScale: {x: 0.1432368, y: 0.1040056, z: 0.1144758}
   m_Children: []
   m_Father: {fileID: 8416532194091320254}
   m_RootOrder: 0
@@ -127,6 +127,7 @@ MonoBehaviour:
   colorBase1: {r: 0.9716981, g: 0.52854896, b: 0.4995995, a: 1}
   colorBase2: {r: 0.9622642, g: 0.80474937, b: 0.34042364, a: 1}
   colorBase3: {r: 0.9433962, g: 0.5562074, b: 0.3960484, a: 1}
+  colorGradient: {r: 0, g: 0, b: 0, a: 0}
   colorSelect: {r: 1, g: 0, b: 0.5719805, a: 1}
   colorBridged: {r: 0.59437215, g: 0, b: 0.7075472, a: 1}
   isSelected: 0
