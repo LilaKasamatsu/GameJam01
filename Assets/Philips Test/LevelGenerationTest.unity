@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.12679026, g: 0.1791628, b: 0.23748642, a: 1}
+  m_IndirectSpecularColor: {r: 0.1267885, g: 0.17916125, b: 0.23748305, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2392,7 +2392,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: f6e5faafbfc008441b46513d6eef7ac4, type: 2}
+  sharedProfile: {fileID: 0}
 --- !u!4 &708062558
 Transform:
   m_ObjectHideFlags: 0
@@ -3780,7 +3780,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 806124160}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: -30.170002, y: 82.880005, z: 32.239002}
 --- !u!108 &1235925739
 Light:
@@ -6727,6 +6727,7 @@ MonoBehaviour:
   maxWindParticles: 25
   windPrefab: {fileID: 2712643673001669053, guid: 16f6778ed0dba434f860be35d1c6ce64,
     type: 3}
+  localWindPrefab: {fileID: 0}
   windTimer: 0
 --- !u!4 &2104433547 stripped
 Transform:
@@ -6830,3 +6831,72 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74bf3f06a99fea244a30a16b4c71810b, type: 3}
+--- !u!1001 &3001748966852589946
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5686801894327113253, guid: f85701814406c5f4ca04c1b84fdecf25,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686801894327113253, guid: f85701814406c5f4ca04c1b84fdecf25,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686801894327113253, guid: f85701814406c5f4ca04c1b84fdecf25,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686801894327113253, guid: f85701814406c5f4ca04c1b84fdecf25,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686801894327113253, guid: f85701814406c5f4ca04c1b84fdecf25,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686801894327113253, guid: f85701814406c5f4ca04c1b84fdecf25,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686801894327113253, guid: f85701814406c5f4ca04c1b84fdecf25,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686801894327113253, guid: f85701814406c5f4ca04c1b84fdecf25,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686801894327113253, guid: f85701814406c5f4ca04c1b84fdecf25,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686801894327113253, guid: f85701814406c5f4ca04c1b84fdecf25,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686801894327113253, guid: f85701814406c5f4ca04c1b84fdecf25,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765991609835457288, guid: f85701814406c5f4ca04c1b84fdecf25,
+        type: 3}
+      propertyPath: m_Name
+      value: TrailWithEmpty
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f85701814406c5f4ca04c1b84fdecf25, type: 3}
