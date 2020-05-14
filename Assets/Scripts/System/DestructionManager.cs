@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using Random = UnityEngine.Random;
 
 public class DestructionManager : MonoBehaviour
@@ -18,9 +19,14 @@ public class DestructionManager : MonoBehaviour
     [SerializeField] int maxLocalHeightLimit;
     [SerializeField] int maxWindParticles;
     public GameObject windPrefab;
+    public GameObject localWindPrefab;
     public float windTimer;
     public static DestructionManager instance;
     List<GameObject> particles = new List<GameObject>();
+    List<TrailRenderer> particleTrails = new List<TrailRenderer>();
+    List<GameObject> localParticles = new List<GameObject>();
+    List<TrailRenderer> localParticlestrails = new List<TrailRenderer>();
+
     enum DestructionMode
     {
         global,
@@ -132,7 +138,10 @@ public class DestructionManager : MonoBehaviour
                 {
 
                     particles[i].transform.localScale = Vector3.Lerp(particles[i].transform.localScale, new Vector3(40f, 40f, 40f), .5f);
-                    particles[i].transform.GetComponentInChildren<TrailRenderer>().widthMultiplier -= .1f;
+                    if (particleTrails[i].widthMultiplier >= 0.1f)
+                    {
+                        particleTrails[i].widthMultiplier -= .1f;
+                    }
 
                 }
 
@@ -182,6 +191,18 @@ public class DestructionManager : MonoBehaviour
         if (particle != null)
         {
             particles.Add(particle);
+            particleTrails.Add(particle.transform.GetComponentInChildren<TrailRenderer>());
+        }
+        return particle;
+
+    }
+    public GameObject LocalParticleInstantiate(float x, float y, float z)
+    {
+        GameObject particle = Instantiate<GameObject>(localWindPrefab, new Vector3(x, y, z), Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));
+        if (particle != null)
+        {
+            localParticles.Add(particle);
+            localParticlestrails.Add(particle.transform.GetComponentInChildren<TrailRenderer>());
         }
         return particle;
 
