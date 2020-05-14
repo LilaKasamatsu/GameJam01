@@ -106,7 +106,7 @@ public class StructureBehavior : MonoBehaviour
         }
 
 
-        if (!CompareTag("branch"))
+        if (!CompareTag("branch") && GridArray.Instance.gridArray[gridX, gridZ].sizeY > 0)
         {
 
             transform.localScale = new Vector3(transform.localScale.x,

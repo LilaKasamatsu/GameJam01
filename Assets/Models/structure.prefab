@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorBase1: {r: 0.8018868, g: 0, b: 0.34239498, a: 1}
-  colorBase2: {r: 1, g: 0.21226418, b: 0.37595335, a: 1}
-  colorBase3: {r: 0.764151, g: 0, b: 0.43737566, a: 1}
+  colorBase2: {r: 1, g: 0.42968982, b: 0.0047169924, a: 1}
+  colorBase3: {r: 1, g: 0.7076588, b: 0, a: 1}
   colorSelect: {r: 0.24845636, g: 0.24256852, b: 0.745283, a: 1}
   colorBridged: {r: 0.59437215, g: 0, b: 0.7075472, a: 1}
   isSelected: 0

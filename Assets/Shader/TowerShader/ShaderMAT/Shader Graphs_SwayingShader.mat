@@ -48,7 +48,7 @@ Material:
     - Color_DF6CC9E4: {r: 0, g: 0, b: 0, a: 0}
     - Vector2_96E671B8: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _baseColor: {r: 0.62352943, g: 0, b: 0.4212583, a: 0}
+    - _baseColor: {r: 1, g: 0, b: 0.34901962, a: 0}
     - _emissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _gradientColor: {r: 0.504717, g: 0.5585395, b: 1, a: 0}
+    - _gradientColor: {r: 1, g: 0.9723595, b: 0.2216981, a: 0}
     - _klimtColor: {r: 1, g: 0.88483876, b: 0.6084906, a: 0}

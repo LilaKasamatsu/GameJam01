@@ -5,6 +5,7 @@ using UnityEngine;
 public class OrientPositions
 {
 
+    /*
 
     public int x;
     public int z;
@@ -18,6 +19,6 @@ public class OrientPositions
         z = newZ;
         state = newState;
     }
-
+    */
 
 }
