@@ -9,9 +9,11 @@ public class InventoryUi : MonoBehaviour
 	[SerializeField] Text textFoundation;
 	[SerializeField] Text textStructure;
 	[SerializeField] Text textBranch;
+	[SerializeField] Button pauseButton;
+	[SerializeField] GameObject infoPanel;
 
 
-
+	int showInfo = 1;
 	[SerializeField] Text textAgentAmount;
 
 
@@ -37,8 +39,21 @@ public class InventoryUi : MonoBehaviour
 
 	}
 
+
 	private void Update()
 	{
+		pauseButton.GetComponent<Button>().onClick.AddListener(ClickPause);
+
+		if (showInfo == 1)
+		{
+			infoPanel.transform.position = new Vector3(infoPanel.transform.position.x, Mathf.Lerp(infoPanel.transform.position.y, 70f, 0.1f), infoPanel.transform.position.z);
+		}
+		else if (showInfo == 0)
+		{
+			infoPanel.transform.position = new Vector3(infoPanel.transform.position.x, Mathf.Lerp(infoPanel.transform.position.y, -150f, 0.1f), infoPanel.transform.position.z);
+		}
+
+
 		if (Input.GetMouseButtonDown(0))
 		{
 			CheckButton();
@@ -50,6 +65,12 @@ public class InventoryUi : MonoBehaviour
 
 		//textAgentAmount.text = GridArray.Instance.agentStack.agentAmount.ToString();
 
+
+	}
+
+	void ClickPause()
+	{
+		showInfo = 1 - showInfo;
 
 	}
 
