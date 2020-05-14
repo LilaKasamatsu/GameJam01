@@ -4874,6 +4874,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amountOfAgents: 0
+  effect1: {fileID: 1281710141078930944, guid: 9c65aa0606dee6048a2851c062741f97, type: 3}
+  effect2: {fileID: 0}
+  effect3: {fileID: 0}
 --- !u!54 &3145788666037601006
 Rigidbody:
   m_ObjectHideFlags: 0

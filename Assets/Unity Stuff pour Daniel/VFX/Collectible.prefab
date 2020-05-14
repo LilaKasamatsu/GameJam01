@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1281710141078930946}
   - component: {fileID: 1281710141078930945}
   m_Layer: 0
-  m_Name: VFX Explosion COLLECTIBLE
+  m_Name: Collectible
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1281710141078930944}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 16.96, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -47,11 +47,17 @@ VisualEffect:
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0.2
+        m_Name: Ribbon Sphere
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 5, y: 5, z: 5}
+        m_Name: VELOCITY MAX
+        m_Overridden: 1
     m_Vector4f:
       m_Array: []
     m_Uint:
