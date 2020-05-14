@@ -234,15 +234,12 @@ public class AgentBranch : MonoBehaviour
         target.branchedStructures = gridArray[arrayPosX, arrayPosZ].sizeY;
 
 
-        if (target.warningSystemEngaged && target.sizeY - target.branchedStructures >= DestructionManager.instance.heightLimit)
+        
+        if (target.windParticle!=null)
         {
-            Transform targetTransform = target.windParticle.transform;
-            targetTransform.position = new Vector3(targetTransform.position.x, buildLocation.y + DestructionManager.instance.heightLimit, targetTransform.position.z);
-        }
-        else if (target.warningSystemEngaged)
-        {
+            
             Destroy(target.windParticle);
-            target.warningSystemEngaged = false;
+            target.windParticle = null;
         }
     }
 

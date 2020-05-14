@@ -91,9 +91,9 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0.22113433, g: 0.08627452, b: 0.24705882, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _baseColor: {r: 1, g: 0.932816, b: 0.4009434, a: 0}
+    - _baseColor: {r: 1, g: 0.7698734, b: 0.11792451, a: 1}
     - _emissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _gradientColor: {r: 0.9339623, g: 0.14538093, b: 0.419065, a: 0}
+    - _gradientColor: {r: 0, g: 0.05479724, b: 0.3962264, a: 1}
     - _klimtColor: {r: 1, g: 0.72156864, b: 0, a: 0}
 --- !u!114 &8106974150847113918
 MonoBehaviour:

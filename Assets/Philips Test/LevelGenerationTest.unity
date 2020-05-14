@@ -1398,9 +1398,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   marker: {fileID: 1427785718841972201, guid: 0a8dddd32f143c7428ab5f3bfc49688d, type: 3}
   agentPlaceAmount: 100
-  startingAgentFoundation: 10
-  startingAgentBranch: 5
-  startingAgentStructure: 5
+  startingAgentFoundation: 5
+  startingAgentBranch: 10
+  startingAgentStructure: 20
   levelGenerator: {fileID: 1681719567}
   minNewAgentDelay: 5
   maxNewAgentDelay: 12
@@ -1410,7 +1410,7 @@ MonoBehaviour:
   gridSize: 3
   cellSize: 3
   cellY: 2
-  maxStructures: 30
+  maxStructures: 70
 --- !u!4 &339049087
 Transform:
   m_ObjectHideFlags: 0
@@ -3890,9 +3890,8 @@ MonoBehaviour:
   previewBridge: {fileID: 5883627539825866293, guid: 603a98877a2bc3948ac2be11cd325088,
     type: 3}
   selecter: {fileID: 0}
-  vfxRay: {fileID: 1104452940401654860, guid: e102532776f665a4baf44975f5329856, type: 3}
-  vfxRadius: {fileID: 1104452940401654860, guid: e102532776f665a4baf44975f5329856,
-    type: 3}
+  vfxRay: {fileID: 0}
+  vfxRadius: {fileID: 0}
   build: 0
 --- !u!114 &1092224753
 MonoBehaviour:
@@ -3927,18 +3926,18 @@ MonoBehaviour:
   objectiveRay: {fileID: 8238040989999224019, guid: 38ea095ec46cb944c89d14734a5697f6,
     type: 3}
   trysPerFrame: 5
-  minDistanceBetweenTwoSpawns: 10
-  startingHeight: 15
-  Heightincrease: 3
-  maximumHeight: 35
-  AgentsPerCube: 5
-  collectedCubes: 0
-  cube1: {fileID: 992725698}
-  cube2: {fileID: 322053748}
-  cube3: {fileID: 44281067}
-  cube4: {fileID: 123795727}
-  cube5: {fileID: 911119398}
+  minDistanceBetweenTwoSpawns: 25
+  startingHeight: -5
+  Heightincrease: 15
+  maximumHeight: 70
+  AgentsPerCube: 10
   particles: {fileID: 0}
+  cube5: {fileID: 911119398}
+  cube4: {fileID: 123795727}
+  cube3: {fileID: 44281067}
+  cube2: {fileID: 322053748}
+  cube1: {fileID: 992725698}
+  collectedCubes: 0
 --- !u!1 &1092691738
 GameObject:
   m_ObjectHideFlags: 0
@@ -7303,9 +7302,12 @@ MonoBehaviour:
   remainedHeight: 10
   platformSearchDistance: 9
   destructionMode: 0
-  maxLocalHeightLimit: 15
+  minLocalHeightLimit: 8
+  maxLocalHeightLimit: 20
   maxWindParticles: 25
   windPrefab: {fileID: 2712643673001669053, guid: 16f6778ed0dba434f860be35d1c6ce64,
+    type: 3}
+  localWindPrefab: {fileID: 8765991609835457288, guid: f85701814406c5f4ca04c1b84fdecf25,
     type: 3}
   windTimer: 0
 --- !u!4 &2104433547 stripped
