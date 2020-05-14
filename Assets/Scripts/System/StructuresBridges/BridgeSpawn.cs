@@ -181,9 +181,13 @@ public class BridgeSpawn : MonoBehaviour
 
     IEnumerator DestroyPreview()
     {
-        previewObject.transform.Translate(Vector3.up * 10000);
-        yield return new WaitForFixedUpdate();
-        Destroy(previewObject);
+        if (previewObject != null)
+        {
+            previewObject.transform.Translate(Vector3.up * 10000);
+            yield return new WaitForFixedUpdate();
+            Destroy(previewObject);
+        }
+
     }
     private void SpawnSignal()
     {
@@ -250,7 +254,7 @@ public class BridgeSpawn : MonoBehaviour
                         
             GridArray.Instance.gridArray[hitGridX, hitGridZ].bridge = 1;
 
-            startPoint = new Vector3(hitGridX * cellSize, GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].transform.position.y + hitGridY, hitGridZ * cellSize);
+            startPoint = new Vector3(hitGridX * cellSize, GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].transform.position.y + hitGridY - 2f, hitGridZ * cellSize);
             build = true;
 
             //selectedStructures = new List<StructureBehavior>();
@@ -288,8 +292,8 @@ public class BridgeSpawn : MonoBehaviour
             if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0)
             {
 
-                endPoint = new Vector3(hitGridX * cellSize, GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].transform.position.y + hitGridY, hitGridZ * cellSize);
-
+                endPoint = new Vector3(hitGridX * cellSize, GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].transform.position.y + hitGridY - 2f, hitGridZ * cellSize);
+                 
 
                 selectedDest = GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].GetComponent<StructureBehavior>();
 

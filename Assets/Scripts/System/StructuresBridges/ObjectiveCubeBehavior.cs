@@ -55,14 +55,14 @@ public class ObjectiveCubeBehavior : MonoBehaviour
 
             Destroy(this.gameObject);
 
-            if (cooldown >= .25)
+            if (cooldown >= .025)
             {
                 GridArray.Instance.agentStack.agentAmountStructure += amountOfAgents;
                 ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(1));
             }
             else
             {
-                ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(2));
+                ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(1));
             }
         }
 

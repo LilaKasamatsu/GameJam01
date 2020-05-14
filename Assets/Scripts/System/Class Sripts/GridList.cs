@@ -32,7 +32,7 @@ public class GridList
     public int sizeY;
 
     public int color;
-    public bool warningSystemEngaged;
+    
     public GameObject windParticle;
 
     public List<int> branchAtY = new List<int>();
@@ -64,20 +64,17 @@ public class GridList
         towerWidth = newTowerWidth;
         branchedStructures = newBranched;
         structureShape = newShape;
-        color = newColor;
-
-        
+        color = newColor;
     }
 
-    public void CreateWindParticles()
+    public void CreateWindParticles()
     {
-        if (DestructionManager.instance.heightLimit <= sizeY - branchedStructures && warningSystemEngaged==false)
+        if (DestructionManager.instance.heightLimit <= sizeY - branchedStructures && windParticle!=null)
         {
-            GameObject WindPrefab = DestructionManager.instance.windPrefab;
+            GameObject WindPrefab = DestructionManager.instance.localWindPrefab;
             float cellSize = GridArray.Instance.cellSize;
             Vector3 target = structureObjects[0].transform.position;
-            windParticle= DestructionManager.instance.ParticleInstantiate(target.x,target.y+(DestructionManager.instance.heightLimit+branchedStructures)*2 ,target.z);
-            warningSystemEngaged = true;
+            windParticle= DestructionManager.instance.LocalParticleInstantiate(target.x,target.y+(DestructionManager.instance.heightLimit+branchedStructures)*2 ,target.z);
         }
 
     }

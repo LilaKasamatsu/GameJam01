@@ -106,7 +106,17 @@ PrefabInstance:
     - target: {fileID: 3307686841704038762, guid: aba093896de28314286d68a60d5e4c18,
         type: 3}
       propertyPath: m_Autodestruct
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3307686841704038762, guid: aba093896de28314286d68a60d5e4c18,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
+      value: 0.22786939
+      objectReference: {fileID: 0}
+    - target: {fileID: 3307686841704038762, guid: aba093896de28314286d68a60d5e4c18,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 0.625
       objectReference: {fileID: 0}
     - target: {fileID: 3307686841704038773, guid: aba093896de28314286d68a60d5e4c18,
         type: 3}
