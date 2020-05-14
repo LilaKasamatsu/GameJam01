@@ -45,70 +45,19 @@ public class DestructionManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            switch (destructionMode)
-            {
-                case DestructionMode.global:
-                   StartCoroutine(GlobalDestruction());
-                    break;
-                case DestructionMode.local:
-                    StartCoroutine(LocalDestruction());
-                    break;
-
-
-            }
-           
-        }
+        StartCoroutine(GlobalDestruction());
     }
-    IEnumerator LocalDestruction()
-    {
-        while (true)
-        {
-            Debug.Log("SANDSTORM on Level:"+heightLimit);
-            int coloumscounter = 0;
-            int GridLengthX = GridArray.Instance.arrayX;
-            int GridLengthZ = GridArray.Instance.arrayZ;
-            
-            while (coloumscounter < GridLengthX)
-            {
-                for (int i = 0; i < GridLengthZ; i++)
-                {
-                    GridList target = GridArray.Instance.gridArray[coloumscounter, i];
 
-                    if (target.sizeY - target.branchedStructures >= heightLimit)
-                    {
-                        Vector3 targetVector = new Vector3(coloumscounter * GridArray.Instance.cellSize, target.foundationObject.transform.position.y, i * GridArray.Instance.cellSize);
-                        Explode(target, targetVector);
-
-                    }
-                    else if (heightLimit==0 && target.sizeY == 0 && target.foundationAmount > 0)
-                    {
-                        Vector3 targetVector = new Vector3(coloumscounter * GridArray.Instance.cellSize, target.foundationObject.transform.position.y, i * GridArray.Instance.cellSize);
-                        LookForStructures(target, targetVector);
-                    }
-
-                }
-
-
-                coloumscounter += 1;
-                yield return new WaitForEndOfFrame();
-            }
-            coloumscounter = 0;
-            heightLimit =Mathf.FloorToInt( Random.Range(0, maxLocalHeightLimit)/3 + Random.Range(0, maxLocalHeightLimit) / 3 + Random.Range(0, maxLocalHeightLimit) /3);
-            remainedHeight = heightLimit;
-
-            yield return new WaitForSeconds(Random.Range(minCoolDown, maxCoolDown));
-        }
-    }
+    
+   
 
     IEnumerator GlobalDestruction()
     {
         while (true)
         {
-            Debug.Log("SANDSTORM");
+            Debug.Log("SANDSTORM auf höhe:" + heightLimit);
             int coloumscounter = 0;
             int GridLengthX = GridArray.Instance.arrayX;
             int GridLengthZ = GridArray.Instance.arrayZ;
@@ -121,24 +70,20 @@ public class DestructionManager : MonoBehaviour
                 {
                     GridList target = GridArray.Instance.gridArray[coloumscounter, i];
 
-                   if( target.sizeY-target.branchedStructures >= heightLimit)
+                   if(target.structureObjects.Count!=0 && target.sizeY>= (heightLimit- target.foundationObject.transform.position.y)/GridArray.Instance.cellY)
                     {
-                        Vector3 targetVector = new Vector3(coloumscounter * GridArray.Instance.cellSize, target.foundationObject.transform.position.y, i * GridArray.Instance.cellSize);
-                        Explode(target,targetVector);
+                        
+                        target.sizeY = target.branchedStructures + Mathf.RoundToInt(( heightLimit - target.foundationObject.transform.position.y)/GridArray.Instance.cellY);
 
                     }
-                   else if (target.sizeY==0 && target.foundationAmount > 0)
-                    {
-                        Vector3 targetVector = new Vector3(coloumscounter * GridArray.Instance.cellSize, target.foundationObject.transform.position.y, i * GridArray.Instance.cellSize);
-                        LookForStructures(target,targetVector);
-                    }
+                   
 
                 }
                 for (int i = 0; i < particles.Count; i++)
                 {
 
-                    particles[i].transform.localScale = Vector3.Lerp(particles[i].transform.localScale, new Vector3(40f, 40f, 40f), .5f);
-                    if (particleTrails[i].widthMultiplier >= 0.1f)
+                    particles[i].transform.localScale = Vector3.Lerp(particles[i].transform.localScale, new Vector3(40f, 40f, 40f), .3f);
+                    if (particleTrails[i]!=null && particleTrails[i].widthMultiplier >= 0.1f)
                     {
                         particleTrails[i].widthMultiplier -= .1f;
                     }
@@ -156,26 +101,29 @@ public class DestructionManager : MonoBehaviour
                 
                     Destroy(particles[i]);
                     particles.RemoveAt(i);
+                particleTrails.RemoveAt(i);
                 
                 
             }
             coloumscounter = 0;
+            heightLimit = Mathf.FloorToInt(Random.Range(2, maxLocalHeightLimit) / 3 + Random.Range(2, maxLocalHeightLimit) / 3 + Random.Range(2, maxLocalHeightLimit) / 3);
             float windCooldown = Random.Range(minCoolDown, maxCoolDown);
             windTimer = 0;
-            ParticleInstantiate(LevelGenerator.instance.Groundbounds.transform.position.x, heightLimit, LevelGenerator.instance.Groundbounds.transform.position.z);
-            while (windTimer <windCooldown)
+            Debug.Log("waiting for next sandstorm in:" + windCooldown);
+            yield return new WaitForSeconds(windCooldown / 2);
+            while (windTimer <windCooldown/2)
             {
 
                 windTimer += Time.deltaTime;
                
-                if (windTimer/windCooldown >= particles.Count/maxWindParticles)
+                if (windTimer/windCooldown/2 >= particles.Count/maxWindParticles)
                 {
                     ParticleInstantiate(LevelGenerator.instance.Groundbounds.transform.position.x, heightLimit, LevelGenerator.instance.Groundbounds.transform.position.z);
                 }
                 for(int i = 0;i<particles.Count;i++)
                 {
                    
-                        particles[i].transform.localScale = Vector3.Lerp(windPrefab.transform.lossyScale, Vector3.zero,windTimer/windCooldown);
+                        particles[i].transform.localScale = Vector3.Lerp(windPrefab.transform.localScale, Vector3.zero,windTimer/windCooldown*2);
                                       
                 }
                
@@ -208,49 +156,7 @@ public class DestructionManager : MonoBehaviour
 
     }
 
-    void Explode(GridList target, Vector3 targetVector)
-    {
-        List<GameObject> targetList = target.structureObjects;
-        for(int i=target.bridgeObjects.Count-1;i>=0;i--)
-        {
-            GameObject targetBridgeObject = target.bridgeObjects[i];
-            BridgeStruct targetscript = targetBridgeObject.GetComponent<BridgeStruct>();
-            Vector3 targetBridgeOrigin =targetscript.gridOrigin;
-            Vector3 targetBridgeEnd = targetscript.gridEnd;
-            GridList targetGridOrigin = GridArray.Instance.gridArray[Mathf.RoundToInt(targetBridgeOrigin.x), Mathf.RoundToInt(targetBridgeOrigin.z)];
-            GridList targetGridEnd = GridArray.Instance.gridArray[Mathf.RoundToInt(targetBridgeEnd.x), Mathf.RoundToInt(targetBridgeEnd.z)];
-            targetGridOrigin.bridgeObjects.Remove(targetBridgeObject);
-            targetGridEnd.bridgeObjects.Remove(targetBridgeObject);
-            if (targetGridOrigin.bridgeObjects.Count == 0)
-            {
-                targetGridOrigin.structureObjects[0].GetComponent<StructureBehavior>().isBridged = false;
-                targetGridOrigin.bridge = 0;
-            }
-            if (targetGridEnd.bridgeObjects.Count == 0)
-            {
-                targetGridEnd.structureObjects[0].GetComponent<StructureBehavior>().isBridged = false;
-                targetGridEnd.bridge = 0;
-            }
-            Destroy(targetBridgeObject);
-        }
-        if (target.warningSystemEngaged)
-        {
-            Destroy(target.windParticle);
-            target.warningSystemEngaged = false;
-            particles.Remove(target.windParticle);
-        }
-        target.sizeY = heightLimit += target.branchedStructures;
 
-    }
-
-    void LookForStructures(GridList target, Vector3 targetVector)
-    {
-        if (GridArray.Instance.searchForStructure(targetVector, platformSearchDistance).Count == 0)
-        {
-            Destroy(target.foundationObject);
-            target.foundationAmount = 0;
-        }
-    }
 
     IEnumerator SpawnParticles(int Offset)
     {
