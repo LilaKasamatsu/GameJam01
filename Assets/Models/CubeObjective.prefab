@@ -9558,7 +9558,7 @@ ParticleSystem:
   m_GameObject: {fileID: 622769951021855743}
   serializedVersion: 6
   lengthInSec: 10
-  simulationSpeed: 0.1
+  simulationSpeed: 0.2
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -9631,8 +9631,8 @@ ParticleSystem:
     enabled: 1
     startLifetime:
       serializedVersion: 2
-      minMaxState: 3
-      scalar: 10
+      minMaxState: 0
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -10123,7 +10123,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.5
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -10184,7 +10184,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: -18.2}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 1, y: 1, z: -10.8}
+    m_Scale: {x: 4, y: 4, z: -10.8}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -12143,7 +12143,7 @@ ParticleSystem:
     strength:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 13.17
+      scalar: 9.53
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -12299,8 +12299,8 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    separateAxes: 1
-    frequency: 5.39
+    separateAxes: 0
+    frequency: 6
     damping: 1
     octaves: 1
     octaveMultiplier: 0.5
