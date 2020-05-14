@@ -45,7 +45,7 @@ public class SetAgentHeight : MonoBehaviour
                 int gridZ = GridArray.Instance.NumToGrid( signalPos.z);
 
                 //Position of Signal - Amount of Structures
-                int warpY = Mathf.RoundToInt(GridArray.Instance.gridArray[gridX, gridZ].structureObjects[GridArray.Instance.gridArray[gridX, gridZ].sizeY - 1].transform.position.y - GridArray.Instance.gridArray[gridX, gridZ].sizeY);
+                int warpY = Mathf.RoundToInt(GridArray.Instance.gridArray[gridX, gridZ].structureObjects[0].transform.position.y);
 
                 Vector3 warpPosition = new Vector3(signalPos.x, warpY, signalPos.z);
                 transform.parent.gameObject.GetComponent<NavMeshAgent>().Warp(warpPosition);
@@ -59,7 +59,7 @@ public class SetAgentHeight : MonoBehaviour
         if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ) && parentNav.isOnNavMesh && hasSignal == false)
         {
 
-            transform.position = new Vector3(parentPos.x, Mathf.Lerp(transform.position.y, parentPos.y + 2 * gridArray[arrayPosX, arrayPosZ].sizeY, 0.07f), parentPos.z);
+            transform.position = new Vector3(parentPos.x, Mathf.Lerp(transform.position.y, parentPos.y + 1 +  2 * gridArray[arrayPosX, arrayPosZ].sizeY, 0.07f), parentPos.z);
 
         }    
     }

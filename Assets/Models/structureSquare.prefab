@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 667734470985571616}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -14.447342, y: 225.00241, z: -143.96458}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 8857393793408569335}
   m_Father: {fileID: 0}
@@ -45,14 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38f5c90647680a342a092a785a32f1e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorBase1: {r: 0.9921569, g: 0.427451, b: 0.454902, a: 1}
-  colorBase2: {r: 0.9921569, g: 0.4156863, b: 0.4431373, a: 1}
-  colorBase3: {r: 0.9921569, g: 0.40784317, b: 0.43137258, a: 1}
+  colorBase1: {r: 1, g: 0.49956807, b: 0.023584902, a: 1}
+  colorBase2: {r: 1, g: 0.6430182, b: 0.033018887, a: 1}
+  colorBase3: {r: 0.7529412, g: 0, b: 0.524949, a: 1}
   colorSelect: {r: 1, g: 0, b: 0.5719805, a: 1}
   colorBridged: {r: 0.59437215, g: 0, b: 0.7075472, a: 1}
   isSelected: 0
   isBridged: 0
   isBase: 1
+  startY: 0
 --- !u!114 &3916143028483921113
 MonoBehaviour:
   m_ObjectHideFlags: 0

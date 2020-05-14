@@ -5,7 +5,10 @@ using UnityEngine;
 public class BridgeSpawn : MonoBehaviour
 {
     [SerializeField] GameObject bridge;
+    [SerializeField] GameObject previewBridge;
     [SerializeField] GameObject selecter;
+
+    GameObject previewObject = null;
 
     private int cellSize;
     private int cellY;
@@ -26,6 +29,8 @@ public class BridgeSpawn : MonoBehaviour
        
     int oldX;
     int oldZ;
+
+    bool isPreview = false;
 
 
     private SignalBehavior sig;
@@ -83,8 +88,12 @@ public class BridgeSpawn : MonoBehaviour
                 spawnPosition.x = gridEnd.x * cellSize;
                 spawnPosition.z = gridEnd.z * cellSize;
 
-                sigY = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].structureObjects.Count - 1;
-                spawnPosition.y = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].structureObjects[sigY].transform.position.y - (sigY + 1)*GridArray.Instance.cellY;
+                sigY = Mathf.RoundToInt( GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].structureObjects[0].transform.position.y);
+                //sigY += GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].sizeY;
+
+                //spawnPosition.y = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].structureObjects[sigY].transform.position.y - (sigY + 1)*GridArray.Instance.cellY;
+                spawnPosition.y = sigY;
+
                 Debug.Log("Position Grid End");
 
             }
@@ -95,9 +104,11 @@ public class BridgeSpawn : MonoBehaviour
                 spawnPosition.z = gridOrigin.z * cellSize;
                 Debug.Log("Position Grid Origin");
 
-                sigY = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].structureObjects.Count - 1;
+                sigY = Mathf.RoundToInt(GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].structureObjects[0].transform.position.y);
+                //sigY += GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].sizeY;
 
-                spawnPosition.y = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].structureObjects[sigY].transform.position.y - (sigY + 1) * GridArray.Instance.cellY;
+                //spawnPosition.y = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].structureObjects[sigY].transform.position.y - (sigY + 1) * GridArray.Instance.cellY;
+                spawnPosition.y = sigY;
 
 
             }
@@ -108,10 +119,7 @@ public class BridgeSpawn : MonoBehaviour
             int layer_agent = LayerMask.GetMask("Agent");
             sig.FindAgents(spawnPosition, destinationPoint, sig.signalRadius, layer_agent);
 
-        }
-
-
-    
+        }    
     }
 
     void Update()
@@ -128,7 +136,10 @@ public class BridgeSpawn : MonoBehaviour
 
                 int arrayPosX = GridArray.Instance.NumToGrid(hitGrid.x);
                 int arrayPosZ = GridArray.Instance.NumToGrid(hitGrid.z);
-                int arrayPosY = Mathf.RoundToInt(GridArray.Instance.gridArray[arrayPosX, arrayPosZ].sizeY) * cellY;
+                //int arrayPosY = Mathf.RoundToInt(GridArray.Instance.gridArray[arrayPosX, arrayPosZ].sizeY) * cellY;
+
+                int arrayPosY = Mathf.RoundToInt(GridArray.Instance.gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform.position.y);
+                arrayPosY += GridArray.Instance.gridArray[arrayPosX, arrayPosZ].sizeY * cellY;
 
 
                 if (GridArray.Instance.gridArray[arrayPosX, arrayPosZ].bridge > 0)
@@ -140,8 +151,7 @@ public class BridgeSpawn : MonoBehaviour
                     SearchConnections(arrayPosX, arrayPosZ, spawnPosition);
 
                     //signalInstance.transform.GetChild(1).transform.localScale = new Vector3(sig.signalRadius * 2, sig.signalRadius * 2, sig.signalRadius * 2);
-
-
+                    
                     //int layer_agent = LayerMask.GetMask("Agent");
                     //sig.FindAgents(spawnPosition, sig.signalRadius, layer_agent);
                 }
@@ -161,7 +171,7 @@ public class BridgeSpawn : MonoBehaviour
                 {
                     hitGridX = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.x);
                     hitGridZ = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.z);
-                    hitGridY = Mathf.RoundToInt(GridArray.Instance.gridArray[hitGridX, hitGridZ].sizeY) * cellY * 2;
+                    hitGridY = Mathf.RoundToInt(GridArray.Instance.gridArray[hitGridX, hitGridZ].sizeY) * cellY ;
 
 
 
@@ -200,7 +210,7 @@ public class BridgeSpawn : MonoBehaviour
                 {
                     hitGridX = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.x);
                     hitGridZ = GridArray.Instance.NumToGrid(hit.collider.gameObject.transform.position.z);
-                    hitGridY = Mathf.RoundToInt(GridArray.Instance.gridArray[hitGridX, hitGridZ].sizeY) * cellY * 2;
+                    hitGridY = Mathf.RoundToInt(GridArray.Instance.gridArray[hitGridX, hitGridZ].sizeY) * cellY;
 
 
                     if (selectedDest != null && selectedDest.GetComponent<StructureBehavior>() != null)
@@ -212,7 +222,7 @@ public class BridgeSpawn : MonoBehaviour
 
                     //selectedStructuresDest = new List<StructureBehavior>();
 
-                    if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0)
+                    if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0 )
                     {
 
                         endPoint = new Vector3(hitGridX * cellSize, GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].transform.position.y + hitGridY, hitGridZ * cellSize);
@@ -220,7 +230,15 @@ public class BridgeSpawn : MonoBehaviour
 
                         //selectedStructuresDest.Add(GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].GetComponent<StructureBehavior>());
                         selectedDest = GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].GetComponent<StructureBehavior>();
-                        
+
+
+                        if (!isPreview)
+                        {
+                            isPreview = true;
+                            previewObject = Instantiate(previewBridge, startPoint, Quaternion.identity) as GameObject;
+
+
+                        }
 
                         if (selectedDest.GetComponent<StructureBehavior>() != null)
                         {
@@ -231,9 +249,22 @@ public class BridgeSpawn : MonoBehaviour
                     }
                 }
             }
+            if (isPreview)
+            {
+                float previewBridgeSize = Vector3.Distance(startPoint, endPoint);
+
+                previewObject.transform.localScale = new Vector3(previewObject.transform.localScale.x, previewObject.transform.localScale.y, previewBridgeSize);
+                previewObject.transform.LookAt(endPoint);
+            }
+            else
+            {
+                Destroy(previewObject);
+            }
 
             if (Input.GetMouseButtonUp(0) && build == true)
             {
+                isPreview = false;
+
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
 

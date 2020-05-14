@@ -21,6 +21,7 @@ public class StructureBehavior : MonoBehaviour
     public bool isBase = true;
     float randomGrowthMax;
     float randomLerp = 0.0001f;
+    public float startY;
 
     List<GameObject> tag_targets;
 
@@ -50,6 +51,8 @@ public class StructureBehavior : MonoBehaviour
 
     void Start()
     {
+
+
         AddDescendants(transform, new List<GameObject>());
 
         //render = transform.GetChild(0).GetComponent<Renderer>();
@@ -96,11 +99,21 @@ public class StructureBehavior : MonoBehaviour
         int gridX = GridArray.Instance.NumToGrid(transform.position.x);
         int gridZ = GridArray.Instance.NumToGrid(transform.position.z);
 
+        if (CompareTag("branch"))
+        {
+            float posY = -1 + startY / transform.parent.transform.localScale.y;
+            //transform.position = new Vector3(transform.position.x, posY, transform.position.z);
+        }
 
 
-        transform.localScale = new Vector3(transform.localScale.x, 
-            Mathf.Lerp(transform.localScale.y, GridArray.Instance.gridArray[gridX, gridZ].sizeY * GridArray.Instance.cellY + randomGrowthMax, randomLerp), 
+        if (!CompareTag("branch") && GridArray.Instance.gridArray[gridX, gridZ].sizeY > 0)
+        {
+
+            transform.localScale = new Vector3(transform.localScale.x,
+            Mathf.Lerp(transform.localScale.y, GridArray.Instance.gridArray[gridX, gridZ].sizeY + randomGrowthMax, randomLerp),
             transform.localScale.z);
+        }
+
 
 
         if (isBase == false && isSelected == false)

@@ -111,14 +111,29 @@ MonoBehaviour:
   m_AdvancedMode: 0
   lift:
     m_OverrideState: 0
-    m_Value: {x: 0.9592561, y: 1, z: 0.9282799, w: -0.060459495}
-  gamma:
-    m_OverrideState: 1
-    m_Value: {x: 1, y: 0.64354163, z: 0, w: 1}
-  gain:
-    m_OverrideState: 1
-    m_Value: {x: 1, y: 0.8519032, z: 0, w: -0.3264812}
---- !u!114 &8586897117049366869
+    m_Value: 0
+  contrast:
+    m_OverrideState: 0
+    m_Value: 0
+    min: -100
+    max: 100
+  colorFilter:
+    m_OverrideState: 0
+    m_Value: {r: 1, g: 0.7177998, b: 0.11792451, a: 1}
+    hdr: 1
+    showAlpha: 0
+    showEyeDropper: 1
+  hueShift:
+    m_OverrideState: 0
+    m_Value: 180
+    min: -180
+    max: 180
+  saturation:
+    m_OverrideState: 0
+    m_Value: -46.7
+    min: -100
+    max: 100
+--- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
