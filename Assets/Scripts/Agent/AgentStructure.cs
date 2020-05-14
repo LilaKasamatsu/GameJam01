@@ -22,7 +22,8 @@ public class AgentStructure : MonoBehaviour
 
     public int structuresLifetime = 10;
     int structuresPlaced = 0;
-
+    [SerializeField] int destructionTimer = 10;
+    [SerializeField] GameObject destructionAnim;
 
     private GameObject ground;
 
@@ -58,14 +59,23 @@ public class AgentStructure : MonoBehaviour
         cellSize = GridArray.Instance.cellSize;
         cellY = GridArray.Instance.cellY;
         gridArray = GridArray.Instance.gridArray;
-        agentStack = GridArray.Instance.agentStack;
-
-        // DIESER CODE IST DER NEUE
-
-        //Create orientPosition List based on the grid
-        //Adds all existing build-orientation points currently on the scene to the list
-        // "state == true" means, that that location has a structure to orient on.
-
+        agentStack = GridArray.Instance.agentStack;
+
+
+
+        // DIESER CODE IST DER NEUE
+
+
+
+        //Create orientPosition List based on the grid
+
+        //Adds all existing build-orientation points currently on the scene to the list
+
+        // "state == true" means, that that location has a structure to orient on.
+
+
+
+        StartCoroutine(RetireTimer());
 
         if (GetComponent<NavMeshAgent>())
         {
@@ -78,10 +88,18 @@ public class AgentStructure : MonoBehaviour
         }
     }
 
+    IEnumerator RetireTimer()
+    {
+        yield return new WaitForSeconds(destructionTimer);
+        Instantiate(destructionAnim, this.transform.position, Quaternion.identity);
+        agentStack.agentAmountStructure += 1;
+        agentStack.agentStructure -= 1;
+        Destroy(this.gameObject);
 
+    }
     IEnumerator RetireAgent()
     {
-        agentStack.agentAmount += 1;
+        agentStack.agentAmountStructure += 1;
         agentStack.agentStructure -= 1;
         yield return new WaitForSeconds(Random.Range(0, 3));
         Destroy(this.gameObject);

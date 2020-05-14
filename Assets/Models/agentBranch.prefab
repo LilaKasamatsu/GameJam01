@@ -9809,16 +9809,19 @@ MonoBehaviour:
   branch5: {fileID: 5003419963430692228, guid: 553d952a261c17047a97bf8d6f260b5d, type: 3}
   branch6: {fileID: 3207211992047819448, guid: 4ce537884dfb78f47bc73eaecd274e95, type: 3}
   minBuildDelay: 1
-  maxBuildDelay: 4
+  maxBuildDelay: 3
   spawnAgent: {fileID: 8857153315785135585}
   minBranchHeight: 4
   branchChance: 100
   structuresLifetime: 2
+  destructionTimer: 20
+  destructionAnim: {fileID: 46301278182483637, guid: 9dbb2d66de88c554593f27428ca2f91e,
+    type: 3}
   agent: {fileID: 4946647224684088886}
   hasSignal: 0
   isActive: 0
-  pointRadius: 2
-  maxDestinationDistance: 2
+  pointRadius: 1
+  maxDestinationDistance: 1
 --- !u!195 &4946647224684088886
 NavMeshAgent:
   m_ObjectHideFlags: 0
