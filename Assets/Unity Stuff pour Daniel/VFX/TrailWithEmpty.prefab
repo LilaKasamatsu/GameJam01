@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2712643673001669053}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_LocalScale: {x: 120, y: 120, z: 120}
   m_Children:
   - {fileID: 4727846047023584578}
   m_Father: {fileID: 0}
@@ -71,7 +71,7 @@ PrefabInstance:
     - target: {fileID: 3307686841704038762, guid: aba093896de28314286d68a60d5e4c18,
         type: 3}
       propertyPath: m_Parameters.widthMultiplier
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3307686841704038762, guid: aba093896de28314286d68a60d5e4c18,
         type: 3}
@@ -101,7 +101,7 @@ PrefabInstance:
     - target: {fileID: 3307686841704038762, guid: aba093896de28314286d68a60d5e4c18,
         type: 3}
       propertyPath: m_Time
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3307686841704038762, guid: aba093896de28314286d68a60d5e4c18,
         type: 3}

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.5823206, g: 0.8457471, b: 0.91136557, a: 1}
+  m_IndirectSpecularColor: {r: 0.1267885, g: 0.17916125, b: 0.23748305, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2249,7 +2249,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 6.6287e-41, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 4.3213e-41, y: 1.01e-43, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -6536,7 +6536,7 @@ MonoBehaviour:
   platformSearchDistance: 9
   destructionMode: 0
   maxLocalHeightLimit: 15
-  maxWindParticles: 12
+  maxWindParticles: 25
   windPrefab: {fileID: 2712643673001669053, guid: 16f6778ed0dba434f860be35d1c6ce64,
     type: 3}
   windTimer: 0
