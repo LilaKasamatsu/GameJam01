@@ -13,7 +13,17 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     [SerializeField] Color sphereColor;
     [SerializeField] Color sphereColorSelect;
 
+    [SerializeField] AudioClip collected;
+    [SerializeField] AudioClip dropping;
+    private AudioSource audioSource;
+
     float cooldown;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     private void Update()
     {
         cooldown += Time.deltaTime;
@@ -55,7 +65,11 @@ public class ObjectiveCubeBehavior : MonoBehaviour
             //Instantiate(effect2, this.transform.position, Quaternion.identity);
             //Instantiate(effect3, this.transform.position, Quaternion.identity);
 
-
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = collected;
+                audioSource.Play();
+            }
             Destroy(this.gameObject);
             ObjectiveSpawn.instance.collectedCubes += 1;
 
