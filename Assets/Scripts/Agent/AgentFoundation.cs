@@ -75,7 +75,7 @@ public class AgentFoundation : MonoBehaviour
 
     }
 
-    void FixedUpdate()
+    void Update()
     {
         grid = SpawnSettings.Instance.grid;
 

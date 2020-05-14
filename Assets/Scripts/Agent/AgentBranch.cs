@@ -92,7 +92,7 @@ public class AgentBranch : MonoBehaviour
         transform.GetChild(0).gameObject.GetComponent<SetAgentHeight>().GoToSignal(position, destMin);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         grid = SpawnSettings.Instance.grid;
 

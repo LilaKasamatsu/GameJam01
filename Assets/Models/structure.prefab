@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6190007535565506618}
   - component: {fileID: 1556233471860285238}
   - component: {fileID: 4606167599867279702}
+  - component: {fileID: 7064884545692128894}
   m_Layer: 0
   m_Name: structure
   m_TagString: structure
@@ -46,10 +47,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorBase1: {r: 0.8018868, g: 0, b: 0.34239498, a: 1}
-  colorBase2: {r: 1, g: 0.42968982, b: 0.0047169924, a: 1}
-  colorBase3: {r: 1, g: 0.7076588, b: 0, a: 1}
-  colorSelect: {r: 0.24845636, g: 0.24256852, b: 0.745283, a: 1}
-  colorBridged: {r: 0.59437215, g: 0, b: 0.7075472, a: 1}
+  colorBase2: {r: 1, g: 0.32720104, b: 0.0039215684, a: 1}
+  colorBase3: {r: 1, g: 0.61547095, b: 0, a: 1}
+  colorGradient: {r: 1, g: 0.8705595, b: 0.18396229, a: 1}
+  colorSelect: {r: 0, g: 1, b: 0.7733991, a: 1}
+  colorBridged: {r: 0.53797317, g: 0.25792095, b: 0.8679245, a: 1}
   isSelected: 0
   isBridged: 0
   isBase: 1
@@ -66,6 +68,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09395d477dfd69e408ebe0d923ab7465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7064884545692128894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67781199573577903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!65 &7440537535031554564
 BoxCollider:
   m_ObjectHideFlags: 0
