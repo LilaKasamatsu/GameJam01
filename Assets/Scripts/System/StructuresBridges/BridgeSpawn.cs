@@ -120,7 +120,9 @@ public class BridgeSpawn : MonoBehaviour
 
             GameObject signalInstance = Instantiate(sig.signalObj, spawnPosition, Quaternion.identity) as GameObject;
             signalInstance.transform.GetChild(1).transform.localScale = new Vector3(sig.signalRadius * 2, sig.signalRadius * 2, sig.signalRadius * 2);
-            
+            Instantiate(vfxRadius, spawnPosition, Quaternion.identity);
+
+
             int layer_agent = LayerMask.GetMask("Agent");
             sig.FindAgents(spawnPosition, destinationPoint, sig.signalRadius, layer_agent);
 

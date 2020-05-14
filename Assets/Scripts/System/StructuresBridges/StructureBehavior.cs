@@ -93,9 +93,9 @@ public class StructureBehavior : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(0.5f, 2));
-            randomLerp = Random.Range(0.0001f, 0.05f);
-            randomGrowthMax = Random.Range(-0.5f, 0.5f);
+            yield return new WaitForSeconds(Random.Range(0.1f, 1.5f));
+            randomLerp = Random.Range(0.0001f, 0.08f);
+            randomGrowthMax = Random.Range(-0.25f, 0.25f);
         }
     }
 
