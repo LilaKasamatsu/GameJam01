@@ -63,7 +63,7 @@ public class SpawnSettings : MonoBehaviour
     IEnumerator SetSpawnDelay()
     {
         tileTimer = false;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.15f);
         tileTimer = true;
     }
 
@@ -81,55 +81,57 @@ public class SpawnSettings : MonoBehaviour
 
 
     public void PlaceAgent(GameObject agent)
-    {
+    {
+
+
+
+
+
+
+
+
+        /*
+  RaycastHit hitAll = new RaycastHit();
+
+  RaycastHit[] hits;
+  hits = Physics.RaycastAll(cam.ScreenPointToRay(Input.mousePosition));
+
+  for (int i = 0; i < hits.Length; i++)
+  {
+      hitAll = hits[i];
+
+      if (hitAll.collider.gameObject.CompareTag("ground"))
+      {
+          hitGround = true;
+          break;       
+      }
+  }
+  */
+        GridList[,] gridArray = GridArray.Instance.gridArray;
+
+
+
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
         bool hitGround = false;
-        RaycastHit hitAll = new RaycastHit();
-
-        RaycastHit[] hits;
-        hits = Physics.RaycastAll(cam.ScreenPointToRay(Input.mousePosition));
-
-
-        for (int i = 0; i < hits.Length; i++)
-        {
-            hitAll = hits[i];
-
-            if (hitAll.collider.gameObject.CompareTag("ground"))
-            {
-                hitGround = true;
-                break;               
-            }
-        }
-
-        /*
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
 
         int layer_mask = LayerMask.GetMask("Ground");
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer_mask))
-        {
-               
-            
-        }
-        */
-        GridList[,] gridArray = GridArray.Instance.gridArray;
-
-        if (hitGround == true)
-        {
-            Vector3 hitGrid = new Vector3(Mathf.Round(hitAll.point.x / cellSize) * cellSize, Mathf.Round(hitAll.point.y / cellY) * cellY, Mathf.Round(hitAll.point.z / cellSize) * cellSize);
+        {
+
+            Vector3 hitGrid = new Vector3(hit.point.x, Mathf.Round(hit.point.y / cellY) * cellY, hit.point.z);
 
             int arrayPosX = GridArray.Instance.NumToGrid(hitGrid.x);
             int arrayPosZ = GridArray.Instance.NumToGrid(hitGrid.z);
-            float arrayPosY = hitAll.point.y;
+            float arrayPosY = hit.point.y;
 
             //Vector3 currentTile = new Vector3(arrayPosX, arrayPosY, arrayPosX);
 
-            if (tileTimer)
-            {
-
-                if (hitAll.normal.normalized == new Vector3(0f, 1f, 0f))
-                {
-
+            if (tileTimer)
+            {
+                if (hit.normal.normalized == new Vector3(0f, 1f, 0f))
+                {
                     //Foundation Agent
                     if (agent.GetComponent<AgentFoundation>() != null && agentStack.agentAmountFoundation > 0)
                     {
@@ -140,7 +142,7 @@ public class SpawnSettings : MonoBehaviour
 
 
                             Vector3 spawnLocation = hitGrid;
-                            spawnLocation.y = hitAll.point.y;
+                            spawnLocation.y = hit.point.y;
 
 
                             //+ new Vector3(0, agent.transform.localScale.y)
@@ -165,7 +167,7 @@ public class SpawnSettings : MonoBehaviour
                                 agentStack.agentAmountStructure -= 1;
                                 agentStack.agentStructure += 1;
                                 Vector3 spawnLocation = hitGrid;
-                                spawnLocation.y = hitAll.point.y + agent.transform.localScale.y * 0.5f;
+                                spawnLocation.y = hit.point.y + agent.transform.localScale.y * 0.5f;
 
                                 GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
                                 newAgent.GetComponent<NavMeshAgent>().enabled = true;
@@ -188,7 +190,7 @@ public class SpawnSettings : MonoBehaviour
                                 agentStack.agentBranch += 1;
 
                                 Vector3 spawnLocation = hitGrid;
-                                spawnLocation.y = hitAll.point.y + agent.transform.localScale.y * 0.5f;
+                                spawnLocation.y = hit.point.y + agent.transform.localScale.y * 0.5f;
 
                                 GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
                                 newAgent.GetComponent<NavMeshAgent>().enabled = true;
@@ -203,7 +205,10 @@ public class SpawnSettings : MonoBehaviour
                 }
                 StartCoroutine(SetSpawnDelay());
             }
-        }
+        }     
+
+
+   
     }
 
     public void SpawnAgent(GameObject spawnAgent, Vector3 position)

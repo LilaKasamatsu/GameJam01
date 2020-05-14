@@ -330,7 +330,7 @@ public class AgentBranch : MonoBehaviour
                     {
                         GameObject finalStructure = null;
 
-                        int randomBranch = Random.Range(0, 6);
+                        int randomBranch = Random.Range(1, 6);
 
                         if (randomBranch == 0)
                         {

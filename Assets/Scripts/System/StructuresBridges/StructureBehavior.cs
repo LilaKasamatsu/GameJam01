@@ -115,7 +115,7 @@ public class StructureBehavior : MonoBehaviour
         {
 
             transform.localScale = new Vector3(transform.localScale.x,
-            Mathf.Lerp(transform.localScale.y, GridArray.Instance.gridArray[gridX, gridZ].sizeY + randomGrowthMax, randomLerp),
+            Mathf.Lerp(transform.localScale.y, GridArray.Instance.gridArray[gridX, gridZ].sizeY + randomGrowthMax * GridArray.Instance.cellY, randomLerp),
             transform.localScale.z);
         }
 
