@@ -57,13 +57,13 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_6DD357CB: 0.45
-    - Vector1_715B67C8: 0.3
+    - Vector1_6DD357CB: 1.4
+    - Vector1_715B67C8: 0.1
     - Vector1_C0ED90EA: 0
     - Vector1_CABFF9CB: 0
     - Vector1_EF22C243: 0
     - Vector1_F3CED7E1: 0.05
-    - Vector1_FA552A2: -0.4
+    - Vector1_FA552A2: 0
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -91,9 +91,9 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0.22113433, g: 0.08627452, b: 0.24705882, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _baseColor: {r: 0.9254902, g: 0.8934394, b: 0, a: 0}
+    - _baseColor: {r: 1, g: 0.932816, b: 0.4009434, a: 0}
     - _emissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _gradientColor: {r: 0.9056604, g: 0.33390543, b: 0.20932718, a: 0}
+    - _gradientColor: {r: 0.9339623, g: 0.14538093, b: 0.419065, a: 0}
     - _klimtColor: {r: 1, g: 0.72156864, b: 0, a: 0}
 --- !u!114 &8106974150847113918
 MonoBehaviour:

@@ -70,7 +70,8 @@ public class SpawnSettings : MonoBehaviour
     void Update()
     {
         //NumberSpawning();
-        GetGridValue();
+        //Debug Grid
+        //GetGridValue();
 
         if (spawnMode == false && lastPlacedTile != new Vector3 (-1, -1, -1))
         {
@@ -174,11 +175,13 @@ public class SpawnSettings : MonoBehaviour
                 StartCoroutine(SetSpawnDelay());
             }
 
+
+
             Ray rayBranch = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitBranch;
 
             //Branch
-            if (Physics.Raycast(ray, out hitBranch) && hitBranch.collider.CompareTag("structure"))
+            if (Physics.Raycast(rayBranch, out hitBranch) && hitBranch.collider.CompareTag("structure"))
             {
                 Vector3 hitGrid = new Vector3(hitBranch.collider.transform.position.x, Mathf.Round(hitBranch.point.y / cellY) * cellY, hitBranch.collider.transform.position.z);
 
