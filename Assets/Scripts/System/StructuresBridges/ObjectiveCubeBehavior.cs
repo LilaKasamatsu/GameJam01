@@ -17,7 +17,31 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     private void Update()
     {
         cooldown += Time.deltaTime;
-        
+
+        /*
+         * DEBUGGING COLOR
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            transform.GetChild(1).GetComponent<Renderer>().material.EnableKeyword("_Emission");
+            transform.GetChild(1).GetComponent<Renderer>().material.SetColor("_EmissionColor", sphereColor);
+
+            Color color = transform.GetChild(1).GetComponent<MeshRenderer>().material.color;
+            transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 0.05f);
+
+
+
+
+        }
+        if (Input.GetKey(KeyCode.Alpha2))
+        {
+            transform.GetChild(1).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+            transform.GetChild(1).GetComponent<Renderer>().material.SetColor("_EmissionColor", sphereColorSelect);
+
+            Color color = transform.GetChild(1).GetComponent<MeshRenderer>().material.color;
+            transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 0.35f);
+
+        }
+        */
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,11 +68,11 @@ public class ObjectiveCubeBehavior : MonoBehaviour
 
         if (other.gameObject.CompareTag("previewBridge"))
         {
-            //transform.GetChild(1).GetComponent<Renderer>().material.color = sphereColorSelect;
+            transform.GetChild(1).GetComponent<Renderer>().material.EnableKeyword("_Emission");
             transform.GetChild(1).GetComponent<Renderer>().material.SetColor("_EmissionColor", sphereColorSelect);
 
             Color color = transform.GetChild(1).GetComponent<MeshRenderer>().material.color;
-            transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 0.5f);
+            transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 0.35f);
 
         }
 
@@ -60,7 +84,7 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     {
         if (other.gameObject.CompareTag("previewBridge"))
         {
-            //transform.GetChild(1).GetComponent<Renderer>().material.color = sphereColor;
+            transform.GetChild(1).GetComponent<Renderer>().material.EnableKeyword("_Emission");
             transform.GetChild(1).GetComponent<Renderer>().material.SetColor("_EmissionColor", sphereColor);
   
             Color color = transform.GetChild(1).GetComponent<MeshRenderer>().material.color;
