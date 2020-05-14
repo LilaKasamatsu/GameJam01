@@ -1028,9 +1028,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   marker: {fileID: 1427785718841972201, guid: 0a8dddd32f143c7428ab5f3bfc49688d, type: 3}
   agentPlaceAmount: 100
-  startingAgentFoundation: 10
-  startingAgentBranch: 5
-  startingAgentStructure: 5
+  startingAgentFoundation: 100
+  startingAgentBranch: 100
+  startingAgentStructure: 100
   levelGenerator: {fileID: 1681719567}
   minNewAgentDelay: 5
   maxNewAgentDelay: 12
@@ -2004,7 +2004,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &618819662
 PrefabInstance:
@@ -3320,9 +3320,8 @@ MonoBehaviour:
   previewBridge: {fileID: 5883627539825866293, guid: 603a98877a2bc3948ac2be11cd325088,
     type: 3}
   selecter: {fileID: 0}
-  vfxRay: {fileID: 1104452940401654860, guid: e102532776f665a4baf44975f5329856, type: 3}
-  vfxRadius: {fileID: 1104452940401654860, guid: e102532776f665a4baf44975f5329856,
-    type: 3}
+  vfxRay: {fileID: 0}
+  vfxRadius: {fileID: 0}
   build: 0
 --- !u!114 &1092224753
 MonoBehaviour:

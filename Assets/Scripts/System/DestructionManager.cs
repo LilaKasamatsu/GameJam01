@@ -72,13 +72,10 @@ public class DestructionManager : MonoBehaviour
 
                    if(target.structureObjects.Count!=0 && target.sizeY*2 +target.foundationObject.transform.position.y >= heightLimit)
                     {
-                        
                         target.sizeY = target.branchedStructures + Mathf.RoundToInt(( heightLimit - target.foundationObject.transform.position.y)/GridArray.Instance.cellY);
-
                     }
-                   
-
                 }
+
                 for (int i = 0; i < particles.Count; i++)
                 {
 
