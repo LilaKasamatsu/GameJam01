@@ -128,19 +128,27 @@ public class DestructionManager : MonoBehaviour
                     }
 
                 }
+                for (int i = 0; i < particles.Count; i++)
+                {
+
+                    particles[i].transform.localScale = Vector3.Lerp(particles[i].transform.localScale, new Vector3(40f, 40f, 40f), .5f);
+                    particles[i].transform.GetComponentInChildren<TrailRenderer>().widthMultiplier -= .1f;
+
+                }
 
 
                 coloumscounter +=1;
                 yield return new WaitForEndOfFrame();
-                for (int i = 0; i < particles.Count; i++)
-                {
-                    if (particles[i].transform.localScale.x <= 0f)
-                    {
-                        Destroy(particles[i]);
-                        particles.RemoveAt(i);
-                    }
-                }
+                
                
+            }
+            for (int i = particles.Count-1; i >=0; i--)
+            {
+                
+                    Destroy(particles[i]);
+                    particles.RemoveAt(i);
+                
+                
             }
             coloumscounter = 0;
             float windCooldown = Random.Range(minCoolDown, maxCoolDown);
@@ -158,7 +166,7 @@ public class DestructionManager : MonoBehaviour
                 for(int i = 0;i<particles.Count;i++)
                 {
                    
-                        particles[i].transform.localScale = Vector3.Lerp(windPrefab.transform.lossyScale, new Vector3(0f, 0f,0f),windTimer/windCooldown);
+                        particles[i].transform.localScale = Vector3.Lerp(windPrefab.transform.lossyScale, Vector3.zero,windTimer/windCooldown);
                                       
                 }
                

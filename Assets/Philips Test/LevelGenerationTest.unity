@@ -6631,7 +6631,7 @@ MonoBehaviour:
   platformSearchDistance: 9
   destructionMode: 0
   maxLocalHeightLimit: 15
-  maxWindParticles: 12
+  maxWindParticles: 25
   windPrefab: {fileID: 2712643673001669053, guid: 16f6778ed0dba434f860be35d1c6ce64,
     type: 3}
   windTimer: 0
