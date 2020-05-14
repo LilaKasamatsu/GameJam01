@@ -32,6 +32,7 @@ public class ObjectiveSpawn : MonoBehaviour
     {
 
         currentHeight = startingHeight;
+        StartCoroutine(SpawnCube(2));
 
     }
 
@@ -40,7 +41,7 @@ public class ObjectiveSpawn : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            StartCoroutine( SpawnCube(2));
+            //StartCoroutine( SpawnCube(2));
 
         }
     }
