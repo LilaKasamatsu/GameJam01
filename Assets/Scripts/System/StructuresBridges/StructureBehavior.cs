@@ -106,7 +106,7 @@ public class StructureBehavior : MonoBehaviour
 
         if (CompareTag("branch"))
         {
-            float posY = -1 + startY / transform.parent.transform.localScale.y;
+            //float posY = -1 + startY / transform.parent.transform.localScale.y;
             //transform.position = new Vector3(transform.position.x, posY, transform.position.z);
         }
 

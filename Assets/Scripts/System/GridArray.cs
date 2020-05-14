@@ -119,7 +119,7 @@ public class GridArray : MonoBehaviour
                 //Debug.Log(x + " , " + i);
 
                 float width = Random.Range(0f, 1f);
-                int range = Random.Range(0, 3);
+                int range = Random.Range(0, 2);
                 int color = Random.Range(0, 3);
                 
                 string shape = "circ";

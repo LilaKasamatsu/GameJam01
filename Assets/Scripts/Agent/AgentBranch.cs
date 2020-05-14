@@ -57,9 +57,19 @@ public class AgentBranch : MonoBehaviour
     AgentStack agentStack;
 
 
+    int arrayPosX;
+    int arrayPosZ;
+
+    int newArrayPosX;
+    int newArrayPosZ;
+
     void Start()
     {
-   
+
+        arrayPosX = GridArray.Instance.NumToGrid(transform.position.x);
+        arrayPosZ = GridArray.Instance.NumToGrid(transform.position.z);
+
+
 
         cam = Camera.main;
 
@@ -105,6 +115,8 @@ public class AgentBranch : MonoBehaviour
 
     void Update()
     {
+        transform.Rotate(0, 360 * Time.deltaTime, 0); //rotates 50 degrees per second around z axis
+
         grid = SpawnSettings.Instance.grid;
 
         if (hasSignal == true && agent.hasPath)
@@ -137,8 +149,6 @@ public class AgentBranch : MonoBehaviour
         while (isActive == true && hasSignal == false)
         {
 
-            arrayPosX = GridArray.Instance.NumToGrid(transform.position.x);
-            arrayPosZ = GridArray.Instance.NumToGrid(transform.position.z);
             gridY = Mathf.RoundToInt(gridArray[arrayPosX, arrayPosZ].sizeY);
 
             
@@ -163,8 +173,9 @@ public class AgentBranch : MonoBehaviour
 
 
             yield return new WaitForSeconds(Random.Range(minBuildDelay, maxBuildDelay));
+            canBuild = true;
 
-
+            /*
             int minX = Mathf.RoundToInt((transform.position.x) / cellSize - maxDestinationDistance);
             int maxX = Mathf.RoundToInt((transform.position.x) / cellSize + maxDestinationDistance);
 
@@ -198,9 +209,11 @@ public class AgentBranch : MonoBehaviour
 
 
             agentMoveLocation = new Vector3(closestX, transform.position.y, closestZ);
-
-            canBuild = true;
             agent.SetDestination(agentMoveLocation);
+            */
+
+
+
 
         }
 
@@ -208,17 +221,11 @@ public class AgentBranch : MonoBehaviour
 
     }
 
-
-    int arrayPosX;
-    int arrayPosZ;
-
-    int newArrayPosX;
-    int newArrayPosZ;
-
     private void SetBuildLocation()
     {
-        buildLocation = new Vector3(arrayPosX * cellSize, 0, arrayPosZ * cellSize);
-        buildLocation.y = transform.position.y + cellY * gridArray[arrayPosX, arrayPosZ].sizeY - 3;
+        float buildY = transform.position.y + cellY * gridArray[arrayPosX, arrayPosZ].sizeY ;
+        buildLocation = new Vector3(arrayPosX * cellSize, buildY, arrayPosZ * cellSize);
+        
         gridArray[arrayPosX, arrayPosZ].branchedStructures = gridArray[arrayPosX, arrayPosZ].sizeY;
         hasBuilt = true;
 
@@ -241,8 +248,7 @@ public class AgentBranch : MonoBehaviour
         gridArray = GridArray.Instance.gridArray;
         if (!agent.hasPath && canBuild == true)
         {
-            arrayPosX = GridArray.Instance.NumToGrid(transform.position.x);
-            arrayPosZ = GridArray.Instance.NumToGrid(transform.position.z);
+
             gridY = Mathf.RoundToInt(gridArray[arrayPosX, arrayPosZ].sizeY);
 
 
@@ -272,31 +278,23 @@ public class AgentBranch : MonoBehaviour
                             {
                                 newArrayPosX = arrayPosX - 1;
                                 buildRotation = 0;
-
-
                             }
 
                             if (randomValue >= selfChance * 0.25f && randomValue < selfChance * 0.5f)
                             {
                                 newArrayPosX = arrayPosX + 1;
                                 buildRotation = 180;
-
-
                             }
 
                             if (randomValue >= selfChance * 0.5f && randomValue < selfChance * 0.75f)
                             {
                                 newArrayPosZ = arrayPosZ - 1;
                                 buildRotation = 270;
-
-
                             }
                             if (randomValue >= selfChance * 0.75f && randomValue < selfChance)
                             {
                                 newArrayPosZ = arrayPosZ + 1;
                                 buildRotation = 90;
-
-
                             }
                             //FINAL Check                            
                             if (gridArray[newArrayPosX, newArrayPosZ].sizeY < gridY && (newArrayPosX != arrayPosX || newArrayPosZ != arrayPosZ))

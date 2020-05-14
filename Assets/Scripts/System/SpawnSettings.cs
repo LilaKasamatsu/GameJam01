@@ -70,7 +70,8 @@ public class SpawnSettings : MonoBehaviour
     void Update()
     {
         //NumberSpawning();
-        GetGridValue();
+        //Debug Grid
+        //GetGridValue();
 
         if (spawnMode == false && lastPlacedTile != new Vector3 (-1, -1, -1))
         {
@@ -80,60 +81,39 @@ public class SpawnSettings : MonoBehaviour
 
 
 
-    public void PlaceAgent(GameObject agent)
+    public void PlaceAgent(GameObject agent)
     {
-
-
-
-
-
-
-
-
-        /*
-  RaycastHit hitAll = new RaycastHit();
-
-  RaycastHit[] hits;
-  hits = Physics.RaycastAll(cam.ScreenPointToRay(Input.mousePosition));
-
-  for (int i = 0; i < hits.Length; i++)
-  {
-      hitAll = hits[i];
-
-      if (hitAll.collider.gameObject.CompareTag("ground"))
-      {
-          hitGround = true;
-          break;       
-      }
-  }
-  */
-        GridList[,] gridArray = GridArray.Instance.gridArray;
-
-
-
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        bool hitGround = false;
-
-        int layer_mask = LayerMask.GetMask("Ground");
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer_mask))
+        if (tileTimer)
         {
+            GridList[,] gridArray = GridArray.Instance.gridArray;
 
-            Vector3 hitGrid = new Vector3(hit.point.x, Mathf.Round(hit.point.y / cellY) * cellY, hit.point.z);
-
-            int arrayPosX = GridArray.Instance.NumToGrid(hitGrid.x);
-            int arrayPosZ = GridArray.Instance.NumToGrid(hitGrid.z);
-            float arrayPosY = hit.point.y;
-
-            //Vector3 currentTile = new Vector3(arrayPosX, arrayPosY, arrayPosX);
-
-            if (tileTimer)
+
+
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            int layer_mask = LayerMask.GetMask("Ground");
+
+
+            //Foundation and Structure
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer_mask))
             {
+
+                Vector3 hitGrid = new Vector3(hit.point.x, Mathf.Round(hit.point.y / cellY) * cellY, hit.point.z);
+
+                int arrayPosX = GridArray.Instance.NumToGrid(hitGrid.x);
+                int arrayPosZ = GridArray.Instance.NumToGrid(hitGrid.z);
+
+                float arrayPosY = hit.point.y;
+
+                //Vector3 currentTile = new Vector3(arrayPosX, arrayPosY, arrayPosX);
+
                 if (hit.normal.normalized == new Vector3(0f, 1f, 0f))
                 {
-                    //Foundation Agent
-                    if (agent.GetComponent<AgentFoundation>() != null && agentStack.agentAmountFoundation > 0)
+                    //Foundation Agent
+
+                    if (agent.GetComponent<AgentFoundation>() != null && agentStack.agentAmountFoundation > 0)
+
                     {
                         if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
                         {
@@ -157,58 +137,97 @@ public class SpawnSettings : MonoBehaviour
                             tileTimer = false;
                         }
                     }
-                    //Structure Agent
-                    if (agent.GetComponent<AgentStructure>() != null && agentStack.agentAmountStructure > 0)
+                    //Structure Agent
+
+                    if (agent.GetComponent<AgentStructure>() != null && agentStack.agentAmountStructure > 0)
+
                     {
-                        if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
+                        if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
+
                         {
                             if (gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
-                            {
+                            {
+
                                 agentStack.agentAmountStructure -= 1;
-                                agentStack.agentStructure += 1;
+                                agentStack.agentStructure += 1;
+
                                 Vector3 spawnLocation = hitGrid;
-                                spawnLocation.y = hit.point.y + agent.transform.localScale.y * 0.5f;
-
+                                spawnLocation.y = hit.point.y + agent.transform.localScale.y * 0.5f;
+
+
+
                                 GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
-                                newAgent.GetComponent<NavMeshAgent>().enabled = true;
+                                newAgent.GetComponent<NavMeshAgent>().enabled = true;
+
                                 newAgent.GetComponent<AgentStructure>().isActive = true;
 
                                 //lastPlacedTile = currentTile;
-                                tileTimer = false;
+                                tileTimer = false;
 
-                            }
-                        }
-                    }
-                    //Branch Agent
-                    if (agent.GetComponent<AgentBranch>() != null && agentStack.agentAmountBranch > 0)
-                    {
-                        if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
-                        {
-                            if (gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
-                            {
-                                agentStack.agentAmountBranch -= 1;
-                                agentStack.agentBranch += 1;
-
-                                Vector3 spawnLocation = hitGrid;
-                                spawnLocation.y = hit.point.y + agent.transform.localScale.y * 0.5f;
-
-                                GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
-                                newAgent.GetComponent<NavMeshAgent>().enabled = true;
-                                newAgent.GetComponent<AgentBranch>().isActive = true;
-
-                                //lastPlacedTile = currentTile;
-                                tileTimer = false;
 
                             }
+
+                        }
+
+                    }
+
+                }
+                StartCoroutine(SetSpawnDelay());
+            }
+
+
+
+            Ray rayBranch = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitBranch;
+
+            //Branch
+            if (Physics.Raycast(rayBranch, out hitBranch) && hitBranch.collider.CompareTag("structure"))
+            {
+                Vector3 hitGrid = new Vector3(hitBranch.collider.transform.position.x, Mathf.Round(hitBranch.point.y / cellY) * cellY, hitBranch.collider.transform.position.z);
+
+                int arrayPosX = GridArray.Instance.NumToGrid(hitGrid.x);
+                int arrayPosZ = GridArray.Instance.NumToGrid(hitGrid.z);
+
+                float arrayPosY = hit.point.y;
+
+                //branch Agent
+                if (agent.GetComponent<AgentBranch>() != null && agentStack.agentAmountBranch > 0)
+
+                {
+                    if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
+
+                    {
+
+                        if (gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
+
+                        {
+                            agentStack.agentAmountBranch -= 1;
+                            agentStack.agentBranch += 1;
+
+
+                            Vector3 spawnLocation = hitGrid;
+                            spawnLocation.y = hit.point.y + agent.transform.localScale.y * 0.5f;
+
+
+                            GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
+                            newAgent.GetComponent<NavMeshAgent>().enabled = true;
+
+                            newAgent.GetComponent<AgentBranch>().isActive = true;
+
+                            //lastPlacedTile = currentTile;
+                            tileTimer = false;
+                            StartCoroutine(SetSpawnDelay());
+
+
                         }
                     }
                 }
-                StartCoroutine(SetSpawnDelay());
             }
-        }     
+        }
 
-
-   
+
+
+
     }
 
     public void SpawnAgent(GameObject spawnAgent, Vector3 position)
