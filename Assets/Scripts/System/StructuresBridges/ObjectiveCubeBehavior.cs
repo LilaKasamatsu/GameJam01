@@ -28,10 +28,13 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     {
         cooldown += Time.deltaTime;
 
+   
+
         /*
          * DEBUGGING COLOR
         if (Input.GetKey(KeyCode.Alpha1))
         {
+
             transform.GetChild(1).GetComponent<Renderer>().material.EnableKeyword("_Emission");
             transform.GetChild(1).GetComponent<Renderer>().material.SetColor("_EmissionColor", sphereColor);
 
@@ -68,6 +71,7 @@ public class ObjectiveCubeBehavior : MonoBehaviour
                 audioSource.Play();
             }
             Destroy(this.gameObject);
+            ObjectiveSpawn.instance.collectedCubes += 1;
 
             if (cooldown >= .025)
             {

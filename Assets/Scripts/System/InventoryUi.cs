@@ -44,9 +44,9 @@ public class InventoryUi : MonoBehaviour
 			CheckButton();
 		}
 
-		textFoundation.text = GridArray.Instance.agentStack.agentFoundation.ToString() + " / " + (GridArray.Instance.agentStack.agentAmountFoundation + GridArray.Instance.agentStack.agentFoundation).ToString();
-		textStructure.text = GridArray.Instance.agentStack.agentStructure.ToString() + " / " + (GridArray.Instance.agentStack.agentAmountStructure + GridArray.Instance.agentStack.agentStructure).ToString();
-		textBranch.text = GridArray.Instance.agentStack.agentBranch.ToString() + " / " + (GridArray.Instance.agentStack.agentAmountBranch + GridArray.Instance.agentStack.agentBranch).ToString();
+		textFoundation.text = GridArray.Instance.agentStack.agentFoundation.ToString() + "/" + (GridArray.Instance.agentStack.agentAmountFoundation + GridArray.Instance.agentStack.agentFoundation).ToString();
+		textStructure.text = GridArray.Instance.agentStack.agentStructure.ToString() + "/" + (GridArray.Instance.agentStack.agentAmountStructure + GridArray.Instance.agentStack.agentStructure).ToString();
+		textBranch.text = GridArray.Instance.agentStack.agentBranch.ToString() + "/" + (GridArray.Instance.agentStack.agentAmountBranch + GridArray.Instance.agentStack.agentBranch).ToString();
 
 		//textAgentAmount.text = GridArray.Instance.agentStack.agentAmount.ToString();
 
