@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 746951478421344385}
   - component: {fileID: 7955273771236021294}
   - component: {fileID: 9122117508804695809}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BasicGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4774,7 +4774,7 @@ GameObject:
   - component: {fileID: 2372030882079449080}
   - component: {fileID: 8529537646877265859}
   - component: {fileID: 2147664817361629275}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sparks RIM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9528,7 +9528,7 @@ GameObject:
   - component: {fileID: 1281537240250732216}
   - component: {fileID: 3437249782116610165}
   - component: {fileID: 9060547581947275396}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle Ray
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14283,7 +14283,7 @@ GameObject:
   - component: {fileID: 1310213522734045906}
   - component: {fileID: 1118079112575422142}
   - component: {fileID: 801631787652223782}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14378,7 +14378,6 @@ GameObject:
   - component: {fileID: 3934637306066782609}
   - component: {fileID: 1274815597358551578}
   - component: {fileID: 3145788666037601006}
-  - component: {fileID: 8316697627825572886}
   m_Layer: 2
   m_Name: CubeObjective
   m_TagString: Untagged
@@ -14502,18 +14501,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8316697627825572886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3596111031837960777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f651170a5b166ac499d58ce128aa6a34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5503233711391435226
 GameObject:
   m_ObjectHideFlags: 0
@@ -14525,7 +14512,7 @@ GameObject:
   - component: {fileID: 5503233711391435227}
   - component: {fileID: 5503233711391435225}
   - component: {fileID: 5503233711391435224}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
