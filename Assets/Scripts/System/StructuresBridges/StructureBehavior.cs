@@ -14,6 +14,7 @@ public class StructureBehavior : MonoBehaviour
 
     [SerializeField] Color colorSelect;
     [SerializeField] Color colorBridged;
+    [SerializeField] Color colorBridgedGradient;
 
     //Renderer render;
     List<Renderer> renders = new List<Renderer>();
@@ -177,7 +178,7 @@ public class StructureBehavior : MonoBehaviour
         for (int i = 0; i < renders.Count; i++)
         {
             renders[i].material.SetColor("_baseColor", colorBridged);
-            renders[i].material.SetColor("_gradientColor", colorBridged);
+            renders[i].material.SetColor("_gradientColor", colorBridgedGradient);
 
         }
 

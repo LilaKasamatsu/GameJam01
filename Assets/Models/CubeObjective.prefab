@@ -14438,8 +14438,8 @@ MonoBehaviour:
     type: 3}
   sphereColor: {r: 0.36611167, g: 0.5471698, b: 0.18841223, a: 1}
   sphereColorSelect: {r: 0.75915647, g: 0.8490566, b: 0, a: 1}
-  collected: {fileID: 8300000, guid: 5171c6fe9098c494998d968bfc660167, type: 3}
-  dropping: {fileID: 8300000, guid: 5648fa91fb8a95d4b96c06b4369a9662, type: 3}
+  collected: {fileID: 8300000, guid: cc5e6d95d40c67244877e71f6fcbd758, type: 3}
+  dropping: {fileID: 8300000, guid: 065ce014bfcd82647a6bb1b59762cfa3, type: 3}
   audioSourcePrefab: {fileID: 8999329689649642818, guid: a35db2d8ffd486846841321e5d2f02ea,
     type: 3}
 --- !u!54 &3145788666037601006
@@ -14470,7 +14470,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -14479,7 +14479,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 1.01
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -14529,7 +14529,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
