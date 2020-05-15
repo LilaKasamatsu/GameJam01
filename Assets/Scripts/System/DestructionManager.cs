@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 using Random = UnityEngine.Random;
@@ -79,7 +78,7 @@ public class DestructionManager : MonoBehaviour
                 {
                     GridList target = GridArray.Instance.gridArray[coloumscounter, i];
 
-                   if(target.bridgeObjects.Count==0 && target.structureObjects.Count!=0 && target.sizeY*2 +target.foundationObject.transform.position.y >= heightLimit)
+                   if(target.foundationObject!=null && target.bridgeObjects.Count==0 && target.structureObjects.Count!=0 && target.sizeY*2 +target.foundationObject.transform.position.y >= heightLimit)
                     {
                         target.sizeY= Mathf.RoundToInt(Mathf.Clamp( (heightLimit -target.foundationObject.transform.position.y) /GridArray.Instance.cellSize ,target.branchedStructures,Mathf.Infinity));
                         

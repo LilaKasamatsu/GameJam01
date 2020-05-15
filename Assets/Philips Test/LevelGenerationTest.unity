@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.1267885, g: 0.17916125, b: 0.23748305, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.99999946, b: 0.99999946, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1748,7 +1748,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1.8871e-41, y: 1.01e-43, z: 4.5904e-41, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: NaN, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -2937,7 +2937,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 1.4e-44, z: 9.102e-41, w: 5.9e-44}
+  m_BoundingSphereOverride: {x: 0, y: -0, z: 0.7071068, w: 0.7071068}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -4181,12 +4181,12 @@ MonoBehaviour:
     type: 3}
   trysPerFrame: 5
   minDistanceBetweenTwoSpawns: 25
-  startingHeight: -15
+  startingHeight: -20
   Heightincrease: 10
-  maximumHeight: 70
+  maximumHeight: 30
   AgentsPerCube: 5
-  objectiveFallingSpeed: 0.2
-  objectiveCountdown: 120
+  objectiveFallingSpeed: 0.5
+  objectiveCountdown: 50
   collectedCubes: 0
   cube1: {fileID: 992725698}
   cube2: {fileID: 322053748}
@@ -4851,7 +4851,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 9.102e-41, y: 1.01e-43, z: 4.5904e-41, w: 0}
+  m_BoundingSphereOverride: {x: 7.85e-43, y: 2.5148e-41, z: 0, w: -1}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
