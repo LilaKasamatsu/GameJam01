@@ -61,24 +61,24 @@ public class ObjectiveCubeBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.gameObject.CompareTag("bridge") && !falling)|| other.gameObject.CompareTag("ground") );
+        if (other.CompareTag("bridge") || other.CompareTag("ground") )
         {
-            if (other.gameObject.CompareTag("ground") && falling)
+            if (other.CompareTag("ground") && falling && !spawned)
             {
                 GroundBehaviour groundBehaviour = other.transform.GetComponentInChildren<GroundBehaviour>();
                 
                     groundBehaviour.StartCoroutine(groundBehaviour.Fall());
-                
+                spawned = true;
+                ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(1));
+                Destroy(this.gameObject);
+
             }
             //Instantiate(effect2, this.transform.position, Quaternion.identity);
             //Instantiate(effect3, this.transform.position, Quaternion.identity);
             
 
-            
-            Destroy(this.gameObject,0.1f);
-            
 
-            if (cooldown >= .025 && spawned == false) 
+            if (cooldown >= .025 && spawned == false && falling==false) 
             {
                 spawned = true;
                 Instantiate(effect1, this.transform.position, Quaternion.identity);
@@ -92,14 +92,16 @@ public class ObjectiveCubeBehavior : MonoBehaviour
                     audioSourceTemp.clip = collected;
                     audioSourceTemp.Play();
                     played = true;
+                    Destroy(this.gameObject);
                 }
             }
-            else if(spawned==false)
+            else if(spawned==false && falling == false)
             {
                 spawned = true;
                 ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(1));
+                Destroy(this.gameObject);
             }
-            Destroy(this.gameObject);
+            
         }
         
 
