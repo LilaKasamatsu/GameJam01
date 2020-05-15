@@ -50,7 +50,7 @@ MonoBehaviour:
   colorBase2: {r: 1, g: 0.32720104, b: 0.0039215684, a: 1}
   colorBase3: {r: 1, g: 0.61547095, b: 0, a: 1}
   colorGradient: {r: 1, g: 0.8705595, b: 0.18396229, a: 1}
-  colorSelect: {r: 0.27058825, g: 0.72156864, b: 0.8039216, a: 1}
+  colorSelect: {r: 0.1764706, g: 0.7137255, b: 1, a: 1}
   colorBridged: {r: 0.17372729, g: 0.368477, b: 0.6037736, a: 1}
   isSelected: 0
   isBridged: 0
