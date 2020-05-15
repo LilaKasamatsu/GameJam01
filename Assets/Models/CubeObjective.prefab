@@ -14488,6 +14488,8 @@ MonoBehaviour:
   sphereColorSelect: {r: 0.75915647, g: 0.8490566, b: 0, a: 1}
   collected: {fileID: 8300000, guid: 5171c6fe9098c494998d968bfc660167, type: 3}
   dropping: {fileID: 8300000, guid: 5648fa91fb8a95d4b96c06b4369a9662, type: 3}
+  audioSourcePrefab: {fileID: 8999329689649642818, guid: a35db2d8ffd486846841321e5d2f02ea,
+    type: 3}
 --- !u!54 &3145788666037601006
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14516,7 +14518,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0

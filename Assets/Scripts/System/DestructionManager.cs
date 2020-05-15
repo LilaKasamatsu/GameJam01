@@ -65,7 +65,7 @@ public class DestructionManager : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("SANDSTORM auf höhe:" + heightLimit);
+           
             int coloumscounter = 0;
             int coloumsCounterCounter=5;
             int GridLengthX = GridArray.Instance.arrayX;
@@ -81,7 +81,8 @@ public class DestructionManager : MonoBehaviour
 
                    if(target.bridgeObjects.Count==0 && target.structureObjects.Count!=0 && target.sizeY*2 +target.foundationObject.transform.position.y >= heightLimit)
                     {
-                        target.sizeY = target.branchedStructures + Mathf.RoundToInt(( heightLimit - target.foundationObject.transform.position.y)/GridArray.Instance.cellY);
+                        target.sizeY= Mathf.RoundToInt(Mathf.Clamp( (heightLimit -target.foundationObject.transform.position.y) /GridArray.Instance.cellSize ,target.branchedStructures,Mathf.Infinity));
+                        
                     }
                 }
 
@@ -120,9 +121,9 @@ public class DestructionManager : MonoBehaviour
             heightLimit = Mathf.FloorToInt(Random.Range(minLocalHeightLimit, maxLocalHeightLimit) / 3 + Random.Range(minLocalHeightLimit, maxLocalHeightLimit) / 3 + Random.Range(minLocalHeightLimit, maxLocalHeightLimit) / 3);
             float windCooldown = Random.Range(minCoolDown, maxCoolDown);
             windTimer = 0;
-            Debug.Log("waiting for next sandstorm in:" + windCooldown);
+            
             yield return new WaitForSeconds(windCooldown - musicWindTimer);
-            while (windTimer < musicWindTimer)
+            while (windTimer <musicWindTimer)
             {
 
                 windTimer += Time.deltaTime;
@@ -140,7 +141,7 @@ public class DestructionManager : MonoBehaviour
                 for(int i = 0;i<particles.Count;i++)
                 {
                    
-                        particles[i].transform.localScale = Vector3.Lerp(windPrefab.transform.localScale, Vector3.zero,windTimer/musicWindTimer*2);
+                        particles[i].transform.localScale = Vector3.Lerp(windPrefab.transform.localScale, Vector3.zero,windTimer/musicWindTimer);
                                       
                 }
                

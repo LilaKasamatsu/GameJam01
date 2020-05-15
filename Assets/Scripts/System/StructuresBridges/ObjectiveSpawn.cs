@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SocialPlatforms;
+using Random = UnityEngine.Random;
 
 public class ObjectiveSpawn : MonoBehaviour
 {
@@ -13,6 +16,8 @@ public class ObjectiveSpawn : MonoBehaviour
     [SerializeField] float Heightincrease;
     [SerializeField] float maximumHeight;
     [SerializeField] int AgentsPerCube;
+    [Range(0, 1)] public float objectiveFallingSpeed;
+    public float objectiveCountdown;
 
     public int collectedCubes = 0;
 
@@ -114,8 +119,9 @@ public class ObjectiveSpawn : MonoBehaviour
             RaycastHit hit;
 
 
-            if ( Vector3.Distance( new Vector3(spawnPosition.x,0,spawnPosition.z),new Vector3(lastPosition.x,0,lastPosition.z))>minDistanceBetweenTwoSpawns && Physics.Raycast(spawnPosition, new Vector3(0, -1, 0), out hit, Mathf.Infinity, layer_mask))
+            if ( Vector3.Distance( new Vector3(spawnPosition.x,0,spawnPosition.z),new Vector3(lastPosition.x,0,lastPosition.z))>minDistanceBetweenTwoSpawns && Physics.Raycast(spawnPosition, new Vector3(0, -1, 0), out hit, Mathf.Infinity, layer_mask) && hit.transform.GetComponent<GroundBehaviour>().falling==false)
             {
+                
                 Debug.Log("Did Hit");
                 spawnPosition.y =currentHeight;
                 spawnPosition.y= Mathf.Clamp(spawnPosition.y, hit.point.y + 10, Mathf.Infinity);
@@ -137,18 +143,5 @@ public class ObjectiveSpawn : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnCountdown()
-    {
-        while (true)
-        {
-
-
-
-
-
-        }
-
-
-    }
 
 }

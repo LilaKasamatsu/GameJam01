@@ -22,8 +22,9 @@ public class StructureBehavior : MonoBehaviour
     public bool isBridged = false;
     public bool isBase = true;
     float randomGrowthMax;
-    float randomLerp = 0.0001f;
+    float randomLerp;
     public float startY;
+    [HideInInspector] public GridList GridPosition;
 
     List<GameObject> tag_targets;
 
@@ -53,13 +54,14 @@ public class StructureBehavior : MonoBehaviour
 
     void Start()
     {
-
+        randomLerp = 0.0001f;
 
         AddDescendants(transform, new List<GameObject>());
 
         //render = transform.GetChild(0).GetComponent<Renderer>();
         int randomColor = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(transform.position.x), GridArray.Instance.NumToGrid(transform.position.z)].color;
         //randomColor = 0;
+        GridPosition = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid( transform.position.x), GridArray.Instance.NumToGrid(transform.position.z)];
 
         if (randomColor == 0)
         {
