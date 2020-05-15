@@ -3522,6 +3522,7 @@ GameObject:
   - component: {fileID: 963194230}
   - component: {fileID: 963194229}
   - component: {fileID: 963194231}
+  - component: {fileID: 963194232}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4143,7 +4144,8 @@ MonoBehaviour:
     type: 3}
   selecter: {fileID: 0}
   vfxRay: {fileID: 0}
-  vfxRadius: {fileID: 0}
+  vfxRadius: {fileID: 1104452940401654860, guid: e102532776f665a4baf44975f5329856,
+    type: 3}
   build: 0
 --- !u!114 &1092224753
 MonoBehaviour:
@@ -7449,7 +7451,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925346748}
-  m_CullTransparentMesh: 0
+  m_CullTransparentMesh: 1
 --- !u!1 &1933351249
 GameObject:
   m_ObjectHideFlags: 0
@@ -7785,6 +7787,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2078100792}
   - component: {fileID: 2078100793}
+  - component: {fileID: 2078100794}
   m_Layer: 0
   m_Name: DestructionManager
   m_TagString: Untagged

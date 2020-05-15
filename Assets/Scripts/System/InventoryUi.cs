@@ -34,6 +34,7 @@ public class InventoryUi : MonoBehaviour
 
 		//Button button1 = agentButton1.GetComponent<Button>();
 		//btn.onClick.AddListener(TaskOnClick);
+		pauseButton.GetComponent<Button>().onClick.AddListener(() => ClickPause());
 
 
 
@@ -42,7 +43,8 @@ public class InventoryUi : MonoBehaviour
 
 	private void Update()
 	{
-		pauseButton.GetComponent<Button>().onClick.AddListener(ClickPause);
+
+
 
 		if (showInfo == 1)
 		{
@@ -71,7 +73,7 @@ public class InventoryUi : MonoBehaviour
 	void ClickPause()
 	{
 		showInfo = 1 - showInfo;
-
+		Debug.Log("click");
 	}
 
 	private bool IsMouseOverUI()
