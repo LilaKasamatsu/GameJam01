@@ -15,7 +15,17 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     bool spawned;
     bool falling;
 
+    [SerializeField] AudioClip collected;
+    [SerializeField] AudioClip dropping;
+    private AudioSource audioSource;
+
     float cooldown;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     private void Update()
     {
         cooldown += Time.deltaTime;
@@ -54,7 +64,15 @@ public class ObjectiveCubeBehavior : MonoBehaviour
             //Instantiate(effect3, this.transform.position, Quaternion.identity);
             
 
-            if (cooldown >= .025 && spawned==false)
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = collected;
+                audioSource.Play();
+            }
+            Destroy(this.gameObject);
+            ObjectiveSpawn.instance.collectedCubes += 1;
+
+            if (cooldown >= .025)
             {
                 spawned = true;
                 Instantiate(effect1, this.transform.position, Quaternion.identity);

@@ -19,6 +19,11 @@ public class DestructionManager : MonoBehaviour
     [SerializeField] int minLocalHeightLimit;
     [SerializeField] int maxLocalHeightLimit;
     [SerializeField] int maxWindParticles;
+
+    [SerializeField] AudioClip wind;
+    float musicWindTimer = 30;
+    AudioSource audioSource;
+
     public GameObject windPrefab;
     public GameObject localWindPrefab;
     public float windTimer;
@@ -48,11 +53,13 @@ public class DestructionManager : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         StartCoroutine(GlobalDestruction());
     }
 
-    
-   
+
+
+
 
     IEnumerator GlobalDestruction()
     {
@@ -121,15 +128,21 @@ public class DestructionManager : MonoBehaviour
             {
 
                 windTimer += Time.deltaTime;
+
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = wind;
+                    audioSource.Play();
+                }
                
-                if (windTimer/windCooldown/2 >= particles.Count/maxWindParticles)
+                if (windTimer/musicWindTimer >= particles.Count/maxWindParticles)
                 {
                     ParticleInstantiate(LevelGenerator.instance.Groundbounds.transform.position.x, heightLimit, LevelGenerator.instance.Groundbounds.transform.position.z);
                 }
                 for(int i = 0;i<particles.Count;i++)
                 {
                    
-                        particles[i].transform.localScale = Vector3.Lerp(windPrefab.transform.localScale, Vector3.zero,windTimer/windCooldown*2);
+                        particles[i].transform.localScale = Vector3.Lerp(windPrefab.transform.localScale, Vector3.zero,windTimer/musicWindTimer*2);
                                       
                 }
                

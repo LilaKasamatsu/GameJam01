@@ -308,7 +308,7 @@ public class AgentStructure : MonoBehaviour
     {
 
         Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 20.0f;
+        mousePos.z = 40.0f;
         mousePos.y += 50.0f;
 
         Vector3 objectPos = cam.ScreenToWorldPoint(mousePos);
