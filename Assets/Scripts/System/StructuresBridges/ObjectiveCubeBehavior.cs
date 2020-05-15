@@ -32,7 +32,9 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     private void Update()
     {
         cooldown += Time.deltaTime;
-        transform.localScale = Vector3.Lerp(new Vector3(6,6,6), new Vector3(0f, 0f, 0f), cooldown/ObjectiveSpawn.instance.objectiveCountdown);
+        
+        
+        transform.GetChild(0).localScale = Vector3.Lerp(new Vector3(1,1,1), new Vector3(0f, 0f, 0f), cooldown/ObjectiveSpawn.instance.objectiveCountdown);
         if (cooldown >= ObjectiveSpawn.instance.objectiveCountdown && falling==false)
         {
             StartCoroutine(Falling());
@@ -78,7 +80,7 @@ public class ObjectiveCubeBehavior : MonoBehaviour
             
 
 
-            if (cooldown >= .025 && spawned == false && falling==false) 
+            if (cooldown >= .25 && spawned == false && falling==false) 
             {
                 spawned = true;
                 Instantiate(effect1, this.transform.position, Quaternion.identity);

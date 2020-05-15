@@ -60,12 +60,12 @@ MonoBehaviour:
   structureSquare: {fileID: 667734470985571616, guid: 170d48e4eab429c4e9157a1760a20d0f,
     type: 3}
   minBuildDelay: 0.3
-  maxBuildDelay: 2
+  maxBuildDelay: 1
   spawnAgent: {fileID: 3869811639861139897}
   minBranchHeight: 6
   branchChance: 25
   structuresLifetime: 10
-  destructionTimer: 60
+  destructionTimer: 90
   destructionAnim: {fileID: 46301278182483637, guid: 9dbb2d66de88c554593f27428ca2f91e,
     type: 3}
   agent: {fileID: 862648634634928750}
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe88a85e354a9554881a150041a968a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  signalWalkSpeed: 0.25
+  signalWalkSpeed: 1
 --- !u!1 &5059499989116823543
 GameObject:
   m_ObjectHideFlags: 0
