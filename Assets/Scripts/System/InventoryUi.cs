@@ -11,6 +11,8 @@ public class InventoryUi : MonoBehaviour
 	[SerializeField] Text textBranch;
 	[SerializeField] Button pauseButton;
 	[SerializeField] GameObject infoPanel;
+	[SerializeField] GameObject destinationPlane;
+	[SerializeField] GameObject originPlane;
 
 
 	int showInfo = 1;
@@ -48,11 +50,11 @@ public class InventoryUi : MonoBehaviour
 
 		if (showInfo == 1)
 		{
-			infoPanel.transform.position = new Vector3(infoPanel.transform.position.x, Mathf.Lerp(infoPanel.transform.position.y, 70f, 0.1f), infoPanel.transform.position.z);
+			infoPanel.transform.position = new Vector3(infoPanel.transform.position.x, Mathf.Lerp(infoPanel.transform.position.y, originPlane.transform.position.y, 0.1f), infoPanel.transform.position.z);
 		}
 		else if (showInfo == 0)
 		{
-			infoPanel.transform.position = new Vector3(infoPanel.transform.position.x, Mathf.Lerp(infoPanel.transform.position.y, -150f, 0.1f), infoPanel.transform.position.z);
+			infoPanel.transform.position = new Vector3(infoPanel.transform.position.x, Mathf.Lerp(infoPanel.transform.position.y, destinationPlane.transform.position.y, 0.1f), infoPanel.transform.position.z);
 		}
 
 
