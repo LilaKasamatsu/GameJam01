@@ -109,11 +109,11 @@ public class ObjectiveCubeBehavior : MonoBehaviour
 
         if (other.gameObject.CompareTag("previewBridge"))
         {
-            transform.GetChild(1).GetComponent<Renderer>().material.EnableKeyword("_Emission");
-            transform.GetChild(1).GetComponent<Renderer>().material.SetColor("_EmissionColor", sphereColorSelect);
+            transform.GetChild(2).GetComponent<Renderer>().material.EnableKeyword("_Emission");
+            transform.GetChild(2).GetComponent<Renderer>().material.SetColor("_EmissionColor", sphereColorSelect);
 
-            Color color = transform.GetChild(1).GetComponent<MeshRenderer>().material.color;
-            transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 0.35f);
+            Color color = transform.GetChild(2).GetComponent<MeshRenderer>().material.color;
+            transform.GetChild(2).GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 0.35f);
 
         }
 
@@ -125,11 +125,11 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     {
         if (other.gameObject.CompareTag("previewBridge"))
         {
-            transform.GetChild(1).GetComponent<Renderer>().material.EnableKeyword("_Emission");
-            transform.GetChild(1).GetComponent<Renderer>().material.SetColor("_EmissionColor", sphereColor);
+            transform.GetChild(2).GetComponent<Renderer>().material.EnableKeyword("_Emission");
+            transform.GetChild(2).GetComponent<Renderer>().material.SetColor("_EmissionColor", sphereColor);
   
-            Color color = transform.GetChild(1).GetComponent<MeshRenderer>().material.color;
-            transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 0.05f);
+            Color color = transform.GetChild(2).GetComponent<MeshRenderer>().material.color;
+            transform.GetChild(2).GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 0.05f);
 
         }
 
