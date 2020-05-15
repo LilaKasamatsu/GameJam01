@@ -12,59 +12,64 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     [SerializeField] GameObject selecterBridge;
     [SerializeField] Color sphereColor;
     [SerializeField] Color sphereColorSelect;
+    bool spawned;
+    bool falling;
 
     float cooldown;
     private void Update()
     {
         cooldown += Time.deltaTime;
-
-        /*
-         * DEBUGGING COLOR
-        if (Input.GetKey(KeyCode.Alpha1))
+        transform.localScale = Vector3.Lerp(new Vector3(6,6,6), new Vector3(0f, 0f, 0f), cooldown/ObjectiveSpawn.instance.objectiveCountdown);
+        if (cooldown >= ObjectiveSpawn.instance.objectiveCountdown && falling==false)
         {
-            transform.GetChild(1).GetComponent<Renderer>().material.EnableKeyword("_Emission");
-            transform.GetChild(1).GetComponent<Renderer>().material.SetColor("_EmissionColor", sphereColor);
+            StartCoroutine(Falling());
+        }
+        
+    }
 
-            Color color = transform.GetChild(1).GetComponent<MeshRenderer>().material.color;
-            transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 0.05f);
-
-
-
+    IEnumerator Falling()
+    {
+        while (true)
+        {
+            falling = true;
+            Debug.Log("Cube is falling");
+            transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.down * 10, ObjectiveSpawn.instance.objectiveFallingSpeed);
+            yield return new WaitForEndOfFrame();
 
         }
-        if (Input.GetKey(KeyCode.Alpha2))
-        {
-            transform.GetChild(1).GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
-            transform.GetChild(1).GetComponent<Renderer>().material.SetColor("_EmissionColor", sphereColorSelect);
-
-            Color color = transform.GetChild(1).GetComponent<MeshRenderer>().material.color;
-            transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(color.r, color.g, color.b, 0.35f);
-
-        }
-        */
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("bridge"))
+        if (other.gameObject.CompareTag("bridge") || other.gameObject.CompareTag("ground") );
         {
-            Instantiate(effect1, this.transform.position, Quaternion.identity);
+            if (other.gameObject.CompareTag("ground") && falling == true)
+            {
+                GroundBehaviour groundBehaviour = other.transform.GetComponentInChildren<GroundBehaviour>();
+                
+                    groundBehaviour.StartCoroutine(groundBehaviour.Fall());
+                
+            }
             //Instantiate(effect2, this.transform.position, Quaternion.identity);
             //Instantiate(effect3, this.transform.position, Quaternion.identity);
+            
 
-
-            Destroy(this.gameObject);
-
-            if (cooldown >= .025)
+            if (cooldown >= .025 && spawned==false)
             {
+                spawned = true;
+                Instantiate(effect1, this.transform.position, Quaternion.identity);
                 GridArray.Instance.agentStack.agentAmountStructure += amountOfAgents;
                 ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(1));
+                // hier collectable eingesammelt sound einfügen (neues objekt instantiaten oder die brücke other abspielen lassen)
             }
-            else
+            else if(spawned==false)
             {
+                spawned = true;
                 ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(1));
             }
+            Destroy(this.gameObject);
         }
+        
 
         if (other.gameObject.CompareTag("previewBridge"))
         {
