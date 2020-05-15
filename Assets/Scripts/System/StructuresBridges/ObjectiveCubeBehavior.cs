@@ -14,10 +14,13 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     [SerializeField] Color sphereColorSelect;
     bool spawned;
     bool falling;
+    bool played;
 
     [SerializeField] AudioClip collected;
     [SerializeField] AudioClip dropping;
     private AudioSource audioSource;
+    [SerializeField] AudioSource audioSourcePrefab;
+
 
     float cooldown;
 
@@ -41,9 +44,16 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     {
         while (true)
         {
+            if (!audioSource.isPlaying && !played)
+            {
+                AudioSource audioSourceTemp=  Instantiate(audioSourcePrefab);
+                audioSourceTemp.clip = dropping;
+                audioSourceTemp.Play();
+                played = true;
+            }
             falling = true;
             Debug.Log("Cube is falling");
-            transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.down * 10, ObjectiveSpawn.instance.objectiveFallingSpeed);
+            transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.down , ObjectiveSpawn.instance.objectiveFallingSpeed);
             yield return new WaitForEndOfFrame();
 
         }
@@ -51,9 +61,9 @@ public class ObjectiveCubeBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("bridge") || other.gameObject.CompareTag("ground") );
+        if ((other.gameObject.CompareTag("bridge") && !falling)|| other.gameObject.CompareTag("ground") );
         {
-            if (other.gameObject.CompareTag("ground") && falling == true)
+            if (other.gameObject.CompareTag("ground") && falling)
             {
                 GroundBehaviour groundBehaviour = other.transform.GetComponentInChildren<GroundBehaviour>();
                 
@@ -64,21 +74,25 @@ public class ObjectiveCubeBehavior : MonoBehaviour
             //Instantiate(effect3, this.transform.position, Quaternion.identity);
             
 
-            if (!audioSource.isPlaying)
-            {
-                audioSource.clip = collected;
-                audioSource.Play();
-            }
-            Destroy(this.gameObject);
-            ObjectiveSpawn.instance.collectedCubes += 1;
+            
+            Destroy(this.gameObject,0.1f);
+            
 
-            if (cooldown >= .025)
+            if (cooldown >= .025 && spawned == false) 
             {
                 spawned = true;
                 Instantiate(effect1, this.transform.position, Quaternion.identity);
                 GridArray.Instance.agentStack.agentAmountStructure += amountOfAgents;
                 ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(1));
                 // hier collectable eingesammelt sound einfügen (neues objekt instantiaten oder die brücke other abspielen lassen)
+                ObjectiveSpawn.instance.collectedCubes += 1;
+                if (!audioSource.isPlaying && !played)
+                {
+                    AudioSource audioSourceTemp = Instantiate(audioSourcePrefab);
+                    audioSourceTemp.clip = collected;
+                    audioSourceTemp.Play();
+                    played = true;
+                }
             }
             else if(spawned==false)
             {

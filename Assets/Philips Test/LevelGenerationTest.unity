@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.12679026, g: 0.1791628, b: 0.23748642, a: 1}
+  m_IndirectSpecularColor: {r: 0.1267885, g: 0.17916125, b: 0.23748305, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1549,9 +1549,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   marker: {fileID: 1427785718841972201, guid: 0a8dddd32f143c7428ab5f3bfc49688d, type: 3}
   agentPlaceAmount: 100
-  startingAgentFoundation: 5
+  startingAgentFoundation: 10
   startingAgentBranch: 10
-  startingAgentStructure: 20
+  startingAgentStructure: 25
   levelGenerator: {fileID: 1681719567}
   minNewAgentDelay: 5
   maxNewAgentDelay: 12
@@ -4181,10 +4181,12 @@ MonoBehaviour:
     type: 3}
   trysPerFrame: 5
   minDistanceBetweenTwoSpawns: 25
-  startingHeight: -5
-  Heightincrease: 15
+  startingHeight: -15
+  Heightincrease: 10
   maximumHeight: 70
-  AgentsPerCube: 10
+  AgentsPerCube: 5
+  objectiveFallingSpeed: 0.2
+  objectiveCountdown: 120
   collectedCubes: 0
   cube1: {fileID: 992725698}
   cube2: {fileID: 322053748}
@@ -7369,7 +7371,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -31.330002, y: -31.28003}
+  m_AnchoredPosition: {x: -31.329956, y: -31.28003}
   m_SizeDelta: {x: 34, y: 34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1925346750
@@ -7831,7 +7833,7 @@ MonoBehaviour:
   minLocalHeightLimit: 8
   maxLocalHeightLimit: 20
   maxWindParticles: 25
-  wind: {fileID: 0}
+  wind: {fileID: 8300000, guid: 692a49609b58737479eb5590c15f6c3b, type: 3}
   windPrefab: {fileID: 2712643673001669053, guid: 16f6778ed0dba434f860be35d1c6ce64,
     type: 3}
   localWindPrefab: {fileID: 8765991609835457288, guid: f85701814406c5f4ca04c1b84fdecf25,
@@ -7848,8 +7850,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0

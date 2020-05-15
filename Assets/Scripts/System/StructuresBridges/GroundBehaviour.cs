@@ -28,19 +28,26 @@ public class GroundBehaviour : MonoBehaviour
             if (other.CompareTag("structure") || other.CompareTag("agent1"))
             {
 
-                Debug.Log("Destruction incoming");
 
-                StructureBehavior structBehavior;
-                if (other.TryGetComponent<StructureBehavior>(out structBehavior))
+                StructureBehavior structBehavior = other.transform.parent.GetComponent<StructureBehavior>();
+                if (structBehavior!=null)
                 {
-                    GridList targetGridList = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(structBehavior.transform.position.x), GridArray.Instance.NumToGrid(structBehavior.transform.position.z)];
+                    GridList targetGridList = structBehavior.GridPosition;
+                    foreach(GameObject branch in targetGridList.branchObjects)
+                    {
+                        if (branch != null)
+                        {
+                            Destroy(branch);
+                        }
+                    }
                     List<GameObject> targetList = targetGridList.bridgeObjects;
                     for (int i = targetList.Count - 1; i >= 0; i--)
                     {
+                        Destroy(targetList[i]);
                         BridgeStruct target = targetList[i].GetComponent<BridgeStruct>();
                         GridArray.Instance.gridArray[Mathf.RoundToInt(target.gridOrigin.x), Mathf.RoundToInt(target.gridOrigin.z)].bridgeObjects.Remove(target.gameObject);
                         GridArray.Instance.gridArray[Mathf.RoundToInt(target.gridEnd.x), Mathf.RoundToInt(target.gridEnd.z)].bridgeObjects.Remove(target.gameObject);
-                        Destroy(targetList[i]);
+                        
 
                     }
 

@@ -226,7 +226,7 @@ public class AgentBranch : MonoBehaviour
         float buildY = transform.position.y + cellY * gridArray[arrayPosX, arrayPosZ].sizeY ;
         buildLocation = new Vector3(arrayPosX * cellSize, buildY, arrayPosZ * cellSize);
         
-        gridArray[arrayPosX, arrayPosZ].branchedStructures = gridArray[arrayPosX, arrayPosZ].sizeY;
+        
         hasBuilt = true;
 
         GridList target = gridArray[arrayPosX, arrayPosZ];
@@ -356,13 +356,16 @@ public class AgentBranch : MonoBehaviour
                         }
 
                         builtStructure = Instantiate(finalStructure, buildLocation, Quaternion.identity) as GameObject;
-                        builtStructure.transform.Rotate(new Vector3(0, buildRotation, 0));
-                        //builtStructure.transform.SetParent(gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform);
-                        builtStructure.GetComponent<StructureBehavior>().startY = buildLocation.y;
+                        if (builtStructure != null)
+                        {
+                            builtStructure.transform.Rotate(new Vector3(0, buildRotation, 0));
+                            //builtStructure.transform.SetParent(gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform);
+                            builtStructure.GetComponent<StructureBehavior>().startY = buildLocation.y;
 
-                        structuresPlaced += 1;
-                        gridArray[newArrayPosX, newArrayPosZ].branchAtY.Add(gridY);
-            
+                            structuresPlaced += 1;
+                            gridArray[newArrayPosX, newArrayPosZ].branchAtY.Add(gridY);
+                            gridArray[newArrayPosX, newArrayPosZ].branchObjects.Add(builtStructure);
+                        }            
                     }
                 }
             }

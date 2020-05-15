@@ -81,8 +81,7 @@ public class DestructionManager : MonoBehaviour
 
                    if(target.bridgeObjects.Count==0 && target.structureObjects.Count!=0 && target.sizeY*2 +target.foundationObject.transform.position.y >= heightLimit)
                     {
-                        int sizeYtemp= Mathf.RoundToInt((heightLimit - target.foundationObject.transform.position.y) / GridArray.Instance.cellY);
-                        target.sizeY = Mathf.Clamp(sizeYtemp, target.branchedStructures + Mathf.RoundToInt((target.foundationObject.transform.position.y) / GridArray.Instance.cellY),GridArray.Instance.maxStructures);
+                        target.sizeY= Mathf.RoundToInt(Mathf.Clamp( (heightLimit -target.foundationObject.transform.position.y) /GridArray.Instance.cellSize ,target.branchedStructures,Mathf.Infinity));
                         
                     }
                 }
@@ -123,8 +122,8 @@ public class DestructionManager : MonoBehaviour
             float windCooldown = Random.Range(minCoolDown, maxCoolDown);
             windTimer = 0;
             
-            yield return new WaitForSeconds(windCooldown / 2);
-            while (windTimer <windCooldown/2)
+            yield return new WaitForSeconds(windCooldown - musicWindTimer);
+            while (windTimer <musicWindTimer)
             {
 
                 windTimer += Time.deltaTime;
@@ -142,7 +141,7 @@ public class DestructionManager : MonoBehaviour
                 for(int i = 0;i<particles.Count;i++)
                 {
                    
-                        particles[i].transform.localScale = Vector3.Lerp(windPrefab.transform.localScale, Vector3.zero,windTimer/musicWindTimer*2);
+                        particles[i].transform.localScale = Vector3.Lerp(windPrefab.transform.localScale, Vector3.zero,windTimer/musicWindTimer);
                                       
                 }
                
