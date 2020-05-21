@@ -104,7 +104,11 @@ public class InventoryUi : MonoBehaviour
 	{
 		if (selectedButton != "structure")
 		{
-			GameObject.Find("ButtonFoundation").GetComponent<Image>().color = Color.white;
+			if (GridArray.Instance.agentStack.agentAmountFoundation > 0)
+			{
+				GameObject.Find("ButtonFoundation").GetComponent<Image>().color = Color.white;
+
+			}
 
 		}
 
@@ -119,17 +123,20 @@ public class InventoryUi : MonoBehaviour
 			if (selectedButton != "branch")
 			{
 				GameObject.Find("ButtonBranch").GetComponent<Image>().color = colorGrey;
-
+		
 			}
 
 
 		}	
 		if (spawnerScript.firstFoundation == true)
 		{
-			if (selectedButton != "branch")
+			if (selectedButton != "structure")
 			{
-				GameObject.Find("ButtonStructure").GetComponent<Image>().color = Color.white;
+				if (GridArray.Instance.agentStack.agentAmountStructure > 0)
+				{
+					GameObject.Find("ButtonStructure").GetComponent<Image>().color = Color.white;
 
+				}
 			}
 
 
@@ -139,8 +146,7 @@ public class InventoryUi : MonoBehaviour
 		{
 			if (selectedButton != "branch")
 			{
-				GameObject.Find("ButtonBranch").GetComponent<Image>().color = colorGrey;
-
+				GameObject.Find("ButtonBranch").GetComponent<Image>().color = colorGrey;			
 			}
 
 
@@ -149,7 +155,11 @@ public class InventoryUi : MonoBehaviour
 		{
 			if (selectedButton != "branch")
 			{
-				GameObject.Find("ButtonBranch").GetComponent<Image>().color = Color.white;
+				if (GridArray.Instance.agentStack.agentAmountBranch > 0)
+				{
+					GameObject.Find("ButtonBranch").GetComponent<Image>().color = Color.white;
+
+				}
 
 			}
 
@@ -158,15 +168,42 @@ public class InventoryUi : MonoBehaviour
 
 		if (selectedButton == "foundation")
 		{
+			if (GridArray.Instance.agentStack.agentAmountFoundation <= 0)
+			{
+				SpawnSettings.Instance.spawnMode = false;
+			}
 			GameObject.Find("ButtonFoundation").GetComponent<Image>().color = colorFoundation;
 		}
 		if (selectedButton == "structure")
 		{
+			if (GridArray.Instance.agentStack.agentAmountStructure <= 0)
+			{
+				SpawnSettings.Instance.spawnMode = false;
+			}
 			GameObject.Find("ButtonStructure").GetComponent<Image>().color = colorStructure;
 		}
 		if (selectedButton == "branch")
 		{
+			if (GridArray.Instance.agentStack.agentAmountBranch <= 0)
+			{
+				SpawnSettings.Instance.spawnMode = false;
+			}
 			GameObject.Find("ButtonBranch").GetComponent<Image>().color = colorBranch;
+		}
+
+
+		//If Amount is empty
+		if (GridArray.Instance.agentStack.agentAmountFoundation <= 0)
+		{
+			GameObject.Find("ButtonFoundation").GetComponent<Image>().color = colorGrey;
+		}
+		if (GridArray.Instance.agentStack.agentAmountStructure <= 0)
+		{
+			GameObject.Find("ButtonStructure").GetComponent<Image>().color = colorGrey;
+		}
+		if (GridArray.Instance.agentStack.agentAmountBranch <= 0)
+		{
+			GameObject.Find("ButtonBranch").GetComponent<Image>().color = colorGrey;
 		}
 
 	}
@@ -204,7 +241,7 @@ public class InventoryUi : MonoBehaviour
 
 		for (int i = 0; i < hitList.Count; i++)
 		{
-			if (hitList[i].gameObject.name == "ButtonFoundation" )
+			if (hitList[i].gameObject.name == "ButtonFoundation" && GridArray.Instance.agentStack.agentAmountFoundation > 0)
 			{
 				if(spawnerScript.spawnMode == false)
 				{
@@ -235,7 +272,7 @@ public class InventoryUi : MonoBehaviour
 			}
 						
 
-			if (hitList[i].gameObject.name == "ButtonStructure")
+			if (hitList[i].gameObject.name == "ButtonStructure" && GridArray.Instance.agentStack.agentAmountStructure > 0)
 			{
 				if (spawnerScript.spawnMode == false)
 				{
@@ -262,7 +299,7 @@ public class InventoryUi : MonoBehaviour
 
 			}
 
-			if (hitList[i].gameObject.name == "ButtonBranch")
+			if (hitList[i].gameObject.name == "ButtonBranch" && GridArray.Instance.agentStack.agentAmountBranch > 0)
 			{
 				if (spawnerScript.spawnMode == false)
 				{
