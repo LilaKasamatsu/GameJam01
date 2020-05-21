@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.26546994, g: 0.3343132, b: 0.4190301, a: 1}
+  m_IndirectSpecularColor: {r: 0.26548567, g: 0.33434895, b: 0.4190584, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4615,7 +4615,7 @@ MonoBehaviour:
   maximumHeight: 30
   AgentsPerCube: 5
   objectiveFallingSpeed: 0.5
-  objectiveCountdown: 10
+  objectiveCountdown: 90
   collectedCubes: 0
   cube1: {fileID: 992725698}
   cube2: {fileID: 322053748}
