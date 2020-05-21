@@ -59,7 +59,7 @@ public class SetAgentHeight : MonoBehaviour
         if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ) && parentNav.isOnNavMesh && hasSignal == false)
         {
 
-            transform.position = new Vector3(parentPos.x, Mathf.Lerp(transform.position.y, parentPos.y + 1 +  2 * gridArray[arrayPosX, arrayPosZ].sizeY, 0.07f), parentPos.z);
+            transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, parentPos.y + 1 +  2 * gridArray[arrayPosX, arrayPosZ].sizeY, 0.07f), transform.position.z);
 
         }    
     }

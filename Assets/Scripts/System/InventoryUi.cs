@@ -7,14 +7,20 @@ using UnityEngine.EventSystems;
 public class InventoryUi : MonoBehaviour
 {
 	[SerializeField] Text textFoundation;
+	[SerializeField] Text textFoundationMax;
+
 	[SerializeField] Text textStructure;
+	[SerializeField] Text textStructureMax;
+
 	[SerializeField] Text textBranch;
+	[SerializeField] Text textBranchMax;
+
 	[SerializeField] Button pauseButton;
 	[SerializeField] GameObject infoPanel;
 	[SerializeField] GameObject destinationPlane;
 	[SerializeField] GameObject originPlane;
-
-
+	[SerializeField] GameObject placeTargetPrefab;
+	private GameObject placeTarget;
 	int showInfo = 1;
 	[SerializeField] Text textAgentAmount;
 
@@ -45,7 +51,13 @@ public class InventoryUi : MonoBehaviour
 
 	private void Update()
 	{
+		
 
+		if (spawnerScript.spawnMode == false && placeTarget != null)
+		{
+
+			Destroy(placeTarget);
+		}
 
 
 		if (showInfo == 1)
@@ -63,9 +75,14 @@ public class InventoryUi : MonoBehaviour
 			CheckButton();
 		}
 
-		textFoundation.text = GridArray.Instance.agentStack.agentFoundation.ToString() + "/" + (GridArray.Instance.agentStack.agentAmountFoundation + GridArray.Instance.agentStack.agentFoundation).ToString();
-		textStructure.text = GridArray.Instance.agentStack.agentStructure.ToString() + "/" + (GridArray.Instance.agentStack.agentAmountStructure + GridArray.Instance.agentStack.agentStructure).ToString();
-		textBranch.text = GridArray.Instance.agentStack.agentBranch.ToString() + "/" + (GridArray.Instance.agentStack.agentAmountBranch + GridArray.Instance.agentStack.agentBranch).ToString();
+		textFoundation.text = GridArray.Instance.agentStack.agentAmountFoundation.ToString();
+		textFoundationMax.text = "|" + (GridArray.Instance.agentStack.agentAmountFoundation + GridArray.Instance.agentStack.agentFoundation).ToString();
+
+		textStructure.text = GridArray.Instance.agentStack.agentAmountStructure.ToString();
+		textStructureMax.text = "|" + (GridArray.Instance.agentStack.agentAmountStructure + GridArray.Instance.agentStack.agentStructure).ToString();
+
+		textBranch.text = GridArray.Instance.agentStack.agentAmountBranch.ToString();
+		textBranchMax.text = "|" + (GridArray.Instance.agentStack.agentAmountBranch + GridArray.Instance.agentStack.agentBranch).ToString();
 
 		//textAgentAmount.text = GridArray.Instance.agentStack.agentAmount.ToString();
 
@@ -85,6 +102,17 @@ public class InventoryUi : MonoBehaviour
 
 
 
+	IEnumerator ChangeAgent(int type)
+	{
+		//yield return new WaitForSeconds(0.5f);
+		spawnerScript.spawnMode = false;
+		yield return new WaitForSeconds(0.05f);
+
+		CheckButton();
+
+	}
+
+
 	private GameObject CheckButton()
 	{
 		PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
@@ -97,31 +125,84 @@ public class InventoryUi : MonoBehaviour
 		{
 			if (hitList[i].gameObject.name == "ButtonFoundation")
 			{
-				Debug.Log("You have clicked the purple button!");
+				if(spawnerScript.spawnMode == false)
+				{
+					spawnerScript.spawnMode = true;
+					Debug.Log("You have the foundation!");
 
-				spawnerScript.spawnMode = true;
-				spawnerScript.SpawnAgent(agentFoundation, hitList[i].gameObject.transform.position);
-				return agentFoundation;
+					hitList[i].gameObject.transform.parent.GetComponent<Animation>().Play();
+
+					if (placeTarget == null)
+					{
+						placeTarget = Instantiate(placeTargetPrefab, hitList[i].gameObject.transform.position, Quaternion.identity) as GameObject;
+						placeTarget.transform.parent = transform.GetChild(0).transform.GetChild(0);
+						placeTarget.transform.SetSiblingIndex(0);
+
+					}
+
+					spawnerScript.SpawnAgent(agentFoundation, hitList[i].gameObject.transform.position);
+					return agentFoundation;
+				}
+				else
+				{
+					StartCoroutine(ChangeAgent(0));
+				}
+
+
+
+
+
 
 			}
 						
 
 			if (hitList[i].gameObject.name == "ButtonStructure")
 			{
-				Debug.Log("You have clicked the yellow button!");
+				if (spawnerScript.spawnMode == false)
+				{
+					spawnerScript.spawnMode = true;
+					Debug.Log("You have clicked the yellow button!");
+					hitList[i].gameObject.transform.parent.GetComponent<Animation>().Play();
+					if (placeTarget == null)
+					{
+						placeTarget = Instantiate(placeTargetPrefab, hitList[i].gameObject.transform.position, Quaternion.identity) as GameObject;
+						placeTarget.transform.parent = transform.GetChild(0).transform.GetChild(0);
+						placeTarget.transform.SetSiblingIndex(0);
 
-				spawnerScript.spawnMode = true;
-				spawnerScript.SpawnAgent(agentStructure, hitList[i].gameObject.transform.position);
-				return agentStructure;
+					}
+					spawnerScript.SpawnAgent(agentStructure, hitList[i].gameObject.transform.position);
+					return agentStructure;
+				}
+				else
+				{
+					StartCoroutine(ChangeAgent(0));
+				}
+
+
 
 			}
 
 			if (hitList[i].gameObject.name == "ButtonBranch")
 			{
+				if (spawnerScript.spawnMode == false)
+				{
+					hitList[i].gameObject.transform.parent.GetComponent<Animation>().Play();
+					if (placeTarget == null)
+					{
+						placeTarget = Instantiate(placeTargetPrefab, hitList[i].gameObject.transform.position, Quaternion.identity) as GameObject;
+						placeTarget.transform.parent = transform.GetChild(0).transform.GetChild(0);
+						placeTarget.transform.SetSiblingIndex(0);
 
-				spawnerScript.spawnMode = true;
-				spawnerScript.SpawnAgent(agentBranch, hitList[i].gameObject.transform.position);
-				return agentBranch;
+					}
+					spawnerScript.spawnMode = true;
+					spawnerScript.SpawnAgent(agentBranch, hitList[i].gameObject.transform.position);
+					return agentBranch;
+				}
+				else
+				{
+					StartCoroutine(ChangeAgent(0));
+				}
+
 
 			}
 
