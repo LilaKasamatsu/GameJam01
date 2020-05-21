@@ -95,14 +95,13 @@ public class AgentBranch : MonoBehaviour
         yield return new WaitForSeconds(destructionTimer);
         Instantiate(destructionAnim, this.transform.position, Quaternion.identity);
         agentStack.agentAmountBranch += 1;
-        agentStack.agentBranch -= 1;
+       
         Destroy(this.gameObject);
 
     }
     private void RetireAgent()
     {
         agentStack.agentAmountBranch += 1;
-        agentStack.agentBranch -= 1;
         Destroy(this.gameObject);
 
 
@@ -401,6 +400,13 @@ public class AgentBranch : MonoBehaviour
         {
 
             SpawnSettings.Instance.PlaceAgent(spawnAgent);
+        }
+    }
+    private void OnDestroy()
+    {
+        if (isActive)
+        {
+            agentStack.agentBranch -= 1;
         }
     }
 

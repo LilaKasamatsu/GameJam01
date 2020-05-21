@@ -10,6 +10,7 @@ public class GroundBehaviour : MonoBehaviour
     public IEnumerator  Fall()
     {
         falling = true;
+        transform.position += 0.5f*Vector3.up;
         Debug.Log("Ground is falling");
         yield return new WaitForEndOfFrame();
 
@@ -24,42 +25,15 @@ public class GroundBehaviour : MonoBehaviour
         
         if (falling)
         {
-            if (other.CompareTag("structure") || other.CompareTag("agent1"))
+            if (other.CompareTag("structure"))
             {
+                Destroy(other.gameObject);
+            }
 
-
-                StructureBehavior structBehavior = other.transform.parent.GetComponent<StructureBehavior>();
-                if (structBehavior!=null)
-                {
-                    GridList targetGridList = structBehavior.GridPosition;
-                    foreach(GameObject branch in targetGridList.branchObjects)
-                    {
-                        if (branch != null)
-                        {
-                            Destroy(branch);
-                        }
-                    }
-                    List<GameObject> targetList = targetGridList.bridgeObjects;
-                    for (int i = targetList.Count - 1; i >= 0; i--)
-                    {
-                        Destroy(targetList[i]);
-                        BridgeStruct target = targetList[i].GetComponent<BridgeStruct>();
-                        GridArray.Instance.gridArray[Mathf.RoundToInt(target.gridOrigin.x), Mathf.RoundToInt(target.gridOrigin.z)].bridgeObjects.Remove(target.gameObject);
-                        GridArray.Instance.gridArray[Mathf.RoundToInt(target.gridEnd.x), Mathf.RoundToInt(target.gridEnd.z)].bridgeObjects.Remove(target.gameObject);
-                        
-
-                    }
-
-
-                }
-                if (other.transform.parent != null)
-                {
-                    Destroy(other.transform.parent.gameObject);
-                }
-                else
-                {
-                    Destroy(other.gameObject);
-                }
+            if (other.CompareTag("agent1"))
+            {
+                Debug.Log("Agent");
+                Destroy(other.gameObject);
             }
 
         }

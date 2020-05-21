@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.2657503, g: 0.33490482, b: 0.41946918, a: 1}
+  m_IndirectSpecularColor: {r: 0.26548567, g: 0.33434895, b: 0.4190584, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2896,7 +2896,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 631944063}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -6766,7 +6766,7 @@ GameObject:
   - component: {fileID: 1681719567}
   m_Layer: 9
   m_Name: LevelGeneration
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6798,9 +6798,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AmountOfGround: 5
-  minBlockScale: 10
-  maxBlockScale: 40
-  totalScale: 80
+  minBlockScale: 5
+  maxBlockScale: 20
+  totalScale: 40
   maxElevation: 15
   BaseBlockPrefabs:
   - {fileID: 1008905031540164167, guid: 3805c74ccb7c49e48ab314af89107303, type: 3}

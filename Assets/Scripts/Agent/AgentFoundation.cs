@@ -105,7 +105,7 @@ public class AgentFoundation : MonoBehaviour
         yield return new WaitForSeconds(destructionTimer);
         Instantiate(destructionAnim, this.transform.position, Quaternion.identity);
         agentStack.agentAmountFoundation += 1;
-        agentStack.agentFoundation -= 1;
+        
         Destroy(this.gameObject);
 
     }
@@ -113,7 +113,7 @@ public class AgentFoundation : MonoBehaviour
     {
         Instantiate(destructionAnim, this.transform.position, Quaternion.identity);
         agentStack.agentAmountFoundation += 1;
-        agentStack.agentFoundation -= 1;
+        
         Destroy(this.gameObject);
 
         
@@ -270,4 +270,11 @@ public class AgentFoundation : MonoBehaviour
         
     }
 
+    private void OnDestroy()
+    {
+        if (isActive)
+        {
+            agentStack.agentFoundation -= 1;
+        }
+    }
 }

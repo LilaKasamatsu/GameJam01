@@ -93,7 +93,6 @@ public class AgentStructure : MonoBehaviour
         yield return new WaitForSeconds(destructionTimer);
         Instantiate(destructionAnim, this.transform.position, Quaternion.identity);
         agentStack.agentAmountStructure += 1;
-        agentStack.agentStructure -= 1;
         Destroy(this.gameObject);
 
     }
@@ -344,5 +343,13 @@ public class AgentStructure : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (isActive)
+        {
+            agentStack.agentStructure -= 1;
+           
+        }
+    }
 }
 

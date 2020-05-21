@@ -124,7 +124,7 @@ public class ObjectiveSpawn : MonoBehaviour
                 
                 Debug.Log("Did Hit");
                 spawnPosition.y =currentHeight;
-                spawnPosition.y= Mathf.Clamp(spawnPosition.y, hit.point.y + 10, Mathf.Infinity);
+                spawnPosition.y= Mathf.Clamp(spawnPosition.y, hit.point.y + 20, Mathf.Infinity);
                 currentHeight += Heightincrease;
                 currentHeight= Mathf.Clamp(currentHeight, startingHeight, maximumHeight);
 
