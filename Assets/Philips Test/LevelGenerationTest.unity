@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.12679026, g: 0.1791628, b: 0.23748642, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.99999946, b: 0.99999946, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1748,7 +1748,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: -1, y: 14, z: 15, w: -16}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 1.39e-43}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -2633,7 +2633,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 631944063}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -3011,7 +3011,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 8.237e-42, y: 1.01e-43, z: 4.5905e-41, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 1.33e-43, z: 1.4188e-41, w: 5.9e-44}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -4259,8 +4259,8 @@ MonoBehaviour:
   Heightincrease: 10
   maximumHeight: 30
   AgentsPerCube: 5
-  objectiveFallingSpeed: 0.5
-  objectiveCountdown: 50
+  objectiveFallingSpeed: 0.73
+  objectiveCountdown: 10
   collectedCubes: 0
   cube1: {fileID: 992725698}
   cube2: {fileID: 322053748}
@@ -4929,7 +4929,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 4.5e-44, z: 5.821e-42, w: 5.9e-44}
+  m_BoundingSphereOverride: {x: 1.4188e-41, y: 1.01e-43, z: NaN, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -6395,7 +6395,7 @@ GameObject:
   - component: {fileID: 1681719567}
   m_Layer: 9
   m_Name: LevelGeneration
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6427,9 +6427,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AmountOfGround: 5
-  minBlockScale: 10
-  maxBlockScale: 40
-  totalScale: 80
+  minBlockScale: 5
+  maxBlockScale: 20
+  totalScale: 40
   maxElevation: 15
   BaseBlockPrefabs:
   - {fileID: 1008905031540164167, guid: 3805c74ccb7c49e48ab314af89107303, type: 3}

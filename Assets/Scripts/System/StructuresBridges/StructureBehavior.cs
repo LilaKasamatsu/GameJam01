@@ -201,4 +201,13 @@ public class StructureBehavior : MonoBehaviour
         isBase = true;
 
     }
+    private void OnDestroy()
+    {
+        List<GameObject> targetlist = GridPosition.bridgeObjects;
+        for (int i = targetlist.Count - 1; i >= 0; i--) 
+        {
+            Destroy(targetlist[i]);
+            
+        }
+    }
 }

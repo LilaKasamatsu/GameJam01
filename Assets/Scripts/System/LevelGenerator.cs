@@ -9,7 +9,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] [Range(5, 300)] int minBlockScale;
     [SerializeField] [Range(5, 300)] int maxBlockScale;
 
-    [SerializeField] [Range(50,500)] int totalScale;
+    [SerializeField] [Range(20,500)] int totalScale;
     [SerializeField] [Range(5, 20)] int maxElevation;
     [SerializeField] List<GameObject> BaseBlockPrefabs;
     [SerializeField] public GameObject Groundbounds;
@@ -77,7 +77,7 @@ public class LevelGenerator : MonoBehaviour
 
 
 
-                GameObject BaseBlock= Instantiate(BaseBlockPrefabs[Random.Range(0,BaseBlockPrefabs.Count)], new Vector3(posX, posY, posZ), Quaternion.identity,this.transform);
+                GameObject BaseBlock= Instantiate(BaseBlockPrefabs[Random.Range(0,BaseBlockPrefabs.Count)], new Vector3(posX, posY, posZ), Quaternion.identity);
                 BaseBlock.transform.localScale = new Vector3(ScaleX*50, ScaleY, ScaleZ*50);
 
 
