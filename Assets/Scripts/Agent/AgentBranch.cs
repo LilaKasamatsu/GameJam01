@@ -115,7 +115,29 @@ public class AgentBranch : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(0, 360 * Time.deltaTime, 0); //rotates 50 degrees per second around z axis
+
+        if (isActive)
+        {
+            transform.Rotate(0, 360 * Time.deltaTime, 0); //rotates 50 degrees per second around z axis
+
+            //transform.GetChild(0).transform.position = new Vector3(-1.3f, 0, 0);
+            transform.GetChild(0).transform.GetChild(1).localPosition = new Vector3(-0.035f, 0, -0.02f);
+
+
+        }
+        else 
+        {
+            transform.Rotate(0, 360 * Time.deltaTime, 0); //rotates 50 degrees per second around z axis
+            transform.GetChild(0).transform.GetChild(1).localPosition = new Vector3(-0.003f, 0, -0.02f);
+            transform.GetChild(0).transform.GetChild(1).transform.GetChild(1).localScale = new Vector3(4f, 4f, 4f);
+            transform.GetChild(0).transform.GetChild(1).transform.GetChild(1).GetComponent<ParticleSystem>().playbackSpeed = 2.5f;
+            transform.GetChild(0).transform.GetChild(1).transform.GetChild(1).GetComponent<ParticleSystem>().maxParticles = 300;
+
+
+
+
+
+        }
 
         grid = SpawnSettings.Instance.grid;
 
@@ -358,11 +380,15 @@ public class AgentBranch : MonoBehaviour
         Vector3 objectPos = cam.ScreenToWorldPoint(mousePos);
         transform.position = objectPos;
 
+        if (SpawnSettings.Instance.spawnMode == false && isActive == false)
+        {
+            Destroy(this.gameObject);
+        }
 
         if (Input.GetMouseButton(1))
         {
             SpawnSettings.Instance.spawnMode = false;
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
 
         }
 

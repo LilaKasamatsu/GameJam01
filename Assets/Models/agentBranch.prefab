@@ -121,7 +121,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8305538347791655465}
   m_LocalRotation: {x: -0.7071065, y: -0, z: -0, w: 0.7071072}
-  m_LocalPosition: {x: -1.29, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 90.523, y: 90.523, z: 90.523}
   m_Children:
   - {fileID: 657343372570212476}
@@ -381,7 +381,7 @@ PrefabInstance:
     - target: {fileID: 3411918137553473776, guid: 9525d7b166f2dba4fb4754bb70cf390b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.035
       objectReference: {fileID: 0}
     - target: {fileID: 3411918137553473776, guid: 9525d7b166f2dba4fb4754bb70cf390b,
         type: 3}
@@ -458,6 +458,21 @@ PrefabInstance:
       propertyPath: InitialModule.startLifetime.scalar
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6905777984621866001, guid: 9525d7b166f2dba4fb4754bb70cf390b,
+        type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905777984621866001, guid: 9525d7b166f2dba4fb4754bb70cf390b,
+        type: 3}
+      propertyPath: SizeModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905777984621866001, guid: 9525d7b166f2dba4fb4754bb70cf390b,
+        type: 3}
+      propertyPath: simulationSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7488837671834447858, guid: 9525d7b166f2dba4fb4754bb70cf390b,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -491,7 +506,7 @@ PrefabInstance:
     - target: {fileID: 7999461312100068242, guid: 9525d7b166f2dba4fb4754bb70cf390b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0293
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8857153605969129885, guid: 9525d7b166f2dba4fb4754bb70cf390b,
         type: 3}

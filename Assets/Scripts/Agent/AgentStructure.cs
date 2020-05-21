@@ -315,10 +315,15 @@ public class AgentStructure : MonoBehaviour
         transform.position = objectPos;
 
 
-        if (Input.GetMouseButton(1))
-        {
-            SpawnSettings.Instance.spawnMode = false;
+        if (SpawnSettings.Instance.spawnMode == false && isActive == false)
+        {
             Destroy(this.gameObject);
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+            SpawnSettings.Instance.spawnMode = false;
+            //Destroy(this.gameObject);
 
         }
 

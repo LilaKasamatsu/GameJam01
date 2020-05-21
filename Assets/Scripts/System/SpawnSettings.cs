@@ -73,9 +73,14 @@ public class SpawnSettings : MonoBehaviour
         //Debug Grid
         //GetGridValue();
 
-        if (spawnMode == false && lastPlacedTile != new Vector3 (-1, -1, -1))
+        if (spawnMode == false )
         {
-            lastPlacedTile = new Vector3(-1, -1, -1);
+
+            if ( lastPlacedTile != new Vector3(-1, -1, -1))
+            {
+                lastPlacedTile = new Vector3(-1, -1, -1);
+            }
+
         }
     }
 
