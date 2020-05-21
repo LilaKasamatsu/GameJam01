@@ -51,6 +51,7 @@ MonoBehaviour:
   colorGradient: {r: 0, g: 0, b: 0, a: 0}
   colorSelect: {r: 1, g: 0, b: 0.5719805, a: 1}
   colorBridged: {r: 0.59437215, g: 0, b: 0.7075472, a: 1}
+  colorBridgedGradient: {r: 0, g: 0, b: 0, a: 0}
   isSelected: 0
   isBridged: 0
   isBase: 1
@@ -74,6 +75,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5673817956025788085}
     m_Modifications:
+    - target: {fileID: -5178661895559278292, guid: 27f41d0364841d841b9c67fa30bbf150,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 5665763164275481281, guid: af4ddfa177e894246b786b57fd854477,
+        type: 3}
     - target: {fileID: -4216859302048453862, guid: 27f41d0364841d841b9c67fa30bbf150,
         type: 3}
       propertyPath: m_LocalPosition.x
