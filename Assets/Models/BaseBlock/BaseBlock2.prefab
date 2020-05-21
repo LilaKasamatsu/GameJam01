@@ -204,6 +204,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ground (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.031560242
+      objectReference: {fileID: 0}
+    - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.0104
+      objectReference: {fileID: 0}
     - target: {fileID: 8239334824818077870, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Mesh

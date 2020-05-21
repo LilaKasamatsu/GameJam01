@@ -206,12 +206,12 @@ PrefabInstance:
     - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.021435948
+      value: 0.03133875
       objectReference: {fileID: 0}
     - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Center.z
-      value: -0.0030995738
+      value: -0.0103
       objectReference: {fileID: 0}
     - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}

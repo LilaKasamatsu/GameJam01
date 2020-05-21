@@ -264,9 +264,14 @@ public class AgentStructure : MonoBehaviour
 
                         if (gridArray[arrayPosX, arrayPosZ].sizeY == 0)
                         {
+                            gridArray[arrayPosX, arrayPosZ].sizeY += 1;
                             builtStructure = Instantiate(finalStructure, buildLocation, Quaternion.identity) as GameObject;
-                            //builtStructure.transform.Rotate(new Vector3(0, buildRotation, 0));                            gridArray[arrayPosX, arrayPosZ].sizeY += 1;
-                            gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);                          
+                            //builtStructure.transform.Rotate(new Vector3(0, buildRotation, 0));                            gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
+                            SpawnSettings.Instance.firstStructure = true;
+                            if(gridArray[arrayPosX, arrayPosZ].structureObjects.Count > 1)
+                            {
+                                Destroy(gridArray[arrayPosX, arrayPosZ].structureObjects[1]);
+                            }
                             builtStructure.transform.localScale = new Vector3(builtStructure.transform.localScale.x - gridArray[arrayPosX, arrayPosZ].towerWidth,
                                 0.1f,
                                 builtStructure.transform.localScale.z - gridArray[arrayPosX, arrayPosZ].towerWidth);

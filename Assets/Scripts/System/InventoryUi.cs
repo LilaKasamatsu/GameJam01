@@ -8,12 +8,18 @@ public class InventoryUi : MonoBehaviour
 {
 	[SerializeField] Text textFoundation;
 	[SerializeField] Text textFoundationMax;
+	[SerializeField] Color colorFoundation;
 
 	[SerializeField] Text textStructure;
 	[SerializeField] Text textStructureMax;
+	[SerializeField] Color colorStructure;
+
 
 	[SerializeField] Text textBranch;
 	[SerializeField] Text textBranchMax;
+	[SerializeField] Color colorBranch;
+
+	[SerializeField] Color colorGrey;
 
 	[SerializeField] Button pauseButton;
 	[SerializeField] GameObject infoPanel;
@@ -24,6 +30,7 @@ public class InventoryUi : MonoBehaviour
 	int showInfo = 1;
 	[SerializeField] Text textAgentAmount;
 
+	private string selectedButton;
 
 	public GameObject agentStructure;
 	public GameObject agentBranch;
@@ -51,12 +58,17 @@ public class InventoryUi : MonoBehaviour
 
 	private void Update()
 	{
-		
+		SetButtonColor();
 
-		if (spawnerScript.spawnMode == false && placeTarget != null)
+
+
+		if (spawnerScript.spawnMode == false)
 		{
-
-			Destroy(placeTarget);
+			selectedButton = "";
+			if (placeTarget != null)
+			{
+				Destroy(placeTarget);
+			}
 		}
 
 
@@ -88,7 +100,76 @@ public class InventoryUi : MonoBehaviour
 
 
 	}
+	void SetButtonColor()
+	{
+		if (selectedButton != "structure")
+		{
+			GameObject.Find("ButtonFoundation").GetComponent<Image>().color = Color.white;
 
+		}
+
+		if (spawnerScript.firstFoundation == false)
+		{
+			if (selectedButton != "structure")
+			{
+				GameObject.Find("ButtonStructure").GetComponent<Image>().color = colorGrey;
+
+			}
+
+			if (selectedButton != "branch")
+			{
+				GameObject.Find("ButtonBranch").GetComponent<Image>().color = colorGrey;
+
+			}
+
+
+		}	
+		if (spawnerScript.firstFoundation == true)
+		{
+			if (selectedButton != "branch")
+			{
+				GameObject.Find("ButtonStructure").GetComponent<Image>().color = Color.white;
+
+			}
+
+
+		}
+
+		if (spawnerScript.firstStructure == false)
+		{
+			if (selectedButton != "branch")
+			{
+				GameObject.Find("ButtonBranch").GetComponent<Image>().color = colorGrey;
+
+			}
+
+
+		}
+		if (spawnerScript.firstStructure == true)
+		{
+			if (selectedButton != "branch")
+			{
+				GameObject.Find("ButtonBranch").GetComponent<Image>().color = Color.white;
+
+			}
+
+		}
+
+
+		if (selectedButton == "foundation")
+		{
+			GameObject.Find("ButtonFoundation").GetComponent<Image>().color = colorFoundation;
+		}
+		if (selectedButton == "structure")
+		{
+			GameObject.Find("ButtonStructure").GetComponent<Image>().color = colorStructure;
+		}
+		if (selectedButton == "branch")
+		{
+			GameObject.Find("ButtonBranch").GetComponent<Image>().color = colorBranch;
+		}
+
+	}
 	void ClickPause()
 	{
 		showInfo = 1 - showInfo;
@@ -123,7 +204,7 @@ public class InventoryUi : MonoBehaviour
 
 		for (int i = 0; i < hitList.Count; i++)
 		{
-			if (hitList[i].gameObject.name == "ButtonFoundation")
+			if (hitList[i].gameObject.name == "ButtonFoundation" )
 			{
 				if(spawnerScript.spawnMode == false)
 				{
@@ -140,6 +221,7 @@ public class InventoryUi : MonoBehaviour
 
 					}
 
+					selectedButton = "foundation";
 					spawnerScript.SpawnAgent(agentFoundation, hitList[i].gameObject.transform.position);
 					return agentFoundation;
 				}
@@ -148,10 +230,7 @@ public class InventoryUi : MonoBehaviour
 					StartCoroutine(ChangeAgent(0));
 				}
 
-
-
-
-
+							   				 
 
 			}
 						
@@ -170,6 +249,7 @@ public class InventoryUi : MonoBehaviour
 						placeTarget.transform.SetSiblingIndex(0);
 
 					}
+					selectedButton = "structure";
 					spawnerScript.SpawnAgent(agentStructure, hitList[i].gameObject.transform.position);
 					return agentStructure;
 				}
@@ -194,6 +274,7 @@ public class InventoryUi : MonoBehaviour
 						placeTarget.transform.SetSiblingIndex(0);
 
 					}
+					selectedButton = "branch";
 					spawnerScript.spawnMode = true;
 					spawnerScript.SpawnAgent(agentBranch, hitList[i].gameObject.transform.position);
 					return agentBranch;

@@ -204,9 +204,11 @@ public class AgentFoundation : MonoBehaviour
             {
                 if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount <= 0)
                 {
+                    SpawnSettings.Instance.firstFoundation = true;
                     GameObject builtStructure = Instantiate(foundation, buildLocation, Quaternion.identity) as GameObject;
                     
                     gridArray[arrayPosX, arrayPosZ].foundationObject = builtStructure;
+
 
 
 

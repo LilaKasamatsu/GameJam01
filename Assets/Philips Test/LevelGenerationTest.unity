@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.26546994, g: 0.3343132, b: 0.4190301, a: 1}
+  m_IndirectSpecularColor: {r: 0.2657503, g: 0.33490482, b: 0.41946918, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1919,7 +1919,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 4.19e-43, y: 8.8119e-41, z: 0, w: -1}
+  m_BoundingSphereOverride: {x: 0, y: 1.72573e-40, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -3274,7 +3274,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 1.2763e-41, z: 0, w: 8.5}
+  m_BoundingSphereOverride: {x: 0, y: 1.73088e-40, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -4542,6 +4542,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d2fe1e881bf4a40986b4af51b2cb05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnParticles: {fileID: 3392411734778021805, guid: 36766d21f1a1d324e86b1c47b83110ad,
+    type: 3}
+  spawnParticles2: {fileID: 1475722537597838389, guid: 5fb387f44ee3c5d4a90f82b569bdc3a5,
+    type: 3}
   agentStruc: {fileID: 3869811639861139897, guid: 0939e276b20172540813625a78c56db7,
     type: 3}
   agentPoint: {fileID: 4994013243253307298, guid: d9ce126f3fe981f4b9384ac1a0cb29ec,
@@ -4554,6 +4558,8 @@ MonoBehaviour:
     type: 3}
   buildMarker: {fileID: 1427785718841972201, guid: 0a8dddd32f143c7428ab5f3bfc49688d,
     type: 3}
+  firstFoundation: 0
+  firstStructure: 0
   cellSize: 3
   spawnMode: 0
 --- !u!114 &1092224752
@@ -4743,10 +4749,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textFoundation: {fileID: 1506025639}
   textFoundationMax: {fileID: 1995724838}
+  colorFoundation: {r: 1, g: 0.5990566, b: 0.6081174, a: 1}
   textStructure: {fileID: 1665201221}
   textStructureMax: {fileID: 36457202}
+  colorStructure: {r: 0.5424528, g: 0.9199918, b: 1, a: 1}
   textBranch: {fileID: 1524251284}
   textBranchMax: {fileID: 1746400451}
+  colorBranch: {r: 1, g: 0.99739, b: 0.6084906, a: 1}
+  colorGrey: {r: 0.8962264, g: 0.8962264, b: 0.8962264, a: 0.105882354}
   pauseButton: {fileID: 1925346750}
   infoPanel: {fileID: 301136150}
   destinationPlane: {fileID: 495310257}
@@ -5289,7 +5299,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 2.5907e-41, z: 0, w: -1}
+  m_BoundingSphereOverride: {x: 0, y: 1.70471e-40, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
