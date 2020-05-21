@@ -23,7 +23,7 @@ Material:
   m_Name: agentStructure_opaque
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 4
+  m_LightmapFlags: 6
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3050
@@ -105,7 +105,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 0.22745098}
+    - _BaseColor: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 0.22745098}
     - _Color: {r: 0.9978727, g: 1, b: 0.7122642, a: 0.23921569}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
