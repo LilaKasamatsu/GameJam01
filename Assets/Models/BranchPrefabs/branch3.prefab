@@ -51,6 +51,7 @@ MonoBehaviour:
   colorGradient: {r: 0, g: 0, b: 0, a: 0}
   colorSelect: {r: 1, g: 0, b: 0.5719805, a: 1}
   colorBridged: {r: 0.59437215, g: 0, b: 0.7075472, a: 1}
+  colorBridgedGradient: {r: 0, g: 0, b: 0, a: 0}
   isSelected: 0
   isBridged: 0
   isBase: 1
@@ -106,7 +107,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5114454560344209638}
-  m_Mesh: {fileID: -8972365964879406069, guid: a5fab93beee7931448bcb0e84d21b6dc, type: 3}
+  m_Mesh: {fileID: -150120879314253014, guid: 914eee7a0edd33947b413369c2cf0eaf, type: 3}
 --- !u!23 &6829400282521357370
 MeshRenderer:
   m_ObjectHideFlags: 0
