@@ -76,13 +76,13 @@ public class InventoryUi : MonoBehaviour
 		}
 
 		textFoundation.text = GridArray.Instance.agentStack.agentAmountFoundation.ToString();
-		textFoundationMax.text = "/" + (GridArray.Instance.agentStack.agentAmountFoundation + GridArray.Instance.agentStack.agentFoundation).ToString();
+		textFoundationMax.text = "|" + (GridArray.Instance.agentStack.agentAmountFoundation + GridArray.Instance.agentStack.agentFoundation).ToString();
 
 		textStructure.text = GridArray.Instance.agentStack.agentAmountStructure.ToString();
-		textStructureMax.text = "/" + (GridArray.Instance.agentStack.agentAmountStructure + GridArray.Instance.agentStack.agentStructure).ToString();
+		textStructureMax.text = "|" + (GridArray.Instance.agentStack.agentAmountStructure + GridArray.Instance.agentStack.agentStructure).ToString();
 
 		textBranch.text = GridArray.Instance.agentStack.agentAmountBranch.ToString();
-		textBranchMax.text = "/" + (GridArray.Instance.agentStack.agentAmountBranch + GridArray.Instance.agentStack.agentBranch).ToString();
+		textBranchMax.text = "|" + (GridArray.Instance.agentStack.agentAmountBranch + GridArray.Instance.agentStack.agentBranch).ToString();
 
 		//textAgentAmount.text = GridArray.Instance.agentStack.agentAmount.ToString();
 
