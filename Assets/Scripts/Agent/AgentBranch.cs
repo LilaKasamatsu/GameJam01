@@ -152,8 +152,16 @@ public class AgentBranch : MonoBehaviour
             gridY = Mathf.RoundToInt(gridArray[arrayPosX, arrayPosZ].sizeY);
 
             
-            if (gridArray[arrayPosX, arrayPosZ].branchAtY.Count >= 0)
+            if (gridArray[arrayPosX, arrayPosZ].branchAtY.Count > 0)
             {
+
+                if (gridArray[arrayPosX, arrayPosZ].branchAtY[gridArray[arrayPosX, arrayPosZ].branchAtY.Count - 1] != gridY)
+                {
+                    BuildStructureNew();
+                }
+          
+
+                /*
                 for (int i = 0; i < gridArray[arrayPosX, arrayPosZ].branchAtY.Count; i++)
                 {
                     if (gridArray[arrayPosX, arrayPosZ].branchAtY[i] != gridY)
@@ -162,6 +170,7 @@ public class AgentBranch : MonoBehaviour
                         break;
                     }
                 }
+                */
             }
             
             
@@ -175,50 +184,7 @@ public class AgentBranch : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(minBuildDelay, maxBuildDelay));
             canBuild = true;
 
-            /*
-            int minX = Mathf.RoundToInt((transform.position.x) / cellSize - maxDestinationDistance);
-            int maxX = Mathf.RoundToInt((transform.position.x) / cellSize + maxDestinationDistance);
-
-            int minZ = Mathf.RoundToInt((transform.position.z) / cellSize - maxDestinationDistance);
-            int maxZ = Mathf.RoundToInt((transform.position.z) / cellSize + maxDestinationDistance);
-
-            //Search Grid for structures/main points
-            //The list orientPositions saves the Vector3 of all structures, that the agent has to orient on
-            orientPositions = new List<Vector3>();
-            for (int x = minX; x >= minX && x <= maxX && x < GridArray.Instance.arrayX && x > 0; x++)
-            {
-                for (int z = minZ; z >= minZ && z <= maxZ && z < GridArray.Instance.arrayZ && z > 0; z++)
-                {
-
-                    if (gridArray[x, z].sizeY > 0)
-                    {
-
-                        //return that this position has a strucutre to orient on.
-                        orientPositions.Add(new Vector3(x * cellSize, transform.position.y, z * cellSize));
-
-                    }
-                }
-            }
-
-            //"GetClosestTarget" then compares all of those Vector3 inside the maximum range "maxDestinationDistance" and finds the closest
-            Vector3 closestMainPoint = GridArray.Instance.GetClosestTarget(orientPositions, transform.position);
-
-            float closestX = closestMainPoint.x + Random.Range(-pointRadius, pointRadius);
-            float closestZ = closestMainPoint.z + Random.Range(-pointRadius, pointRadius);
-
-
-
-            agentMoveLocation = new Vector3(closestX, transform.position.y, closestZ);
-            agent.SetDestination(agentMoveLocation);
-            */
-
-
-
-
         }
-
-
-
     }
 
     private void SetBuildLocation()
@@ -226,7 +192,7 @@ public class AgentBranch : MonoBehaviour
         float buildY = transform.position.y + cellY * gridArray[arrayPosX, arrayPosZ].sizeY ;
         buildLocation = new Vector3(arrayPosX * cellSize, buildY, arrayPosZ * cellSize);
         
-        gridArray[arrayPosX, arrayPosZ].branchedStructures = gridArray[arrayPosX, arrayPosZ].sizeY;
+        
         hasBuilt = true;
 
         GridList target = gridArray[arrayPosX, arrayPosZ];
@@ -246,7 +212,7 @@ public class AgentBranch : MonoBehaviour
     private void BuildStructureNew()
     {
         gridArray = GridArray.Instance.gridArray;
-        if (!agent.hasPath && canBuild == true)
+        if (canBuild == true)
         {
 
             gridY = Mathf.RoundToInt(gridArray[arrayPosX, arrayPosZ].sizeY);
@@ -270,55 +236,60 @@ public class AgentBranch : MonoBehaviour
                     int selfChance = branchChance / 4;
 
                     //Check if can branch
-                    if (true)
+
+                    if (gridY >= minBranchHeight)
                     {
-                        if (gridY >= minBranchHeight)
+                        if (randomValue >= 0 && randomValue < selfChance * 0.25f)
                         {
-                            if (randomValue >= 0 && randomValue < selfChance * 0.25f)
-                            {
-                                newArrayPosX = arrayPosX - 1;
-                                buildRotation = 0;
-                            }
+                            newArrayPosX = arrayPosX - 1;
+                            buildRotation = 0;
+                        }
 
-                            if (randomValue >= selfChance * 0.25f && randomValue < selfChance * 0.5f)
-                            {
-                                newArrayPosX = arrayPosX + 1;
-                                buildRotation = 180;
-                            }
+                        if (randomValue >= selfChance * 0.25f && randomValue < selfChance * 0.5f)
+                        {
+                            newArrayPosX = arrayPosX + 1;
+                            buildRotation = 180;
+                        }
 
-                            if (randomValue >= selfChance * 0.5f && randomValue < selfChance * 0.75f)
+                        if (randomValue >= selfChance * 0.5f && randomValue < selfChance * 0.75f)
+                        {
+                            newArrayPosZ = arrayPosZ - 1;
+                            buildRotation = 270;
+                        }
+                        if (randomValue >= selfChance * 0.75f && randomValue < selfChance)
+                        {
+                            newArrayPosZ = arrayPosZ + 1;
+                            buildRotation = 90;
+                        }
+                        //FINAL Check                            
+                        if (gridArray[newArrayPosX, newArrayPosZ].sizeY < gridY && (newArrayPosX != arrayPosX || newArrayPosZ != arrayPosZ))
+                        {
+                            if (gridArray[newArrayPosX, newArrayPosZ].branchAtY.Count > 0)
                             {
-                                newArrayPosZ = arrayPosZ - 1;
-                                buildRotation = 270;
-                            }
-                            if (randomValue >= selfChance * 0.75f && randomValue < selfChance)
-                            {
-                                newArrayPosZ = arrayPosZ + 1;
-                                buildRotation = 90;
-                            }
-                            //FINAL Check                            
-                            if (gridArray[newArrayPosX, newArrayPosZ].sizeY < gridY && (newArrayPosX != arrayPosX || newArrayPosZ != arrayPosZ))
-                            {
-                                if (gridArray[newArrayPosX, newArrayPosZ].branchAtY.Count > 0)
-                                {
-                                    for (int i = 0; i < gridArray[newArrayPosX, newArrayPosZ].branchAtY.Count; i++)
-                                    {
-                                        if (gridArray[newArrayPosX, newArrayPosZ].branchAtY[i] != gridY)
-                                        {
-                                            SetBuildLocation();
-                         
-                                            break;
-                                        }
-                                    }
-                                }
-                                else
+                                if (gridArray[newArrayPosX, newArrayPosZ].branchAtY[gridArray[newArrayPosX, newArrayPosZ].branchAtY.Count-1] != gridY)
                                 {
                                     SetBuildLocation();
                                 }
-                                
-                            }                          
-           
+
+                                /*
+                                for (int i = 0; i < gridArray[newArrayPosX, newArrayPosZ].branchAtY.Count; i++)
+                                {
+                                    if (gridArray[newArrayPosX, newArrayPosZ].branchAtY[i] != gridY)
+                                    {
+                                        SetBuildLocation();
+
+                                        break;
+                                    }
+                                }
+                                */
+                            }
+                            else
+                            {
+                                SetBuildLocation();
+                            }
+
                         }
+
                     }
 
 
@@ -356,13 +327,16 @@ public class AgentBranch : MonoBehaviour
                         }
 
                         builtStructure = Instantiate(finalStructure, buildLocation, Quaternion.identity) as GameObject;
-                        builtStructure.transform.Rotate(new Vector3(0, buildRotation, 0));
-                        //builtStructure.transform.SetParent(gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform);
-                        builtStructure.GetComponent<StructureBehavior>().startY = buildLocation.y;
+                        if (builtStructure != null)
+                        {
+                            builtStructure.transform.Rotate(new Vector3(0, buildRotation, 0));
+                            //builtStructure.transform.SetParent(gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform);
+                            builtStructure.GetComponent<StructureBehavior>().startY = buildLocation.y;
 
-                        structuresPlaced += 1;
-                        gridArray[newArrayPosX, newArrayPosZ].branchAtY.Add(gridY);
-            
+                            structuresPlaced += 1;
+                            gridArray[newArrayPosX, newArrayPosZ].branchAtY.Add(gridY);
+                            gridArray[newArrayPosX, newArrayPosZ].branchObjects.Add(builtStructure);
+                        }            
                     }
                 }
             }
@@ -378,7 +352,7 @@ public class AgentBranch : MonoBehaviour
     {
 
         Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 20.0f;
+        mousePos.z = 50.0f;
         mousePos.y += 50.0f;
 
         Vector3 objectPos = cam.ScreenToWorldPoint(mousePos);

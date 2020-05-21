@@ -77,7 +77,7 @@ public class LevelGenerator : MonoBehaviour
 
 
 
-                GameObject BaseBlock= Instantiate(BaseBlockPrefabs[Random.Range(0,BaseBlockPrefabs.Count-1)], new Vector3(posX, posY, posZ), Quaternion.identity,this.transform);
+                GameObject BaseBlock= Instantiate(BaseBlockPrefabs[Random.Range(0,BaseBlockPrefabs.Count)], new Vector3(posX, posY, posZ), Quaternion.identity,this.transform);
                 BaseBlock.transform.localScale = new Vector3(ScaleX*50, ScaleY, ScaleZ*50);
 
 

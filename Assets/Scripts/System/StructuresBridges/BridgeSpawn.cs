@@ -291,9 +291,10 @@ public class BridgeSpawn : MonoBehaviour
 
             if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0)
             {
-
-                endPoint = new Vector3(hitGridX * cellSize, GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].transform.position.y + hitGridY - 2f, hitGridZ * cellSize);
-                 
+                if (GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0]!=null)
+                {
+                    endPoint = new Vector3(hitGridX * cellSize, GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].transform.position.y + hitGridY - 2f, hitGridZ * cellSize);
+                }
 
                 selectedDest = GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].GetComponent<StructureBehavior>();
 

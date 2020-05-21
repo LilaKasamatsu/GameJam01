@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 using Random = UnityEngine.Random;
@@ -19,6 +18,11 @@ public class DestructionManager : MonoBehaviour
     [SerializeField] int minLocalHeightLimit;
     [SerializeField] int maxLocalHeightLimit;
     [SerializeField] int maxWindParticles;
+
+    [SerializeField] AudioClip wind;
+    float musicWindTimer = 30;
+    AudioSource audioSource;
+
     public GameObject windPrefab;
     public GameObject localWindPrefab;
     public float windTimer;
@@ -48,17 +52,19 @@ public class DestructionManager : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         StartCoroutine(GlobalDestruction());
     }
 
-    
-   
+
+
+
 
     IEnumerator GlobalDestruction()
     {
         while (true)
         {
-            Debug.Log("SANDSTORM auf höhe:" + heightLimit);
+           
             int coloumscounter = 0;
             int coloumsCounterCounter=5;
             int GridLengthX = GridArray.Instance.arrayX;
@@ -72,9 +78,10 @@ public class DestructionManager : MonoBehaviour
                 {
                     GridList target = GridArray.Instance.gridArray[coloumscounter, i];
 
-                   if(target.bridgeObjects.Count==0 && target.structureObjects.Count!=0 && target.sizeY*2 +target.foundationObject.transform.position.y >= heightLimit)
+                   if(target.foundationObject!=null && target.bridgeObjects.Count==0 && target.structureObjects.Count!=0 && target.sizeY*2 +target.foundationObject.transform.position.y >= heightLimit)
                     {
-                        target.sizeY = target.branchedStructures + Mathf.RoundToInt(( heightLimit - target.foundationObject.transform.position.y)/GridArray.Instance.cellY);
+                        target.sizeY= Mathf.RoundToInt(Mathf.Clamp( (heightLimit -target.foundationObject.transform.position.y) /GridArray.Instance.cellSize ,target.branchedStructures,Mathf.Infinity));
+                        
                     }
                 }
 
@@ -113,21 +120,27 @@ public class DestructionManager : MonoBehaviour
             heightLimit = Mathf.FloorToInt(Random.Range(minLocalHeightLimit, maxLocalHeightLimit) / 3 + Random.Range(minLocalHeightLimit, maxLocalHeightLimit) / 3 + Random.Range(minLocalHeightLimit, maxLocalHeightLimit) / 3);
             float windCooldown = Random.Range(minCoolDown, maxCoolDown);
             windTimer = 0;
-            Debug.Log("waiting for next sandstorm in:" + windCooldown);
-            yield return new WaitForSeconds(windCooldown / 2);
-            while (windTimer <windCooldown/2)
+            
+            yield return new WaitForSeconds(windCooldown - musicWindTimer);
+            while (windTimer <musicWindTimer)
             {
 
                 windTimer += Time.deltaTime;
+
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.clip = wind;
+                    audioSource.Play();
+                }
                
-                if (windTimer/windCooldown/2 >= particles.Count/maxWindParticles)
+                if (windTimer/musicWindTimer >= particles.Count/maxWindParticles)
                 {
                     ParticleInstantiate(LevelGenerator.instance.Groundbounds.transform.position.x, heightLimit, LevelGenerator.instance.Groundbounds.transform.position.z);
                 }
                 for(int i = 0;i<particles.Count;i++)
                 {
                    
-                        particles[i].transform.localScale = Vector3.Lerp(windPrefab.transform.localScale, Vector3.zero,windTimer/windCooldown*2);
+                        particles[i].transform.localScale = Vector3.Lerp(windPrefab.transform.localScale, Vector3.zero,windTimer/musicWindTimer);
                                       
                 }
                

@@ -183,7 +183,7 @@ public class SpawnSettings : MonoBehaviour
             //Branch
             if (Physics.Raycast(rayBranch, out hitBranch) && hitBranch.collider.CompareTag("structure"))
             {
-                Vector3 hitGrid = new Vector3(hitBranch.collider.transform.position.x, Mathf.Round(hitBranch.point.y / cellY) * cellY, hitBranch.collider.transform.position.z);
+                Vector3 hitGrid = new Vector3(hitBranch.collider.transform.position.x, hitBranch.collider.transform.position.y + 0.5f, hitBranch.collider.transform.position.z);
 
                 int arrayPosX = GridArray.Instance.NumToGrid(hitGrid.x);
                 int arrayPosZ = GridArray.Instance.NumToGrid(hitGrid.z);
@@ -206,7 +206,6 @@ public class SpawnSettings : MonoBehaviour
 
 
                             Vector3 spawnLocation = hitGrid;
-                            spawnLocation.y = hit.point.y + agent.transform.localScale.y * 0.5f;
 
 
                             GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);

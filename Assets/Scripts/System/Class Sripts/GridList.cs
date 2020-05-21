@@ -17,7 +17,7 @@ public class GridList
     public int pointAmount;
     public int foundationAmount;
     public List<GameObject> structureObjects;
-    public List<GameObject> bridgeObjects;
+    public List<GameObject> bridgeObjects;    public List<GameObject> branchObjects = new List<GameObject>();
 
     public GameObject foundationObject;
     public int bridge;
