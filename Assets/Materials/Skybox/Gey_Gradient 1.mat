@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8519310122683013540
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
 --- !u!21 &2100000
 Material:
   serializedVersion: 6
@@ -7,10 +20,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: bridge_mat
-  m_Shader: {fileID: -6465566751694194690, guid: 99209fa4a2367fb41b74383aea33ebc4,
-    type: 3}
-  m_ShaderKeywords: 
+  m_Name: Gey_Gradient 1
+  m_Shader: {fileID: 108, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _MAPPING_LATITUDE_LONGITUDE_LAYOUT _SUNDISK_HIGH_QUALITY
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -20,14 +32,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_88A1B3E2:
-        m_Texture: {fileID: 2800000, guid: a0788099378c5614dad17e6c2c84ddba, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_9276DE65:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -41,7 +45,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 0abcf4a01551d3a4e806d3799f3c8e13, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -56,55 +60,47 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_6DD357CB: 0.76
-    - Vector1_715B67C8: 0.1
-    - Vector1_C0ED90EA: 0
-    - Vector1_CABFF9CB: 0
-    - Vector1_EF22C243: 0
-    - Vector1_F3CED7E1: 0.05
-    - Vector1_FA552A2: 0
     - _AlphaClip: 0
+    - _AtmosphereThickness: 1
     - _Blend: 0
     - _BumpScale: 1
     - _Cull: 2
     - _Cutoff: 0.5
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _Exposure: 0.85
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _ImageType: 0
+    - _Layout: 0
+    - _Mapping: 1
     - _Metallic: 0
+    - _MirrorOnBack: 0
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Rotation: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _SunDisk: 2
+    - _SunSize: 0.04
+    - _SunSizeConvergence: 5
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Vector2_96E671B8: {r: 6, g: 3, b: 0, a: 0}
-    - _BaseColor: {r: 0.15686275, g: 0.21960784, b: 0.3882353, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0.22113433, g: 0.08627452, b: 0.24705882, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GroundColor: {r: 0.369, g: 0.349, b: 0.341, a: 1}
+    - _SkyTint: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - _baseColor: {r: 0.9607844, g: 0.5764706, b: 0.36862746, a: 1}
-    - _emissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _gradientColor: {r: 0.003921569, g: 0.7058824, b: 0.8980392, a: 1}
-    - _klimtColor: {r: 1, g: 0.72156864, b: 0, a: 0}
---- !u!114 &8106974150847113918
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
+    - _Tint: {r: 0.3063813, g: 0.38501918, b: 0.4811321, a: 0.5019608}
