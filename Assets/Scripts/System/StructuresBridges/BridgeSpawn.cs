@@ -26,12 +26,12 @@ public class BridgeSpawn : MonoBehaviour
     public bool build = false;
     private float bridgeSize;
 
-    int hitGridX;
-    int hitGridZ;
+    int hitGridX = 1;
+    int hitGridZ = 1;
     int hitGridY;
        
-    int oldX;
-    int oldZ;
+    int oldX = 1;
+    int oldZ = 1;
 
     bool isPreview = false;
 
@@ -132,6 +132,13 @@ public class BridgeSpawn : MonoBehaviour
     void Update()
     {
     
+        if (build == false)
+        {
+            hitGridX = -1;
+            hitGridZ = -1;
+            oldX = -1;
+            oldZ = -1;
+        }
 
         //Bridge Spawning
         if (SpawnSettings.Instance.spawnMode == false)
@@ -153,7 +160,7 @@ public class BridgeSpawn : MonoBehaviour
             }
         
             //Check while mouse down
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && (hitGridX != -1 && hitGridZ != -1 && oldX != -1 && oldZ != -1))
             {
                 SpawnBridgeHold();
             }
@@ -355,7 +362,11 @@ public class BridgeSpawn : MonoBehaviour
             GridArray.Instance.gridArray[hitGridX, hitGridZ].bridgeObjects.Add(bridgeNew);
 
 
-
+            hitGridX = -1;
+            hitGridZ = -1;
+            oldX = -1;
+            oldZ = -1;
+                       
             build = false;
 
 

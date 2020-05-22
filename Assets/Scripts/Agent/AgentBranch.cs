@@ -320,7 +320,7 @@ public class AgentBranch : MonoBehaviour
                     {
                         GameObject finalStructure = null;
 
-                        int randomBranch = Random.Range(1, 6);
+                        int randomBranch = Random.Range(4, 6);
 
                         if (randomBranch == 0)
                         {
@@ -353,6 +353,8 @@ public class AgentBranch : MonoBehaviour
                             builtStructure.transform.Rotate(new Vector3(0, buildRotation, 0));
                             //builtStructure.transform.SetParent(gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform);
                             builtStructure.GetComponent<StructureBehavior>().startY = buildLocation.y;
+
+                            builtStructure.transform.localScale = new Vector3(builtStructure.transform.localScale.x, builtStructure.transform.localScale.y, builtStructure.transform.localScale.z  - gridArray[arrayPosX, arrayPosZ].towerWidth);
 
                             structuresPlaced += 1;
                             gridArray[newArrayPosX, newArrayPosZ].branchAtY.Add(gridY);

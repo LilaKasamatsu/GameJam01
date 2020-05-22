@@ -64,7 +64,7 @@ public class GridArray : MonoBehaviour
 
                 }
                 */
-                float width = Random.Range(0f, 1f);
+                float width = Random.Range(0f, 0.6f);
                 int color = Random.Range(0, 3);
 
 
@@ -118,7 +118,7 @@ public class GridArray : MonoBehaviour
             {
                 //Debug.Log(x + " , " + i);
 
-                float width = Random.Range(0f, 1f);
+                float width = Random.Range(0f, 0.6f);
                 int range = Random.Range(0, 2);
                 int color = Random.Range(0, 3);
                 
