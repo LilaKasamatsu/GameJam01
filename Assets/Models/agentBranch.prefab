@@ -473,6 +473,16 @@ PrefabInstance:
       propertyPath: simulationSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6905777984621866001, guid: 9525d7b166f2dba4fb4754bb70cf390b,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905777984621866001, guid: 9525d7b166f2dba4fb4754bb70cf390b,
+        type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 7488837671834447858, guid: 9525d7b166f2dba4fb4754bb70cf390b,
         type: 3}
       propertyPath: m_LocalScale.x
