@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.2657503, g: 0.33490482, b: 0.41946918, a: 1}
+  m_IndirectSpecularColor: {r: 0.26548567, g: 0.33434895, b: 0.4190584, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6801,7 +6801,7 @@ MonoBehaviour:
   minBlockScale: 5
   maxBlockScale: 20
   totalScale: 40
-  maxElevation: 15
+  maxElevation: 9
   BaseBlockPrefabs:
   - {fileID: 1008905031540164167, guid: 3805c74ccb7c49e48ab314af89107303, type: 3}
   - {fileID: 1008905031540164167, guid: 8517f2bcf0b240440a0b534c8a488b11, type: 3}

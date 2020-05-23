@@ -58,7 +58,6 @@ public class LevelGenerator : MonoBehaviour
                 int elevation = posList[ElevationInt];
                 posList.RemoveAt(ElevationInt - 1);
                 posList.RemoveAt(ElevationInt - 1);
-                posList.RemoveAt(ElevationInt - 1);
 
                 int upperEndX = Mathf.RoundToInt(totalScale / AmountOfGround * (i+1)/3);
                 int lowerEndX = Mathf.RoundToInt(totalScale / AmountOfGround * i/3);
@@ -73,7 +72,7 @@ public class LevelGenerator : MonoBehaviour
                     
                 int ScaleX = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale)*3, 0, maxScaleX);
                 int ScaleZ = Mathf.Clamp(Random.Range(minBlockScale, maxBlockScale)*3, 0, MaxScaleZ);
-                int ScaleY = 3000;
+                int ScaleY = 2500;
 
 
 
