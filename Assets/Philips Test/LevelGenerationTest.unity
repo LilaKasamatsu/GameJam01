@@ -965,6 +965,7 @@ GameObject:
   m_Component:
   - component: {fileID: 149271274}
   - component: {fileID: 149271275}
+  - component: {fileID: 149271276}
   m_Layer: 0
   m_Name: CameraRig
   m_TagString: Untagged
@@ -979,14 +980,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 149271273}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
   m_LocalPosition: {x: 57, y: 0, z: 57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
   m_Father: {fileID: 806124160}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
 --- !u!114 &149271275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1011,7 +1012,25 @@ MonoBehaviour:
   cameraSpeedThreshold: 200
   cameraMaxHeight: 150
   cameraMinHeight: -40
+  winningAnimation: 0
+  CameraStartposition: {x: 0, y: 0, z: 0}
   cameraMode: 4
+--- !u!111 &149271276
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149271273}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 4198531d58a5bac43a6e5a4b26097d37, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 4198531d58a5bac43a6e5a4b26097d37, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!4 &177199024 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4363996000856533292, guid: 3b6465cce417bfd47aef4f4bcc117fa7,
@@ -1699,6 +1718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 339049087}
   - component: {fileID: 339049086}
+  - component: {fileID: 339049088}
   m_Layer: 0
   m_Name: arrayController
   m_TagString: Untagged
@@ -1747,6 +1767,18 @@ Transform:
   m_Father: {fileID: 806124160}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &339049088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339049085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6075cbba4399cff4aaa210117c540d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &344361676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1919,7 +1951,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 2.2578e-41, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 3.0833682e+32, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -3274,7 +3306,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 1.5224e-41, z: 0, w: NaN}
+  m_BoundingSphereOverride: {x: 0, y: 8e-44, z: 1.1139e-41, w: 5.9e-44}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -3950,7 +3982,6 @@ GameObject:
   - component: {fileID: 963194226}
   - component: {fileID: 963194230}
   - component: {fileID: 963194229}
-  - component: {fileID: 963194231}
   - component: {fileID: 963194232}
   m_Layer: 0
   m_Name: Main Camera
@@ -4073,18 +4104,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &963194231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5367b3334ceb84458088c8e4f026f0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &963194232
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4611,6 +4630,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectiveCube: {fileID: 3596111031837960777, guid: 1154a0683e6064141be25dece8cd7d30,
+    type: 3}
+  MegaCube: {fileID: 3596111031837960777, guid: 881ca08bfeb4beb4fbf3a8ac623cb1f2,
     type: 3}
   objectiveRay: {fileID: 8238040989999224019, guid: 38ea095ec46cb944c89d14734a5697f6,
     type: 3}
@@ -5299,7 +5320,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 2.121e-41, z: 0, w: -46}
+  m_BoundingSphereOverride: {x: 0, y: 3.1978e-41, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

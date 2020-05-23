@@ -12,6 +12,7 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     [SerializeField] GameObject selecterBridge;
     [SerializeField] Color sphereColor;
     [SerializeField] Color sphereColorSelect;
+    [SerializeField] bool MegaCube;
     [HideInInspector] public bool spawned;
     [HideInInspector] public bool falling;
     [HideInInspector] public bool played;
@@ -87,7 +88,6 @@ public class ObjectiveCubeBehavior : MonoBehaviour
                 spawned = true;
                 Instantiate(effect1, this.transform.position, Quaternion.identity);
                 GridArray.Instance.agentStack.agentAmountStructure += amountOfAgents;
-                ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(1));
                 // hier collectable eingesammelt sound einfügen (neues objekt instantiaten oder die brücke other abspielen lassen)
                 ObjectiveSpawn.instance.collectedCubes += 1;
                 if (!audioSource.isPlaying && !played)
@@ -98,6 +98,13 @@ public class ObjectiveCubeBehavior : MonoBehaviour
                     played = true;
                    
                 }
+                if (MegaCube)
+                {
+                    CameraRig.instance.StartCoroutine(CameraRig.instance.WinningCameraAnimation());
+                }
+                else
+                    ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(1));
+
                 Destroy(this.gameObject);
             }
             else if(spawned==false && falling == false)

@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 public class ObjectiveSpawn : MonoBehaviour
 {
     [SerializeField] GameObject objectiveCube;
+    [SerializeField] GameObject MegaCube;
     [SerializeField] GameObject objectiveRay;
     [SerializeField] int trysPerFrame;
     [SerializeField] float minDistanceBetweenTwoSpawns;
@@ -129,7 +130,12 @@ public class ObjectiveSpawn : MonoBehaviour
                 currentHeight= Mathf.Clamp(currentHeight, startingHeight, maximumHeight);
 
                 hasSpawned -= 1;
-                Instantiate(objectiveCube, spawnPosition, Quaternion.identity).GetComponent<ObjectiveCubeBehavior>().amountOfAgents = AgentsPerCube;
+                if (collectedCubes < 4)
+                {
+                    Instantiate(objectiveCube, spawnPosition, Quaternion.identity).GetComponent<ObjectiveCubeBehavior>().amountOfAgents = AgentsPerCube;
+                }
+                else
+                    Instantiate(MegaCube, spawnPosition, Quaternion.identity);
                 lastPosition = spawnPosition;
             }
             tryCounter += 1;
