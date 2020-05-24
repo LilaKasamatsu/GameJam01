@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class InventoryUi : MonoBehaviour
 {
+	//Texts of Agent counts
 	[SerializeField] Text textFoundation;
 	[SerializeField] Text textFoundationMax;
 	[SerializeField] Color colorFoundation;
@@ -14,20 +16,21 @@ public class InventoryUi : MonoBehaviour
 	[SerializeField] Text textStructureMax;
 	[SerializeField] Color colorStructure;
 
-
 	[SerializeField] Text textBranch;
 	[SerializeField] Text textBranchMax;
 	[SerializeField] Color colorBranch;
 
 	[SerializeField] Color colorGrey;
+	//
 
+	[SerializeField] GameObject pauseMenu;
 	[SerializeField] Button pauseButton;
 	[SerializeField] GameObject infoPanel;
 	[SerializeField] GameObject destinationPlane;
 	[SerializeField] GameObject originPlane;
 	[SerializeField] GameObject placeTargetPrefab;
 	private GameObject placeTarget;
-	int showInfo = 1;
+	int isPaused = 0;
 	[SerializeField] Text textAgentAmount;
 
 	private string selectedButton;
@@ -60,7 +63,10 @@ public class InventoryUi : MonoBehaviour
 	{
 		SetButtonColor();
 
-
+		if (Input.GetKeyDown(KeyCode.Escape))
+        {
+			ClickPause();
+        }
 
 		if (spawnerScript.spawnMode == false)
 		{
@@ -72,11 +78,11 @@ public class InventoryUi : MonoBehaviour
 		}
 
 
-		if (showInfo == 1)
+		if (isPaused == 1)
 		{
 			infoPanel.transform.position = new Vector3(infoPanel.transform.position.x, Mathf.Lerp(infoPanel.transform.position.y, originPlane.transform.position.y, 0.1f), infoPanel.transform.position.z);
 		}
-		else if (showInfo == 0)
+		else if (isPaused == 0)
 		{
 			infoPanel.transform.position = new Vector3(infoPanel.transform.position.x, Mathf.Lerp(infoPanel.transform.position.y, destinationPlane.transform.position.y, 0.1f), infoPanel.transform.position.z);
 		}
@@ -207,11 +213,30 @@ public class InventoryUi : MonoBehaviour
 		}
 
 	}
-	void ClickPause()
+	public void ClickPause()
 	{
-		showInfo = 1 - showInfo;
-		Debug.Log("click");
+		if (isPaused == 1)
+        {
+			pauseMenu.SetActive(false);
+			pauseButton.gameObject.SetActive(true);
+
+		}
+		else
+        {
+			pauseMenu.SetActive(true);
+			pauseButton.gameObject.SetActive(false);
+
+		}
+		isPaused = 1 - isPaused;
+		Time.timeScale = 1 - Time.timeScale;
+
+		//Debug.Log("click");
 	}
+
+	public void Restart()
+    {
+		SceneManager.LoadScene("LevelGenerationTest");
+    }
 
 	private bool IsMouseOverUI()
 	{
