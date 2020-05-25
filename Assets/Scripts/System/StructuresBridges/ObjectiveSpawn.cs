@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 public class ObjectiveSpawn : MonoBehaviour
 {
     [SerializeField] GameObject objectiveCube;
+    [SerializeField] GameObject MegaCube;
     [SerializeField] GameObject objectiveRay;
     [SerializeField] int trysPerFrame;
     [SerializeField] float minDistanceBetweenTwoSpawns;
@@ -70,31 +71,31 @@ public class ObjectiveSpawn : MonoBehaviour
         if (collectedCubes >= 1)
         {
             cube1.GetComponent<Image>().color = new Color(255, 255, 255, 100);
-            cube1.transform.position = new Vector3(cube1.transform.position.x, Mathf.Lerp(cube1.transform.position.y, 12f, 0.05f), cube1.transform.position.z);
+            cube1.transform.position = new Vector3(cube1.transform.position.x, Mathf.Lerp(cube1.transform.position.y, cube1.transform.parent.transform.position.y, 0.05f), cube1.transform.position.z);
                
         }
         if (collectedCubes >= 2)
         {
             cube2.GetComponent<Image>().color = new Color(255, 255, 255, 100);
-            cube2.transform.position = new Vector3(cube2.transform.position.x, Mathf.Lerp(cube2.transform.position.y, 12f, 0.05f), cube2.transform.position.z);
+            cube2.transform.position = new Vector3(cube2.transform.position.x, Mathf.Lerp(cube2.transform.position.y, cube2.transform.parent.transform.position.y, 0.05f), cube2.transform.position.z);
 
         }
         if (collectedCubes >= 3)
         {
             cube3.GetComponent<Image>().color = new Color(255, 255, 255, 100);
-            cube3.transform.position = new Vector3(cube3.transform.position.x, Mathf.Lerp(cube3.transform.position.y, 12f, 0.05f), cube3.transform.position.z);
+            cube3.transform.position = new Vector3(cube3.transform.position.x, Mathf.Lerp(cube3.transform.position.y, cube3.transform.parent.transform.position.y, 0.05f), cube3.transform.position.z);
 
         }
         if (collectedCubes >= 4)
         {
             cube4.GetComponent<Image>().color = new Color(255, 255, 255, 100);
-            cube4.transform.position = new Vector3(cube4.transform.position.x, Mathf.Lerp(cube4.transform.position.y, 12f, 0.05f), cube4.transform.position.z);
+            cube4.transform.position = new Vector3(cube4.transform.position.x, Mathf.Lerp(cube4.transform.position.y, cube4.transform.parent.transform.position.y, 0.05f), cube4.transform.position.z);
 
         }
         if (collectedCubes >= 5)
         {
             cube5.GetComponent<Image>().color = new Color(255, 255, 255, 100);
-            cube5.transform.position = new Vector3(cube5.transform.position.x, Mathf.Lerp(cube5.transform.position.y, 12f, 0.05f), cube5.transform.position.z);
+            cube5.transform.position = new Vector3(cube5.transform.position.x, Mathf.Lerp(cube5.transform.position.y, cube5.transform.parent.transform.position.y, 0.05f), cube5.transform.position.z);
 
         }
 
@@ -124,12 +125,17 @@ public class ObjectiveSpawn : MonoBehaviour
                 
                 Debug.Log("Did Hit");
                 spawnPosition.y =currentHeight;
-                spawnPosition.y= Mathf.Clamp(spawnPosition.y, hit.point.y + 10, Mathf.Infinity);
+                spawnPosition.y= Mathf.Clamp(spawnPosition.y, hit.point.y + 20, Mathf.Infinity);
                 currentHeight += Heightincrease;
                 currentHeight= Mathf.Clamp(currentHeight, startingHeight, maximumHeight);
 
                 hasSpawned -= 1;
-                Instantiate(objectiveCube, spawnPosition, Quaternion.identity).GetComponent<ObjectiveCubeBehavior>().amountOfAgents = AgentsPerCube;
+                if (collectedCubes < 4)
+                {
+                    Instantiate(objectiveCube, spawnPosition, Quaternion.identity).GetComponent<ObjectiveCubeBehavior>().amountOfAgents = AgentsPerCube;
+                }
+                else
+                    Instantiate(MegaCube, spawnPosition, Quaternion.identity);
                 lastPosition = spawnPosition;
             }
             tryCounter += 1;

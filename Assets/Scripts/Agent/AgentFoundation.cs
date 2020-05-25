@@ -105,7 +105,7 @@ public class AgentFoundation : MonoBehaviour
         yield return new WaitForSeconds(destructionTimer);
         Instantiate(destructionAnim, this.transform.position, Quaternion.identity);
         agentStack.agentAmountFoundation += 1;
-        agentStack.agentFoundation -= 1;
+        
         Destroy(this.gameObject);
 
     }
@@ -113,7 +113,7 @@ public class AgentFoundation : MonoBehaviour
     {
         Instantiate(destructionAnim, this.transform.position, Quaternion.identity);
         agentStack.agentAmountFoundation += 1;
-        agentStack.agentFoundation -= 1;
+        
         Destroy(this.gameObject);
 
         
@@ -204,9 +204,11 @@ public class AgentFoundation : MonoBehaviour
             {
                 if (gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount <= 0)
                 {
+                    SpawnSettings.Instance.firstFoundation = true;
                     GameObject builtStructure = Instantiate(foundation, buildLocation, Quaternion.identity) as GameObject;
                     
                     gridArray[arrayPosX, arrayPosZ].foundationObject = builtStructure;
+
 
 
 
@@ -243,11 +245,16 @@ public class AgentFoundation : MonoBehaviour
         transform.position = objectPos;
 
     
+        if(SpawnSettings.Instance.spawnMode == false && isActive == false)
+        {
+            Destroy(this.gameObject);
+
+        }
 
         if (Input.GetMouseButton(1))
         {
             SpawnSettings.Instance.spawnMode = false;
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -263,4 +270,11 @@ public class AgentFoundation : MonoBehaviour
         
     }
 
+    private void OnDestroy()
+    {
+        if (isActive)
+        {
+            agentStack.agentFoundation -= 1;
+        }
+    }
 }

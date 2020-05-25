@@ -62,8 +62,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.030261492, y: 0.011281932, z: 0.025770575}
-  m_Center: {x: -0.001042488, y: 0.0060007647, z: 0.00085136853}
+  m_Size: {x: 0.026851173, y: 0.0041201953, z: 0.024539411}
+  m_Center: {x: -0.0006404668, y: 0.009581633, z: 0.00023578666}
 --- !u!114 &2715256230920397598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,8 +119,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8801112, y: 0.17527832, z: 0.9547044}
-  m_Center: {x: -0.037409764, y: 0.4123607, z: 0.010189734}
+  m_Size: {x: 0.60284853, y: 0.19555512, z: 0.6928597}
+  m_Center: {x: -0.020402478, y: 0.59664583, z: 0.038124263}
 --- !u!1001 &1649879470554301992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -206,38 +206,38 @@ PrefabInstance:
     - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.021435948
+      value: 0.023232752
       objectReference: {fileID: 0}
     - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Center.z
-      value: -0.0030995738
+      value: -0.0035631899
       objectReference: {fileID: 0}
     - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.027169103
+      value: 0.024397163
       objectReference: {fileID: 0}
     - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Center.y
-      value: -0.0006676987
+      value: -0.0003766748
       objectReference: {fileID: 0}
     - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.030261492
+      value: 0.02771955
       objectReference: {fileID: 0}
     - target: {fileID: 4294339202030884125, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Center.x
-      value: -0.001042488
+      value: -0.00098937
       objectReference: {fileID: 0}
     - target: {fileID: 8239334824818077870, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 2480500454739157344, guid: 6ba07ec9dfa285d48bbbe71084f73911,
+      objectReference: {fileID: -7969978266939365281, guid: 59ebf9d13a093cd4398cda72cebc3df9,
         type: 3}
     - target: {fileID: 9015651093089628766, guid: b7e6081476eecda4fb3e48039ae428fa,
         type: 3}

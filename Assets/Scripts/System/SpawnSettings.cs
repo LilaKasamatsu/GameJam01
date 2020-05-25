@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class SpawnSettings : MonoBehaviour
 {
+    [SerializeField] GameObject spawnParticles;
+    [SerializeField] GameObject spawnParticles2;
 
     [SerializeField] GameObject agentStruc;
     [SerializeField] GameObject agentPoint;
@@ -13,7 +15,8 @@ public class SpawnSettings : MonoBehaviour
     [SerializeField] GameObject foundation;
     [SerializeField] GameObject mainPoint;
     [SerializeField] GameObject buildMarker;
-
+    public bool firstFoundation = false;
+    public bool firstStructure = false;
     private GameObject ground;
 
     Camera cam;
@@ -73,9 +76,14 @@ public class SpawnSettings : MonoBehaviour
         //Debug Grid
         //GetGridValue();
 
-        if (spawnMode == false && lastPlacedTile != new Vector3 (-1, -1, -1))
+        if (spawnMode == false )
         {
-            lastPlacedTile = new Vector3(-1, -1, -1);
+
+            if ( lastPlacedTile != new Vector3(-1, -1, -1))
+            {
+                lastPlacedTile = new Vector3(-1, -1, -1);
+            }
+
         }
     }
 
@@ -130,7 +138,9 @@ public class SpawnSettings : MonoBehaviour
                             GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
                             newAgent.GetComponent<NavMeshAgent>().enabled = true;
 
-
+                            Instantiate(spawnParticles, spawnLocation, Quaternion.identity);
+                            Instantiate(spawnParticles2, spawnLocation, Quaternion.identity);
+                            
 
                             newAgent.GetComponent<AgentFoundation>().isActive = true;
                             //lastPlacedTile = currentTile;
@@ -158,6 +168,8 @@ public class SpawnSettings : MonoBehaviour
 
                                 GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
                                 newAgent.GetComponent<NavMeshAgent>().enabled = true;
+                                Instantiate(spawnParticles, spawnLocation, Quaternion.identity);
+                                Instantiate(spawnParticles2, spawnLocation, Quaternion.identity);
 
                                 newAgent.GetComponent<AgentStructure>().isActive = true;
 
@@ -210,6 +222,8 @@ public class SpawnSettings : MonoBehaviour
 
                             GameObject newAgent = Instantiate(agent, spawnLocation, Quaternion.identity);
                             newAgent.GetComponent<NavMeshAgent>().enabled = true;
+                            Instantiate(spawnParticles, spawnLocation, Quaternion.identity);
+                            Instantiate(spawnParticles2, spawnLocation, Quaternion.identity);
 
                             newAgent.GetComponent<AgentBranch>().isActive = true;
 

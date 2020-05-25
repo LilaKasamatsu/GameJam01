@@ -25,6 +25,12 @@ public class CameraRig : MonoBehaviour
     [SerializeField] float cameraMaxHeight;
     [SerializeField] float cameraMinHeight;
 
+    public static CameraRig instance;
+    public bool winningAnimation;
+    [SerializeField] Vector3 CameraStartposition;
+    Quaternion CameraRigStartingRotation;
+    Animation anim;
+
     enum CameraMode { 
     normal,
     alternative,
@@ -36,36 +42,54 @@ public class CameraRig : MonoBehaviour
 
  
     Camera targetCamera;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
 
     private void Start()
     {
         targetCamera = Camera.main;
-
+        anim = GetComponent<Animation>();
+        CameraRigStartingRotation = transform.rotation;
     }
     private void Update()
     {
-        switch (cameraMode)
+        if (winningAnimation)
         {
-            case CameraMode.normal:
-                CameraMovement();
-                Zoom();
-                break;
-            case CameraMode.alternative:
-                AlternativeCameraMove();
-                Zoom();
-                break;
-            case CameraMode.PressMousewheel:
-                PressMousewheelCameraMovement();
-                Zoom();
-                break;
-            case CameraMode.ScrollSteuerung:
-                MousewheelCameraMovement();
-                break;
-            case CameraMode.ReverseScrollSteuerung:
-                ReverseScrollCameraMovement();
-                break;
+            //StartCoroutine(WinningCameraAnimation());
         }
-        
+        else
+        {
+            switch (cameraMode)
+            {
+                case CameraMode.normal:
+                    CameraMovement();
+                    Zoom();
+                    break;
+                case CameraMode.alternative:
+                    AlternativeCameraMove();
+                    Zoom();
+                    break;
+                case CameraMode.PressMousewheel:
+                    PressMousewheelCameraMovement();
+                    Zoom();
+                    break;
+                case CameraMode.ScrollSteuerung:
+                    MousewheelCameraMovement();
+                    break;
+                case CameraMode.ReverseScrollSteuerung:
+                    ReverseScrollCameraMovement();
+                    break;
+            }
+        }
 
     }
 
@@ -294,24 +318,25 @@ public class CameraRig : MonoBehaviour
             
         }
     }
-
-    private void CameraUpDown()
+    
+    public IEnumerator WinningCameraAnimation()
     {
-        if (Input.GetMouseButton(2)) 
+        
+        winningAnimation = true;
+        while (targetCamera.transform.localPosition.y<99 || targetCamera.transform.localPosition.y>101)
         {
-            float screenCentre = Screen.height / 2;
-            float MouseDistance = Input.mousePosition.y - screenCentre;
+            targetCamera.transform.localPosition = Vector3.Lerp(targetCamera.transform.localPosition, new Vector3(70, 100, 0), .4f*Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, CameraRigStartingRotation, 0.4f*Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(57, -20, 57), 0.4f*Time.deltaTime);
 
-            if (MouseDistance >= cameraSpeedThreshold)
-            {
-                targetCamera.transform.position += transform.up * cameraUpMovespeed*-Time.deltaTime;
-            }
-            if (MouseDistance <= -cameraSpeedThreshold)
-            {
-                targetCamera.transform.position -= transform.up * cameraUpMovespeed*-Time.deltaTime;
-            }
-
-
+            yield return new WaitForEndOfFrame();
         }
+
+        anim.Play();
+        yield return new WaitUntil(() => anim.isPlaying == false);
+        yield return new WaitForSeconds(.5f);
+        SceneLoader.instance.SceneReload();
+
     }
+    
 }

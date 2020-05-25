@@ -12,9 +12,10 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     [SerializeField] GameObject selecterBridge;
     [SerializeField] Color sphereColor;
     [SerializeField] Color sphereColorSelect;
-    bool spawned;
-    bool falling;
-    bool played;
+    [SerializeField] bool MegaCube;
+    [HideInInspector] public bool spawned;
+    [HideInInspector] public bool falling;
+    [HideInInspector] public bool played;
 
     [SerializeField] AudioClip collected;
     [SerializeField] AudioClip dropping;
@@ -32,9 +33,18 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     private void Update()
     {
         cooldown += Time.deltaTime;
-        
-        
-        transform.GetChild(0).localScale = Vector3.Lerp(new Vector3(1,1,1), new Vector3(0f, 0f, 0f), cooldown/ObjectiveSpawn.instance.objectiveCountdown);
+
+        if (falling == false)
+        {
+            transform.GetChild(0).localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(0f, 0f, 0f), cooldown / ObjectiveSpawn.instance.objectiveCountdown);
+            transform.GetChild(3).localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(0f, 0f, 0f), cooldown / ObjectiveSpawn.instance.objectiveCountdown);
+            transform.GetChild(4).localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(0f, 0f, 0f), cooldown / ObjectiveSpawn.instance.objectiveCountdown);
+            transform.GetChild(5).localScale = Vector3.Lerp(new Vector3(1, 1, 1), new Vector3(0f, 0f, 0f), cooldown / ObjectiveSpawn.instance.objectiveCountdown);
+
+            transform.GetChild(1).localScale = Vector3.Lerp(new Vector3(0.03333334f, -166, 0.03333334f), new Vector3(0, -166, 0), cooldown / ObjectiveSpawn.instance.objectiveCountdown);
+            transform.GetChild(6).localScale = Vector3.Lerp(new Vector3(0.1666667f, 0.1666667f, 0.1666667f), new Vector3(0, 0.1666667f, 0), cooldown / ObjectiveSpawn.instance.objectiveCountdown);
+        }
+
         if (cooldown >= ObjectiveSpawn.instance.objectiveCountdown && falling==false)
         {
             StartCoroutine(Falling());
@@ -55,7 +65,15 @@ public class ObjectiveCubeBehavior : MonoBehaviour
             }
             falling = true;
             Debug.Log("Cube is falling");
-            transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.down , ObjectiveSpawn.instance.objectiveFallingSpeed);
+            transform.GetChild(0).localScale = Vector3.Lerp(transform.GetChild(0).localScale, new Vector3(1.5f, 1.5f, 1.5f), .05f);
+            transform.GetChild(3).localScale = Vector3.Lerp(transform.GetChild(3).localScale, new Vector3(1.5f, 1.5f, 1.5f), .05f);
+            transform.GetChild(4).localScale = Vector3.Lerp(transform.GetChild(4).localScale, new Vector3(1.5f, 1.5f, 1.5f), .05f);
+            transform.GetChild(5).localScale = Vector3.Lerp(transform.GetChild(5).localScale, new Vector3(1.5f, 1.5f, 1.5f), .05f);
+           
+                GetComponent<Rigidbody>().isKinematic = false;
+                GetComponent<Rigidbody>().useGravity = true;
+            
+
             yield return new WaitForEndOfFrame();
 
         }
@@ -65,27 +83,11 @@ public class ObjectiveCubeBehavior : MonoBehaviour
     {
         if (other.CompareTag("bridge") || other.CompareTag("ground") )
         {
-            if (other.CompareTag("ground") && falling && !spawned)
-            {
-                GroundBehaviour groundBehaviour = other.transform.GetComponentInChildren<GroundBehaviour>();
-                
-                    groundBehaviour.StartCoroutine(groundBehaviour.Fall());
-                spawned = true;
-                ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(1));
-                Destroy(this.gameObject);
-
-            }
-            //Instantiate(effect2, this.transform.position, Quaternion.identity);
-            //Instantiate(effect3, this.transform.position, Quaternion.identity);
-            
-
-
             if (cooldown >= .25 && spawned == false && falling==false) 
             {
                 spawned = true;
                 Instantiate(effect1, this.transform.position, Quaternion.identity);
                 GridArray.Instance.agentStack.agentAmountStructure += amountOfAgents;
-                ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(1));
                 // hier collectable eingesammelt sound einfügen (neues objekt instantiaten oder die brücke other abspielen lassen)
                 ObjectiveSpawn.instance.collectedCubes += 1;
                 if (!audioSource.isPlaying && !played)
@@ -94,8 +96,16 @@ public class ObjectiveCubeBehavior : MonoBehaviour
                     audioSourceTemp.clip = collected;
                     audioSourceTemp.Play();
                     played = true;
-                    Destroy(this.gameObject);
+                   
                 }
+                if (MegaCube)
+                {
+                    CameraRig.instance.StartCoroutine(CameraRig.instance.WinningCameraAnimation());
+                }
+                else
+                    ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(1));
+
+                Destroy(this.gameObject);
             }
             else if(spawned==false && falling == false)
             {

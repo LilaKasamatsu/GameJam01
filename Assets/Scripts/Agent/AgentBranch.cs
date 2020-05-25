@@ -95,14 +95,13 @@ public class AgentBranch : MonoBehaviour
         yield return new WaitForSeconds(destructionTimer);
         Instantiate(destructionAnim, this.transform.position, Quaternion.identity);
         agentStack.agentAmountBranch += 1;
-        agentStack.agentBranch -= 1;
+       
         Destroy(this.gameObject);
 
     }
     private void RetireAgent()
     {
         agentStack.agentAmountBranch += 1;
-        agentStack.agentBranch -= 1;
         Destroy(this.gameObject);
 
 
@@ -115,7 +114,29 @@ public class AgentBranch : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(0, 360 * Time.deltaTime, 0); //rotates 50 degrees per second around z axis
+
+        if (isActive)
+        {
+            transform.Rotate(0, 360 * Time.deltaTime, 0); //rotates 50 degrees per second around z axis
+
+            //transform.GetChild(0).transform.position = new Vector3(-1.3f, 0, 0);
+            transform.GetChild(0).transform.GetChild(1).localPosition = new Vector3(-0.035f, 0, -0.02f);
+
+
+        }
+        else 
+        {
+            transform.Rotate(0, 360 * Time.deltaTime, 0); //rotates 50 degrees per second around z axis
+            transform.GetChild(0).transform.GetChild(1).localPosition = new Vector3(-0.003f, 0, -0.02f);
+            transform.GetChild(0).transform.GetChild(1).transform.GetChild(1).localScale = new Vector3(4f, 4f, 4f);
+            transform.GetChild(0).transform.GetChild(1).transform.GetChild(1).GetComponent<ParticleSystem>().playbackSpeed = 2.5f;
+            transform.GetChild(0).transform.GetChild(1).transform.GetChild(1).GetComponent<ParticleSystem>().maxParticles = 300;
+
+
+
+
+
+        }
 
         grid = SpawnSettings.Instance.grid;
 
@@ -299,7 +320,7 @@ public class AgentBranch : MonoBehaviour
                     {
                         GameObject finalStructure = null;
 
-                        int randomBranch = Random.Range(1, 6);
+                        int randomBranch = Random.Range(4, 6);
 
                         if (randomBranch == 0)
                         {
@@ -333,6 +354,8 @@ public class AgentBranch : MonoBehaviour
                             //builtStructure.transform.SetParent(gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform);
                             builtStructure.GetComponent<StructureBehavior>().startY = buildLocation.y;
 
+                            builtStructure.transform.localScale = new Vector3(builtStructure.transform.localScale.x, builtStructure.transform.localScale.y, builtStructure.transform.localScale.z  - gridArray[arrayPosX, arrayPosZ].towerWidth);
+
                             structuresPlaced += 1;
                             gridArray[newArrayPosX, newArrayPosZ].branchAtY.Add(gridY);
                             gridArray[newArrayPosX, newArrayPosZ].branchObjects.Add(builtStructure);
@@ -358,11 +381,15 @@ public class AgentBranch : MonoBehaviour
         Vector3 objectPos = cam.ScreenToWorldPoint(mousePos);
         transform.position = objectPos;
 
+        if (SpawnSettings.Instance.spawnMode == false && isActive == false)
+        {
+            Destroy(this.gameObject);
+        }
 
         if (Input.GetMouseButton(1))
         {
             SpawnSettings.Instance.spawnMode = false;
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
 
         }
 
@@ -375,6 +402,13 @@ public class AgentBranch : MonoBehaviour
         {
 
             SpawnSettings.Instance.PlaceAgent(spawnAgent);
+        }
+    }
+    private void OnDestroy()
+    {
+        if (isActive)
+        {
+            agentStack.agentBranch -= 1;
         }
     }
 

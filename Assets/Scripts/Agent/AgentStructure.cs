@@ -93,7 +93,6 @@ public class AgentStructure : MonoBehaviour
         yield return new WaitForSeconds(destructionTimer);
         Instantiate(destructionAnim, this.transform.position, Quaternion.identity);
         agentStack.agentAmountStructure += 1;
-        agentStack.agentStructure -= 1;
         Destroy(this.gameObject);
 
     }
@@ -264,9 +263,14 @@ public class AgentStructure : MonoBehaviour
 
                         if (gridArray[arrayPosX, arrayPosZ].sizeY == 0)
                         {
+                            gridArray[arrayPosX, arrayPosZ].sizeY += 1;
                             builtStructure = Instantiate(finalStructure, buildLocation, Quaternion.identity) as GameObject;
-                            //builtStructure.transform.Rotate(new Vector3(0, buildRotation, 0));                            gridArray[arrayPosX, arrayPosZ].sizeY += 1;
-                            gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);                          
+                            //builtStructure.transform.Rotate(new Vector3(0, buildRotation, 0));                            gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
+                            SpawnSettings.Instance.firstStructure = true;
+                            if(gridArray[arrayPosX, arrayPosZ].structureObjects.Count > 1)
+                            {
+                                Destroy(gridArray[arrayPosX, arrayPosZ].structureObjects[1]);
+                            }
                             builtStructure.transform.localScale = new Vector3(builtStructure.transform.localScale.x - gridArray[arrayPosX, arrayPosZ].towerWidth,
                                 0.1f,
                                 builtStructure.transform.localScale.z - gridArray[arrayPosX, arrayPosZ].towerWidth);
@@ -315,10 +319,15 @@ public class AgentStructure : MonoBehaviour
         transform.position = objectPos;
 
 
-        if (Input.GetMouseButton(1))
-        {
-            SpawnSettings.Instance.spawnMode = false;
+        if (SpawnSettings.Instance.spawnMode == false && isActive == false)
+        {
             Destroy(this.gameObject);
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+            SpawnSettings.Instance.spawnMode = false;
+            //Destroy(this.gameObject);
 
         }
 
@@ -334,5 +343,13 @@ public class AgentStructure : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (isActive)
+        {
+            agentStack.agentStructure -= 1;
+           
+        }
+    }
 }
 
