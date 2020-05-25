@@ -60,6 +60,10 @@ public class InventoryUi : MonoBehaviour
         {
             selectedButton = "";
         }
+        if (Input.GetMouseButtonDown(0))
+        {
+            CheckForButtonClick();
+        }
         SetAgentsAmount();
     }
 
@@ -170,8 +174,83 @@ public class InventoryUi : MonoBehaviour
 		//yield return new WaitForSeconds(0.5f);
 		spawnerScript.spawnMode = false;
 		yield return new WaitForSeconds(0.05f);
-
+        CheckForButtonClick();
 	}
+
+    private GameObject CheckForButtonClick()
+    {
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = Input.mousePosition;
+
+        List<RaycastResult> hitList = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, hitList);
+
+        for (int i = 0; i < hitList.Count; i++)
+        {
+            if (hitList[i].gameObject.name == "ButtonFoundation" && GridArray.Instance.agentStack.agentAmountFoundation > 0)
+            {
+                if (spawnerScript.spawnMode == false)
+                {
+                    spawnerScript.spawnMode = true;
+                    Debug.Log("You have the foundation!");
+
+                    hitList[i].gameObject.transform.parent.GetComponent<Animation>().Play();
+
+
+                    selectedButton = "foundation";
+                    spawnerScript.SpawnAgent(agentFoundation);
+                    return agentFoundation;
+                }
+                else
+                {
+                    StartCoroutine(ChangeAgent());
+                }
+            }
+
+
+            if (hitList[i].gameObject.name == "ButtonStructure" && GridArray.Instance.agentStack.agentAmountStructure > 0)
+            {
+                if (spawnerScript.spawnMode == false)
+                {
+                    spawnerScript.spawnMode = true;
+                    Debug.Log("You have clicked the structure button!");
+                    hitList[i].gameObject.transform.parent.GetComponent<Animation>().Play();
+                    selectedButton = "structure";
+                    spawnerScript.SpawnAgent(agentStructure);
+                    return agentStructure;
+                }
+                else
+                {
+                    StartCoroutine(ChangeAgent());
+                }
+
+
+
+            }
+
+            if (hitList[i].gameObject.name == "ButtonBranch" && GridArray.Instance.agentStack.agentAmountBranch > 0)
+            {
+                if (spawnerScript.spawnMode == false)
+                {
+                    hitList[i].gameObject.transform.parent.GetComponent<Animation>().Play();
+
+                    selectedButton = "branch";
+                    spawnerScript.spawnMode = true;
+                    spawnerScript.SpawnAgent(agentBranch);
+                    return agentBranch;
+                }
+                else
+                {
+                    StartCoroutine(ChangeAgent());
+                }
+
+
+            }
+
+        }
+        return null;
+
+    }
 
     public void SelectFoundation()
     {

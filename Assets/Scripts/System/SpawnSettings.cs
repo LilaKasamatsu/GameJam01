@@ -74,11 +74,6 @@ public class SpawnSettings : MonoBehaviour
             {
                 lastPlacedTile = new Vector3(-1, -1, -1);
             }
-            if (newAgent)
-            {
-                Debug.Log("DESTROYED");
-                Destroy(newAgent);
-            }
         }
     }
 
