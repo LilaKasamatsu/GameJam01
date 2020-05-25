@@ -182,7 +182,7 @@ public class AgentStructure : MonoBehaviour
         }        
     }
 
-    StructureBehavior targetStructure = new StructureBehavior();
+    StructureBehavior targetStructure;
 
     private void BuildStructure()
     {

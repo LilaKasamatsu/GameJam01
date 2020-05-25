@@ -7,359 +7,252 @@ using UnityEngine.SceneManagement;
 
 public class InventoryUi : MonoBehaviour
 {
-	//Texts of Agent counts
+    //Texts of Agent counts
+    [Header("Foundation")]
+    [SerializeField] Button buttonFoundation;
 	[SerializeField] Text textFoundation;
 	[SerializeField] Text textFoundationMax;
-	[SerializeField] Color colorFoundation;
 
-	[SerializeField] Text textStructure;
+    [Header("Structure")]
+    [SerializeField] Button buttonStructure;
+    [SerializeField] Text textStructure;
 	[SerializeField] Text textStructureMax;
-	[SerializeField] Color colorStructure;
 
-	[SerializeField] Text textBranch;
+    [Header("Branch")]
+    [SerializeField] Button buttonBranch;
+    [SerializeField] Text textBranch;
 	[SerializeField] Text textBranchMax;
-	[SerializeField] Color colorBranch;
 
-	[SerializeField] Color colorGrey;
-	//
+    [Header ("Options Menu")]
+	[SerializeField] GameObject optionsPanel;
+	[SerializeField] Button buttonOptions;
 
-	[SerializeField] GameObject pauseMenu;
-	[SerializeField] Button pauseButton;
+    [Space (10)]
 	[SerializeField] GameObject infoPanel;
-	[SerializeField] GameObject destinationPlane;
-	[SerializeField] GameObject originPlane;
-	[SerializeField] GameObject placeTargetPrefab;
-	private GameObject placeTarget;
-	int isPaused = 0;
-	[SerializeField] Text textAgentAmount;
 
-	private string selectedButton;
-
+    [Header ("Agent Prefabs")]
 	public GameObject agentStructure;
 	public GameObject agentBranch;
 	public GameObject agentFoundation;
 
+    private string selectedButton;
 
-
-	GameObject spawnController;
 	private SpawnSettings spawnerScript;
 
 	void Start()
 	{
-	
-
 		spawnerScript = SpawnSettings.Instance.GetComponent<SpawnSettings>();
-
-		//Button button1 = agentButton1.GetComponent<Button>();
-		//btn.onClick.AddListener(TaskOnClick);
-		pauseButton.GetComponent<Button>().onClick.AddListener(() => ClickPause());
-
-
-
+        buttonStructure.interactable = false;
+        buttonBranch.interactable = false;
 	}
 
-
-	private void Update()
+ 
+    private void Update()
 	{
-		SetButtonColor();
+		SetButtonStatus();
 
-		if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-			ClickPause();
+            //ClickPause();
         }
 
-		if (spawnerScript.spawnMode == false)
-		{
-			selectedButton = "";
-			if (placeTarget != null)
-			{
-				Destroy(placeTarget);
-			}
-		}
+        if (spawnerScript.spawnMode == false)
+        {
+            selectedButton = "";
+        }
+        SetAgentsAmount();
+    }
 
+    private void SetAgentsAmount()
+    {
+        textFoundation.text = GridArray.Instance.agentStack.agentAmountFoundation.ToString();
+        textFoundationMax.text = "|" + (GridArray.Instance.agentStack.agentAmountFoundation + GridArray.Instance.agentStack.agentFoundation).ToString();
 
-		if (isPaused == 1)
-		{
-			infoPanel.transform.position = new Vector3(infoPanel.transform.position.x, Mathf.Lerp(infoPanel.transform.position.y, originPlane.transform.position.y, 0.1f), infoPanel.transform.position.z);
-		}
-		else if (isPaused == 0)
-		{
-			infoPanel.transform.position = new Vector3(infoPanel.transform.position.x, Mathf.Lerp(infoPanel.transform.position.y, destinationPlane.transform.position.y, 0.1f), infoPanel.transform.position.z);
-		}
+        textStructure.text = GridArray.Instance.agentStack.agentAmountStructure.ToString();
+        textStructureMax.text = "|" + (GridArray.Instance.agentStack.agentAmountStructure + GridArray.Instance.agentStack.agentStructure).ToString();
 
+        textBranch.text = GridArray.Instance.agentStack.agentAmountBranch.ToString();
+        textBranchMax.text = "|" + (GridArray.Instance.agentStack.agentAmountBranch + GridArray.Instance.agentStack.agentBranch).ToString();
 
-		if (Input.GetMouseButtonDown(0))
-		{
-			CheckButton();
-		}
+        //textAgentAmount.text = GridArray.Instance.agentStack.agentAmount.ToString();
+    }
 
-		textFoundation.text = GridArray.Instance.agentStack.agentAmountFoundation.ToString();
-		textFoundationMax.text = "|" + (GridArray.Instance.agentStack.agentAmountFoundation + GridArray.Instance.agentStack.agentFoundation).ToString();
-
-		textStructure.text = GridArray.Instance.agentStack.agentAmountStructure.ToString();
-		textStructureMax.text = "|" + (GridArray.Instance.agentStack.agentAmountStructure + GridArray.Instance.agentStack.agentStructure).ToString();
-
-		textBranch.text = GridArray.Instance.agentStack.agentAmountBranch.ToString();
-		textBranchMax.text = "|" + (GridArray.Instance.agentStack.agentAmountBranch + GridArray.Instance.agentStack.agentBranch).ToString();
-
-		//textAgentAmount.text = GridArray.Instance.agentStack.agentAmount.ToString();
-
-
-	}
-	void SetButtonColor()
+    void SetButtonStatus()
 	{
-		if (selectedButton != "structure")
-		{
-			if (GridArray.Instance.agentStack.agentAmountFoundation > 0)
-			{
-				GameObject.Find("ButtonFoundation").GetComponent<Image>().color = Color.white;
-
-			}
-
-		}
-
-		if (spawnerScript.firstFoundation == false)
-		{
-			if (selectedButton != "structure")
-			{
-				GameObject.Find("ButtonStructure").GetComponent<Image>().color = colorGrey;
-
-			}
-
-			if (selectedButton != "branch")
-			{
-				GameObject.Find("ButtonBranch").GetComponent<Image>().color = colorGrey;
-		
-			}
-
-
-		}	
-		if (spawnerScript.firstFoundation == true)
-		{
-			if (selectedButton != "structure")
-			{
-				if (GridArray.Instance.agentStack.agentAmountStructure > 0)
-				{
-					GameObject.Find("ButtonStructure").GetComponent<Image>().color = Color.white;
-
-				}
-			}
-
-
-		}
-
-		if (spawnerScript.firstStructure == false)
-		{
-			if (selectedButton != "branch")
-			{
-				GameObject.Find("ButtonBranch").GetComponent<Image>().color = colorGrey;			
-			}
-
-
-		}
-		if (spawnerScript.firstStructure == true)
-		{
-			if (selectedButton != "branch")
-			{
-				if (GridArray.Instance.agentStack.agentAmountBranch > 0)
-				{
-					GameObject.Find("ButtonBranch").GetComponent<Image>().color = Color.white;
-
-				}
-
-			}
-
-		}
-
+        if (spawnerScript.firstFoundation)
+        {
+            buttonStructure.interactable = true;
+            if (spawnerScript.firstStructure)
+            {
+                CheckAgentAvailability();
+            }
+        }
 
 		if (selectedButton == "foundation")
 		{
 			if (GridArray.Instance.agentStack.agentAmountFoundation <= 0)
 			{
-				SpawnSettings.Instance.spawnMode = false;
-			}
-			GameObject.Find("ButtonFoundation").GetComponent<Image>().color = colorFoundation;
+				spawnerScript.spawnMode = false;
+                buttonFoundation.interactable = false;
+            }
+            else
+            {
+                buttonFoundation.interactable = true;
+                buttonFoundation.GetComponent<Image>().color = buttonFoundation.colors.highlightedColor;
+                buttonStructure.GetComponent<Image>().color = buttonFoundation.colors.normalColor;
+                buttonBranch.GetComponent<Image>().color = buttonFoundation.colors.normalColor;
+            }
 		}
 		if (selectedButton == "structure")
 		{
 			if (GridArray.Instance.agentStack.agentAmountStructure <= 0)
 			{
-				SpawnSettings.Instance.spawnMode = false;
-			}
-			GameObject.Find("ButtonStructure").GetComponent<Image>().color = colorStructure;
+                spawnerScript.spawnMode = false;
+                buttonStructure.interactable = false;
+            }
+            else
+            {
+                buttonStructure.interactable = true;
+                buttonFoundation.GetComponent<Image>().color = buttonFoundation.colors.normalColor;
+                buttonStructure.GetComponent<Image>().color = buttonFoundation.colors.highlightedColor;
+                buttonBranch.GetComponent<Image>().color = buttonFoundation.colors.normalColor;
+            }
 		}
 		if (selectedButton == "branch")
 		{
 			if (GridArray.Instance.agentStack.agentAmountBranch <= 0)
 			{
-				SpawnSettings.Instance.spawnMode = false;
-			}
-			GameObject.Find("ButtonBranch").GetComponent<Image>().color = colorBranch;
+                spawnerScript.spawnMode = false;
+                buttonBranch.interactable = false;
+            }
+            else
+            {
+                buttonBranch.interactable = true;
+                buttonFoundation.GetComponent<Image>().color = buttonFoundation.colors.normalColor;
+                buttonStructure.GetComponent<Image>().color = buttonFoundation.colors.normalColor;
+                buttonBranch.GetComponent<Image>().color = buttonFoundation.colors.highlightedColor;
+            }
 		}
-
-
-		//If Amount is empty
-		if (GridArray.Instance.agentStack.agentAmountFoundation <= 0)
-		{
-			GameObject.Find("ButtonFoundation").GetComponent<Image>().color = colorGrey;
-		}
-		if (GridArray.Instance.agentStack.agentAmountStructure <= 0)
-		{
-			GameObject.Find("ButtonStructure").GetComponent<Image>().color = colorGrey;
-		}
-		if (GridArray.Instance.agentStack.agentAmountBranch <= 0)
-		{
-			GameObject.Find("ButtonBranch").GetComponent<Image>().color = colorGrey;
-		}
-
-	}
-	public void ClickPause()
-	{
-		if (isPaused == 1)
-        {
-			pauseMenu.SetActive(false);
-			pauseButton.gameObject.SetActive(true);
-
-		}
-		else
-        {
-			pauseMenu.SetActive(true);
-			pauseButton.gameObject.SetActive(false);
-
-		}
-		isPaused = 1 - isPaused;
-		Time.timeScale = 1 - Time.timeScale;
-
-		//Debug.Log("click");
 	}
 
-	public void Restart()
+    private void CheckAgentAvailability()
     {
-		SceneManager.LoadScene("LevelGenerationTest");
+        //If Amount is empty
+        if (GridArray.Instance.agentStack.agentAmountFoundation <= 0)
+        {
+            buttonFoundation.interactable = false;
+        }
+        else
+        {
+            buttonFoundation.interactable = true;
+        }
+
+        if (GridArray.Instance.agentStack.agentAmountStructure <= 0)
+        {
+            buttonStructure.interactable = false;
+        }
+        else
+        {
+            buttonStructure.interactable = true;
+        }
+        if (GridArray.Instance.agentStack.agentAmountBranch <= 0)
+        {
+            buttonBranch.interactable = false;
+        }
+        else
+        {
+            buttonBranch.interactable = true;
+        }
     }
 
-	private bool IsMouseOverUI()
-	{
-		return EventSystem.current.IsPointerOverGameObject();
-	}
-
-
-
-	IEnumerator ChangeAgent(int type)
+	IEnumerator ChangeAgent()
 	{
 		//yield return new WaitForSeconds(0.5f);
 		spawnerScript.spawnMode = false;
 		yield return new WaitForSeconds(0.05f);
 
-		CheckButton();
-
 	}
 
+    public void SelectFoundation()
+    {
+        if (GridArray.Instance.agentStack.agentAmountFoundation > 0)
+        {
 
-	private GameObject CheckButton()
-	{
-		PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
-		pointerEventData.position = Input.mousePosition;
+            if(spawnerScript.spawnMode == false)
+            {
+                spawnerScript.spawnMode = true;
+                buttonFoundation.transform.parent.GetComponent<Animation>().Play("ButtonClickAnim");
+                selectedButton = "foundation";
+                spawnerScript.SpawnAgent(agentFoundation);
+            }
+            else
+            {
+                StartCoroutine(ChangeAgent());
+                SelectFoundation();
+            }
+        }
+    }
 
-		List<RaycastResult> hitList = new List<RaycastResult>();
-		EventSystem.current.RaycastAll(pointerEventData, hitList);
+    public void SelectStructure()
+    {
+        if (GridArray.Instance.agentStack.agentAmountStructure > 0)
+        {
+            if(spawnerScript.spawnMode == false)
+            {
+                spawnerScript.spawnMode = true;
+                buttonStructure.transform.parent.GetComponent<Animation>().Play("ButtonClickAnim");
+                selectedButton = "structure";
+                spawnerScript.SpawnAgent(agentStructure);
+            }
+            else
+            {
+                StartCoroutine(ChangeAgent());
+                SelectStructure();
+            }
+        }
+    }
 
-		for (int i = 0; i < hitList.Count; i++)
-		{
-			if (hitList[i].gameObject.name == "ButtonFoundation" && GridArray.Instance.agentStack.agentAmountFoundation > 0)
-			{
-				if(spawnerScript.spawnMode == false)
-				{
-					spawnerScript.spawnMode = true;
-					Debug.Log("You have the foundation!");
-
-					hitList[i].gameObject.transform.parent.GetComponent<Animation>().Play();
-
-					if (placeTarget == null)
-					{
-						placeTarget = Instantiate(placeTargetPrefab, hitList[i].gameObject.transform.position, Quaternion.identity) as GameObject;
-						placeTarget.transform.parent = transform.GetChild(0).transform.GetChild(0);
-						placeTarget.transform.SetSiblingIndex(0);
-
-					}
-
-					selectedButton = "foundation";
-					spawnerScript.SpawnAgent(agentFoundation, hitList[i].gameObject.transform.position);
-					return agentFoundation;
-				}
-				else
-				{
-					StartCoroutine(ChangeAgent(0));
-				}
-
-							   				 
-
-			}
-						
-
-			if (hitList[i].gameObject.name == "ButtonStructure" && GridArray.Instance.agentStack.agentAmountStructure > 0)
-			{
-				if (spawnerScript.spawnMode == false)
-				{
-					spawnerScript.spawnMode = true;
-					Debug.Log("You have clicked the yellow button!");
-					hitList[i].gameObject.transform.parent.GetComponent<Animation>().Play();
-					if (placeTarget == null)
-					{
-						placeTarget = Instantiate(placeTargetPrefab, hitList[i].gameObject.transform.position, Quaternion.identity) as GameObject;
-						placeTarget.transform.parent = transform.GetChild(0).transform.GetChild(0);
-						placeTarget.transform.SetSiblingIndex(0);
-
-					}
-					selectedButton = "structure";
-					spawnerScript.SpawnAgent(agentStructure, hitList[i].gameObject.transform.position);
-					return agentStructure;
-				}
-				else
-				{
-					StartCoroutine(ChangeAgent(0));
-				}
+    public void SelectBranch()
+    {
+        if (GridArray.Instance.agentStack.agentAmountBranch > 0)
+        {
+            if (spawnerScript.spawnMode == false)
+            {
+                spawnerScript.spawnMode = true;
+                buttonBranch.transform.parent.GetComponent<Animation>().Play("ButtonClickAnim");
+                selectedButton = "branch";
+                spawnerScript.SpawnAgent(agentBranch);
+            }
+            else
+            {
+                StartCoroutine(ChangeAgent());
+                SelectBranch();
+            }
+        }
+    }
 
 
+    public void ClickOptionsMenu()
+    {
+        buttonOptions.gameObject.SetActive(false);
+        optionsPanel.gameObject.SetActive(true);
+        infoPanel.GetComponent<Animation>().Play("ShowControls");
+    }
+    public void ResumeGame()
+    {
+        buttonOptions.gameObject.SetActive(true);
+        optionsPanel.gameObject.SetActive(false);
+        infoPanel.GetComponent<Animation>().Play("HideControls");
 
-			}
+    }
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("LevelGenerationTest");
+    }
 
-			if (hitList[i].gameObject.name == "ButtonBranch" && GridArray.Instance.agentStack.agentAmountBranch > 0)
-			{
-				if (spawnerScript.spawnMode == false)
-				{
-					hitList[i].gameObject.transform.parent.GetComponent<Animation>().Play();
-					if (placeTarget == null)
-					{
-						placeTarget = Instantiate(placeTargetPrefab, hitList[i].gameObject.transform.position, Quaternion.identity) as GameObject;
-						placeTarget.transform.parent = transform.GetChild(0).transform.GetChild(0);
-						placeTarget.transform.SetSiblingIndex(0);
+    private bool IsMouseOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
+    }
 
-					}
-					selectedButton = "branch";
-					spawnerScript.spawnMode = true;
-					spawnerScript.SpawnAgent(agentBranch, hitList[i].gameObject.transform.position);
-					return agentBranch;
-				}
-				else
-				{
-					StartCoroutine(ChangeAgent(0));
-				}
-
-
-			}
-
-		}
-		return null;
-
-	}
-
-
-
-	void TaskOnClick()
-	{
-		//Debug.Log("You have clicked the button!");
-
-		//spawnerScript.SpawnAgent(agent1);
-	}
 }

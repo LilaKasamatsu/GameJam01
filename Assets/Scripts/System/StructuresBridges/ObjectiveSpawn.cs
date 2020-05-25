@@ -123,7 +123,6 @@ public class ObjectiveSpawn : MonoBehaviour
             if ( Vector3.Distance( new Vector3(spawnPosition.x,0,spawnPosition.z),new Vector3(lastPosition.x,0,lastPosition.z))>minDistanceBetweenTwoSpawns && Physics.Raycast(spawnPosition, new Vector3(0, -1, 0), out hit, Mathf.Infinity, layer_mask) && hit.transform.GetComponent<GroundBehaviour>().falling==false)
             {
                 
-                Debug.Log("Did Hit");
                 spawnPosition.y =currentHeight;
                 spawnPosition.y= Mathf.Clamp(spawnPosition.y, hit.point.y + 20, Mathf.Infinity);
                 currentHeight += Heightincrease;

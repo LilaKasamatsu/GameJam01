@@ -32,19 +32,18 @@ public class SpawnSettings : MonoBehaviour
 
     //Singleton
     public static SpawnSettings Instance { get; private set; }
-    private void Awake()
-    {
-        if(Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+            //DontDestroyOnLoad(gameObject);
+        }
+        else
+        { 
+            Destroy(gameObject);
+        }
     }
-
 
     private void Start()
     {
@@ -52,42 +51,36 @@ public class SpawnSettings : MonoBehaviour
         ground = GameObject.FindGameObjectWithTag("ground");
         //grid = new Grid(Mathf.RoundToInt(ground.transform.localScale.x / cellSize) + 1, Mathf.RoundToInt(ground.transform.localScale.z / cellSize) + 1, cellSize);
         
-        cellSize = GridArray.Instance.cellSize;
+        cellSize = GridArray.Instance.cellSize;
         cellY = GridArray.Instance.cellY;
 
-
         agentStack = GridArray.Instance.agentStack;
-
-
         //CreateStartPoint();
-
     }
-
-    IEnumerator SetSpawnDelay()
-    {
-        tileTimer = false;
-        yield return new WaitForSeconds(0.15f);
-        tileTimer = true;
-    }
-
+    IEnumerator SetSpawnDelay()
+    {
+        tileTimer = false;
+        yield return new WaitForSeconds(0.15f);
+        tileTimer = true;
+    }       
     void Update()
     {
         //NumberSpawning();
         //Debug Grid
         //GetGridValue();
-
         if (spawnMode == false )
-        {
-
+        {
             if ( lastPlacedTile != new Vector3(-1, -1, -1))
             {
-                lastPlacedTile = new Vector3(-1, -1, -1);
+                lastPlacedTile = new Vector3(-1, -1, -1);
             }
-
-        }
-    }
-
-
+            if (newAgent)
+            {
+                Debug.Log("DESTROYED");
+                Destroy(newAgent);
+            }
+        }
+    }
 
     public void PlaceAgent(GameObject agent)
     {
@@ -243,18 +236,16 @@ public class SpawnSettings : MonoBehaviour
 
     }
 
-    public void SpawnAgent(GameObject spawnAgent, Vector3 position)
+    GameObject newAgent;
+    public void SpawnAgent(GameObject spawnAgent)
     {
-        
-
         //Instantiate(spawnAgent, spwnLocation, cam.transform.rotation);
 
         Vector3 mousePos = Input.mousePosition;
         //mousePos.z = 1.0f;  // Preview Agent is 10 units in front of the camera
         mousePos.y = 125.0f;  // Preview Agent is a bit higher than the mouse cursor
-
-        Vector3 objectPos = cam.ScreenToWorldPoint(mousePos);
-        GameObject newAgent = Instantiate(spawnAgent, objectPos, cam.transform.rotation) as GameObject;
+        Vector3 objectPos = cam.ScreenToWorldPoint(mousePos);
+        newAgent = Instantiate(spawnAgent, objectPos, cam.transform.rotation) as GameObject;
         newAgent.GetComponent<NavMeshAgent>().enabled = false;
 
         CreateBuildMarker();
@@ -262,8 +253,8 @@ public class SpawnSettings : MonoBehaviour
     }
 
     private void CreateBuildMarker()
-    {
-        Instantiate(buildMarker, new Vector3(0, 0, 0), Quaternion.identity);           
+    {
+        Instantiate(buildMarker, new Vector3(0, 0, 0), Quaternion.identity);           
     }
 
 
@@ -297,8 +288,8 @@ public class SpawnSettings : MonoBehaviour
                     //Debug on structure amount, foundation etc
                     //Debug.Log("; Foundation: " + GridArray.Instance.gridArray[hitX, hitZ].foundationAmount + "; Structures: " + GridArray.Instance.gridArray[hitX, hitZ].sizeY + "; Point: " + GridArray.Instance.gridArray[hitX, hitZ].pointAmount);
 
-                    Debug.Log(" x: " + hitX + " z: " + hitZ + " posY: " + GridArray.Instance.gridArray[hitX, hitZ].gridStructures[Mathf.RoundToInt(hitPosition.y / cellY) + 1].y);
-                    Debug.Log(" xOrigin: " + GridArray.Instance.gridArray[hitX, hitZ].gridStructures[Mathf.RoundToInt(hitPosition.y / cellY) + 1].xOrigin + " zOrigin: " + GridArray.Instance.gridArray[hitX, hitZ].gridStructures[Mathf.RoundToInt(hitPosition.y / cellY) + 1].zOrigin);
+                    //Debug.Log(" x: " + hitX + " z: " + hitZ + " posY: " + GridArray.Instance.gridArray[hitX, hitZ].gridStructures[Mathf.RoundToInt(hitPosition.y / cellY) + 1].y);
+                    //Debug.Log(" xOrigin: " + GridArray.Instance.gridArray[hitX, hitZ].gridStructures[Mathf.RoundToInt(hitPosition.y / cellY) + 1].xOrigin + " zOrigin: " + GridArray.Instance.gridArray[hitX, hitZ].gridStructures[Mathf.RoundToInt(hitPosition.y / cellY) + 1].zOrigin);
 
                     /*
                     for (int i = 0; i < GridArray.Instance.gridArray[hitX, hitZ].gridStructures.Length; i++)

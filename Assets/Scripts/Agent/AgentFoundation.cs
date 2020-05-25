@@ -254,7 +254,7 @@ public class AgentFoundation : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             SpawnSettings.Instance.spawnMode = false;
-            //Destroy(this.gameObject);
+            // Destroy(this.gameObject);
         }
 
         if (Input.GetMouseButtonUp(0))

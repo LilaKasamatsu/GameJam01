@@ -43,8 +43,8 @@ public class BridgeSpawn : MonoBehaviour
 
     List<StructureBehavior> selectedStructures = new List<StructureBehavior>();
     List<StructureBehavior> selectedStructuresDest = new List<StructureBehavior>();
-    StructureBehavior selectedDest = new StructureBehavior();
-    StructureBehavior selectedOrigin = new StructureBehavior();
+    StructureBehavior selectedDest;
+    StructureBehavior selectedOrigin;
 
 
     //Singleton
@@ -54,7 +54,7 @@ public class BridgeSpawn : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
