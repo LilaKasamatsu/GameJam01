@@ -320,7 +320,7 @@ public class AgentBranch : MonoBehaviour
                     {
                         GameObject finalStructure = null;
 
-                        int randomBranch = Random.Range(4, 6);
+                        int randomBranch = Random.Range(2, 6);
 
                         if (randomBranch == 0)
                         {
@@ -359,11 +359,15 @@ public class AgentBranch : MonoBehaviour
                             structuresPlaced += 1;
                             gridArray[newArrayPosX, newArrayPosZ].branchAtY.Add(gridY);
                             gridArray[newArrayPosX, newArrayPosZ].branchObjects.Add(builtStructure);
+                            Instantiate(destructionAnim, this.transform.position, Quaternion.identity);
+                            agentStack.agentAmountBranch += 1;
+                            Destroy(this.gameObject);
                         }            
                     }
                 }
             }
         }
+        
     }
 
     private bool IsOverUi()
