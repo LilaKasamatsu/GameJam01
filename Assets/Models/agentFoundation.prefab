@@ -64,9 +64,9 @@ MonoBehaviour:
   destructionTimer: 20
   destructionAnim: {fileID: 46301278182483637, guid: 1036b498587871c4084322f139062134,
     type: 3}
-  foundationsLifetime: 5
+  foundationsLifetime: 6
   searchIncrease: 0.5
-  maxSearch: 9
+  maxSearch: 5
   agent: {fileID: 9062771477611380066}
   hasSignal: 0
   isActive: 0
