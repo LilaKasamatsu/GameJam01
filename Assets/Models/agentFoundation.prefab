@@ -58,13 +58,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foundation: {fileID: 7836647536578920252, guid: dfd15eeceb8f8e3439f4fca9d45da027,
     type: 3}
-  minBuildDelay: 0.2
-  maxBuildDelay: 1.2
+  minBuildDelay: 1
+  maxBuildDelay: 2
   spawnAgent: {fileID: 4866568028121015989}
   destructionTimer: 20
   destructionAnim: {fileID: 46301278182483637, guid: 1036b498587871c4084322f139062134,
     type: 3}
-  foundationsLifetime: 8
+  foundationsLifetime: 5
   searchIncrease: 0.5
   maxSearch: 9
   agent: {fileID: 9062771477611380066}

@@ -328,7 +328,17 @@ public class InventoryUi : MonoBehaviour
     {
         SceneManager.LoadScene("LevelGenerationTest");
     }
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 
+    public void AdjustVolume()
+    {
+        float newVolume = GameObject.Find("SliderAudio").GetComponent<Slider>().value;
+
+        AudioListener.volume = newVolume*2;
+    }
     private bool IsMouseOverUI()
     {
         return EventSystem.current.IsPointerOverGameObject();
