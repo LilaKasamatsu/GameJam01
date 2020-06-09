@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.2657503, g: 0.33490482, b: 0.41946918, a: 1}
+  m_IndirectSpecularColor: {r: 0.26548567, g: 0.33434895, b: 0.4190584, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1071,7 +1071,7 @@ Transform:
   - {fileID: 963194228}
   m_Father: {fileID: 806124160}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
+  m_LocalEulerAnglesHint: {x: 0, y: 360.001, z: -45}
 --- !u!114 &149271275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1085,11 +1085,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxZoom: 14
-  minZoom: -12.8
+  minZoom: -15.7
   ZoomWithoutTilt: 5
-  maxMouseTilt: 25
-  minMouseTilt: -45
-  rotationspeed: 5
+  maxMouseTilt: 70
+  minMouseTilt: -50
+  rotationspeed: 8
   cameraZoomSpeed: 65
   cameraTiltToZoomRatio: 0.3
   cameraUpMovespeed: 10
@@ -1875,7 +1875,7 @@ MonoBehaviour:
   gridSize: 3
   cellSize: 3
   cellY: 2
-  maxStructures: 70
+  maxStructures: 120
 --- !u!4 &339049087
 Transform:
   m_ObjectHideFlags: 0
@@ -5418,11 +5418,11 @@ MonoBehaviour:
   trysPerFrame: 5
   minDistanceBetweenTwoSpawns: 25
   startingHeight: -20
-  Heightincrease: 10
-  maximumHeight: 30
-  AgentsPerCube: 5
+  Heightincrease: 35
+  maximumHeight: 500
+  AgentsPerCube: 10
   objectiveFallingSpeed: 0.5
-  objectiveCountdown: 90
+  objectiveCountdown: 100
   collectedCubes: 0
   cube1: {fileID: 992725698}
   cube2: {fileID: 322053748}
@@ -9867,15 +9867,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab1f99f1460eb8749b47e0a5a719a739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minCoolDown: 30
-  maxCoolDown: 60
+  minCoolDown: 45
+  maxCoolDown: 90
   duration: 0
   heightLimit: 10
   remainedHeight: 10
   platformSearchDistance: 9
   destructionMode: 0
-  minLocalHeightLimit: 8
-  maxLocalHeightLimit: 20
+  minLocalHeightLimit: 20
+  maxLocalHeightLimit: 50
   maxWindParticles: 25
   wind: {fileID: 8300000, guid: 692a49609b58737479eb5590c15f6c3b, type: 3}
   windPrefab: {fileID: 2712643673001669053, guid: 16f6778ed0dba434f860be35d1c6ce64,

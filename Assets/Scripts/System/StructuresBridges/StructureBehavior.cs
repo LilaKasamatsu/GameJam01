@@ -208,11 +208,14 @@ public class StructureBehavior : MonoBehaviour
         List<GameObject> targetlist = GridPosition.bridgeObjects;
         for (int i = targetlist.Count - 1; i >= 0; i--) 
         {
-            Vector3 targetVector = targetlist[i].GetComponent<BridgeStruct>().gridOrigin;
-            GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(targetVector.x), GridArray.Instance.NumToGrid(targetVector.z)].bridgeObjects.Remove(targetlist[i]);
-            targetVector = targetlist[i].GetComponent<BridgeStruct>().gridEnd;
-            GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(targetVector.x), GridArray.Instance.NumToGrid(targetVector.z)].bridgeObjects.Remove(targetlist[i]);
-            Destroy(targetlist[i]);
+            if (targetlist[i] != null)
+            {
+                Vector3 targetVector = targetlist[i].GetComponent<BridgeStruct>().gridOrigin;
+                GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(targetVector.x), GridArray.Instance.NumToGrid(targetVector.z)].bridgeObjects.Remove(targetlist[i]);
+                targetVector = targetlist[i].GetComponent<BridgeStruct>().gridEnd;
+                GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(targetVector.x), GridArray.Instance.NumToGrid(targetVector.z)].bridgeObjects.Remove(targetlist[i]);
+                Destroy(targetlist[i]);
+            }
         }
         targetlist = GridPosition.branchObjects;
         for (int i = targetlist.Count - 1; i >= 0; i--)

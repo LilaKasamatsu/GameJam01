@@ -225,8 +225,8 @@ public class CameraRig : MonoBehaviour
 
             if (inputAxisMouseY > 0.002 && currentMouseTilt <= maxMouseTilt || inputAxisMouseY < -0.002 && currentMouseTilt >= minMouseTilt)
             {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, (Quaternion.AngleAxis(45, targetCamera.transform.right) * transform.rotation), inputAxisMouseY);
-                currentMouseTilt += inputAxisMouseY;
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, (Quaternion.AngleAxis(45, targetCamera.transform.right) * transform.rotation), inputAxisMouseY*2);
+                currentMouseTilt += inputAxisMouseY*2;
 
             }
 
@@ -323,9 +323,9 @@ public class CameraRig : MonoBehaviour
     {
         
         winningAnimation = true;
-        while (targetCamera.transform.localPosition.y<99 || targetCamera.transform.localPosition.y>101)
+        while (targetCamera.transform.localPosition.y<169.5f || targetCamera.transform.localPosition.y>170.5f)
         {
-            targetCamera.transform.localPosition = Vector3.Lerp(targetCamera.transform.localPosition, new Vector3(70, 100, 0), .4f*Time.deltaTime);
+            targetCamera.transform.localPosition = Vector3.Lerp(targetCamera.transform.localPosition, new Vector3(70, 170, 0), .4f*Time.deltaTime);
             transform.rotation = Quaternion.Slerp(transform.rotation, CameraRigStartingRotation, 0.4f*Time.deltaTime);
             transform.position = Vector3.Lerp(transform.position, new Vector3(57, -20, 57), 0.4f*Time.deltaTime);
 
