@@ -88,7 +88,7 @@ public class Tutorial : MonoBehaviour
 
             panel.GetComponent<Fade>().FadeMeOut();
             counter++;
-            yield return new WaitForSecondsRealtime(4f);
+            yield return new WaitForSecondsRealtime(1f);
         }
     }
 
