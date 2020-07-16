@@ -21,6 +21,29 @@ public class Tutorial : MonoBehaviour
     private bool isTextToShow;
     private bool allAreActive;
 
+    private bool madeTutInvisible;
+
+    [SerializeField] Toggle tutorialToggle;
+
+    private void Awake()
+    {
+        int val = PlayerPrefs.GetInt("TutorialOn");
+        if(val == 1)
+        {
+            tutorialToggle.isOn = true;
+        }
+        else
+        {
+            tutorialToggle.isOn = false;
+        }
+    }
+
+    private void OnDisable()
+    {
+        PlayerPrefs.SetInt("TutorialOn", tutorialToggle.isOn ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,50 +51,70 @@ public class Tutorial : MonoBehaviour
 
         buttonStructure.gameObject.SetActive(false);
         buttonBranch.gameObject.SetActive(false);
+
+        madeTutInvisible = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!spawnSettings.firstFoundation)
+        if (tutorialToggle.isOn)
         {
-            buttonFoundation.transform.parent.GetComponent<Animation>().Play("ButtonWaitingForClick");
-            if (!isCoroutineRunning)
+            madeTutInvisible = true;
+
+            if (!spawnSettings.firstFoundation)
             {
-                StartCoroutine(WaitForText(2f));
+                buttonFoundation.transform.parent.GetComponent<Animation>().Play("ButtonWaitingForClick");
+                if (!isCoroutineRunning)
+                {
+                    StartCoroutine(WaitForText(2f));
+                }
+                if (isTextToShow)
+                {
+                    panel01.GetComponent<Fade>().FadeMeIn();
+                    isTextToShow = false;
+                }
+
             }
-            if (isTextToShow)
+            else if (!spawnSettings.firstStructure)
             {
-                panel01.GetComponent<Fade>().FadeMeIn();
-                isTextToShow = false;
+                panel01.GetComponent<Fade>().FadeMeOut();
+                if (!isCoroutineRunning)
+                {
+                    StartCoroutine(WaitForText(2f));
+                }
+                if (isTextToShow)
+                {
+                    panel02.GetComponent<Fade>().FadeMeIn();
+                    isTextToShow = false;
+                }
+
+                buttonStructure.gameObject.SetActive(true);
+                buttonStructure.transform.parent.GetComponent<Animation>().Play("ButtonWaitingForClick");
             }
-            
-        }else if (!spawnSettings.firstStructure)
-        {
-            panel01.GetComponent<Fade>().FadeMeOut();
-            if (!isCoroutineRunning)
+            else
             {
-                StartCoroutine(WaitForText(2f));
-            }
-            if (isTextToShow)
-            {
-                panel02.GetComponent<Fade>().FadeMeIn();
-                isTextToShow = false;
+                panel02.GetComponent<Fade>().FadeMeOut();
+                buttonBranch.gameObject.SetActive(true);
+                allAreActive = true;
             }
 
+            if (allAreActive && !isTutorialRunning)
+            {
+                StartCoroutine(ShowTutorialTexts());
+            }
+        }
+        else if(madeTutInvisible)
+        {
+            madeTutInvisible = false;
             buttonStructure.gameObject.SetActive(true);
-            buttonStructure.transform.parent.GetComponent<Animation>().Play("ButtonWaitingForClick");
-        }
-        else
-        {
-            panel02.GetComponent<Fade>().FadeMeOut();
             buttonBranch.gameObject.SetActive(true);
-            allAreActive = true;
-        }
-
-        if (allAreActive && !isTutorialRunning)
-        {
-            StartCoroutine(ShowTutorialTexts());
+            panel01.GetComponent<Fade>().FadeMeOut();
+            panel02.GetComponent<Fade>().FadeMeOut();
+            foreach(GameObject panel in panels)
+            {
+                panel.GetComponent<Fade>().FadeMeOut();
+            }
         }
     }
 
