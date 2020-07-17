@@ -101,11 +101,13 @@ public class ObjectiveCubeBehavior : MonoBehaviour
                 if (MegaCube)
                 {
                     DestructionManager.instance.StopAllCoroutines();
-                    foreach(GameObject particle in DestructionManager.instance.particles) { Destroy(particle); }
+                    foreach (GameObject particle in DestructionManager.instance.particles) { Destroy(particle); }
                     CameraRig.instance.StartCoroutine(CameraRig.instance.WinningCameraAnimation());
                 }
                 else
+                {
                     ObjectiveSpawn.instance.StartCoroutine(ObjectiveSpawn.instance.SpawnCube(1));
+                }
 
                 Destroy(this.gameObject);
             }
