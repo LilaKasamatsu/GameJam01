@@ -9,9 +9,9 @@ public class CameraRig : MonoBehaviour
     [SerializeField] [Range(5f,25f)]  float maxZoom;
     [SerializeField] [Range(-20f,0.5f)] float minZoom;
     [SerializeField] [Range(2, 20)] float ZoomWithoutTilt;
-    float currentZoom;
+    [SerializeField] float currentZoom;
 
-    float currentMouseTilt;
+    [SerializeField] float currentMouseTilt;
     [SerializeField] float maxMouseTilt;
     [SerializeField] float minMouseTilt;
 
@@ -225,8 +225,8 @@ public class CameraRig : MonoBehaviour
 
             if (inputAxisMouseY > 0.002 && currentMouseTilt <= maxMouseTilt || inputAxisMouseY < -0.002 && currentMouseTilt >= minMouseTilt)
             {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, (Quaternion.AngleAxis(45, targetCamera.transform.right) * transform.rotation), inputAxisMouseY);
-                currentMouseTilt += inputAxisMouseY;
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, (Quaternion.AngleAxis(45, targetCamera.transform.right) * transform.rotation), inputAxisMouseY*2);
+                currentMouseTilt += inputAxisMouseY*2;
 
             }
 
@@ -323,19 +323,29 @@ public class CameraRig : MonoBehaviour
     {
         
         winningAnimation = true;
-        while (targetCamera.transform.localPosition.y<99 || targetCamera.transform.localPosition.y>101)
+        while (targetCamera.transform.localPosition.y<169.7f || targetCamera.transform.localPosition.y>170.3f)
         {
-            targetCamera.transform.localPosition = Vector3.Lerp(targetCamera.transform.localPosition, new Vector3(70, 100, 0), .4f*Time.deltaTime);
-            transform.rotation = Quaternion.Slerp(transform.rotation, CameraRigStartingRotation, 0.4f*Time.deltaTime);
-            transform.position = Vector3.Lerp(transform.position, new Vector3(57, -20, 57), 0.4f*Time.deltaTime);
+            targetCamera.transform.localPosition = Vector3.Lerp(targetCamera.transform.localPosition, new Vector3(70, 170, 0), .6f*Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, CameraRigStartingRotation, 0.7f*Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(57, -20, 57), 0.7f*Time.deltaTime);
 
             yield return new WaitForEndOfFrame();
         }
 
         anim.Play();
         yield return new WaitUntil(() => anim.isPlaying == false);
-        yield return new WaitForSeconds(.5f);
-        SceneLoader.instance.SceneReload();
+        while (targetCamera.transform.localPosition.y < 169.3f || targetCamera.transform.localPosition.y > 170.7f)
+        {
+            targetCamera.transform.localPosition = Vector3.Lerp(targetCamera.transform.localPosition, new Vector3(77, 109.2712f, 0), .6f * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, CameraRigStartingRotation, 0.6f * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(57, -20, 57), 0.6f * Time.deltaTime);
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        currentMouseTilt = 0;
+        currentZoom = 0;
+        winningAnimation = false;
 
     }
     

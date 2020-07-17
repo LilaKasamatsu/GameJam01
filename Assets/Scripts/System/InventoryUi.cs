@@ -192,7 +192,7 @@ public class InventoryUi : MonoBehaviour
                 if (spawnerScript.spawnMode == false)
                 {
                     spawnerScript.spawnMode = true;
-                    Debug.Log("You have the foundation!");
+
 
                     hitList[i].gameObject.transform.parent.GetComponent<Animation>().Play();
 
@@ -213,7 +213,6 @@ public class InventoryUi : MonoBehaviour
                 if (spawnerScript.spawnMode == false)
                 {
                     spawnerScript.spawnMode = true;
-                    Debug.Log("You have clicked the structure button!");
                     hitList[i].gameObject.transform.parent.GetComponent<Animation>().Play();
                     selectedButton = "structure";
                     spawnerScript.SpawnAgent(agentStructure);

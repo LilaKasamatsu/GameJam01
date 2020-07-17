@@ -99,7 +99,7 @@ public class BridgeSpawn : MonoBehaviour
                 //spawnPosition.y = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].structureObjects[sigY].transform.position.y - (sigY + 1)*GridArray.Instance.cellY;
                 spawnPosition.y = sigY;
 
-                Debug.Log("Position Grid End");
+                //Debug.Log("Position Grid End");
 
             }
             else
@@ -107,7 +107,7 @@ public class BridgeSpawn : MonoBehaviour
                 spawnPosition = gridOrigin;
                 spawnPosition.x = gridOrigin.x * cellSize;
                 spawnPosition.z = gridOrigin.z * cellSize;
-                Debug.Log("Position Grid Origin");
+                //Debug.Log("Position Grid Origin");
 
                 sigY = Mathf.RoundToInt(GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].structureObjects[0].transform.position.y);
                 //sigY += GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(spawnPosition.x), GridArray.Instance.NumToGrid(spawnPosition.z)].sizeY;
@@ -152,7 +152,6 @@ public class BridgeSpawn : MonoBehaviour
 
                 if (timeSinceLastClick <= doubleClickTime)
                 {
-                    Debug.Log("double");
                     SpawnSignal();
                 }
 
@@ -202,12 +201,10 @@ public class BridgeSpawn : MonoBehaviour
         //Signal Spawning stuff
         Ray raySig = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitSig;
-        Debug.Log("Spawn Signal1");
 
 
         if (Physics.Raycast(raySig, out hitSig) && hitSig.collider.CompareTag("structure"))
         {
-            Debug.Log("Spawn Signal2");
 
             //Vector3 hitGridSig = new Vector3(Mathf.Round(hitSig.collider.gameObject.transform.position.x/ cellSize) * cellSize, Mathf.Round(hitSig.collider.gameObject.transform.position.y / cellY) * cellY, Mathf.Round(hitSig.collider.gameObject.transform.position.z / cellSize) * cellSize);
 
@@ -222,7 +219,6 @@ public class BridgeSpawn : MonoBehaviour
             //GridArray.Instance.gridArray[arrayPosX, arrayPosZ].bridge > 0
             if (selectedOrigin.isBridged)
             {
-                Debug.Log("Spawn Signal FINAL");
 
                 Vector3 spawnPosition = new Vector3(arrayPosX * cellSize, arrayPosY, arrayPosZ * cellSize);
 
@@ -296,9 +292,9 @@ public class BridgeSpawn : MonoBehaviour
             //selectedStructuresDest = new List<StructureBehavior>();
 
 
-            if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0)
+            if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0 && GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0] != null)
             {
-                if (GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0]!=null)
+                if (GridArray.Instance.gridArray[hitGridX,hitGridZ].structureObjects.Count !=0 && GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0]!=null)
                 {
                     endPoint = new Vector3(hitGridX * cellSize, GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].transform.position.y + hitGridY - 2f, hitGridZ * cellSize);
                 }
