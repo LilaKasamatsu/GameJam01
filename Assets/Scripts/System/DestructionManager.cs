@@ -27,7 +27,7 @@ public class DestructionManager : MonoBehaviour
     public GameObject localWindPrefab;
     public float windTimer;
     public static DestructionManager instance;
-    List<GameObject> particles = new List<GameObject>();
+    public List<GameObject> particles = new List<GameObject>();
     List<TrailRenderer> particleTrails = new List<TrailRenderer>();
     List<GameObject> localParticles = new List<GameObject>();
     List<TrailRenderer> localParticlestrails = new List<TrailRenderer>();

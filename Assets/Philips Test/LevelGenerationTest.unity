@@ -6847,12 +6847,12 @@ MonoBehaviour:
     type: 3}
   trysPerFrame: 5
   minDistanceBetweenTwoSpawns: 25
-  startingHeight: -20
+  startingHeight: -10
   Heightincrease: 35
   maximumHeight: 500
   AgentsPerCube: 10
   objectiveFallingSpeed: 0.5
-  objectiveCountdown: 100
+  objectiveCountdown: 150
   collectedCubes: 0
   cube1: {fileID: 992725698}
   cube2: {fileID: 322053748}
@@ -12310,6 +12310,7 @@ MonoBehaviour:
   localWindPrefab: {fileID: 8765991609835457288, guid: f85701814406c5f4ca04c1b84fdecf25,
     type: 3}
   windTimer: 0
+  particles: []
 --- !u!82 &2078100794
 AudioSource:
   m_ObjectHideFlags: 0

@@ -335,7 +335,7 @@ public class CameraRig : MonoBehaviour
         anim.Play();
         yield return new WaitUntil(() => anim.isPlaying == false);
         yield return new WaitForSeconds(.5f);
-        SceneLoader.instance.SceneReload();
+        winningAnimation = false;
 
     }
     
