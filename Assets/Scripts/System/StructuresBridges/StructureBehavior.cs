@@ -218,11 +218,13 @@ public class StructureBehavior : MonoBehaviour
             {
                 if (targetlist[i] != null)
                 {
+                    Destroy(targetlist[i]);
                     Vector3 targetVector = targetlist[i].GetComponent<BridgeStruct>().gridOrigin;
                     GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(targetVector.x), GridArray.Instance.NumToGrid(targetVector.z)].bridgeObjects.Remove(targetlist[i]);
                     targetVector = targetlist[i].GetComponent<BridgeStruct>().gridEnd;
-                    GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(targetVector.x), GridArray.Instance.NumToGrid(targetVector.z)].bridgeObjects.Remove(targetlist[i]);
-                    Destroy(targetlist[i]);
+                    //GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(targetVector.x), GridArray.Instance.NumToGrid(targetVector.z)].bridgeObjects.Remove(targetlist[i]);
+
+                
                 }
             }
             targetlist = GridPosition.branchObjects;
