@@ -29,6 +29,7 @@ public class StructureBehavior : MonoBehaviour
 
     List<GameObject> tag_targets;
 
+
     private void AddDescendants(Transform parent, List<GameObject> list)
     {
 
@@ -55,41 +56,44 @@ public class StructureBehavior : MonoBehaviour
 
     void Start()
     {
-        randomLerp = 0.0001f;
-
-        AddDescendants(transform, new List<GameObject>());
-
-        //render = transform.GetChild(0).GetComponent<Renderer>();
-        int randomColor = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(transform.position.x), GridArray.Instance.NumToGrid(transform.position.z)].color;
-        //randomColor = 0;
-        GridPosition = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid( transform.position.x), GridArray.Instance.NumToGrid(transform.position.z)];
-
-        if (randomColor == 0)
-        {
-            colorBaseFinal = colorBase1;
-        }
-        else if (randomColor == 1)
-        {
-            colorBaseFinal = colorBase2;
-
-        }
-        else if (randomColor == 2)
-        {
-            colorBaseFinal = colorBase3;
-
-        }
-        //render.material.color = colorBaseFinal;
-        //render.material.SetColor("_baseColor", colorBaseFinal);
-
-        for (int i = 0; i < renders.Count; i++)
-        {
-            renders[i].material.SetColor("_baseColor", colorBaseFinal);
-            renders[i].material.SetColor("_gradientColor", colorGradient);
 
 
-        }
+            randomLerp = 0.0001f;
 
-        StartCoroutine(growthDelay());
+            AddDescendants(transform, new List<GameObject>());
+
+            //render = transform.GetChild(0).GetComponent<Renderer>();
+            int randomColor = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(transform.position.x), GridArray.Instance.NumToGrid(transform.position.z)].color;
+            //randomColor = 0;
+            GridPosition = GridArray.Instance.gridArray[GridArray.Instance.NumToGrid(transform.position.x), GridArray.Instance.NumToGrid(transform.position.z)];
+
+            if (randomColor == 0)
+            {
+                colorBaseFinal = colorBase1;
+            }
+            else if (randomColor == 1)
+            {
+                colorBaseFinal = colorBase2;
+
+            }
+            else if (randomColor == 2)
+            {
+                colorBaseFinal = colorBase3;
+
+            }
+            //render.material.color = colorBaseFinal;
+            //render.material.SetColor("_baseColor", colorBaseFinal);
+
+            for (int i = 0; i < renders.Count; i++)
+            {
+                renders[i].material.SetColor("_baseColor", colorBaseFinal);
+                renders[i].material.SetColor("_gradientColor", colorGradient);
+
+
+            }
+
+            StartCoroutine(growthDelay());
+
     }
 
     IEnumerator growthDelay()
@@ -104,49 +108,51 @@ public class StructureBehavior : MonoBehaviour
 
     private void Update()
     {
-        int gridX = GridArray.Instance.NumToGrid(transform.position.x);
-        int gridZ = GridArray.Instance.NumToGrid(transform.position.z);
-
-        if (CompareTag("branch"))
-        {
-            //float posY = -1 + startY / transform.parent.transform.localScale.y;
-            //transform.position = new Vector3(transform.position.x, posY, transform.position.z);
-        }
 
 
-        if (!CompareTag("branch") && GridArray.Instance.gridArray[gridX, gridZ].sizeY > 0)
-        {
+            int gridX = GridArray.Instance.NumToGrid(transform.position.x);
+            int gridZ = GridArray.Instance.NumToGrid(transform.position.z);
 
-            transform.localScale = new Vector3(transform.localScale.x,
-            Mathf.Lerp(transform.localScale.y, GridArray.Instance.gridArray[gridX, gridZ].sizeY + randomGrowthMax * GridArray.Instance.cellY, randomLerp),
-            transform.localScale.z);
-        }
-
-
-
-        if (isBase == false && isSelected == false)
-        {
-            if (isBridged)
+            if (CompareTag("branch"))
             {
-                ChangeColorBridged();
- 
+                //float posY = -1 + startY / transform.parent.transform.localScale.y;
+                //transform.position = new Vector3(transform.position.x, posY, transform.position.z);
             }
-            else if (isBridged == false)
+
+
+            if (!CompareTag("branch") && GridArray.Instance.gridArray[gridX, gridZ].sizeY > 0)
             {
-                ChangeColorBase();
+
+                transform.localScale = new Vector3(transform.localScale.x,
+                Mathf.Lerp(transform.localScale.y, GridArray.Instance.gridArray[gridX, gridZ].sizeY + randomGrowthMax * GridArray.Instance.cellY, randomLerp),
+                transform.localScale.z);
             }
-        }
-
-        if (BridgeSpawn.Instance.build == false)
-        {
-            isSelected = false;
-        }
 
 
-        if (isSelected == true)
-        {
-            ChangeColorSelect();
-        }  
+
+            if (isBase == false && isSelected == false)
+            {
+                if (isBridged)
+                {
+                    ChangeColorBridged();
+
+                }
+                else if (isBridged == false)
+                {
+                    ChangeColorBase();
+                }
+            }
+
+            if (BridgeSpawn.Instance.build == false)
+            {
+                isSelected = false;
+            }
+
+
+            if (isSelected == true)
+            {
+                ChangeColorSelect();
+            }
         
     }
 
@@ -223,7 +229,20 @@ public class StructureBehavior : MonoBehaviour
             Destroy(targetlist[i]);
             targetlist.RemoveAt(i);
 
-        }
-        GridPosition.structureObjects.Clear();
+            }
+            GridPosition.structureObjects.Clear();
+
     }
+
+    //public IEnumerator GrowWithoutAgents()
+    //{
+    //    while (true)
+    //    {
+    //        yield return new WaitForSeconds(1f);
+
+    //        this.transform.localScale += new Vector3(0, .1f, 0);
+    //    }
+        
+
+    //}
 }

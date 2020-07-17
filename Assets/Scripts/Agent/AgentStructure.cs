@@ -6,8 +6,10 @@ using UnityEngine.EventSystems;
 
 public class AgentStructure : MonoBehaviour
 {
-    [SerializeField] GameObject structure;
-    [SerializeField] GameObject structureSquare;
+    [SerializeField] GameObject structure;
+
+    [SerializeField] GameObject structureSquare;
+
 
     [SerializeField] float minBuildDelay;
     [SerializeField] float maxBuildDelay;
@@ -46,19 +48,27 @@ public class AgentStructure : MonoBehaviour
     Vector3 agentMoveLocation;
     List<Vector3> orientPositions;
 
-    GridList[,] gridArray;
-    AgentStack agentStack;
-
-
+    GridList[,] gridArray;
+
+    AgentStack agentStack;
+
+
+
+
+
     void Start()
-    {
+    {
+
 
         cam = Camera.main;
-        ground = GameObject.FindGameObjectWithTag("ground");
-
+        ground = GameObject.FindGameObjectWithTag("ground");
+
+
+
         cellSize = GridArray.Instance.cellSize;
         cellY = GridArray.Instance.cellY;
-        gridArray = GridArray.Instance.gridArray;
+        gridArray = GridArray.Instance.gridArray;
+
         agentStack = GridArray.Instance.agentStack;
 
 
@@ -76,15 +86,21 @@ public class AgentStructure : MonoBehaviour
 
 
         StartCoroutine(RetireTimer());
-
+
+
         if (GetComponent<NavMeshAgent>())
         {
-            StartCoroutine(MoveTimer());
-        }
+            StartCoroutine(MoveTimer());
 
-        if (structuresPlaced >= structuresLifetime)
-        {
-            //StartCoroutine("RetireAgent");
+        }
+
+
+        if (structuresPlaced >= structuresLifetime)
+
+        {
+
+            //StartCoroutine("RetireAgent");
+
         }
     }
 
@@ -96,51 +112,81 @@ public class AgentStructure : MonoBehaviour
         Destroy(this.gameObject);
 
     }
-    IEnumerator RetireAgent()
-    {
-        agentStack.agentAmountStructure += 1;
-        agentStack.agentStructure -= 1;
-        yield return new WaitForSeconds(Random.Range(0, 3));
-        Destroy(this.gameObject);
-
-
+    IEnumerator RetireAgent()
+
+    {
+
+        agentStack.agentAmountStructure += 1;
+
+        agentStack.agentStructure -= 1;
+
+        yield return new WaitForSeconds(Random.Range(0, 3));
+
+        Destroy(this.gameObject);
+
+
+
+
+
     }
 
-    public void ReceiveSignal(Vector3 position, float destMin)
-    {
-        transform.GetChild(0).gameObject.GetComponent<SetAgentHeight>().GoToSignal(position, destMin);
+    public void ReceiveSignal(Vector3 position, float destMin)
+
+    {
+
+        transform.GetChild(0).gameObject.GetComponent<SetAgentHeight>().GoToSignal(position, destMin);
+
     }
 
     void Update()
     {
-        grid = SpawnSettings.Instance.grid;
-
-        if (hasSignal == true && agent.hasPath)
-        {
-            agent.ResetPath();
-        }
-
-        if (isActive == true)
-        {
-            transform.GetChild(0).gameObject.SetActive(true);
-
-        }
-
+        grid = SpawnSettings.Instance.grid;
+
+
+
+        if (hasSignal == true && agent.hasPath)
+
+        {
+
+            agent.ResetPath();
+
+        }
+
+
+
+        if (isActive == true)
+
+        {
+
+            transform.GetChild(0).gameObject.SetActive(true);
+
+
+
+        }
+
+
+
         if (isActive == false)
         {
             SpawnActiveAgent();
 
         }
-    }
-
+    }
+
+
+
     IEnumerator MoveTimer()
     {
         //Looping and delaying their walk cycle 
         while (isActive == true && hasSignal == false)
-        {
-
-            BuildStructure();
-
+        {
+
+
+
+            BuildStructure();
+
+
+
             yield return new WaitForSeconds(Random.Range(minBuildDelay, maxBuildDelay));
 
 
@@ -172,11 +218,15 @@ public class AgentStructure : MonoBehaviour
             Vector3 closestMainPoint = GridArray.Instance.GetClosestTarget(orientPositions, transform.position);
 
             float closestX = closestMainPoint.x + Random.Range(-pointRadius, pointRadius);
-            float closestZ = closestMainPoint.z + Random.Range(-pointRadius, pointRadius);
+            float closestZ = closestMainPoint.z + Random.Range(-pointRadius, pointRadius);
 
-            agentMoveLocation = new Vector3(closestX, transform.position.y, closestZ);
-
-            canBuild = true;
+
+            agentMoveLocation = new Vector3(closestX, transform.position.y, closestZ);
+
+
+
+            canBuild = true;
+
             agent.SetDestination(agentMoveLocation);
 
         }        
@@ -188,7 +238,8 @@ public class AgentStructure : MonoBehaviour
     {
         gridArray = GridArray.Instance.gridArray;
         if (!agent.hasPath && canBuild == true)
-        {
+        {
+
             int arrayPosX = GridArray.Instance.NumToGrid(transform.position.x);
             int arrayPosZ = GridArray.Instance.NumToGrid(transform.position.z);
             canBuild = false;
@@ -197,17 +248,22 @@ public class AgentStructure : MonoBehaviour
             {
                 targetStructure = gridArray[arrayPosX, arrayPosZ].structureObjects[0].GetComponent<StructureBehavior>();
 
-            }
-            if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
+            }
+
+            if (GridArray.Instance.CheckArrayBounds(arrayPosX, arrayPosZ))
+
             {
                 if (gridArray[arrayPosX,arrayPosZ]!=null && gridArray[arrayPosX, arrayPosZ].pointAmount <= 0 && gridArray[arrayPosX, arrayPosZ].foundationAmount > 0)
                 {                                       
                     gridY = Mathf.RoundToInt(gridArray[arrayPosX, arrayPosZ].sizeY);                   
                     Vector3 size = structure.transform.localScale;
-                    bool hasBuilt = false;             
-                    //Normal Building
+                    bool hasBuilt = false;             
+
+                    //Normal Building
+
                     if (gridY < GridArray.Instance.maxStructures - 2 || gridY < minBranchHeight && gridY < GridArray.Instance.maxStructures-2)
-                    {                        if (gridArray[arrayPosX, arrayPosZ].branchAtY.Count > 0)
+                    {
+                        if (gridArray[arrayPosX, arrayPosZ].branchAtY.Count > 0)
                         {
                             for (int i = 0; i < gridArray[arrayPosX, arrayPosZ].branchAtY.Count; i++)
                             {
@@ -233,73 +289,129 @@ public class AgentStructure : MonoBehaviour
           
 
                         /*
-                        if (gridArray[arrayPosX, arrayPosZ].gridStructures[gridY + 1].y == 0 && gridArray[arrayPosX, arrayPosZ].gridStructures[gridY + 2].y == 0)
-                        {
-                            //buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].sizeY, GridArray.Instance.RoundToGrid(transform.position.z));
-                            buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), 0, GridArray.Instance.RoundToGrid(transform.position.z));
-                            buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].sizeY;
-                            hasBuilt = true;
-                        }                        */
-                    }
-
-                    //Instantiate structure.
-                    // hasBuild == if the previous operators were true and the agent can build on this position. Else, do nothing.
-                    if (hasBuilt)
-                    {
-                        GameObject finalStructure = null;
-                                               
-                        if (gridArray[arrayPosX, arrayPosZ].structureShape == "squ")
-                        {
-                            finalStructure = structureSquare;
-                        }
-                        else if (gridArray[arrayPosX, arrayPosZ].structureShape == "tri")
-                        {
-                            finalStructure = structure;
-                        }
-                        else
-                        {
-                            finalStructure = structure;
-                        }
-
-                        if (gridArray[arrayPosX, arrayPosZ].sizeY == 0)
+                        if (gridArray[arrayPosX, arrayPosZ].gridStructures[gridY + 1].y == 0 && gridArray[arrayPosX, arrayPosZ].gridStructures[gridY + 2].y == 0)
+
+                        {
+
+                            //buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), cellY * gridArray[arrayPosX, arrayPosZ].sizeY, GridArray.Instance.RoundToGrid(transform.position.z));
+
+                            buildLocation = new Vector3(GridArray.Instance.RoundToGrid(transform.position.x), 0, GridArray.Instance.RoundToGrid(transform.position.z));
+
+                            buildLocation.y = transform.position.y - transform.localScale.y + cellY * gridArray[arrayPosX, arrayPosZ].sizeY;
+
+
+                            hasBuilt = true;
+
+                        }
+                        */
+
+                    }
+
+
+
+                    //Instantiate structure.
+
+                    // hasBuild == if the previous operators were true and the agent can build on this position. Else, do nothing.
+
+                    if (hasBuilt)
+
+                    {
+
+                        GameObject finalStructure = null;
+
+                                               
+
+                        if (gridArray[arrayPosX, arrayPosZ].structureShape == "squ")
+
+                        {
+
+                            finalStructure = structureSquare;
+
+                        }
+
+                        else if (gridArray[arrayPosX, arrayPosZ].structureShape == "tri")
+
+                        {
+
+                            finalStructure = structure;
+
+                        }
+
+                        else
+
+                        {
+
+                            finalStructure = structure;
+
+                        }
+
+
+
+                        if (gridArray[arrayPosX, arrayPosZ].sizeY == 0)
+
                         {
                             gridArray[arrayPosX, arrayPosZ].sizeY += 1;
                             builtStructure = Instantiate(finalStructure, buildLocation, Quaternion.identity) as GameObject;
-                            //builtStructure.transform.Rotate(new Vector3(0, buildRotation, 0));                            gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
+                            //builtStructure.transform.Rotate(new Vector3(0, buildRotation, 0));
+                            gridArray[arrayPosX, arrayPosZ].structureObjects.Add(builtStructure);
                             SpawnSettings.Instance.firstStructure = true;
-                            if(gridArray[arrayPosX, arrayPosZ].structureObjects.Count > 1)
+
+                            if(gridArray[arrayPosX, arrayPosZ].structureObjects.Count > 1)
                             {
                                 Destroy(gridArray[arrayPosX, arrayPosZ].structureObjects[1]);
-                            }
-                            builtStructure.transform.localScale = new Vector3(builtStructure.transform.localScale.x - gridArray[arrayPosX, arrayPosZ].towerWidth,
-                                0.1f,
-                                builtStructure.transform.localScale.z - gridArray[arrayPosX, arrayPosZ].towerWidth);
-                        }
+                            }
+
+                            builtStructure.transform.localScale = new Vector3(builtStructure.transform.localScale.x - gridArray[arrayPosX, arrayPosZ].towerWidth,
+
+                                0.1f,
+
+                                builtStructure.transform.localScale.z - gridArray[arrayPosX, arrayPosZ].towerWidth);
+
+                        }
+
                         else if(gridArray[arrayPosX, arrayPosZ].sizeY >= 1 && !targetStructure.isBridged)
-                        {
+                        {
+
                             gridArray[arrayPosX, arrayPosZ].sizeY += 1;
-                            //gridArray[arrayPosX, arrayPosZ].CreateWindParticles();
-                            /*
-                            gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform.localScale 
-                                = new Vector3 
-                                (gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform.localScale.x, 
-                                gridArray[arrayPosX, arrayPosZ].sizeY * cellY,
-                                gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform.localScale.z);
-                            */
+                            //gridArray[arrayPosX, arrayPosZ].CreateWindParticles();
+
+                            /*
+
+                            gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform.localScale 
+
+                                = new Vector3 
+
+                                (gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform.localScale.x, 
+
+                                gridArray[arrayPosX, arrayPosZ].sizeY * cellY,
+
+                                gridArray[arrayPosX, arrayPosZ].structureObjects[0].transform.localScale.z);
+
+                            */
+
                         }
 
 
 
 
-
-                        gridArray[arrayPosX, arrayPosZ].gridStructures[0].y = gridY;
-
-                        gridArray[arrayPosX, arrayPosZ].gridStructures[0].strucObject = builtStructure;
-                        gridArray[arrayPosX, arrayPosZ].gridStructures[0].x = arrayPosX;
-                        gridArray[arrayPosX, arrayPosZ].gridStructures[0].z = arrayPosZ;
-                    }
-                }
-            }
+
+
+                        gridArray[arrayPosX, arrayPosZ].gridStructures[0].y = gridY;
+
+
+
+                        gridArray[arrayPosX, arrayPosZ].gridStructures[0].strucObject = builtStructure;
+
+                        gridArray[arrayPosX, arrayPosZ].gridStructures[0].x = arrayPosX;
+
+                        gridArray[arrayPosX, arrayPosZ].gridStructures[0].z = arrayPosZ;
+
+                    }
+
+                }
+
+            }
+
         }
     }
 
@@ -339,7 +451,8 @@ public class AgentStructure : MonoBehaviour
         if (Input.GetMouseButton(0) == true && !IsOverUi())
         {
 
-            SpawnSettings.Instance.PlaceAgent(spawnAgent);
+            SpawnSettings.Instance.PlaceAgent(spawnAgent);
+
         }
     }
 
