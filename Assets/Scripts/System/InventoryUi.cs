@@ -332,6 +332,11 @@ public class InventoryUi : MonoBehaviour
         Application.Quit();
     }
 
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     public void AdjustVolume()
     {
         float newVolume = GameObject.Find("SliderAudio").GetComponent<Slider>().value;

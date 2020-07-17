@@ -64,7 +64,7 @@ public class ObjectiveCubeBehavior : MonoBehaviour
                 played = true;
             }
             falling = true;
-            Debug.Log("Cube is falling");
+
             transform.GetChild(0).localScale = Vector3.Lerp(transform.GetChild(0).localScale, new Vector3(1.5f, 1.5f, 1.5f), .05f);
             transform.GetChild(3).localScale = Vector3.Lerp(transform.GetChild(3).localScale, new Vector3(1.5f, 1.5f, 1.5f), .05f);
             transform.GetChild(4).localScale = Vector3.Lerp(transform.GetChild(4).localScale, new Vector3(1.5f, 1.5f, 1.5f), .05f);
@@ -100,6 +100,8 @@ public class ObjectiveCubeBehavior : MonoBehaviour
                 }
                 if (MegaCube)
                 {
+                    DestructionManager.instance.StopAllCoroutines();
+                    foreach(GameObject particle in DestructionManager.instance.particles) { Destroy(particle); }
                     CameraRig.instance.StartCoroutine(CameraRig.instance.WinningCameraAnimation());
                 }
                 else

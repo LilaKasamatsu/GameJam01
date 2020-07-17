@@ -294,7 +294,7 @@ public class BridgeSpawn : MonoBehaviour
 
             if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0)
             {
-                if (GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0]!=null)
+                if (GridArray.Instance.gridArray[hitGridX,hitGridZ].structureObjects.Count !=0 && GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0]!=null)
                 {
                     endPoint = new Vector3(hitGridX * cellSize, GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0].transform.position.y + hitGridY - 2f, hitGridZ * cellSize);
                 }
