@@ -335,6 +335,9 @@ public class CameraRig : MonoBehaviour
         anim.Play();
         yield return new WaitUntil(() => anim.isPlaying == false);
         yield return new WaitForSeconds(.5f);
+
+        currentMouseTilt = 0;
+        currentZoom = 0;
         winningAnimation = false;
 
     }
