@@ -76,7 +76,6 @@ public class SetAgentHeight : MonoBehaviour
 
     public void GoToSignal(Vector3 position, float newDestMin)
     { 
-        Debug.Log("child received signal");
         destMin = newDestMin;
 
         transform.parent.gameObject.GetComponent<AgentStructure>().hasSignal = true;

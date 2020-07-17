@@ -28,7 +28,7 @@ public class Tutorial : MonoBehaviour
         if (!spawnSettings.firstFoundation)
         {
             buttonFoundation.transform.parent.GetComponent<Animation>().Play("ButtonWaitingForClick");
-            Debug.Log("HI");
+            //Debug.Log("HI");
         }else if (!spawnSettings.firstStructure)
         {
             buttonStructure.gameObject.SetActive(true);
