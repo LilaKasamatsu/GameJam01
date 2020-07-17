@@ -27,6 +27,11 @@ public class Tutorial : MonoBehaviour
 
     private void Awake()
     {
+        if(!PlayerPrefs.HasKey("TutorialOn"))
+        {
+            PlayerPrefs.SetInt("TutorialOn", 1);
+        }
+
         int val = PlayerPrefs.GetInt("TutorialOn");
         if(val == 1)
         {
