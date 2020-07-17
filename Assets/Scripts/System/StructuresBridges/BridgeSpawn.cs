@@ -292,7 +292,7 @@ public class BridgeSpawn : MonoBehaviour
             //selectedStructuresDest = new List<StructureBehavior>();
 
 
-            if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0)
+            if (GridArray.Instance.gridArray[hitGridX, hitGridZ].foundationAmount > 0 && GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0] != null)
             {
                 if (GridArray.Instance.gridArray[hitGridX,hitGridZ].structureObjects.Count !=0 && GridArray.Instance.gridArray[hitGridX, hitGridZ].structureObjects[0]!=null)
                 {

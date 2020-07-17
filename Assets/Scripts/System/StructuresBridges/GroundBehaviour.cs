@@ -11,7 +11,7 @@ public class GroundBehaviour : MonoBehaviour
     {
         falling = true;
         transform.position += 0.5f*Vector3.up;
-        Debug.Log("Ground is falling");
+        //Debug.Log("Ground is falling");
         yield return new WaitForEndOfFrame();
 
         Rigidbody rigid = GetComponent<Rigidbody>();
@@ -32,7 +32,7 @@ public class GroundBehaviour : MonoBehaviour
 
             if (other.CompareTag("agent1"))
             {
-                Debug.Log("Agent");
+                //Debug.Log("Agent");
                 Destroy(other.gameObject);
             }
 
