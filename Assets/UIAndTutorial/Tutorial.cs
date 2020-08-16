@@ -29,7 +29,7 @@ public class Tutorial : MonoBehaviour
     {
         if(!PlayerPrefs.HasKey("TutorialOn"))
         {
-            PlayerPrefs.SetInt("TutorialOn", 1);
+            PlayerPrefs.SetInt("TutorialOn", 0);
         }
 
         int val = PlayerPrefs.GetInt("TutorialOn");
